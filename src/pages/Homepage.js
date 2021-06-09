@@ -27,8 +27,8 @@ import {
     Link as RedirectLink,
 } from 'react-router-dom';
 
-function createData(name, model_type, model_path, dataset_path) {
-  return { name, model_type, model_path, dataset_path };
+function createData(eval_id, name, model_type, model_path, dataset_path, date_created) {
+  return { eval_id, name, model_type, model_path, dataset_path, date_created };
 }
 
 function descendingComparator(a, b, orderBy) {
@@ -58,10 +58,12 @@ function stableSort(array, comparator) {
 }
 
 const headCells = [
+  { id: 'eval_id', numeric: true, disablePadding: false, label: 'Evaluation ID' },
   { id: 'name', numeric: false, disablePadding: false, label: 'Evaluation Name' },
   { id: 'model_type', numeric: false, disablePadding: false, label: 'Model Type' },
   { id: 'model_path', numeric: false, disablePadding: false, label: 'Model Path' },
   { id: 'dataset_path', numeric: false, disablePadding: false, label: 'Dataset Path' },
+  { id: 'date_created', numeric: false, disablePadding: false, label: 'Date Created' },
 ];
 
 function EnhancedTableHead(props){
@@ -78,7 +80,7 @@ function EnhancedTableHead(props){
             indeterminate={numSelected > 0 && numSelected < rowCount}
             checked={rowCount > 0 && numSelected === rowCount}
             onChange={onSelectAllClick}
-            inputProps={{ 'aria-label': 'select all desserts' }}
+            inputProps={{ 'aria-label': 'select all evaluations' }}
           />
         </TableCell>
           {headCells.map((headCell) => (
@@ -233,12 +235,12 @@ export default function Homepage(){
     let dataset_file = k.dataset_path.split('\\');
     len = dataset_file.length;
     k.dataset_path = dataset_file[len-1];
-    rows.push(createData(k.name,k.model_type,k.model_path,k.dataset_path));
+    rows.push(createData(k.eval_id,k.name,k.model_type,k.model_path,k.dataset_path,k.date_created));
   }
 
   const classes = useStyles();
   const [order, setOrder] = useState('asc');
-  const [orderBy, setOrderBy] = useState('name');
+  const [orderBy, setOrderBy] = useState('eval_id');
   const [selected, setSelected] = useState([]);
   const [page, setPage] = useState(0);
   const [dense, setDense] = useState(false);
@@ -340,12 +342,12 @@ export default function Homepage(){
                           inputProps={{ 'aria-labelledby': labelId }}
                         />
                       </TableCell>
-                      <TableCell component="th" id={labelId} scope="row" padding="none">
-                        {row.name}
-                      </TableCell>
+                      <TableCell component="th" id={labelId} scope="row" align="center">{row.eval_id}</TableCell>
+                      <TableCell align="center">{row.name}</TableCell>
                       <TableCell align="center">{row.model_type}</TableCell>
                       <TableCell align="center">{row.model_path}</TableCell>
                       <TableCell align="center">{row.dataset_path}</TableCell>
+                      <TableCell align="center">{row.date_created}</TableCell>
                     </TableRow>
                   );
                 })}
@@ -372,11 +374,12 @@ export default function Homepage(){
         label="Dense padding"
       />
       <div className="text-center">
-      <Button variant="contained" color="primary" size="large">
+
         <RedirectLink color="inherit" to="/evaluate">
-          Add Evaluation
+          <Button variant="contained" color="primary" size="large">
+            Add Evaluation
+          </Button>
         </RedirectLink>
-      </Button>
       </div>
     </div>
   );

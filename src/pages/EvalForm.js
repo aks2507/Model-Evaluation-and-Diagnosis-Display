@@ -17,14 +17,16 @@ import {
     Link as RedirectLink,
 } from 'react-router-dom';
 
-function Cancel() {
+function AllEvaluations() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      <Button variant="contained" color="inherit" size="large">
+
         <RedirectLink color="inherit" to="/">
-          Cancel
+          <Button variant="contained" color="primary" size="large">
+            All Evaluations
+          </Button>
         </RedirectLink>
-      </Button>
+
     </Typography>
   );
 }
@@ -171,24 +173,28 @@ export default function EvalForm() {
             autoComplete="Evaluation Description"
           />
 
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            size="normal"
-            className={classes.submit}
-          >
-            <RedirectLink color="inherit" to="/">
+
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="secondary"
+              size="large"
+              className={classes.submit}
+            >
               Add
-            </RedirectLink>
-          </Button>
+            </Button>
+
 
         </form>
+
+        <Box mt={8}>
+          <AllEvaluations />
+        </Box>
+        <br/>
+        <br/>
       </div>
-      <Box mt={8}>
-        <Cancel />
-      </Box>
+
     </Container>
   );
 };

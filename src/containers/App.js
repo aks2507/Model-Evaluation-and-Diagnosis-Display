@@ -8,6 +8,7 @@ import {
 
 import Homepage from '../pages/Homepage';
 import EvalForm from '../pages/EvalForm';
+import Evaluation from '../pages/Evaluation';
 
 class App extends Component{
   render(){
@@ -16,6 +17,7 @@ class App extends Component{
           <Switch>
             <Route exact path="/" component={Homepage} />
             <Route exact path="/evaluate" component={EvalForm} />
+            <Route exact path="/test" component={Evaluation} />
           </Switch>
         </Router>
     );
