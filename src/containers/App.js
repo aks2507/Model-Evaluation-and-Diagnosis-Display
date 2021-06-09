@@ -4,11 +4,10 @@ import {
   BrowserRouter as Router,
   Route,
   Switch,
-  Link,
-  Redirect
 } from 'react-router-dom';
 
 import Homepage from '../pages/Homepage';
+import EvalForm from '../pages/EvalForm';
 
 class App extends Component{
   render(){
@@ -16,6 +15,7 @@ class App extends Component{
         <Router>
           <Switch>
             <Route exact path="/" component={Homepage} />
+            <Route exact path="/evaluate" component={EvalForm} />
           </Switch>
         </Router>
     );
