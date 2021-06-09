@@ -1,0 +1,8 @@
+flask
+Flask-SQLAlchemy
+sklearn
+pickle-mixin
+Flask-RESTful
+pandas
+numpy
+matplotlib
