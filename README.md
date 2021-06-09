@@ -1,3 +1,58 @@
+# Model Evaluation and Visualization
+This project is focused on evaluating several machine learning models, given the model and the testing dataset, and to compare evaluations. Evaluations can be compared on the basis of their metrics. However, two or more models trained on same dataset, or one model trained on multiple datasets, can only be compared, due to obvious reasons.
+
+## Run the code on your local machine
+### Server Side
+The api folder is included in this repository itself, along with the frontend code. To spin up the server at http://localhost:5000 , open a terminal, navigate to the folder where you have cloned this repository, and run:
+
+### `yarn start-api`
+
+### Client Side
+In the project directory, to spin up the client at http://localhost:3000 ,  run:
+
+### `yarn start`
+
+As soon as both the server and client are up and running, you will be able to surf through the site and call API endpoints. The React-frontend has a proxy setup to port 5000. That way, the urls that are not recognised on port 3000, get redirected to port 5000, thus invoking the endpoints, if they have been defined in the backend.
+
+## FrontEnd
+1) ReactJS
+2) React Router
+3) Material UI
+4) React Bootstrap
+5) Vanilla JavaScript
+6) JS ES6
+7) HTML5
+8) CSS
+
+## BackEnd
+1) Python
+2) Flask
+3) Flask-RESTful
+4) SQLite3
+5) SQLAlchemy
+6) skelarn
+7) plotly
+8) matplotlib
+9) mpld3
+10) numpy
+11) pandas
+12) pickle-mixin
+
+Apart from the above, Postman was used to test the API endpoints.
+
+## API Endpoints
+### `http://localhost:5000/evaluate, method=["GET"]`
+This endpoint gives the list of all evaluations that are stored in the "Evaluations" table of the database.
+
+### `http://localhost:5000/evaluate, method=["POST"]`
+This endpoint adds an evaluation to the "Evaluations" table of the database, based on input given by the user.
+
+### `http://localhost:5000/evaluate/<int:eval_id>, method=["GET"]`
+This endpoint returns the evaluation with the given eval_id stored in the "Evaluations" table of the database. There is no POST request for this endpoint, because eval_id is a self-incrementing primary key of the table.
+
+### `http://localhost:5000/evaluate/<int:eval_id>, method=["DELETE"]`
+This endpoint deletes the evaluation with the given eval_id from the "Evaluations" table of the database.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
