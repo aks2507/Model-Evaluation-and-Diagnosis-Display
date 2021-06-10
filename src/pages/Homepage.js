@@ -159,7 +159,7 @@ const EnhancedTableToolbar = (props) => {
 
   const VisualizeHandler = eval_id => async(e) => {
     // e.preventDefault();
-
+    // console.log(eval_id);
     window.location.replace("/evaluation/"+eval_id);
   };
 
@@ -200,8 +200,8 @@ const EnhancedTableToolbar = (props) => {
             )}
 
             <Tooltip title="Delete">
-              <IconButton aria-label="delete">
-                <DeleteIcon onClick={onDeleteIconHandler} />
+              <IconButton aria-label="delete" onClick={onDeleteIconHandler}>
+                <DeleteIcon />
               </IconButton>
             </Tooltip>
 
@@ -338,7 +338,7 @@ export default function Homepage(){
   const isSelected = (eval_id) => selected.indexOf(eval_id) !== -1;
 
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
-  console.log(selected)
+  // console.log(selected)
 
   return (
     <div className={classes.root}>

@@ -65,7 +65,7 @@ class EvaluationFunctions():
 		return {"accuracy_score":acc,
 		"precision_score":precision_score,
 		"recall":recall,
-		"f1-score":f1,
+		"f1_score":f1,
 		"log_loss":log_loss,
 		"fpr":fpr,
 		"tpr":tpr,
