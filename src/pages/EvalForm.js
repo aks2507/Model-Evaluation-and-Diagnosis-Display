@@ -4,7 +4,6 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -13,23 +12,6 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 // import FormControl from '@material-ui/core/FormControl';
-import {
-    Link as RedirectLink,
-} from 'react-router-dom';
-
-function AllEvaluations() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-
-        <RedirectLink color="inherit" to="/">
-          <Button variant="contained" color="primary" size="large">
-            All Evaluations
-          </Button>
-        </RedirectLink>
-
-    </Typography>
-  );
-}
 
 
 const useStyles = makeStyles((theme) => ({
@@ -70,7 +52,6 @@ export default function EvalForm() {
         metadata: {},
     });
 
-  const [loading, setLoading] = useState(false);
 
   const handleDropdownChange = (event) => {
     setModelType(event.target.value);
@@ -93,7 +74,7 @@ export default function EvalForm() {
         const { name, model_type, model_path, dataset_path, metadata } = values;
         const payload = { name, model_type, model_path, dataset_path, metadata };
 
-        await axios.post('/evaluate', payload);
+        await axios.post('/evaluate', payload).then(() => {window.location="/";});
     };
 
     const handleChange = name => e => {
@@ -187,12 +168,6 @@ export default function EvalForm() {
 
 
         </form>
-
-        <Box mt={8}>
-          <AllEvaluations />
-        </Box>
-        <br/>
-        <br/>
       </div>
 
     </Container>

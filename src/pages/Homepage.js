@@ -138,11 +138,30 @@ const useToolbarStyles = makeStyles((theme) => ({
   title: {
     flex: '1 1 100%',
   },
+  rowC: {
+    flex: '1 6 100%',
+    flexDirection: 'row'
+  },
 }));
 
 const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles();
-  const { numSelected } = props;
+  const { numSelected, selectedList } = props;
+
+  const onDeleteIconHandler = async(e) => {
+    e.preventDefault();
+    let i;
+    for(i=0;i<selectedList.length;i++)
+    {
+      await axios.delete("/evaluate/"+selectedList[i]).then(() => {window.location.replace("/");});
+    }
+  };
+
+  const VisualizeHandler = eval_id => async(e) => {
+    // e.preventDefault();
+
+    window.location.replace("/evaluation/"+eval_id);
+  };
 
   return (
     <Toolbar
@@ -161,11 +180,33 @@ const EnhancedTableToolbar = (props) => {
       )}
 
       {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton aria-label="delete">
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
+        <div className={classes.rowC}>
+
+            {numSelected < 2 ? (
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={VisualizeHandler(selectedList[0])}
+              >
+                Visualize
+              </Button>
+            ) : (
+              <Button
+                variant="contained"
+                disabled
+              >
+                Visualize
+              </Button>
+            )}
+
+            <Tooltip title="Delete">
+              <IconButton aria-label="delete">
+                <DeleteIcon onClick={onDeleteIconHandler} />
+              </IconButton>
+            </Tooltip>
+
+
+        </div>
       ) : (
         <Tooltip title="Filter list">
           <IconButton aria-label="filter list">
@@ -215,9 +256,9 @@ export default function Homepage(){
       const result = await axios(
         '/evaluate'
       );
-      console.log(result.data);
+      // console.log(result.data);
       setData(result.data);
-      console.log(data);
+      // console.log(data);
       setSearch(false);
     };
     if(search)
@@ -254,19 +295,19 @@ export default function Homepage(){
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.name);
+      const newSelecteds = rows.map((n) => n.eval_id);
       setSelected(newSelecteds);
       return;
     }
     setSelected([]);
   };
 
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
+  const handleClick = (event, eval_id) => {
+    const selectedIndex = selected.indexOf(eval_id);
     let newSelected = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
+      newSelected = newSelected.concat(selected, eval_id);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -294,15 +335,15 @@ export default function Homepage(){
     setDense(event.target.checked);
   };
 
-  const isSelected = (name) => selected.indexOf(name) !== -1;
+  const isSelected = (eval_id) => selected.indexOf(eval_id) !== -1;
 
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
-  console.log(rows)
+  console.log(selected)
 
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar numSelected={selected.length} selectedList={selected} />
         <TableContainer>
           <Table
             className={classes.table}
@@ -323,17 +364,17 @@ export default function Homepage(){
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.name);
+                  const isItemSelected = isSelected(row.eval_id);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.name)}
+                      onClick={(event) => handleClick(event, row.eval_id)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.name}
+                      key={row.eval_id}
                       selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">

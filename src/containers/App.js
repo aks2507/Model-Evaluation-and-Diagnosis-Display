@@ -17,7 +17,7 @@ class App extends Component{
           <Switch>
             <Route exact path="/" component={Homepage} />
             <Route exact path="/evaluate" component={EvalForm} />
-            <Route exact path="/test" component={Evaluation} />
+            <Route exact path="/evaluation/:eval_id" component={Evaluation} />
           </Switch>
         </Router>
     );
