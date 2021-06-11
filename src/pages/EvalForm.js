@@ -11,7 +11,6 @@ import PostAddIcon from '@material-ui/icons/PostAdd';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
-// import FormControl from '@material-ui/core/FormControl';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -79,6 +78,10 @@ export default function EvalForm() {
 
     const handleChange = name => e => {
         setValues({ ...values, [name]: e.target.value });
+    };
+
+    const handleCancel = async() => {
+      window.location="/";
     };
 
   return (
@@ -154,17 +157,37 @@ export default function EvalForm() {
             autoComplete="Evaluation Description"
           />
 
+          <div className="row">
 
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="secondary"
-              size="large"
-              className={classes.submit}
-            >
-              Add
-            </Button>
+            <div className="col">
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="secondary"
+                size="large"
+                className={classes.submit}
+              >
+                Add
+              </Button>
+            </div>
+
+            <div className="col">
+              <Button
+                fullWidth
+                variant="contained"
+                color="primary"
+                size="large"
+                className={classes.submit}
+                onClick={handleCancel}
+              >
+                Cancel
+              </Button>
+            </div>
+
+          </div>
+
+
 
 
         </form>
