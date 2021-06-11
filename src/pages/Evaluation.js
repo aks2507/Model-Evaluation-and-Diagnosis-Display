@@ -1,22 +1,17 @@
-import React, { useState, useEffect} from 'react';
-import axios from 'axios';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import Divider from '@material-ui/core/Divider';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import useAxios, {
-  configure,
-  loadCache,
-  serializeCache,
-  makeUseAxios
-} from 'axios-hooks'
+import useAxios from 'axios-hooks'
 
 // Components
 import Metrics from '../components/Metrics';
+import FeatureImp from '../components/FeatureImp';
+import ROC_AUC from '../components/ROC_AUC';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -82,11 +77,12 @@ export default function Evaluation(props) {
     setValue(newValue);
   };
 
+  // Fetching the data
   let url = "/evaluate/"+eval_id;
-  console.log(url);
+  // console.log(url);
 
   const [{ data, loading, error }, refetch] = useAxios(url);
-  console.log(data);
+  // console.log(data);
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error!</p>;
 
@@ -146,7 +142,13 @@ export default function Evaluation(props) {
               Item Two
             </TabPanel>
             <TabPanel value={value} index={2}>
-              Item Three
+              <FeatureImp
+                model_type={data.model_type}
+                date_created={data.date_created}
+                name={data.name}
+                feature_scores={data.metadata.feature_scores}
+                columns={data.metadata.columns}
+              />
             </TabPanel>
             <TabPanel value={value} index={3}>
               Item Four
@@ -166,7 +168,14 @@ export default function Evaluation(props) {
               />
             </TabPanel>
             <TabPanel value={value} index={1}>
-              Item Two
+              <ROC_AUC
+                model_type={data.model_type}
+                name={data.name}
+                fpr={data.metadata.fpr}
+                tpr={data.metadata.tpr}
+                auc={data.metadata.roc_auc}
+                date_created={data.date_created}
+              />
             </TabPanel>
             <TabPanel value={value} index={2}>
               Item Three
@@ -178,7 +187,13 @@ export default function Evaluation(props) {
               Item Five
             </TabPanel>
             <TabPanel value={value} index={5}>
-              Item Six
+              <FeatureImp
+                model_type={data.model_type}
+                date_created={data.date_created}
+                name={data.name}
+                feature_scores={data.metadata.feature_scores}
+                columns={data.metadata.columns}
+              />
             </TabPanel>
             <TabPanel value={value} index={6}>
               Item Seven

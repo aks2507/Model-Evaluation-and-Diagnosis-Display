@@ -15,6 +15,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Plot from 'react-plotly.js';
 
 import Details from './Details';
 
@@ -25,29 +26,38 @@ const useStyles = makeStyles({
   },
 });
 
+
+
 function createData(metric, value) {
   return { metric, value };
+}
+function pushAll(metric, value, rows, x, y) {
+  rows.push(createData(metric,value));
+  y.push(value);
+  x.push(metric);
 }
 
 export default function Metrics(props){
   const rows = [];
+  const x =[];
+  const y= [];
   console.log(props);
   if(props.model_type==="regression") {
-    rows.push(createData("MAE",props.metadata.mean_absolute_error));
-    rows.push(createData("MSE",props.metadata.mean_squared_error));
-    rows.push(createData("RMSE",props.metadata.root_mean_squared_error));
-    rows.push(createData("RMSLE",props.metadata.root_mean_squared_log_error));
-    rows.push(createData("R^2",props.metadata.Coefficient_of_Determination));
-    rows.push(createData("Adjusted R^2",props.metadata.Adjusted_r_squared));
+    pushAll("MAE",props.metadata.mean_absolute_error, rows, x, y);
+    pushAll("MSE",props.metadata.mean_squared_error, rows, x, y);
+    pushAll("RMSE",props.metadata.root_mean_squared_error, rows, x, y);
+    pushAll("RMSLE",props.metadata.root_mean_squared_log_error, rows, x, y);
+    pushAll("R^2",props.metadata.Coefficient_of_Determination, rows, x, y);
+    pushAll("Adjusted R^2",props.metadata.Adjusted_r_squared, rows, x, y);
+
   }
   else {
-    rows.push(createData("Accuracy",props.metadata.accuracy_score));
-    rows.push(createData("Precision Score",props.metadata.precision_score));
-    rows.push(createData("Recall",props.metadata.recall));
-    rows.push(createData("F1-Score",props.metadata.f1_score));
-    rows.push(createData("Log-Loss",props.metadata.log_loss));
+    pushAll("Accuracy",props.metadata.accuracy_score, rows, x, y);
+    pushAll("Precision Score",props.metadata.precision_score, rows, x, y);
+    pushAll("Recall",props.metadata.recall, rows, x, y);
+    pushAll("F1-Score",props.metadata.f1_score, rows, x, y);
+    pushAll("Log-Loss",props.metadata.log_loss, rows, x, y);
   }
-
   const classes = useStyles();
   return(
     <div>
@@ -64,6 +74,12 @@ export default function Metrics(props){
       <div className="row">
 
         <div className="col">
+          <Plot
+            data={[
+              {type: 'bar', x: x, y: y},
+            ]}
+            layout={ {width: 500, height: 375, title: 'Evaluation Metrics'} }
+          />
 
         </div>
 

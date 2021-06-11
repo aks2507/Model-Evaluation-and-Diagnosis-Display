@@ -20,69 +20,50 @@ import Plot from 'react-plotly.js';
 import Details from './Details';
 
 const useStyles = makeStyles({
-  table: {
+  plot: {
     width:"90%",
     margin:"auto",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 
-function createData(column, score) {
-  return { column, score };
+
+
+function createData(metric, value) {
+  return { metric, value };
+}
+function pushAll(metric, value, rows, x, y) {
+  rows.push(createData(metric,value));
+  y.push(value);
+  x.push(metric);
 }
 
-export default function FeatureImp(props){
-  const rows = [];
-  const x = [];
-  const y = [];
+export default function ROC_AUC(props){
+  const x = props.fpr;
+  const y = props.tpr;
   console.log(props);
-
-  let i;
-  for(i=0;i<props.feature_scores.length;i++)
-  {
-      rows.push(createData(props.columns[i],props.feature_scores[i]));
-      x.push(props.columns[i]);
-      y.push(props.feature_scores[i]);
-  }
 
   const classes = useStyles();
   return(
     <div>
-
       <div className="row">
         <Details
-          area={1}
+          area={0}
           name={props.name}
           model_type={props.model_type}
           date_created={props.date_created}
+          area_under_curve={props.auc}
         />
       </div>
 
       <div className="row">
-
-        <div className="col">
-          <Plot
-            data={[
-              {type: 'bar', x: x, y: y},
-            ]}
-            layout={ {width: 500, height: 375, title: 'Evaluation Metrics'} }
-          />
-        </div>
-
-        <div className="col">
-          <TableContainer component={Paper}>
-            <Table className={classes.table} aria-label="simple table">
-              <TableBody>
-                {rows.map((row) => (
-                  <TableRow key={row.column}>
-                    <TableCell align="center">{row.column}</TableCell>
-                    <TableCell align="center">{row.score}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </div>
-
+        <Plot className={classes.plot}
+          data={[
+            {type: 'scatter', x: x, y: y},
+          ]}
+          layout={ {width: 500, height: 375, title: 'ROC-AUC Curve'} }
+        />
       </div>
 
     </div>

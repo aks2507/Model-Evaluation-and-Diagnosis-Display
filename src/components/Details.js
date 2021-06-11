@@ -101,80 +101,93 @@ export default function Details(props) {
           </div>
         )}
       </AppBar>
-      <SwipeableViews
-        axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-        index={value}
-        onChangeIndex={handleChangeIndex}
-      >
         {props.area === 1 ? (
           <div>
-            <TabPanel value={value} index={0} dir={theme.direction}>
-              <div className="container-fluid">
-                <div className="row">
-                  <div className="col">
-                    <p><strong>Name: </strong>{props.name}</p>
+            <SwipeableViews
+              axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+              index={value}
+              onChangeIndex={handleChangeIndex}
+            >
+              <TabPanel value={value} index={0} dir={theme.direction}>
+                <div className="container-fluid">
+                  <div className="row">
+                    <div className="col">
+                      <p><strong>Name: </strong>{props.name}</p>
+                    </div>
+                    <div className="col">
+                      <p><strong>Model Type: </strong>{props.model_type}</p>
+                    </div>
                   </div>
-                  <div className="col">
-                    <p><strong>Model Type: </strong>{props.model_type}</p>
+                  <div className="row">
+                    <div className="col">
+                      <p><strong>Status: </strong></p>
+                    </div>
+                    <div className="col">
+                      <p><strong>Date Created: </strong>{props.date_created}</p>
+                    </div>
                   </div>
                 </div>
-                <div className="row">
-                  <div className="col">
-                    <p><strong>Status: </strong></p>
-                  </div>
-                  <div className="col">
-                    <p><strong>Date Created: </strong>{props.date_created}</p>
-                  </div>
-                </div>
-              </div>
-            </TabPanel>
-            <TabPanel value={value} index={1} dir={theme.direction}>
-              <ul>
-                <li>Tag1</li>
-                <li>Tag2</li>
-                <li>Tag3</li>
-                <li>Tag4</li>
-              </ul>
-            </TabPanel>
+              </TabPanel>
+              <TabPanel value={value} index={1} dir={theme.direction}>
+                <ul>
+                  <li>Tag1</li>
+                  <li>Tag2</li>
+                  <li>Tag3</li>
+                  <li>Tag4</li>
+                </ul>
+              </TabPanel>
+            </SwipeableViews>
           </div>
         ) : (
           <div>
-            <TabPanel value={value} index={0} dir={theme.direction}>
-              <div className="container-fluid">
-                <div className="row">
-                  <div className="col">
-                    <p><strong>Name: </strong>{props.name}</p>
+            <SwipeableViews
+              axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+              index={value}
+              onChangeIndex={handleChangeIndex}
+            >
+              <TabPanel value={value} index={0} dir={theme.direction}>
+                <div className="container-fluid">
+                  <div className="row">
+                    <div className="col">
+                      <p><strong>Name: </strong>{props.name}</p>
+                    </div>
+                    <div className="col">
+                      <p><strong>Model Type: </strong>{props.model_type}</p>
+                    </div>
                   </div>
-                  <div className="col">
-                    <p><strong>Model Type: </strong>{props.model_type}</p>
+                  <div className="row">
+                    <div className="col">
+                      <p><strong>Status: </strong></p>
+                    </div>
+                    <div className="col">
+                      <p><strong>Date Created: </strong>{props.date_created}</p>
+                    </div>
                   </div>
                 </div>
-                <div className="row">
-                  <div className="col">
-                    <p><strong>Status: </strong></p>
-                  </div>
-                  <div className="col">
-                    <p><strong>Date Created: </strong>{props.date_created}</p>
+              </TabPanel>
+              <TabPanel value={value} index={1} dir={theme.direction}>
+                <div className="container-fluid">
+                  <div className="row">
+                    <List>
+                      <ListItemText primary="Tag1" />
+                      <ListItemText primary="Tag2"/>
+                      <ListItemText primary="Tag3"/>
+                      <ListItemText primary="Tag4"/>
+                    </List>
                   </div>
                 </div>
-              </div>
-            </TabPanel>
-            <TabPanel value={value} index={1} dir={theme.direction}>
-              <div>
-                <List>
-                  <ListItemText primary="Tag1" />
-                  <ListItemText primary="Tag2"/>
-                  <ListItemText primary="Tag3"/>
-                  <ListItemText primary="Tag4"/>
-                </List>
-              </div>
-            </TabPanel>
-            <TabPanel value={value} index={2} dir={theme.direction}>
-              {props.area_under_curve}
-            </TabPanel>
+              </TabPanel>
+              <TabPanel value={value} index={2} dir={theme.direction}>
+                <div className="container-fluid">
+                  <div className="row">
+                    <p>{props.area_under_curve}</p>
+                  </div>
+                </div>
+              </TabPanel>
+            </SwipeableViews>
           </div>
         )}
-      </SwipeableViews>
+
     </div>
   );
 }
