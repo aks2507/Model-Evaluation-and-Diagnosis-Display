@@ -11,7 +11,8 @@ import useAxios from 'axios-hooks'
 // Components
 import Metrics from '../components/Metrics';
 import FeatureImp from '../components/FeatureImp';
-import ROC_AUC from '../components/ROC_AUC';
+import ROC_Prec_Recall from '../components/ROC_Prec_Recall';
+import CMatrix from '../components/CMatrix';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -168,20 +169,34 @@ export default function Evaluation(props) {
               />
             </TabPanel>
             <TabPanel value={value} index={1}>
-              <ROC_AUC
+              <ROC_Prec_Recall
+                curve={0}
                 model_type={data.model_type}
                 name={data.name}
-                fpr={data.metadata.fpr}
-                tpr={data.metadata.tpr}
+                x={data.metadata.fpr}
+                y={data.metadata.tpr}
                 auc={data.metadata.roc_auc}
                 date_created={data.date_created}
               />
             </TabPanel>
             <TabPanel value={value} index={2}>
-              Item Three
+              <ROC_Prec_Recall
+                curve={1}
+                model_type={data.model_type}
+                name={data.name}
+                x={data.metadata.recall_curve}
+                y={data.metadata.precision_curve}
+                auc={data.metadata.precision_recall_auc}
+                date_created={data.date_created}
+              />
             </TabPanel>
             <TabPanel value={value} index={3}>
-              Item Four
+              <CMatrix
+                model_type={data.model_type}
+                date_created={data.date_created}
+                name={data.name}
+                cmatrix={data.metadata.confusion_matrix}
+              />
             </TabPanel>
             <TabPanel value={value} index={4}>
               Item Five

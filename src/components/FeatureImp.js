@@ -64,7 +64,11 @@ export default function FeatureImp(props){
             data={[
               {type: 'bar', x: x, y: y},
             ]}
-            layout={ {width: 500, height: 375, title: 'Evaluation Metrics'} }
+            layout={ {width: 500, height: 375, title: 'Feature Importance'} }
+            config={ {
+              scrollZoom:true,
+              respnsive:true
+            } }
           />
         </div>
 
