@@ -16,9 +16,6 @@ class EvaluationFunctions():
 		model_file=self.model_path
 		dataset_file=self.dataset_path
 
-		print(model_file)
-		print(dataset_file)
-
 		with open(dataset_file) as csv_file:
 			csv_reader = csv.reader(csv_file, delimiter = ',')
 			list_of_column_names = []
