@@ -39,7 +39,7 @@ export default function FeatureImp(props){
   let i;
   for(i=0;i<props.feature_scores.length;i++)
   {
-      rows.push(createData(props.columns[i],props.feature_scores[i]));
+      rows.push(createData(props.columns[i],props.feature_scores[i].toFixed(2)));
       x.push(props.columns[i]);
       y.push(props.feature_scores[i]);
   }

@@ -9,24 +9,30 @@ class EvalModel(db.Model):
     name = db.Column(db.String(80))
     model_type = db.Column(db.String(80))
     meta = db.Column(JSON)
-    model_path = db.Column(db.String(80))
-    dataset_path = db.Column(db.String(80))
     date_created = db.Column(db.DateTime, default=datetime.datetime.now)
 
-    def __init__(self,name,model_type,model_path,dataset_path):
+    dataset_id = db.Column(db.Integer, db.ForeignKey('Datasets.dataset_id'), nullable=False)
+    dataset = db.relationship("Dataset")
+
+    model_id = db.Column(db.Integer, db.ForeignKey('MLModels.model_id'), nullable=False)
+    model = db.relationship("MLModel")
+
+    def __init__(self,name,model_type,model_id,dataset_id):
         self.name = name
         self.meta = {}
         self.model_type = model_type
-        self.model_path = model_path
-        self.dataset_path = dataset_path
+        self.model_id = model_id
+        self.dataset_id = dataset_id
 
     def json(self):
+        dname = self.dataset.find_by_id(self.dataset_id).json()
+        mname = self.model.find_by_id(self.model_id).json()
         return {"eval_id":self.eval_id,
         "name":self.name,
         "model_type":self.model_type,
         "metadata":self.meta,
-        "model_path":self.model_path,
-        "dataset_path":self.dataset_path,
+        "model":mname,
+        "dataset":dname,
         "date_created":str(self.date_created)}
 
     @classmethod

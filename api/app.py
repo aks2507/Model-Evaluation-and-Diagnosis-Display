@@ -8,10 +8,12 @@ from flask import Flask,request,render_template,redirect,url_for, Response
 # Resources
 from resources.evaluation import Evaluate, EvaluateList
 from resources.datasets import DatasetResource, DatasetList
+from resources.mlmodels import MLModelResource, ModelList
 
 # Models
 from models.evaluation import EvalModel
 from models.datasets import Dataset
+from models.mlmodels import MLModel
 
 app=Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
@@ -27,6 +29,8 @@ api.add_resource(Evaluate,"/evaluate/<int:eval_id>")
 api.add_resource(EvaluateList,"/evaluate")
 api.add_resource(DatasetResource,"/datasets/<int:dataset_id>")
 api.add_resource(DatasetList,"/datasets")
+api.add_resource(MLModelResource,"/models/<int:model_id>")
+api.add_resource(ModelList,"/models")
 
 db.init_app(app)
 

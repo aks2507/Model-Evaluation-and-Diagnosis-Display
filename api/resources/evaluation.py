@@ -7,15 +7,15 @@ import json
 
 class Evaluate(Resource):
     parser = reqparse.RequestParser()
-    parser.add_argument('model_path',
-        type=str,
+    parser.add_argument('model_id',
+        type=int,
         required=True,
-        help="Please provide a model path"
+        help="Please provide a model id"
     )
-    parser.add_argument('dataset_path',
-        type=str,
+    parser.add_argument('dataset_id',
+        type=int,
         required=True,
-        help="Please provide a datset path"
+        help="Please provide a datset id"
     )
     parser.add_argument('model_type',
         type=str,
@@ -35,7 +35,7 @@ class Evaluate(Resource):
             if evaluation_entity.meta:
                 return evaluation_entity.json()
             eval_dict = evaluation_entity.json()
-            evaluation_object = EvaluationFunctions(eval_dict['model_type'], eval_dict['model_path'], eval_dict['dataset_path'])
+            evaluation_object = EvaluationFunctions(eval_dict['model_type'], eval_dict['model']['model_path'], eval_dict['dataset']['dataset_path'])
             if eval_dict['model_type'] == 'regression':
                 metrics = evaluation_object.evaluate_regression()
                 evaluation_entity.meta = metrics
@@ -56,15 +56,15 @@ class Evaluate(Resource):
 
 class EvaluateList(Resource):
     parser = reqparse.RequestParser()
-    parser.add_argument('model_path',
-        type=str,
+    parser.add_argument('model_id',
+        type=int,
         required=True,
-        help="Please provide a model path"
+        help="Please provide a model id"
     )
-    parser.add_argument('dataset_path',
-        type=str,
+    parser.add_argument('dataset_id',
+        type=int,
         required=True,
-        help="Please provide a datset path"
+        help="Please provide a datset id"
     )
     parser.add_argument('model_type',
         type=str,

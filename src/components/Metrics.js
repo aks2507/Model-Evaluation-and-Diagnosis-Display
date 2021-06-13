@@ -43,20 +43,20 @@ export default function Metrics(props){
   const y= [];
   console.log(props);
   if(props.model_type==="regression") {
-    pushAll("MAE",props.metadata.mean_absolute_error, rows, x, y);
-    pushAll("MSE",props.metadata.mean_squared_error, rows, x, y);
-    pushAll("RMSE",props.metadata.root_mean_squared_error, rows, x, y);
-    pushAll("RMSLE",props.metadata.root_mean_squared_log_error, rows, x, y);
-    pushAll("R^2",props.metadata.Coefficient_of_Determination, rows, x, y);
-    pushAll("Adjusted R^2",props.metadata.Adjusted_r_squared, rows, x, y);
+    pushAll("MAE",props.metadata.mean_absolute_error.toFixed(2), rows, x, y);
+    pushAll("MSE",props.metadata.mean_squared_error.toFixed(2), rows, x, y);
+    pushAll("RMSE",props.metadata.root_mean_squared_error.toFixed(2), rows, x, y);
+    pushAll("RMSLE",props.metadata.root_mean_squared_log_error.toFixed(2), rows, x, y);
+    pushAll("R^2",props.metadata.Coefficient_of_Determination.toFixed(2), rows, x, y);
+    pushAll("Adjusted R^2",props.metadata.Adjusted_r_squared.toFixed(2), rows, x, y);
 
   }
   else {
-    pushAll("Accuracy",props.metadata.accuracy_score, rows, x, y);
-    pushAll("Precision Score",props.metadata.precision_score, rows, x, y);
-    pushAll("Recall",props.metadata.recall, rows, x, y);
-    pushAll("F1-Score",props.metadata.f1_score, rows, x, y);
-    pushAll("Log-Loss",props.metadata.log_loss, rows, x, y);
+    pushAll("Accuracy",props.metadata.accuracy_score.toFixed(2), rows, x, y);
+    pushAll("Precision Score",props.metadata.precision_score.toFixed(2), rows, x, y);
+    pushAll("Recall",props.metadata.recall.toFixed(2), rows, x, y);
+    pushAll("F1-Score",props.metadata.f1_score.toFixed(2), rows, x, y);
+    pushAll("Log-Loss",props.metadata.log_loss.toFixed(2), rows, x, y);
   }
   const classes = useStyles();
   return(

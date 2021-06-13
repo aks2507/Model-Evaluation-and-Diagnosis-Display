@@ -3,7 +3,7 @@ from sqlalchemy.dialects.postgresql import JSON
 from sqlalchemy.sql import func
 import datetime
 class MLModel(db.Model):
-    __tablename__ = 'Datasets'
+    __tablename__ = 'MLModels'
 
     model_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80))
@@ -11,6 +11,8 @@ class MLModel(db.Model):
     meta = db.Column(JSON)
     model_path = db.Column(db.String(80))
     date_created = db.Column(db.DateTime, default=datetime.datetime.now)
+
+    # evaluations = db.relationship("EvalModel", lazy='dynamic')
 
     def __init__(self,name,model_type,model_path):
         self.name = name
