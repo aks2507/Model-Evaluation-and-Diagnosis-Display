@@ -5,12 +5,10 @@ from db import db
 
 from flask import Flask,request,render_template,redirect,url_for, Response
 
-# Resources
 from resources.evaluation import Evaluate, EvaluateList
 from resources.datasets import DatasetResource, DatasetList
 from resources.mlmodels import MLModelResource, ModelList
 
-# Models
 from models.evaluation import EvalModel
 from models.datasets import Dataset
 from models.mlmodels import MLModel
@@ -33,7 +31,3 @@ api.add_resource(MLModelResource,"/models/<int:model_id>")
 api.add_resource(ModelList,"/models")
 
 db.init_app(app)
-
-# if __name__=="__main__":
-# 	db.init_app(app)
-# 	app.run(debug=True)
