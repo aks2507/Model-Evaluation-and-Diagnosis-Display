@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-
+import axios from 'axios';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
@@ -70,6 +70,15 @@ export default function Comparison(props) {
 	let eval_ids = eval_ids_str.split(",");
 	const classes = useStyles();
 	const [value, setValue] = React.useState(0);
+	const initialValue = [];
+	for(let i=0;i<eval_ids.length;i++)
+	{
+		initialValue.push({data:{}});
+	}
+	console.log(initialValue);
+
+	const [evalList, setevalList] = React.useState(initialValue);
+	const [load, setLoad] = React.useState(true);
 
 	const handleChange = (event, newValue) => {
 		setValue(newValue);
@@ -83,10 +92,39 @@ export default function Comparison(props) {
 		urls.push("/evaluate/"+eval_ids[i])
 	}
 
-	// console.log(data[1].data);
+	const mapLoop = async _ => {
+		console.log('Start')
+	  
+		const promises = urls.map(async url => {
+		  const evaluation = await axios.get(url)
+		  return evaluation
+		})
+	  
+		const evaluations = await Promise.all(promises)
+		// console.log(evaluations)
+	  
+		console.log('End')
+		return evaluations;
+	}
+	if(load)
+	{
+		const evals = mapLoop().then((data) => {
+				setevalList(data);
+		});
+		// console.log(evals,typeof(evals));
+		setLoad(false);
+	}
+	
+	// console.log(evalList[0].data.name, evalList[1].data.eval_id);
+	evalList.map((evaluation) => {
+		console.log(evaluation,typeof(evaluation));
+		return null;
+	})
 	return (
 		<>
-			Hello_World!!
+			{evalList.map((evaluation) => 
+				<li key={evaluation.data.eval_id}>{evaluation.data.name}</li>
+			)}
 		</>
 	);
 }
