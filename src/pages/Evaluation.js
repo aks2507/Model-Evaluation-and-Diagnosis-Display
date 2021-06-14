@@ -13,6 +13,7 @@ import Metrics from '../components/Metrics';
 import FeatureImp from '../components/FeatureImp';
 import ROC_Prec_Recall from '../components/ROC_Prec_Recall';
 import CMatrix from '../components/CMatrix';
+import ModelInfo from '../components/ModelInfo';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -140,7 +141,11 @@ export default function Evaluation(props) {
               />
             </TabPanel>
             <TabPanel value={value} index={1}>
-              Item Two
+              <ModelInfo
+                keys={data.model.metadata.keys}
+                values={data.model.metadata.values}
+                columns={data.dataset.metadata.columns}
+              />
             </TabPanel>
             <TabPanel value={value} index={2}>
               <FeatureImp
@@ -199,7 +204,11 @@ export default function Evaluation(props) {
               />
             </TabPanel>
             <TabPanel value={value} index={4}>
-              Item Five
+              <ModelInfo
+                keys={data.model.metadata.keys}
+                values={data.model.metadata.values}
+                columns={data.dataset.metadata.columns}
+              />
             </TabPanel>
             <TabPanel value={value} index={5}>
               <FeatureImp

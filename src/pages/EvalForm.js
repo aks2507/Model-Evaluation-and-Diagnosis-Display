@@ -1,4 +1,4 @@
-import React,{ useState} from 'react';
+import React, { useState, useEffect} from 'react';
 import axios from 'axios';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -11,7 +11,7 @@ import PostAddIcon from '@material-ui/icons/PostAdd';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
-
+import useAxios from 'axios-hooks'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -37,41 +37,72 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function EvalForm() {
+export default function EvalForm(props) {
+  let datasets = props.datasets;
+  let models = props.models;
   const classes = useStyles();
 
   const [modelType, setModelType] = React.useState('regression');
-  const [open, setOpen] = React.useState(false);
+  const [openMT, setOpenMT] = React.useState(false);
+  const [openDS, setOpenDS] = React.useState(false);
+  const [openModel, setOpenModel] = React.useState(false);
+  const [modelID, setModelID] = React.useState(0);
+  const [datasetID, setDatasetID] = React.useState(0);
 
   const [values, setValues] = useState({
         name: 'test_eval',
         model_type: 'regression',
-        model_path: 'C://',
-        dataset_path: 'C://',
+        model_id: 0,
+        dataset_id: 0,
         metadata: {},
     });
 
 
-  const handleDropdownChange = (event) => {
+  const handleDropdownChangeModelType = (event) => {
     setModelType(event.target.value);
     setValues({ ...values, ['model_type']: event.target.value });
-
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleDropdownChangeModelID = (event) => {
+    setModelID(event.target.value);
+    setValues({ ...values, ['model_id']: event.target.value });
   };
 
-  const handleOpen = () => {
-    setOpen(true);
+  const handleDropdownChangeDatasetID = (event) => {
+    setDatasetID(event.target.value);
+    setValues({ ...values, ['dataset_id']: event.target.value });
+  };
+
+  const handleModelTypeClose = () => {
+    setOpenMT(false);
+  };
+
+  const handleModelTypeOpen = () => {
+    setOpenMT(true);
+  };
+
+  const handleModelClose = () => {
+    setOpenModel(false);
+  };
+
+  const handleModelOpen = () => {
+    setOpenModel(true);
+  };
+
+  const handleDatasetClose = () => {
+    setOpenDS(false);
+  };
+
+  const handleDatasetOpen = () => {
+    setOpenDS(true);
   };
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const { name, model_type, model_path, dataset_path, metadata } = values;
-        const payload = { name, model_type, model_path, dataset_path, metadata };
+        const { name, model_type, model_id, dataset_id, metadata } = values;
+        const payload = { name, model_type, model_id, dataset_id, metadata };
 
         await axios.post('/evaluate', payload).then(() => {window.location="/";});
     };
@@ -108,44 +139,54 @@ export default function EvalForm() {
             onChange={handleChange('name')}
           />
 
-            <div className={classes.formControl}>
-              <InputLabel id="model_type">Model Type</InputLabel>
-              <Select
-                labelId="model_type"
-                id="mtype"
-                open={open}
-                onClose={handleClose}
-                onOpen={handleOpen}
-                value={modelType}
-                onChange={handleDropdownChange}
-              >
-                <MenuItem value="regression">Regression</MenuItem>
-                <MenuItem value="classification">Classification</MenuItem>
-                <MenuItem value="clustering">Clustering</MenuItem>
-              </Select>
-            </div>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="model_path"
-            label="Model Path"
-            id="model_path"
-            autoComplete="Model Path"
-            onChange={handleChange('model_path')}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="dataset_path"
-            label="Dataset Path"
-            id="dataset_path"
-            autoComplete="Dataset Path"
-            onChange={handleChange('dataset_path')}
-          />
+          <div className={classes.formControl}>
+            <InputLabel id="model_type">Model Type</InputLabel>
+            <Select
+              labelId="model_type"
+              id="mtype"
+              open={openMT}
+              onClose={handleModelTypeClose}
+              onOpen={handleModelTypeOpen}
+              value={modelType}
+              onChange={handleDropdownChangeModelType}
+            >
+              <MenuItem value="regression">Regression</MenuItem>
+              <MenuItem value="classification">Classification</MenuItem>
+              <MenuItem value="clustering">Clustering</MenuItem>
+            </Select>
+          </div>
+          <div className={classes.formControl}>
+            <InputLabel id="dataset_id">Dataset</InputLabel>
+            <Select
+              labelId="dataset_id"
+              id="did"
+              open={openDS}
+              onClose={handleDatasetClose}
+              onOpen={handleDatasetOpen}
+              value={datasetID}
+              onChange={handleDropdownChangeDatasetID}
+            >
+              {datasets.map((dataset) =>
+                <MenuItem value={dataset.dataset_id}>{dataset.name}</MenuItem>
+              )}
+            </Select>
+          </div>
+          <div className={classes.formControl}>
+            <InputLabel id="model_id">Model</InputLabel>
+            <Select
+              labelId="model_id"
+              id="mid"
+              open={openModel}
+              onClose={handleModelClose}
+              onOpen={handleModelOpen}
+              value={modelID}
+              onChange={handleDropdownChangeModelID}
+            >
+              {models.map((model) =>
+                <MenuItem value={model.model_id}>{model.name}</MenuItem>
+              )}
+            </Select>
+          </div>
 
           <TextField
             variant="filled"
