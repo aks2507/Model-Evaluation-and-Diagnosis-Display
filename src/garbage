@@ -1,6 +1,33 @@
-return (
-  <EvalForm
-    datasets={data.data1.data.dataset_entities}
-    models={data.data2.data.model_entities}
-  />
-);
+<div className={classes.formControl}>
+  <InputLabel id="model_id">Model</InputLabel>
+  <Select
+    labelId="model_id"
+    id="mid"
+    open={openModel}
+    onClose={handleModelClose}
+    onOpen={handleModelOpen}
+    value={modelID}
+    onChange={handleDropdownChangeModelID}
+  >
+    {models.map((model) =>
+      <MenuItem value={model.model_id}>{model.name}</MenuItem>
+    )}
+  </Select>
+</div>
+
+<div className={classes.formControl}>
+  <InputLabel id="dataset_id">Dataset</InputLabel>
+  <Select
+    labelId="dataset_id"
+    id="did"
+    open={openDS}
+    onClose={handleDatasetClose}
+    onOpen={handleDatasetOpen}
+    value={datasetID}
+    onChange={handleDropdownChangeDatasetID}
+  >
+    {datasets.map((dataset) =>
+      <MenuItem value={dataset.dataset_id}>{dataset.name}</MenuItem>
+    )}
+  </Select>
+</div>

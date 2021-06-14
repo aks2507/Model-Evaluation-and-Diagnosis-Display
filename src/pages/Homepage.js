@@ -244,6 +244,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Homepage(){
+  const handleAdd = async() => {
+    window.location="/addeval";
+  };
   const [data, setData] = useState({evaluation_entities:[]})
   const [search, setSearch] = useState(true);
   let rows = [];
@@ -406,11 +409,9 @@ export default function Homepage(){
       />
       <div className="text-center">
 
-        <RedirectLink color="inherit" to="/addeval">
-          <Button variant="contained" color="primary" size="large">
-            Add Evaluation
-          </Button>
-        </RedirectLink>
+      <Button variant="contained" color="primary" size="large" onClick={handleAdd}>
+        Add Evaluation
+      </Button>
       </div>
     </div>
   );

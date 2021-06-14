@@ -1,27 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import EvalForm from './EvalForm';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import EvalForm from "./EvalForm";
 
 const ModelsDatasets = () => {
-    const [mdata, setMdata] = useState(null);
+  const [data, setData] = useState({
+    data1: { data: { dataset_entities: [] } },
+    data2: { data: { model_entities: [] } },
+  });
 
-    useEffect(() => {
-      console.log("useEffect called");
-      const getData=async()=>{
-          try{
-            const res=await axios.get("/models");
-            setMdata(res.data);
-          }
-          catch(e){
-            console.log(e);
-          }
-      };
-      getData();
-    },[]);
-    console.log(mdata);
-    return (
-       JSON.stringify(mdata)
-    );
-}
+  useEffect(() => {
+    (async () => {
+      const data1 = await axios.get("/datasets");
+      const data2 = await axios.get("/models");
+      setData({ data1, data2 });
+    })();
+  }, []);
+
+  return (
+    <EvalForm
+      datasets={data.data1.data.dataset_entities}
+      models={data.data2.data.model_entities}
+    />
+  );
+};
 
 export default ModelsDatasets;
