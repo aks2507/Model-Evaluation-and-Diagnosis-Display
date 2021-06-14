@@ -15,7 +15,7 @@ const ModelsDatasets = () => {
       setData({ data1, data2 });
     })();
   }, []);
-
+  console.log(data);
   return (
     <EvalForm
       datasets={data.data1.data.dataset_entities}

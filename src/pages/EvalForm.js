@@ -38,12 +38,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function EvalForm() {
-  // const [datasets] = useModelDatasets();
-  // console.log(datasets);
-  const classes = useStyles();
+export default function EvalForm(props) {
+  let datasets=props.datasets;
+  let models=props.models;
+  console.log(models);
   console.log(datasets);
-  console.log(models)
+  const classes = useStyles();
   const [modelType, setModelType] = React.useState('regression');
   const [openMT, setOpenMT] = React.useState(false);
   const [openDS, setOpenDS] = React.useState(false);
@@ -147,9 +147,9 @@ export default function EvalForm() {
               labelId="model_type"
               id="mtype"
               open={openMT}
+              fullWidth
               onClose={handleModelTypeClose}
               onOpen={handleModelTypeOpen}
-              value={modelType}
               onChange={handleDropdownChangeModelType}
             >
               <MenuItem value="regression">Regression</MenuItem>
@@ -158,31 +158,41 @@ export default function EvalForm() {
             </Select>
           </div>
 
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="model_id"
-            label="Model ID"
-            name="model_id"
-            autoComplete="Model ID"
-            autoFocus
-            onChange={handleChange('model_id')}
-          />
+          <div className={classes.formControl}>
+            <InputLabel id="dataset_id">Dataset</InputLabel>
+            <Select
+              labelId="dataset_id"
+              id="did"
+              open={openDS}
+              fullWidth
+              onClose={handleDatasetClose}
+              onOpen={handleDatasetOpen}
+              value={datasetID}
+              onChange={handleDropdownChangeDatasetID}
+            >
+              {datasets.map((dataset) =>
+                <MenuItem value={dataset.dataset_id}>{dataset.name}</MenuItem>
+              )}
+            </Select>
+          </div>
 
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="dataset_id"
-            label="Dataset ID"
-            name="dataset_id"
-            autoComplete="Dataset ID"
-            autoFocus
-            onChange={handleChange('dataset_id')}
-          />
+          <div className={classes.formControl}>
+            <InputLabel id="model_id">Model</InputLabel>
+            <Select
+              labelId="model_id"
+              id="mid"
+              fullWidth
+              open={openModel}
+              onClose={handleModelClose}
+              onOpen={handleModelOpen}
+              value={modelID}
+              onChange={handleDropdownChangeModelID}
+            >
+              {models.map((model) =>
+                <MenuItem value={model.model_id}>{model.name}</MenuItem>
+              )}
+            </Select>
+          </div>
 
           <TextField
             variant="filled"
@@ -204,6 +214,7 @@ export default function EvalForm() {
                 color="secondary"
                 size="large"
                 className={classes.submit}
+                onClick={handleSubmit}
               >
                 Add
               </Button>
