@@ -1,6 +1,13 @@
-# Model Evaluation and Visualization
-This project is focused on evaluating several machine learning models, given the model and the testing dataset, and to compare evaluations. Evaluations can be compared on the basis of their metrics. However, two or more models trained on same dataset, or one model trained on multiple datasets, can only be compared, due to obvious reasons.
+# Model Evaluation and Diagnosis Display
+Model Evaluation is the process through which we quantify the quality of a system’s predictions. To do this, we measure the newly trained model performance on a new and independent dataset. This model will compare labeled data with it’s own predictions.
+Model evaluation performance metrics teach us:
+- How well our model is performing
+- Is our model accurate enough to put into production
+- Will a larger training set improve my model’s performance?
+- Is my model under-fitting or over-fitting?
 
+## Steps:
+  Clone the repo and run the command `yarn install`  to install the neccessary dependencies
 ## Run the code on your local machine
 ### Server Side
 The api folder is included in this repository itself, along with the frontend code. To spin up the server at http://localhost:5000 , open a terminal, navigate to the folder where you have cloned this repository, and run:
