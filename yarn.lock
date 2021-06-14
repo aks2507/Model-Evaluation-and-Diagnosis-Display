@@ -5879,6 +5879,11 @@ find-up@^3.0.0:
   dependencies:
     locate-path "^3.0.0"
 
+flask@^0.2.10:
+  version "0.2.10"
+  resolved "https://registry.yarnpkg.com/flask/-/flask-0.2.10.tgz#f5f5a42cfd58a309e37c67c0a39617a819e5e1b7"
+  integrity sha1-9fWkLP1YownjfGfAo5YXqBnl4bc=
+
 flat-cache@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/flat-cache/-/flat-cache-3.0.4.tgz#61b0338302b2fe9f957dcc32fc2a87f1c3048b11"

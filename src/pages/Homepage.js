@@ -1,5 +1,4 @@
 import React, { useState, useEffect} from 'react';
-// import '../containers/App.css';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
@@ -158,8 +157,6 @@ const EnhancedTableToolbar = (props) => {
   };
 
   const VisualizeHandler = eval_id => async(e) => {
-    // e.preventDefault();
-    // console.log(eval_id);
     window.location.replace("/evaluation/"+eval_id);
   };
 
@@ -264,16 +261,16 @@ export default function Homepage(){
     if(search)
       fetchData();
   },[data,search]);
-
+  console.log(data);
   let i;
   for(i=0;i<data.evaluation_entities.length;i++)
   {
     let k=data.evaluation_entities[i];
-    var model_file = k.model_path.split('\\');
+    var model_file = k.model.model_path.split('\\');
     var len = model_file.length;
     k.model_path = model_file[len-1];
 
-    let dataset_file = k.dataset_path.split('\\');
+    let dataset_file = k.dataset.dataset_path.split('\\');
     len = dataset_file.length;
     k.dataset_path = dataset_file[len-1];
     rows.push(createData(k.eval_id,k.name,k.model_type,k.model_path,k.dataset_path,k.date_created));
@@ -338,7 +335,7 @@ export default function Homepage(){
   const isSelected = (eval_id) => selected.indexOf(eval_id) !== -1;
 
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
-  // console.log(selected)
+
 
   return (
     <div className={classes.root}>
