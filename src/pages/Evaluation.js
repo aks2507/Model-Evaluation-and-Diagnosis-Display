@@ -11,7 +11,7 @@ import useAxios from 'axios-hooks'
 // Components
 import Metrics from '../components/Metrics';
 import FeatureImp from '../components/FeatureImp';
-import ROC_Prec_Recall from '../components/ROC_Prec_Recall';
+import ROCPrecRecall from '../components/ROC_Prec_Recall';
 import CMatrix from '../components/CMatrix';
 import ModelInfo from '../components/ModelInfo';
 
@@ -174,7 +174,7 @@ export default function Evaluation(props) {
               />
             </TabPanel>
             <TabPanel value={value} index={1}>
-              <ROC_Prec_Recall
+              <ROCPrecRecall
                 curve={0}
                 model_type={data.model_type}
                 name={data.name}
@@ -185,7 +185,7 @@ export default function Evaluation(props) {
               />
             </TabPanel>
             <TabPanel value={value} index={2}>
-              <ROC_Prec_Recall
+              <ROCPrecRecall
                 curve={1}
                 model_type={data.model_type}
                 name={data.name}

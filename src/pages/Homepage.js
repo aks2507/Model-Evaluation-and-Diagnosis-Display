@@ -23,9 +23,6 @@ import Switch from '@material-ui/core/Switch';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import Button from '@material-ui/core/Button';
-import {
-    Link as RedirectLink,
-} from 'react-router-dom';
 
 function createData(eval_id, name, model_type, model_name, dataset_name, date_created) {
   return { eval_id, name, model_type, model_name, dataset_name, date_created };

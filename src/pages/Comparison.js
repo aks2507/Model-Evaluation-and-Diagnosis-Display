@@ -1,19 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
+
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import useAxios from 'axios-hooks';
-import axios from 'axios';
+
 // Components
-import Metrics from '../components/Metrics';
-import FeatureImp from '../components/FeatureImp';
-import ROC_Prec_Recall from '../components/ROC_Prec_Recall';
-import CMatrix from '../components/CMatrix';
-import ModelInfo from '../components/ModelInfo';
+
 
 function TabPanel(props) {
 	const { children, value, index, ...other } = props;
@@ -89,23 +82,6 @@ export default function Comparison(props) {
 	{
 		urls.push("/evaluate/"+eval_ids[i])
 	}
-	// console.log(urls);
-	const getSlice = async(urls) => {
-    let promises = []
-    urls.map((url) => {
-        promises.push(fetch(url)
-        .then(res => res.json())
-        .then((result) => console.log(result))) //I want to store the result in an array
-    }
-    await Promise.allSettled(promises)
-	}
-	const getAll = async(urls) => {
-    for(let i=0; i<= urls.length; i++) {
-        await getSlice(urls);
-    }
-	}
-
-	getAll(urls).then(()=>console.log('all data processed')).catch(err=>console.log(error))
 
 	// console.log(data[1].data);
 	return (
