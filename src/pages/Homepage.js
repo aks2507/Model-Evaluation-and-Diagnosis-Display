@@ -22,9 +22,6 @@ import Switch from '@material-ui/core/Switch';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import Button from '@material-ui/core/Button';
-import {
-    Link as RedirectLink,
-} from 'react-router-dom';
 
 function createData(eval_id, name, model_type, model_name, dataset_name, date_created) {
   return { eval_id, name, model_type, model_name, dataset_name, date_created };
@@ -160,6 +157,11 @@ const EnhancedTableToolbar = (props) => {
     window.location.replace("/evaluation/"+eval_id);
   };
 
+  const CompareHandler = eval_ids => async(e) => {
+    console.log(eval_ids);
+    window.location.replace("/comparison/"+eval_ids.toString());
+  };
+
   return (
     <Toolbar
       className={clsx(classes.root, {
@@ -190,9 +192,10 @@ const EnhancedTableToolbar = (props) => {
             ) : (
               <Button
                 variant="contained"
-                disabled
+                color="secondary"
+                onClick={CompareHandler(selectedList)}
               >
-                Visualize
+                Compare
               </Button>
             )}
 

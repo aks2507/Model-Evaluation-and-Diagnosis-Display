@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState} from 'react';
 import axios from 'axios';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -11,8 +11,6 @@ import PostAddIcon from '@material-ui/icons/PostAdd';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
-import useAxios from 'axios-hooks';
-import useModelDatasets from './ModelsDatasets';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -39,10 +37,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function EvalForm(props) {
-  let datasets=props.datasets;
-  let models=props.models;
-  console.log(models);
-  console.log(datasets);
+  let datasets = props.datasets;
+  let models = props.models;
   const classes = useStyles();
   const [modelType, setModelType] = React.useState('regression');
   const [openMT, setOpenMT] = React.useState(false);
@@ -62,17 +58,17 @@ export default function EvalForm(props) {
 
   const handleDropdownChangeModelType = (event) => {
     setModelType(event.target.value);
-    setValues({ ...values, ['model_type']: event.target.value });
+    setValues({ ...values, 'model_type': event.target.value });
   };
 
   const handleDropdownChangeModelID = (event) => {
     setModelID(event.target.value);
-    setValues({ ...values, ['model_id']: event.target.value });
+    setValues({ ...values, 'model_id': event.target.value });
   };
 
   const handleDropdownChangeDatasetID = (event) => {
     setDatasetID(event.target.value);
-    setValues({ ...values, ['dataset_id']: event.target.value });
+    setValues({ ...values, 'dataset_id': event.target.value });
   };
 
   const handleModelTypeClose = () => {
