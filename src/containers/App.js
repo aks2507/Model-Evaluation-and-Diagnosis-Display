@@ -9,6 +9,8 @@ import {
 import Homepage from '../pages/Homepage';
 import EvalForm from '../pages/EvalForm';
 import Evaluation from '../pages/Evaluation';
+import Comparison from '../pages/Comparison';
+import ModelsDatasets from '../pages/ModelsDatasets';
 
 
 class App extends Component{
@@ -17,8 +19,9 @@ class App extends Component{
         <Router>
           <Switch>
             <Route exact path="/" component={Homepage} />
-            <Route exact path="/addeval" component={EvalForm} />
+            <Route exact path="/addeval" component={ModelsDatasets} />
             <Route exact path="/evaluation/:eval_id" component={Evaluation} />
+            <Route exact path="/comparison/:eval_ids" component={Comparison} />
           </Switch>
         </Router>
     );

@@ -163,6 +163,11 @@ const EnhancedTableToolbar = (props) => {
     window.location.replace("/evaluation/"+eval_id);
   };
 
+  const CompareHandler = eval_ids => async(e) => {
+    console.log(eval_ids);
+    window.location.replace("/comparison/"+eval_ids.toString());
+  };
+
   return (
     <Toolbar
       className={clsx(classes.root, {
@@ -193,9 +198,10 @@ const EnhancedTableToolbar = (props) => {
             ) : (
               <Button
                 variant="contained"
-                disabled
+                color="secondary"
+                onClick={CompareHandler(selectedList)}
               >
-                Visualize
+                Compare
               </Button>
             )}
 
