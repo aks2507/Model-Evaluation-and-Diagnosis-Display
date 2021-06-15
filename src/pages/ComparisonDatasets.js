@@ -4,14 +4,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import CssBaseline from '@material-ui/core/CssBaseline';
 
 // Components
 import Navbar from '../components/Navbar';
-import Details from '../comparisonComps/Details';
-import Metrics from '../comparisonComps/Metrics';
 
 function TabPanel(props) {
 	const { children, value, index, ...other } = props;
@@ -125,47 +120,6 @@ export default function Comparison(props) {
 	return (
 		<>
 			<Navbar/>
-			<div className={classes.root}>
-				<div className={classes.root}>
-					<Tabs
-						orientation="vertical"
-						variant="scrollable"
-						value={value}
-						onChange={handleChange}
-						aria-label="Vertical tabs example"
-						className={classes.tabs}
-					>
-						<Tab label="Metrics" {...a11yProps(0)} />
-						<Tab label="Dataset Information" {...a11yProps(1)} />
-						{evalList[0].data.model_type === "regression" ? (
-							null
-						) : (
-							<Tab label="Curves" {...a11yProps(2)} />
-						)}
-					</Tabs>
-				</div>
-				<>
-					<CssBaseline/>
-					<div className={classes.leftarea}>
-						<TabPanel value={value} index={0}>
-							<Details evaluations={evalList}/>
-							<Metrics evaluations={evalList}/>
-						</TabPanel>
-						<TabPanel value={value} index={1}>
-							<Details evaluations={evalList}/>
-						</TabPanel>
-						{evalList[0].data.model_type === "regression" ? (
-							null
-						) : (
-							<TabPanel value={value} index={2}>
-								<Details evaluations={evalList}/>
-							</TabPanel>
-						)}
-					</div>
-				</>
-			</div>
-			
-			
 		</>
 	);
 }

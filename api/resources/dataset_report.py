@@ -74,6 +74,7 @@ class DatasetReport():
 
 	def dataset_report(self):
 		self.get_report()
+		print(self.output)
 		return {
 			"columns":self.col_names,
 			"number_of_columns":self.cols,

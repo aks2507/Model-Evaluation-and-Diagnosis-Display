@@ -31,7 +31,7 @@ class DatasetResource(Resource):
 			dataset_dict = dataset_entity.json()
 			# print(dataset_dict,type(dataset_dict))
 			dataset_object =  DatasetReport(dataset_dict['dataset_path'])
-			# print(dataset_object.dataset_report(),type(dataset_object.dataset_report()))
+			print(dataset_object.dataset_report(),type(dataset_object.dataset_report()))
 			dataset_info = dataset_object.dataset_report()
 			dataset_entity.meta = dataset_info
 

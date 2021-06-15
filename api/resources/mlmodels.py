@@ -26,14 +26,19 @@ class MLModelResource(Resource):
     def get(self,model_id):
         
         model_entity = MLModel.find_by_id(model_id)
-        print('hii shivam')
+        
         if model_entity:
+            print('hii shivam')
             if model_entity.meta:
+                print("meta exists")
                 return model_entity.json()
+            print("meta does not exist")
             model_dict = model_entity.json()
+            print(model_dict,type(model_dict))
             model_object = ModelReport(model_dict['model_path'])
 
             metrics = model_object.model_report()
+            print(metrics,type(metrics))
             model_entity.meta = metrics
 
             model_entity.save_to_db()

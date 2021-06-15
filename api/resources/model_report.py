@@ -1,8 +1,8 @@
-import numpy as np
-import pandas as pd
+import numpy as np 
+import pandas as pd 
 import pickle
-from sklearn import metrics
-import csv
+from sklearn import metrics 
+import csv 
 import json
 
 class ModelReport():
@@ -10,13 +10,30 @@ class ModelReport():
 		self.model_file = model_path
 
 	def encode(self):
+		final_values=[]
+		final_keys=[]
 		for i in range(len(self.values)):
+			# print(self.keys[i],type(self.keys[i]),self.keys[i] == 'estimators_')
+			if self.keys[i] == 'estimators_':
+				continue
 			if isinstance(self.values[i],np.ndarray):
-				self.values[i] = self.values[i].tolist()
-			if isinstance(self.values[i],np.float64):
-				self.values[i] = float(self.values[i])
-			if isinstance(self.values[i],np.int64):
-				self.values[i] = int(self.values[i])
+				final_values.append(self.values[i].tolist())
+				final_keys.append(self.keys[i])
+			elif isinstance(self.values[i],np.float64):
+				final_values.append(float(self.values[i]))
+				final_keys.append(self.keys[i])
+			elif isinstance(self.values[i],np.int64):
+				final_values.append(int(self.values[i]))
+				final_keys.append(self.keys[i])
+			elif self.values[i] is None:
+				final_values.append(self.values[i])
+				final_keys.append(self.keys[i])
+			else:
+				if isinstance(self.values[i],(float, int, str, list, dict, tuple, bool, complex, set, bytes, bytearray, frozenset)) == True:
+					final_values.append(self.values[i])
+					final_keys.append(self.keys[i])
+		self.final_values = final_values
+		self.final_keys = final_keys
 
 	def get_loaded_model(self):
 		path = r'%s' % self.model_file
@@ -24,8 +41,8 @@ class ModelReport():
 
 	def get_parameters(self):
 		self.params = self.loaded_model.__dict__
-		self.params.popitem()
-		print(self.params)
+		print(self.params, type(self.params))
+		# self.params.popitem()
 		self.keys = list(self.loaded_model.__dict__.keys())
 		self.values = list(self.loaded_model.__dict__.values())
 
@@ -38,6 +55,6 @@ class ModelReport():
 	def model_report(self):
 		self.get_report()
 		return {
-			"keys":self.keys,
-			"values":self.values
+			"keys":self.final_keys,
+			"values":self.final_values
 		}

@@ -1,117 +1,12 @@
-
-
-<div className={classes.formControl}>
-  <InputLabel id="dataset_id">Dataset</InputLabel>
-  <Select
-    labelId="dataset_id"
-    id="did"
-    open={openDS}
-    onClose={handleDatasetClose}
-    onOpen={handleDatasetOpen}
-    value={datasetID}
-    onChange={handleDropdownChangeDatasetID}
-  >
-    {datasets.map((dataset) =>
-      <MenuItem value={dataset.dataset_id}>{dataset.name}</MenuItem>
-    )}
-  </Select>
-</div>
-
-{data.map((key) => {
-  <p>{key.data.name}</p>
-})}
-
-
-
-
-
-
-
-
-
-<div className={classes.root}>
-
-    {data[0].model_type === "regression" ? (
-      <div className={classes.root}>
-        <Tabs
-          orientation="vertical"
-          variant="scrollable"
-          value={value}
-          onChange={handleChange}
-          aria-label="Vertical tabs example"
-          className={classes.tabs}
-        >
-          <Tab label="Metrics" {...a11yProps(0)} />
-          <Tab label="Model Information" {...a11yProps(1)} />
-          <Tab label="Feature Importance" {...a11yProps(2)} />
-          <Tab label="Class Imbalence" {...a11yProps(3)} />
-        </Tabs>
-      </div>
-    ) : (
-      <div className={classes.root}>
-        <Tabs
-          orientation="vertical"
-          variant="scrollable"
-          value={value}
-          onChange={handleChange}
-          aria-label="Vertical tabs example"
-          className={classes.tabs}
-        >
-          <Tab label="Metrics" {...a11yProps(0)} />
-          <Tab label="ROC-AUC Curve" {...a11yProps(1)} />
-          <Tab label="Precision-Recall Curve" {...a11yProps(2)} />
-          <Tab label="Confusion Matrix" {...a11yProps(3)} />
-          <Tab label="Model Information" {...a11yProps(4)} />
-          <Tab label="Feature Importance" {...a11yProps(5)} />
-          <Tab label="Class Imbalence" {...a11yProps(6)} />
-        </Tabs>
-      </div>
-    )}
-
-  {data[0].model_type === "regression" ? (
-    <>
-      <CssBaseline />
-      <div className={classes.leftarea}>
-        <TabPanel value={value} index={0}>
-          Item One
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-          Item Two
-        </TabPanel>
-        <TabPanel value={value} index={2}>
-          Item Three
-        </TabPanel>
-        <TabPanel value={value} index={3}>
-          Item Four
-        </TabPanel>
-      </div>
-    </>
-  ) : (
-    <>
-      <CssBaseline />
-      <div className={classes.leftarea}>
-        <TabPanel value={value} index={0}>
-          Item One
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-          Item Two
-        </TabPanel>
-        <TabPanel value={value} index={2}>
-          Item Three
-        </TabPanel>
-        <TabPanel value={value} index={3}>
-          Item Four
-        </TabPanel>
-        <TabPanel value={value} index={4}>
-          Item Five
-        </TabPanel>
-        <TabPanel value={value} index={5}>
-          Item Six
-        </TabPanel>
-        <TabPanel value={value} index={6}>
-          Item Seven
-        </TabPanel>
-      </div>
-    </>
-  )}
-</div>
+<TableContainer component={Paper}>
+            <Table className={classes.table} aria-label="simple table">
+              <TableBody>
+                {rows.map((row) => (
+                  <TableRow key={row.metric}>
+                    <TableCell align="center">{row.metric}</TableCell>
+                    <TableCell align="center">{row.value}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
