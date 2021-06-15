@@ -66,7 +66,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Comparison(props) {
 	const eval_ids_str = props.match.params.eval_ids;
-	// console.log(eval_ids_str);
 	let eval_ids = eval_ids_str.split(",");
 	const classes = useStyles();
 	const [value, setValue] = React.useState(0);
@@ -111,11 +110,9 @@ export default function Comparison(props) {
 		const evals = mapLoop().then((data) => {
 				setevalList(data);
 		});
-		// console.log(evals,typeof(evals));
 		setLoad(false);
 	}
-	
-	// console.log(evalList[0].data.name, evalList[1].data.eval_id);
+
 	evalList.map((evaluation) => {
 		console.log(evaluation,typeof(evaluation));
 		return null;

@@ -14,7 +14,7 @@ import FeatureImp from '../components/FeatureImp';
 import ROCPrecRecall from '../components/ROC_Prec_Recall';
 import CMatrix from '../components/CMatrix';
 import ModelInfo from '../components/ModelInfo';
-
+import ClassImb from '../components/ClassImb';
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -220,7 +220,7 @@ export default function Evaluation(props) {
               />
             </TabPanel>
             <TabPanel value={value} index={6}>
-              Item Seven
+              <ClassImb/>
             </TabPanel>
           </div>
         </>
