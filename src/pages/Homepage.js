@@ -23,6 +23,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import Button from '@material-ui/core/Button';
 
+import Navbar from '../components/Navbar'; 
+
 function createData(eval_id, name, model_type, model_name, dataset_name, date_created) {
   return { eval_id, name, model_type, model_name, dataset_name, date_created };
 }
@@ -338,6 +340,7 @@ export default function Homepage(){
 
   return (
     <div className={classes.root}>
+      <Navbar/>
       <Paper className={classes.paper}>
         <EnhancedTableToolbar numSelected={selected.length} selectedList={selected} />
         <TableContainer>
