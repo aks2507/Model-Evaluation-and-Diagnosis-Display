@@ -112,7 +112,7 @@ export default function Metrics(props){
                 layout={ {width: 600, height: 450, title: 'Evaluation Metrics'} }
                 config={ {
                     scrollZoom:true,
-                    respnsive:true
+                    responsive:true
                 } }
                 />
             </div>
