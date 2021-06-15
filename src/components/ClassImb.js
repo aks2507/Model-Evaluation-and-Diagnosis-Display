@@ -9,7 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Plot from 'react-plotly.js';
 
-import Details from './Details';
+// import Details from './Details';
 
 const useStyles = makeStyles({
   table: {
@@ -52,14 +52,14 @@ export default function ClassImb(props){
     <div>
 
       <div className="row">
-        <Details
+        {/* <Details
           area={1}
           name={props.name}
           model_type={props.model_type}
           date_created={props.date_created}
           datasetinfo={props.datasetinfo}
           modelinfo={props.modelinfo}
-        />
+        /> */}
       </div>
         <div>
             <Plot

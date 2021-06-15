@@ -107,9 +107,7 @@ export default function Evaluation(props) {
               >
                 <Tab label="Metrics" {...a11yProps(0)} />
                 <Tab label="Model Information" {...a11yProps(1)} />
-                <Tab label="Feature Importance" {...a11yProps(2)} />
-                <Tab label="Class Imbalance" {...a11yProps(3)} />
-                <Tab label="Dataset Information" {...a11yProps(4)} />
+                <Tab label="Dataset Information" {...a11yProps(2)} />
               </Tabs>
             </div>
           ) : (
@@ -123,13 +121,9 @@ export default function Evaluation(props) {
                 className={classes.tabs}
               >
                 <Tab label="Metrics" {...a11yProps(0)} />
-                <Tab label="ROC-AUC Curve" {...a11yProps(1)} />
-                <Tab label="Precision-Recall Curve" {...a11yProps(2)} />
-                <Tab label="Confusion Matrix" {...a11yProps(3)} />
-                <Tab label="Model Information" {...a11yProps(4)} />
-                <Tab label="Feature Importance" {...a11yProps(5)} />
-                <Tab label="Class Imbalance" {...a11yProps(6)} />
-                <Tab label="Dataset Information" {...a11yProps(7)} />
+                <Tab label="Curves and Charts" {...a11yProps(1)}/>
+                <Tab label="Model Information" {...a11yProps(2)} />
+                <Tab label="Dataset Information" {...a11yProps(3)} />
               </Tabs>
             </div>
           )}
@@ -158,6 +152,13 @@ export default function Evaluation(props) {
                 />
               </TabPanel>
               <TabPanel value={value} index={2}>
+                <DatasetInfo
+                  model_type={data.model_type}
+                  name={data.name}
+                  datasetinfo={data.dataset}
+                  date_created={data.date_created}
+                  modelinfo={data.model}
+                />
                 <FeatureImp
                   model_type={data.model_type}
                   date_created={data.date_created}
@@ -167,8 +168,6 @@ export default function Evaluation(props) {
                   datasetinfo={data.dataset}
                   modelinfo={data.model}
                 />
-              </TabPanel>
-              <TabPanel value={value} index={3}>
                 <ClassImb
                   model_type={data.model_type}
                   name={data.name}
@@ -176,15 +175,6 @@ export default function Evaluation(props) {
                   date_created={data.date_created}
                   output_label={data.dataset.metadata.output_label}
                   datasetinfo={data.dataset}
-                  modelinfo={data.model}
-                  />
-              </TabPanel>
-              <TabPanel value={value} index={4}>
-                <DatasetInfo
-                  model_type={data.model_type}
-                  name={data.name}
-                  datasetinfo={data.dataset}
-                  date_created={data.date_created}
                   modelinfo={data.model}
                 />
               </TabPanel>
@@ -205,6 +195,14 @@ export default function Evaluation(props) {
                 />
               </TabPanel>
               <TabPanel value={value} index={1}>
+                <CMatrix
+                  model_type={data.model_type}
+                  date_created={data.date_created}
+                  name={data.name}
+                  cmatrix={data.metadata.confusion_matrix}
+                  datasetinfo={data.dataset}
+                  modelinfo={data.model}
+                />
                 <ROCPrecRecall
                   curve={0}
                   model_type={data.model_type}
@@ -216,8 +214,6 @@ export default function Evaluation(props) {
                   datasetinfo={data.dataset}
                   modelinfo={data.model}
                 />
-              </TabPanel>
-              <TabPanel value={value} index={2}>
                 <ROCPrecRecall
                   curve={1}
                   model_type={data.model_type}
@@ -230,17 +226,7 @@ export default function Evaluation(props) {
                   modelinfo={data.model}
                 />
               </TabPanel>
-              <TabPanel value={value} index={3}>
-                <CMatrix
-                  model_type={data.model_type}
-                  date_created={data.date_created}
-                  name={data.name}
-                  cmatrix={data.metadata.confusion_matrix}
-                  datasetinfo={data.dataset}
-                  modelinfo={data.model}
-                />
-              </TabPanel>
-              <TabPanel value={value} index={4}>
+              <TabPanel value={value} index={2}>
                 <ModelInfo
                   keys={data.model.metadata.keys}
                   values={data.model.metadata.values}
@@ -249,7 +235,14 @@ export default function Evaluation(props) {
                   modelinfo={data.model}
                 />
               </TabPanel>
-              <TabPanel value={value} index={5}>
+              <TabPanel value={value} index={3}>
+                <DatasetInfo
+                  model_type={data.model_type}
+                  name={data.name}
+                  datasetinfo={data.dataset}
+                  date_created={data.date_created}
+                  modelinfo={data.model}
+                />
                 <FeatureImp
                   model_type={data.model_type}
                   date_created={data.date_created}
@@ -259,25 +252,13 @@ export default function Evaluation(props) {
                   datasetinfo={data.dataset}
                   modelinfo={data.model}
                 />
-              
-              </TabPanel>
-              <TabPanel value={value} index={6}>
                 <ClassImb
-                model_type={data.model_type}
-                name={data.name}
-                metadata={data.metadata}
-                date_created={data.date_created}
-                output_label={data.dataset.metadata.output_label}
-                datasetinfo={data.dataset}
-                  modelinfo={data.model}
-                />
-              </TabPanel>
-              <TabPanel value={value} index={7}>
-                <DatasetInfo
                   model_type={data.model_type}
                   name={data.name}
-                  datasetinfo={data.dataset}
+                  metadata={data.metadata}
                   date_created={data.date_created}
+                  output_label={data.dataset.metadata.output_label}
+                  datasetinfo={data.dataset}
                   modelinfo={data.model}
                 />
               </TabPanel>

@@ -24,7 +24,7 @@ export default function ROC_Prec_Recall(props){
   const classes = useStyles();
   return(
     <div>
-      <div className="row">
+      {/* <div className="row">
         <Details
           area={0}
           name={props.name}
@@ -34,7 +34,7 @@ export default function ROC_Prec_Recall(props){
           datasetinfo={props.datasetinfo}
           modelinfo={props.modelinfo}
         />
-      </div>
+      </div> */}
 
       <div className="row">
         <Plot className={classes.plot}
