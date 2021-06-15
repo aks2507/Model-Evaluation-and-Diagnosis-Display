@@ -148,7 +148,6 @@ export default function Comparison(props) {
 					<CssBaseline/>
 					<div className={classes.leftarea}>
 						<TabPanel value={value} index={0}>
-							<Details evaluations={evalList}/>
 							<Metrics evaluations={evalList}/>
 						</TabPanel>
 						<TabPanel value={value} index={1}>

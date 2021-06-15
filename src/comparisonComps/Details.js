@@ -95,7 +95,7 @@ export default function Details(props) {
               onChangeIndex={handleChangeIndex}
             >
                 {evalList.map((evaluation, idx) => 
-                    <TabPanel value={value} index={idx} dir={theme.direction}>
+                    <TabPanel key={idx} value={value} index={idx} dir={theme.direction}>
                     <div className="container-fluid">
                       <div className="row">
                         <div className="col">

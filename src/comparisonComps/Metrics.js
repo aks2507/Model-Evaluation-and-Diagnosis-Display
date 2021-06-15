@@ -15,6 +15,10 @@ const useStyles = makeStyles({
     width:"90%",
     margin:"auto",
   },
+  plot:{
+        justifyContent: 'center',
+        alignItems: 'center',
+  },
 });
 
 
@@ -35,6 +39,7 @@ function pushAll(metric, value, x, y) {
 export default function Metrics(props){
     let evalList = props.evaluations;
     let numTabs = evalList.length;
+    console.log(props.evaluations);
   const rows = [];
   const x =[];
   const y= [];
@@ -45,8 +50,9 @@ export default function Metrics(props){
       y.push([]);
   }
 
-  console.log(props);
+  
     if(evalList[0].data.model_type==="regression") {
+        console.log("regression");
         for(let i=0;i<numTabs;i++){
             let mae = evalList[i].data.metadata.mean_absolute_error.toFixed(2);
             let mse = evalList[i].data.metadata.mean_squared_error.toFixed(2);
@@ -63,24 +69,25 @@ export default function Metrics(props){
             rows.push(createDataRegression(evalList[i].data.name,mae,mse,rmse,rmsle,r2,ar2));
         }
     
-  }
-  else {
-    for(let i=0;i<numTabs;i++)
-    {
-        let acc = evalList[i].data.metadata.accuracy_score.toFixed(2);
-        let prec = evalList[i].data.metadata.precision_score.toFixed(2);
-        let recall = evalList[i].data.metadata.recall.toFixed(2);
-        let f1 = evalList[i].data.metadata.f1_score.toFixed(2);
-        let ll = evalList[i].data.metadata.log_loss.toFixed(2);
-        pushAll("Accuracy",acc, x[i],y[i]);
-        pushAll("Precision Score",prec, x[i],y[i]);
-        pushAll("Recall",recall, x[i],y[i]);
-        pushAll("F1-Score",f1, x[i],y[i]);
-        pushAll("Log-Loss",ll, x[i],y[i]);
-        rows.push(createDataClassification(evalList[i].data.name,acc, prec, recall, f1, ll));
     }
-    
-  }
+    else if(evalList[0].data.model_type==="classification") {
+        console.log("classification");
+        for(let i=0;i<numTabs;i++)
+        {
+            let acc = evalList[i].data.metadata.accuracy_score.toFixed(2);
+            let prec = evalList[i].data.metadata.precision_score.toFixed(2);
+            let recall = evalList[i].data.metadata.recall.toFixed(2);
+            let f1 = evalList[i].data.metadata.f1_score.toFixed(2);
+            let ll = evalList[i].data.metadata.log_loss.toFixed(2);
+            pushAll("Accuracy",acc, x[i],y[i]);
+            pushAll("Precision Score",prec, x[i],y[i]);
+            pushAll("Recall",recall, x[i],y[i]);
+            pushAll("F1-Score",f1, x[i],y[i]);
+            pushAll("Log-Loss",ll, x[i],y[i]);
+            rows.push(createDataClassification(evalList[i].data.name,acc, prec, recall, f1, ll));
+        }
+        
+    }
   let trace = [];
   for(let i=0;i<numTabs;i++)
   {
@@ -90,39 +97,27 @@ export default function Metrics(props){
 
   const classes = useStyles();
   return(
-    <div>
+    <div className="col">
 
-      <div className="row">
-        <Details
-          area={1}
-          name={props.name}
-          model_type={props.model_type}
-          date_created={props.date_created}
-        />
-      </div>
-
-      <div className="row">
-
-        <div className="col">
-          <Plot
-
-            data={[
-              data
-            ]}
-            layout={ {width: 500, height: 375, title: 'Evaluation Metrics'} }
-            config={ {
-              scrollZoom:true,
-              respnsive:true
-            } }
-          />
-
+        <div className="row">
+            <Details
+                evaluations={evalList}
+            />
         </div>
+        <div className="row">
+            <div className={classes.plot}>
+                <Plot
 
-        <div className="col">
-          
+                data={data}
+                layout={ {width: 600, height: 450, title: 'Evaluation Metrics'} }
+                config={ {
+                    scrollZoom:true,
+                    respnsive:true
+                } }
+                />
+            </div>
         </div>
-
-      </div>
+        
 
     </div>
   );
