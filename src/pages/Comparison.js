@@ -12,6 +12,9 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Navbar from '../components/Navbar';
 import Details from '../comparisonComps/Details';
 import Metrics from '../comparisonComps/Metrics';
+import PrecisionRecall from '../comparisonComps/PrecisionRecall';
+import ROC_AUC from '../comparisonComps/ROC_AUC';
+
 
 function TabPanel(props) {
 	const { children, value, index, ...other } = props;
@@ -140,7 +143,9 @@ export default function Comparison(props) {
 						{evalList[0].data.model_type === "regression" ? (
 							null
 						) : (
-							<Tab label="Curves" {...a11yProps(2)} />
+							
+							<Tab label="ROC AUC Curves" {...a11yProps(2)}/>
+
 						)}
 					</Tabs>
 				</div>
@@ -156,9 +161,16 @@ export default function Comparison(props) {
 						{evalList[0].data.model_type === "regression" ? (
 							null
 						) : (
+							<>
 							<TabPanel value={value} index={2}>
-								<Details evaluations={evalList}/>
+								
+								<ROC_AUC evaluations={evalList}/>
 							</TabPanel>
+							<TabPanel value={value} index={3}>
+								<Details evaluations={evalList}/>
+								
+							</TabPanel>
+							</>
 						)}
 					</div>
 				</>
