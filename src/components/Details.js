@@ -67,6 +67,8 @@ export default function Details(props) {
     setValue(index);
   };
 
+  console.log(props.datasetinfo.metadata.memory);
+
   return (
     <div className={classes.root}>
       <AppBar position="static" color="default">
@@ -109,7 +111,7 @@ export default function Details(props) {
               onChangeIndex={handleChangeIndex}
             >
               <TabPanel value={value} index={0} dir={theme.direction}>
-                <div className="container-fluid">
+              <div className="container-fluid">
                   <div className="row">
                     <div className="col">
                       <p><strong>Name: </strong>{props.name}</p>
@@ -124,6 +126,22 @@ export default function Details(props) {
                     </div>
                     <div className="col">
                       <p><strong>Date Created: </strong>{props.date_created}</p>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col">
+                      <p><strong>Dataset: </strong>{props.datasetinfo.name}</p>
+                    </div>
+                    <div className="col">
+                      <p><strong>Rows, Columns </strong>{props.datasetinfo.metadata.number_of_rows}, {props.datasetinfo.metadata.number_of_columns}</p>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col">
+                      <p><strong>Dataset size: </strong>{props.datasetinfo.metadata.memory} bytes</p>
+                    </div>
+                    <div className="col">
+                      <p><strong>Model: </strong>{props.modelinfo.name}</p>
                     </div>
                   </div>
                 </div>
@@ -161,6 +179,22 @@ export default function Details(props) {
                     </div>
                     <div className="col">
                       <p><strong>Date Created: </strong>{props.date_created}</p>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col">
+                      <p><strong>Dataset: </strong>{props.datasetinfo.name}</p>
+                    </div>
+                    <div className="col">
+                      <p><strong>Rows, Columns </strong>{props.datasetinfo.metadata.number_of_rows}, {props.datasetinfo.metadata.number_of_columns}</p>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col">
+                      <p><strong>Dataset size: </strong>{props.datasetinfo.metadata.memory} bytes</p>
+                    </div>
+                    <div className="col">
+                      <p><strong>Model: </strong>{props.modelinfo.name}</p>
                     </div>
                   </div>
                 </div>
