@@ -12,6 +12,8 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 
+import Navbar from '../components/Navbar';
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -114,129 +116,132 @@ export default function EvalForm(props) {
     };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <PostAddIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Add Evaluation
-        </Typography>
-        <form className={classes.form} onSubmit={handleSubmit}>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="name"
-            label="Evaluation Name"
-            name="name"
-            autoComplete="Evaluation Name"
-            autoFocus
-            onChange={handleChange('name')}
-          />
-
-          <div className={classes.formControl}>
-            <InputLabel id="model_type">Model Type</InputLabel>
-            <Select
-              labelId="model_type"
-              id="mtype"
-              open={openMT}
+    <>
+      <Navbar />
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <div className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <PostAddIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Add Evaluation
+          </Typography>
+          <form className={classes.form} onSubmit={handleSubmit}>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
               fullWidth
-              onClose={handleModelTypeClose}
-              onOpen={handleModelTypeOpen}
-              onChange={handleDropdownChangeModelType}
-            >
-              <MenuItem value="regression">Regression</MenuItem>
-              <MenuItem value="classification">Classification</MenuItem>
-              <MenuItem value="clustering">Clustering</MenuItem>
-            </Select>
-          </div>
+              id="name"
+              label="Evaluation Name"
+              name="name"
+              autoComplete="Evaluation Name"
+              autoFocus
+              onChange={handleChange('name')}
+            />
 
-          <div className={classes.formControl}>
-            <InputLabel id="dataset_id">Dataset</InputLabel>
-            <Select
-              labelId="dataset_id"
-              id="did"
-              open={openDS}
-              fullWidth
-              onClose={handleDatasetClose}
-              onOpen={handleDatasetOpen}
-              value={datasetID}
-              onChange={handleDropdownChangeDatasetID}
-            >
-              {datasets.map((dataset) =>
-                <MenuItem value={dataset.dataset_id}>{dataset.name}</MenuItem>
-              )}
-            </Select>
-          </div>
-
-          <div className={classes.formControl}>
-            <InputLabel id="model_id">Model</InputLabel>
-            <Select
-              labelId="model_id"
-              id="mid"
-              fullWidth
-              open={openModel}
-              onClose={handleModelClose}
-              onOpen={handleModelOpen}
-              value={modelID}
-              onChange={handleDropdownChangeModelID}
-            >
-              {models.map((model) =>
-                <MenuItem value={model.model_id}>{model.name}</MenuItem>
-              )}
-            </Select>
-          </div>
-
-          <TextField
-            variant="filled"
-            margin="normal"
-            fullWidth
-            name="description"
-            label="Description"
-            id="description"
-            autoComplete="Evaluation Description"
-          />
-
-          <div className="row">
-
-            <div className="col">
-              <Button
-                type="submit"
+            <div className={classes.formControl}>
+              <InputLabel id="model_type">Model Type</InputLabel>
+              <Select
+                labelId="model_type"
+                id="mtype"
+                open={openMT}
                 fullWidth
-                variant="contained"
-                color="secondary"
-                size="large"
-                className={classes.submit}
-                onClick={handleSubmit}
+                onClose={handleModelTypeClose}
+                onOpen={handleModelTypeOpen}
+                onChange={handleDropdownChangeModelType}
               >
-                Add
-              </Button>
+                <MenuItem value="regression">Regression</MenuItem>
+                <MenuItem value="classification">Classification</MenuItem>
+                <MenuItem value="clustering">Clustering</MenuItem>
+              </Select>
             </div>
 
-            <div className="col">
-              <Button
+            <div className={classes.formControl}>
+              <InputLabel id="dataset_id">Dataset</InputLabel>
+              <Select
+                labelId="dataset_id"
+                id="did"
+                open={openDS}
                 fullWidth
-                variant="contained"
-                color="primary"
-                size="large"
-                className={classes.submit}
-                onClick={handleCancel}
+                onClose={handleDatasetClose}
+                onOpen={handleDatasetOpen}
+                value={datasetID}
+                onChange={handleDropdownChangeDatasetID}
               >
-                Cancel
-              </Button>
+                {datasets.map((dataset) =>
+                  <MenuItem value={dataset.dataset_id}>{dataset.name}</MenuItem>
+                )}
+              </Select>
             </div>
 
-          </div>
+            <div className={classes.formControl}>
+              <InputLabel id="model_id">Model</InputLabel>
+              <Select
+                labelId="model_id"
+                id="mid"
+                fullWidth
+                open={openModel}
+                onClose={handleModelClose}
+                onOpen={handleModelOpen}
+                value={modelID}
+                onChange={handleDropdownChangeModelID}
+              >
+                {models.map((model) =>
+                  <MenuItem value={model.model_id}>{model.name}</MenuItem>
+                )}
+              </Select>
+            </div>
+
+            <TextField
+              variant="filled"
+              margin="normal"
+              fullWidth
+              name="description"
+              label="Description"
+              id="description"
+              autoComplete="Evaluation Description"
+            />
+
+            <div className="row">
+
+              <div className="col">
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="secondary"
+                  size="large"
+                  className={classes.submit}
+                  onClick={handleSubmit}
+                >
+                  Add
+                </Button>
+              </div>
+
+              <div className="col">
+                <Button
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  size="large"
+                  className={classes.submit}
+                  onClick={handleCancel}
+                >
+                  Cancel
+                </Button>
+              </div>
+
+            </div>
 
 
 
 
-        </form>
-      </div>
+          </form>
+        </div>
 
-    </Container>
+      </Container>
+    </>
   );
 };

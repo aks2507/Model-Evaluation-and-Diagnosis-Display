@@ -7,7 +7,6 @@ import {
 } from 'react-router-dom';
 
 import Homepage from '../pages/Homepage';
-import EvalForm from '../pages/EvalForm';
 import Evaluation from '../pages/Evaluation';
 import Comparison from '../pages/Comparison';
 import ModelsDatasets from '../pages/ModelsDatasets';
