@@ -1,14 +1,11 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
 import Plot from 'react-plotly.js';
 
+//Components
 import Details from './Details';
+import CompareTable from './CompareTable';
+import Plots from './Plots';
 
 const useStyles = makeStyles({
   table: {
@@ -21,10 +18,8 @@ const useStyles = makeStyles({
   },
 });
 
-
-
-function createDataRegression(evalName, mae, mse, rmse, rmsle, r2, ar2) {
-  return { evalName, mae, mse, rmse, rmsle, r2, ar2 };
+function createDataRegression(evalName, mae, mse, rmse, rmsle, r2, ar2){
+    return { evalName, mae, mse, rmse, rmsle, r2, ar2 };
 }
 
 function createDataClassification(evalName, acc, prec, recall, f1, logloss) {
@@ -40,15 +35,27 @@ export default function Metrics(props){
     let evalList = props.evaluations;
     let numTabs = evalList.length;
     console.log(props.evaluations);
-  const rows = [];
-  const x =[];
-  const y= [];
+    const rows = [];
+    const x = [];
+    const y = [];
+    const x_one =[];
+    const x_two =[];
+    const y_one =[];
+    const y_two =[];
 
-  for(let i=0;i<numTabs;i++)
-  {
-      x.push([]);
-      y.push([]);
-  }
+    for(let i=0;i<numTabs;i++)
+    {
+        if(evalList[0].data.model_type==="regression"){
+            x_one.push([]);
+            y_one.push([]);
+            x_two.push([]);
+            y_two.push([]);
+        }
+        else{
+            x.push([]);
+            y.push([]);
+        }
+    }
 
   
     if(evalList[0].data.model_type==="regression") {
@@ -60,12 +67,12 @@ export default function Metrics(props){
             let rmsle = evalList[i].data.metadata.root_mean_squared_log_error.toFixed(2);
             let r2 = evalList[i].data.metadata.Coefficient_of_Determination.toFixed(2);
             let ar2 = evalList[i].data.metadata.Adjusted_r_squared.toFixed(2);
-            pushAll("MAE",mae, x[i],y[i]);
-            pushAll("MSE",mse, x[i],y[i]);
-            pushAll("RMSE",rmse, x[i],y[i]);
-            pushAll("RMSLE",rmsle, x[i],y[i]);
-            pushAll("R^2",r2, x[i],y[i]);
-            pushAll("Adjusted R^2",ar2, x[i],y[i]);
+            pushAll("MAE",mae, x_one[i],y_one[i]);
+            pushAll("MSE",mse, x_one[i],y_one[i]);
+            pushAll("RMSE",rmse, x_one[i],y_one[i]);
+            pushAll("RMSLE",rmsle, x_two[i],y_two[i]);
+            pushAll("R^2",r2, x_two[i],y_two[i]);
+            pushAll("Adjusted R^2",ar2, x_two[i],y_two[i]);
             rows.push(createDataRegression(evalList[i].data.name,mae,mse,rmse,rmsle,r2,ar2));
         }
     
@@ -88,12 +95,44 @@ export default function Metrics(props){
         }
         
     }
-  let trace = [];
-  for(let i=0;i<numTabs;i++)
-  {
-    trace.push({x:x[i],y:y[i],type:'bar',name:evalList[i].data.name});
-  }
-  let data = [...trace]
+    let data, linedata, data_one, data_two, linedata_one, linedata_two;
+    if(evalList[0].data.model_type==="regression"){
+        let bartrace_one = [];
+        let linetrace_one = [];
+        let bartrace_two = [];
+        let linetrace_two = [];
+        for(let i=0;i<numTabs;i++)
+        {
+            bartrace_one.push({x:x_one[i],y:y_one[i],type:'bar',name:evalList[i].data.name});
+            bartrace_two.push({x:x_two[i],y:y_two[i],type:'bar',name:evalList[i].data.name});
+        }
+        data_one = [...bartrace_one]
+        data_two = [...bartrace_two]
+
+        for(let i=0;i<numTabs;i++)
+        {
+            linetrace_one.push({x:x_one[i],y:y_one[i],type:'scatter',name:evalList[i].data.name});
+            linetrace_two.push({x:x_two[i],y:y_two[i],type:'scatter',name:evalList[i].data.name});
+        }
+        linedata_one = [...linetrace_one]
+        linedata_two = [...linetrace_two]
+    }
+    else{
+        let bartrace = [];
+        let linetrace = [];
+        for(let i=0;i<numTabs;i++)
+        {
+            bartrace.push({x:x[i],y:y[i],type:'bar',name:evalList[i].data.name});
+        }
+        data = [...bartrace]
+        
+        for(let i=0;i<numTabs;i++)
+        {
+            linetrace.push({x:x[i],y:y[i],type:'scatter',name:evalList[i].data.name});
+        }
+        linedata = [...linetrace]
+    }
+    
 
   const classes = useStyles();
   return(
@@ -104,21 +143,47 @@ export default function Metrics(props){
                 evaluations={evalList}
             />
         </div>
+
+        {evalList[0].data.model_type === "regression" ? (
+            <>
+                <div className="row">
+                    <div className="col">
+                        <Plots data={data_one} width={500} height={375}/>
+                    </div>
+                    <div className="col">
+                        <Plots data={data_two} width={500} height={375}/>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col">
+                        <Plots data={linedata_one} width={500} height={375}/>
+                    </div>
+                    <div className="col">
+                        <Plots data={linedata_two} width={500} height={375}/>
+                    </div>
+                </div>
+            </>
+        ) : (
+            <>
+                <div className="row">
+                    <Plots data={data} width={600} height={450}/>
+                </div>
+                <div className="row">
+                    <Plots data={linedata} width={600} height={450}/>
+                </div>
+            </>
+        )}
+
+        
+        
         <div className="row">
             <div className={classes.plot}>
-                <Plot
-
-                data={data}
-                layout={ {width: 600, height: 450, title: 'Evaluation Metrics'} }
-                config={ {
-                    scrollZoom:true,
-                    respnsive:true
-                } }
+                <CompareTable
+                    rows={rows}
+                    model_type={evalList[0].data.model_type}
                 />
             </div>
         </div>
-        
-
     </div>
   );
 }
