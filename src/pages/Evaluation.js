@@ -87,7 +87,8 @@ export default function Evaluation(props) {
   // console.log(data);
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error!</p>;
-
+  var labels=data.dataset.metadata.output_label;
+  console.log(typeof labels);
   return (
     <div className={classes.root}>
 
@@ -123,11 +124,11 @@ export default function Evaluation(props) {
               <Tab label="Confusion Matrix" {...a11yProps(3)} />
               <Tab label="Model Information" {...a11yProps(4)} />
               <Tab label="Feature Importance" {...a11yProps(5)} />
-              <Tab label="Class Imbalence" {...a11yProps(6)} />
+              <Tab label="Class Imbalance" {...a11yProps(6)} />
             </Tabs>
           </div>
         )}
-
+      
       {data.model_type === "regression" ? (
         <>
           <CssBaseline />
@@ -218,9 +219,16 @@ export default function Evaluation(props) {
                 feature_scores={data.metadata.feature_scores}
                 columns={data.metadata.columns}
               />
+            
             </TabPanel>
             <TabPanel value={value} index={6}>
-              <ClassImb/>
+              <ClassImb
+              model_type={data.model_type}
+              name={data.name}
+              metadata={data.metadata}
+              date_created={data.date_created}
+              output_label={data.dataset.metadata.output_label}
+              />
             </TabPanel>
           </div>
         </>

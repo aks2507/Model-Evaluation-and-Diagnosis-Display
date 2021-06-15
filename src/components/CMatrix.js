@@ -15,7 +15,7 @@ const useStyles = makeStyles({
 });
 
 
-export default function ROC_Prec_Recall(props){
+export default function Confusion_matrix(props){
   let z = props.cmatrix;
   const x = [];
   const y = [];
