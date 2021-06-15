@@ -25,8 +25,6 @@ class DatasetResource(Resource):
 
 	def get(self,dataset_id):
 		dataset_entity = Dataset.find_by_id(dataset_id)
-		# print(dataset_entity,type(dataset_entity))
-		# print(dataset_entity.json(),type(dataset_entity.json()))
 		if dataset_entity:
 			if dataset_entity.meta:
 				return dataset_entity.json()
@@ -36,8 +34,6 @@ class DatasetResource(Resource):
 			# print(dataset_object.dataset_report(),type(dataset_object.dataset_report()))
 			dataset_info = dataset_object.dataset_report()
 			dataset_entity.meta = dataset_info
-
-			# print(dataset_entity.json(),type(dataset_entity.json()))
 
 			dataset_entity.save_to_db()
 			return dataset_entity.json()

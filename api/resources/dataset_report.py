@@ -39,7 +39,13 @@ class DatasetReport():
 				x = x + 1
 
 		self.duplicates = x
+  
+	def get_output_label(self):
+		self.output=self.dataframe[self.col_names[-1]]
+		self.output=self.output.tolist()
+		print(type(self.output))
 
+  
 	def get_memory(self):
 		self.memory = self.dataframe.memory_usage(index=True,deep=True).sum()
 
@@ -64,6 +70,7 @@ class DatasetReport():
 		self.get_memory()
 		self.missing_values()
 		self.get_outliers()
+		self.get_output_label()
 
 	def dataset_report(self):
 		self.get_report()
@@ -76,7 +83,8 @@ class DatasetReport():
 			"number_of_outliers":self.outliers,
 			"memory":int(self.memory),
 			"number_of_duplicates":self.duplicates,
-			"description":self.describe
+			"description":self.describe,
+			"output_label":self.output
 		}
 
 
