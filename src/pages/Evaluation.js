@@ -158,7 +158,13 @@ export default function Evaluation(props) {
               />
             </TabPanel>
             <TabPanel value={value} index={3}>
-              Item Four
+            <ClassImb
+              model_type={data.model_type}
+              name={data.name}
+              metadata={data.metadata}
+              date_created={data.date_created}
+              output_label={data.dataset.metadata.output_label}
+              />
             </TabPanel>
           </div>
         </>

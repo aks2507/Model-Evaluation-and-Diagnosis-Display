@@ -24,6 +24,8 @@ class ModelReport():
 
 	def get_parameters(self):
 		self.params = self.loaded_model.__dict__
+		self.params.popitem()
+		print(self.params)
 		self.keys = list(self.loaded_model.__dict__.keys())
 		self.values = list(self.loaded_model.__dict__.values())
 
@@ -31,6 +33,7 @@ class ModelReport():
 		self.get_loaded_model()
 		self.get_parameters()
 		self.encode()
+
 
 	def model_report(self):
 		self.get_report()

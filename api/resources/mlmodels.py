@@ -24,8 +24,9 @@ class MLModelResource(Resource):
     )
 
     def get(self,model_id):
+        
         model_entity = MLModel.find_by_id(model_id)
-
+        print('hii shivam')
         if model_entity:
             if model_entity.meta:
                 return model_entity.json()
