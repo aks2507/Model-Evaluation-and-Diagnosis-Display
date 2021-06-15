@@ -31,6 +31,8 @@ export default function ROC_Prec_Recall(props){
           model_type={props.model_type}
           date_created={props.date_created}
           area_under_curve={props.auc}
+          datasetinfo={props.datasetinfo}
+          modelinfo={props.modelinfo}
         />
       </div>
 

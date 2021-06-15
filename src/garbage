@@ -1,12 +1,12 @@
 <TableContainer component={Paper}>
-            <Table className={classes.table} aria-label="simple table">
-              <TableBody>
-                {rows.map((row) => (
-                  <TableRow key={row.metric}>
-                    <TableCell align="center">{row.metric}</TableCell>
-                    <TableCell align="center">{row.value}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+  <Table className={classes.table} aria-label="simple table">
+    <TableBody>
+      {rows.map((row) => (
+        <TableRow key={row.metric}>
+          <TableCell align="center">{row.metric}</TableCell>
+          <TableCell align="center">{row.value}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+  </Table>
+</TableContainer>

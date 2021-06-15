@@ -57,6 +57,8 @@ export default function ClassImb(props){
           name={props.name}
           model_type={props.model_type}
           date_created={props.date_created}
+          datasetinfo={props.datasetinfo}
+          modelinfo={props.modelinfo}
         />
       </div>
         <div>

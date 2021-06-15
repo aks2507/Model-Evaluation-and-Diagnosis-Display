@@ -1,42 +1,55 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import {withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Plot from 'react-plotly.js';
-
+import Box from '@material-ui/core/Box';
 import Details from './Details';
+
+
+const StyledTableCell = withStyles((theme) => ({
+  head: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  body: {
+    fontSize: 14,
+  },
+}))(TableCell);
+
+const StyledTableRow = withStyles((theme) => ({
+  root: {
+    '&:nth-of-type(odd)': {
+      backgroundColor: theme.palette.action.hover,
+    },
+  },
+}))(TableRow);
+
+
 
 const useStyles = makeStyles({
   table: {
-    width:"90%",
-    margin:"auto",
+      minWidth: 300,
+      margin: "auto",
   },
-  plot:{
-        justifyContent: 'center',
-        alignItems: 'center',
+  plot: {
+      justifyContent: 'center',
+      alignItems: 'center',
   },
 });
 
-
-
-function createDataRegression(evalName, mae, mse, rmse, rmsle, r2, ar2) {
-  return { evalName, mae, mse, rmse, rmsle, r2, ar2 };
+function createData(name,area){
+  return {name,area};
 }
 
-function createDataClassification(evalName, acc, prec, recall, f1, logloss) {
-    return { evalName, acc, prec, recall, f1, logloss };
-}
 
-function pushAll(metric, value, x, y) {
-  y.push(value);
-  x.push(metric);
-}
 
-export default function Metrics(props){
+export default function ROC_AUC(props){
     let evalList = props.evaluations;
     let numTabs = evalList.length;
 
@@ -77,6 +90,12 @@ export default function Metrics(props){
   curve_info.push(info);
   curve_info.push(auc_);
   const classes = useStyles();
+  var rows=[];
+  for(var i=0;i<numTabs;i++)
+  {
+      rows.push(createData(evalList[i].data.name,auc[i].toFixed(2)));
+  }
+  
   return(
     <div className="col">
 
@@ -94,33 +113,35 @@ export default function Metrics(props){
             responsive:true
         } }
         />
-        <div>
-         <Plot
-        data={[
-          {
-    
-            type: 'table',
-            header:{
-                values:[["<b>Models</b>"], ["<b>Area Under Curve</b>"]],
-                align: "center",
-                fill: {color: '#119DFF'},
+            <div>
+                    <Box  m={2} pt={15}>
+                    <TableContainer  component={Paper}>
+                    <Table className={classes.table} aria-label="simple table">
+                        <TableHead>
+                        <TableRow>
+                            <StyledTableCell>Model</StyledTableCell>
+                            <StyledTableCell align="right">AUC</StyledTableCell>
+                        </TableRow>
+                        </TableHead>
+                        <TableBody>
+                        {rows.map((row) => (
+                            <TableRow key={row.name}>
+                            <StyledTableCell component="th" scope="row">
+                                {row.name}
+                            </StyledTableCell>
+                            <StyledTableCell align="right">{row.area}</StyledTableCell>
+                            </TableRow>
+                        ))}
+                        </TableBody>
+                    </Table>
+                    </TableContainer>
+                    </Box>
+                   
 
-            },
-            cells: {
-                values: curve_info,
-                height:31,
-                fill: {color: ['#25FEFD', 'white']},
-                align: "center",
-                line: {color: "black", width: 1},
-                font: {family: "Arial", size: 11, color: ["black"]}
-              }
-          },
-        ]}
-        layout={ {width: 420, height: 840, title: 'Curve Information'} }
-      />
+
+
+                </div>
         </div>
-        </div>
-        
 
     </div>
   );

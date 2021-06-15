@@ -55,6 +55,14 @@ function stableSort(array, comparator) {
   return stabilizedThis.map((el) => el[0]);
 }
 
+const VisualizeHandler = (eval_id) => async(e) => {
+  window.location.replace("/evaluation/"+eval_id);
+};
+
+function countUnique(iterable) {
+  return new Set(iterable).size;
+}
+
 const headCells = [
   { id: 'eval_id', numeric: true, disablePadding: false, label: 'Evaluation ID' },
   { id: 'name', numeric: false, disablePadding: false, label: 'Evaluation Name' },
@@ -93,7 +101,7 @@ function EnhancedTableHead(props){
                 direction={orderBy === headCell.id ? order : 'asc'}
                 onClick={createSortHandler(headCell.id)}
               >
-                {headCell.label}
+                <strong>{headCell.label}</strong>
                 {orderBy === headCell.id ? (
                   <span className={classes.visuallyHidden}>
                     {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
@@ -144,7 +152,8 @@ const useToolbarStyles = makeStyles((theme) => ({
 
 const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles();
-  const { numSelected, selectedList } = props;
+  const { numSelected, selectedList, modelTypeList} = props;
+  // console.log(modelTypeList);
 
   const onDeleteIconHandler = async(e) => {
     e.preventDefault();
@@ -153,10 +162,6 @@ const EnhancedTableToolbar = (props) => {
     {
       await axios.delete("/evaluate/"+selectedList[i]).then(() => {window.location.replace("/");});
     }
-  };
-
-  const VisualizeHandler = eval_id => async(e) => {
-    window.location.replace("/evaluation/"+eval_id);
   };
 
   const CompareHandler = eval_ids => async(e) => {
@@ -175,21 +180,26 @@ const EnhancedTableToolbar = (props) => {
           {numSelected} selected
         </Typography>
       ) : (
-        <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
-          Evaluations
-        </Typography>
+        <>
+          <Typography className={classes.title} variant="h4" id="tableTitle" component="div">
+            Evaluations
+            <Typography variant="body2" component="div">
+              Click on an Evaluation name to visualize
+            </Typography>
+          </Typography>
+        </>
       )}
 
       {numSelected > 0 ? (
         <div className={classes.rowC}>
 
-            {numSelected < 2 ? (
+            {numSelected < 2 || countUnique(modelTypeList) > 1 ? (
               <Button
                 variant="contained"
-                color="primary"
-                onClick={VisualizeHandler(selectedList[0])}
+                color="secondary"
+                disabled
               >
-                Visualize
+                Compare
               </Button>
             ) : (
               <Button
@@ -281,6 +291,7 @@ export default function Homepage(){
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('eval_id');
   const [selected, setSelected] = useState([]);
+  const [selectedModelType, setSelectedModelType] = useState([]);
   const [page, setPage] = useState(0);
   const [dense, setDense] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -294,30 +305,42 @@ export default function Homepage(){
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
       const newSelecteds = rows.map((n) => n.eval_id);
+      const newSelectedsModelTypes = rows.map((n) => n.model_type);
       setSelected(newSelecteds);
+      setSelectedModelType(newSelectedsModelTypes);
       return;
     }
     setSelected([]);
+    setSelectedModelType([]);
   };
 
-  const handleClick = (event, eval_id) => {
+  const handleClick = (event, eval_id, model_type) => {
     const selectedIndex = selected.indexOf(eval_id);
     let newSelected = [];
+    let newSelectedModelType = [];
 
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, eval_id);
+      newSelectedModelType = newSelectedModelType.concat(selectedModelType, model_type);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
+      newSelectedModelType = newSelectedModelType.concat(selectedModelType.slice(1));
     } else if (selectedIndex === selected.length - 1) {
       newSelected = newSelected.concat(selected.slice(0, -1));
+      newSelectedModelType = newSelectedModelType.concat(selectedModelType.slice(0, -1));
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(
         selected.slice(0, selectedIndex),
         selected.slice(selectedIndex + 1),
       );
+      newSelectedModelType = newSelectedModelType.concat(
+        selectedModelType.slice(0, selectedIndex),
+        selectedModelType.slice(selectedIndex + 1),
+      );
     }
 
     setSelected(newSelected);
+    setSelectedModelType(newSelectedModelType);
   };
 
   const handleChangePage = (event, newPage) => {
@@ -332,6 +355,7 @@ export default function Homepage(){
   const handleChangeDense = (event) => {
     setDense(event.target.checked);
   };
+  
 
   const isSelected = (eval_id) => selected.indexOf(eval_id) !== -1;
 
@@ -342,7 +366,10 @@ export default function Homepage(){
     <div className={classes.root}>
       <Navbar/>
       <Paper className={classes.paper}>
-        <EnhancedTableToolbar numSelected={selected.length} selectedList={selected} />
+        <EnhancedTableToolbar 
+          numSelected={selected.length} 
+          selectedList={selected} 
+          modelTypeList={selectedModelType} />
         <TableContainer>
           <Table
             className={classes.table}
@@ -369,7 +396,7 @@ export default function Homepage(){
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.eval_id)}
+                      onClick={(event) => handleClick(event, row.eval_id, row.model_type)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
@@ -383,7 +410,15 @@ export default function Homepage(){
                         />
                       </TableCell>
                       <TableCell component="th" id={labelId} scope="row" align="center">{row.eval_id}</TableCell>
-                      <TableCell align="center">{row.name}</TableCell>
+                      <TableCell align="center">
+                        <Button 
+                          color="inherit" 
+                          style={{textTransform: 'none'}} 
+                          onClick={VisualizeHandler(row.eval_id)}
+                        >
+                          {row.name}
+                        </Button>
+                      </TableCell>
                       <TableCell align="center">{row.model_type}</TableCell>
                       <TableCell align="center">{row.model_name}</TableCell>
                       <TableCell align="center">{row.dataset_name}</TableCell>

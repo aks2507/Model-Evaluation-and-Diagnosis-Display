@@ -127,56 +127,82 @@ export default function Comparison(props) {
 	})
 	return (
 		<>
-			<Navbar/>
-			<div className={classes.root}>
-				<div className={classes.root}>
-					<Tabs
-						orientation="vertical"
-						variant="scrollable"
-						value={value}
-						onChange={handleChange}
-						aria-label="Vertical tabs example"
-						className={classes.tabs}
-					>
-						<Tab label="Metrics" {...a11yProps(0)} />
-						<Tab label="Dataset Information" {...a11yProps(1)} />
-						{evalList[0].data.model_type === "regression" ? (
-							null
-						) : (
-							
-							<Tab label="ROC AUC Curves" {...a11yProps(2)}/>
-
-						)}
-					</Tabs>
-				</div>
-				<>
-					<CssBaseline/>
-					<div className={classes.leftarea}>
-						<TabPanel value={value} index={0}>
-							<Metrics evaluations={evalList}/>
-						</TabPanel>
-						<TabPanel value={value} index={1}>
-							<Details evaluations={evalList}/>
-						</TabPanel>
-						{evalList[0].data.model_type === "regression" ? (
-							null
-						) : (
-							<>
-							<TabPanel value={value} index={2}>
-								
-								<ROC_AUC evaluations={evalList}/>
-							</TabPanel>
-							<TabPanel value={value} index={3}>
-								<Details evaluations={evalList}/>
-								
-							</TabPanel>
-							</>
-						)}
-					</div>
-				</>
-			</div>
-			
-			
-		</>
+			 <Navbar/>
+      <div className={classes.root}>
+          
+          {evalList[0].data.model_type === "regression" ? (
+            <div className={classes.root}>
+              <Tabs
+                orientation="vertical"
+                variant="scrollable"
+                value={value}
+                onChange={handleChange}
+                aria-label="Vertical tabs example"
+                className={classes.tabs}
+              >
+                <Tab label="Metrics" {...a11yProps(0)} />
+                <Tab label="Feature Importance" {...a11yProps(1)} />
+                <Tab label="Dataset Information" {...a11yProps(2)} />
+              </Tabs>
+            </div>
+          ) : (
+            <div className={classes.root}>
+              <Tabs
+                orientation="vertical"
+                variant="scrollable"
+                value={value}
+                onChange={handleChange}
+                aria-label="Vertical tabs example"
+                className={classes.tabs}
+              >
+                <Tab label="Metrics" {...a11yProps(0)} />
+                <Tab label="ROC-AUC Curve" {...a11yProps(1)} />
+                <Tab label="Precision-Recall Curve" {...a11yProps(2)} />
+                <Tab label="Feature Importance" {...a11yProps(3)} />
+                <Tab label="Dataset Information" {...a11yProps(4)} />
+              </Tabs>
+            </div>
+          )}
+        
+        {evalList[0].data.model_type === "regression" ? (
+          <>
+            <CssBaseline />
+            <div className={classes.leftarea}>
+              <TabPanel value={value} index={0}>
+			  <Metrics evaluations={evalList}/>
+              </TabPanel>
+              <TabPanel value={value} index={1}>
+			  <Details evaluations={evalList}/>
+              </TabPanel>
+              <TabPanel value={value} index={2}>
+			  <Details evaluations={evalList}/>
+              </TabPanel>
+            </div>
+          </>
+        ) : (
+          <>
+            <CssBaseline />
+            <div className={classes.leftarea}>
+              <TabPanel value={value} index={0}>
+			  <Metrics evaluations={evalList}/>
+              </TabPanel>
+              <TabPanel value={value} index={1}>
+			  <ROC_AUC evaluations={evalList}/>
+              </TabPanel>
+              <TabPanel value={value} index={2}>
+			  <PrecisionRecall evaluations={evalList}/>
+              </TabPanel>
+              <TabPanel value={value} index={3}>
+			  <Details evaluations={evalList}/>
+              </TabPanel>
+              <TabPanel value={value} index={4}>
+               
+              
+              </TabPanel>
+            </div>
+          </>
+        )}
+      </div>
+    </>
 	);
 }
