@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 //Components
-import Details from './Details';
+import Details from '../comparisonComps/Details';
 import CompareTable from './CompareTable';
 import Plots from './Plots';
 import Box from '@material-ui/core/Box';
@@ -33,7 +33,7 @@ function pushAll(metric, value, x, y) {
 export default function Metrics(props){
     let evalList = props.evaluations;
     let numTabs = evalList.length;
- 
+    console.log(evalList);
     const rows = [];
     const x = [];
     const y = [];
@@ -58,7 +58,7 @@ export default function Metrics(props){
 
   
     if(evalList[0].data.model_type==="regression") {
-    
+        console.log("regression");
         for(let i=0;i<numTabs;i++){
             let mae = evalList[i].data.metadata.mean_absolute_error.toFixed(2);
             let mse = evalList[i].data.metadata.mean_squared_error.toFixed(2);
@@ -72,7 +72,7 @@ export default function Metrics(props){
             pushAll("RMSLE",rmsle, x_two[i],y_two[i]);
             pushAll("R^2",r2, x_two[i],y_two[i]);
             pushAll("Adjusted R^2",ar2, x_two[i],y_two[i]);
-            rows.push(createDataRegression(evalList[i].data.name,mae,mse,rmse,rmsle,r2,ar2));
+            rows.push(createDataRegression(evalList[i].data.dataset.name,mae,mse,rmse,rmsle,r2,ar2));
         }
     
     }
@@ -90,7 +90,7 @@ export default function Metrics(props){
             pushAll("Recall",recall, x[i],y[i]);
             pushAll("F1-Score",f1, x[i],y[i]);
             pushAll("Log-Loss",ll, x[i],y[i]);
-            rows.push(createDataClassification(evalList[i].data.name,acc, prec, recall, f1, ll));
+            rows.push(createDataClassification(evalList[i].data.dataset.name,acc, prec, recall, f1, ll));
         }
         
     }
@@ -134,18 +134,16 @@ export default function Metrics(props){
     
 
   const classes = useStyles();
-  console.log(evalList[0].data.model_type);
+  console.log(evalList);
   return(
-    <div className="col">
-
-        <div className="row">
-            <Details
-                c={1}
-                evaluations={evalList}
-            />
-        </div>
-
-        <div className="row">
+     <div className="col">
+         <div className="row">
+             <Details 
+             c={0}
+             evaluations={evalList}
+             ></Details>
+         </div>
+         <div className="row">
             <div className={classes.plot}>
                 <Box ml={10}>
                 <CompareTable
@@ -157,47 +155,6 @@ export default function Metrics(props){
             </div>
         </div>
 
-        {evalList[0].data.model_type === "regression" ? (
-            <>
-                <div className="row">
-                    <div className="col">
-                    <Box m={20} mt={1}>
-                        <Plots data={data_one} width={700} height={450}/>
-                    </Box>
-                    </div>
-                    <div className="col">
-                    <Box m={20} mt={1}>
-                        <Plots data={data_two} width={700} height={450}/>
-                        </Box>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col">
-                    <Box m={20} mt={1}>
-                        <Plots data={linedata_one} width={700} height={450}/>
-                        </Box>
-                    </div>
-                    <div className="col">
-                    <Box m={20} mt={1}>
-                        <Plots data={linedata_two} width={700} height={450}/>
-                        </Box>
-                    </div>
-                </div>
-            </>
-        ) : (
-            <>
-                <div className="row">
-                <Box m={20} mt={0}>
-                    <Plots data={data} width={700} height={450}/>
-                    </Box>
-                </div>
-                <div className="row">
-                <Box m={20} mt={0}>
-                    <Plots data={linedata} width={700} height={450}/>
-                    </Box>
-                </div>
-            </>
-        )}
-    </div>
+     </div>
   );
 }

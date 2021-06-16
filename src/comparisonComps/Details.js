@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Details(props) {
     let evalList = props.evaluations;
-    // let numTabs = evalList.length;
+    let c=props.c;
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
@@ -66,9 +66,10 @@ export default function Details(props) {
   const handleChangeIndex = (index) => {
     setValue(index);
   };
-
+  console.log(evalList);
   console.log(evalList[0].data);
   console.log(evalList[0].data.dataset.name);
+  console.log(c);
 
   return (
     <div className={classes.root}>
@@ -83,10 +84,17 @@ export default function Details(props) {
               variant="fullWidth"
               aria-label="full width tabs example"
             >
-              {evalList.map((evaluation, index) => 
-                  <Tab key={index}
-                  label={evaluation.data.name} {...a11yProps(index)} />
-              )}
+              {
+              c==0 ?(
+                evalList.map((evaluation, index) => 
+                <Tab key={index}
+                label={evaluation.data.dataset.name} {...a11yProps(index)} />)
+              ):(
+                evalList.map((evaluation, index) => 
+                <Tab key={index}
+                label={evaluation.data.name} {...a11yProps(index)} />)
+              )
+              }
             </Tabs>
           </div>
       </AppBar>

@@ -4,10 +4,19 @@ import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 // Components
 import Navbar from '../components/Navbar';
-
+import Metrics from '../comparisonComps/Metrics';
+import PrecisionRecall from '../comparisonComps/PrecisionRecall';
+import ROC_AUC from '../comparisonComps/ROC_AUC';
+import FeatureImportance from '../comparisonComps/FeatureImportance'
+import DatasetInfo from '../components/DatasetInfo';
+import ClassImb from '../components/ClassImb';
+import MetricsDatasetComparision from '../comparisonComps/MetricsDatasetComparision';
 function TabPanel(props) {
 	const { children, value, index, ...other } = props;
 
@@ -72,7 +81,7 @@ export default function Comparison(props) {
 	const initialValue = [];
 	for(let i=0;i<eval_ids.length;i++)
 	{
-		initialValue.push({data:{}});
+		initialValue.push({data:{dataset:{metadata:{description:{}}},model:{metadata:{}}}});
 	}
 	console.log(initialValue);
 
@@ -100,7 +109,7 @@ export default function Comparison(props) {
 		})
 	  
 		const evaluations = await Promise.all(promises)
-		// console.log(evaluations)
+		
 	  
 		console.log('End')
 		return evaluations;
@@ -112,15 +121,48 @@ export default function Comparison(props) {
 		});
 		setLoad(false);
 	}
-
-	evalList.map((evaluation) => {
-		console.log(evaluation,typeof(evaluation));
-		return null;
-	})
+	
+	console.log(evalList);
 	return (
 		<>
 			<Navbar/>
-			<h1>HelloWorld</h1>
+			
+			<div className={classes.root}>
+				<div className={classes.root}>
+					<Tabs
+						orientation="vertical"
+						variant="scrollable"
+						value={value}
+						onChange={handleChange}
+						aria-label="Vertical tabs example"
+						className={classes.tabs}
+					>
+						<Tab label="Metrics" {...a11yProps(0)} />
+						<Tab label="Dataset Information" {...a11yProps(1)} />
+						{evalList[0].data.model_type === "regression" ? (
+							null
+						) : (
+							
+							<Tab label="Curves" {...a11yProps(2)}/>
+
+						)}
+					</Tabs>
+				</div>
+				<>
+					<CssBaseline/>
+					<div className={classes.leftarea}>
+						<TabPanel value={value} index={0}>
+						<MetricsDatasetComparision
+						evaluations={evalList}
+						/>
+						</TabPanel>
+						<TabPanel value={value} index={1}>
+							
+						</TabPanel>
+						
+					</div>
+				</>
+			</div>
 		</>
 	);
 }

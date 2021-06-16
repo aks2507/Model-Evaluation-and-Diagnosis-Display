@@ -82,9 +82,9 @@ export default function Comparison(props) {
 	const initialValue = [];
 	for(let i=0;i<eval_ids.length;i++)
 	{
-		initialValue.push({data:{dataset:{metadata:{description:{}}},model:{metedata:{}}}});
+		initialValue.push({data:{dataset:{metadata:{description:{}}},model:{metadata:{}}}});
 	}
-	// console.log(initialValue);
+	
 
 	const [evalList, setevalList] = React.useState(initialValue);
 	const [load, setLoad] = React.useState(true);
@@ -93,7 +93,7 @@ export default function Comparison(props) {
 		setValue(newValue);
 	};
 
-	// Fetching the data
+
 	let urls = [];
 	let i;
 	for(i=0;i<eval_ids.length;i++)
@@ -102,8 +102,7 @@ export default function Comparison(props) {
 	}
 
 	const mapLoop = async _ => {
-		// console.log('Start')
-	  
+		
 		const promises = urls.map(async url => {
 		  const evaluation = await axios.get(url)
 		  return evaluation

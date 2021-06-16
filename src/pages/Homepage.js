@@ -164,6 +164,7 @@ const EnhancedTableToolbar = (props) => {
 
   const CompareHandler = eval_ids => async(e) => {
     console.log(eval_ids);
+    console.log(countUnique(datasetIDList));
     if(countUnique(datasetIDList)==1) 
     window.location.replace("/comparison/"+eval_ids.toString());
     else
