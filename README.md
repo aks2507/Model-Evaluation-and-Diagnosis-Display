@@ -9,7 +9,7 @@ Model evaluation performance metrics teach us:
 ## Steps:
 ### Step 1:
 #### Bring your own test dataset and Serialised Model
-Train your model in Jupyter Notebook/Kaggle/GoogleColab and obtain the serialside model and dataset as follows:<br>
+Train your model in Jupyter Notebook/Kaggle/GoogleColab and obtain the serialised model and dataset as follows:<br>
 
 ```python
 import pandas as pd
@@ -57,7 +57,7 @@ In the project directory, to spin up the client at http://localhost:3000 ,  run:
 As soon as both the server and client are up and running, you will be able to surf through the site and call API endpoints. The React-frontend has a proxy setup to port 5000. That way, the urls that are not recognised on port 3000, get redirected to port 5000, thus invoking the endpoints, if they have been defined in the backend.
 
 ### Step 4:
-While the server side is running, populate your models and datasets using POSTMAN trigering the following API endpoints:
+While the server side is running, populate your models and datasets using POSTMAN triggering the following API endpoints:
 #### `http://localhost:5000/models, method=["POST"]`
 This endpoint adds a model to the "Models" table of the database, based on json payload provided.
 #### `http://localhost:5000/models, method=["GET"]`
