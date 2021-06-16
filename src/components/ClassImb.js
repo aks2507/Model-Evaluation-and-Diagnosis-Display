@@ -1,7 +1,21 @@
 import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import Plot from 'react-plotly.js';
+import Details from './Details';
+import Box from '@material-ui/core/Box';
+const useStyles = makeStyles({
+  table: {
+    width:"90%",
+    margin:"auto",
+  },
+});
 
-// import Details from './Details';
+
+
+function createData(metric, value) {
+  return { metric, value };
+}
+
 
 export default function ClassImb(props){
   const labels=props.output_label;
@@ -35,20 +49,28 @@ export default function ClassImb(props){
         /> */}
       </div>
         <div>
+          <Box mx={11} pt={1}>
             <Plot
                 data = {[{
                     values: y,
                     labels: x,
-                    type: 'pie'
+                    type: 'pie',
+                    hoverinfo: 'label+percent',
+                    textinfo: 'none'
                   }]}
-                  layout={ {width: 500, height: 375, title: 'Class Imbalance'} }
-                  config={ {
+                  layout={ 
+                    {width: 600, height: 575, title: 'Class Imbalance'}
+                   }
+                  config={ 
+                    {
                     scrollZoom:true,
                     respnsive:true
-                  } }
+                  }
+                 }
             />
-
+          </Box>
         </div>
+        
      
       </div>
 
