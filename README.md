@@ -43,7 +43,7 @@ pickle.dump(LR, open(filename, 'wb'))
 Clone the repo and run the command `yarn install`  to install the neccessary dependencies
 
 ### Step 3:
-## Run the code on your local machine
+#### Run the code on your local machine
 ### Server Side
 The api folder is included in this repository itself, along with the frontend code. To spin up the server at http://localhost:5000 , open a terminal, navigate to the folder where you have cloned this repository, and run:
 
