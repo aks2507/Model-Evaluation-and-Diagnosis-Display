@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -7,12 +7,22 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Plot from 'react-plotly.js';
+import Box from '@material-ui/core/Box';
+import TableHead from '@material-ui/core/TableHead';
 
-import Details from './Details';
+const StyledTableCell = withStyles((theme) => ({
+  head: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  body: {
+    fontSize: 14,
+  },
+}))(TableCell);
 
 const useStyles = makeStyles({
   table: {
-    width:"90%",
+    width:"100%",
     margin:"auto",
   },
 });
@@ -57,7 +67,7 @@ export default function FeatureImp(props){
             data={[
               {type: 'bar', x: x, y: y},
             ]}
-            layout={ {width: 500, height: 375, title: 'Feature Importance'} }
+            layout={ {width: 500, height: 500, title: 'Feature Importance'} }
             config={ {
               scrollZoom:true,
               respnsive:true
@@ -66,18 +76,26 @@ export default function FeatureImp(props){
         </div>
 
         <div className="col">
-          <TableContainer component={Paper}>
-            <Table className={classes.table} aria-label="simple table">
-              <TableBody>
-                {rows.map((row) => (
-                  <TableRow key={row.column}>
-                    <TableCell align="center">{row.column}</TableCell>
-                    <TableCell align="center">{row.score}</TableCell>
+          <Box m={2} pr={10}>
+            <TableContainer component={Paper}>
+              <Table className={classes.table} aria-label="simple table">
+                <TableHead>
+                  <TableRow>
+                      <StyledTableCell align="center">Feature</StyledTableCell>
+                      <StyledTableCell align="center">Feature Score</StyledTableCell>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+                </TableHead>
+                <TableBody>
+                  {rows.map((row) => (
+                    <TableRow key={row.column}>
+                      <TableCell align="center">{row.column}</TableCell>
+                      <TableCell align="center">{row.score}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Box>
         </div>
 
       </div>
