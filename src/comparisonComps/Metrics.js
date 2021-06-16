@@ -143,22 +143,31 @@ export default function Metrics(props){
             />
         </div>
 
+        <div className="row">
+            <div className={classes.plot}>
+                <CompareTable
+                    rows={rows}
+                    model_type={evalList[0].data.model_type}
+                />
+            </div>
+        </div>
+
         {evalList[0].data.model_type === "regression" ? (
             <>
                 <div className="row">
                     <div className="col">
-                        <Plots data={data_one} width={500} height={375}/>
+                        <Plots data={data_one} width={600} height={450}/>
                     </div>
                     <div className="col">
-                        <Plots data={data_two} width={500} height={375}/>
+                        <Plots data={data_two} width={600} height={450}/>
                     </div>
                 </div>
                 <div className="row">
                     <div className="col">
-                        <Plots data={linedata_one} width={500} height={375}/>
+                        <Plots data={linedata_one} width={600} height={450}/>
                     </div>
                     <div className="col">
-                        <Plots data={linedata_two} width={500} height={375}/>
+                        <Plots data={linedata_two} width={600} height={450}/>
                     </div>
                 </div>
             </>
@@ -172,17 +181,6 @@ export default function Metrics(props){
                 </div>
             </>
         )}
-
-        
-        
-        <div className="row">
-            <div className={classes.plot}>
-                <CompareTable
-                    rows={rows}
-                    model_type={evalList[0].data.model_type}
-                />
-            </div>
-        </div>
     </div>
   );
 }

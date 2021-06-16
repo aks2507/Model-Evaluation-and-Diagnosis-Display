@@ -4,6 +4,7 @@ import React from 'react';
 import Details from './Details';
 import Plots from '../comparisonComps/Plots';
 import DetailsComp from '../comparisonComps/Details';
+import GeneralTable from '../comparisonComps/GeneralTable';
 
 // const useStyles = makeStyles({
 //     table: {
@@ -12,13 +13,18 @@ import DetailsComp from '../comparisonComps/Details';
 //     },
 // });
 
+function createData(colname, mean, std, min, max, q25, q50, q75, iqr, mvals){
+    return { colname, mean, std, min, max, q25, q50, q75, iqr, mvals };
+}
+
 export default function DatasetInfo(props){
 
     const description = props.datasetinfo.metadata.description;
     const columns = props.datasetinfo.metadata.columns;
+    const len = columns.length;
 
     const x = columns;
-    console.log(description,typeof(description))
+    // console.log(description,typeof(description))
     const mean = [];
     const std = [];
     const min = [];
@@ -26,19 +32,22 @@ export default function DatasetInfo(props){
     const q50 = [];
     const q75 = [];
     const max = [];
+    const iqr = props.datasetinfo.metadata.iqr;
+    const mvals = props.datasetinfo.metadata.missing_values;
+    console.log(mvals);
 
     for(const [key, value] of Object.entries(description)){
-        console.log(key, value);
-        mean.push(value.mean);
-        std.push(value.std);
-        min.push(value.min);
-        max.push(value.max);
-        q25.push(value['25%']);
-        q50.push(value['50%']);
-        q75.push(value['75%']);
+        // console.log(key, value);
+        mean.push(value.mean.toFixed(2));
+        std.push(value.std.toFixed(2));
+        min.push(value.min.toFixed(2));
+        max.push(value.max.toFixed(2));
+        q25.push(value['25%'].toFixed(2));
+        q50.push(value['50%'].toFixed(2));
+        q75.push(value['75%'].toFixed(2));
     }
 
-    console.log(mean, std, min, max, q25, q50, q75);
+    // console.log(mean, std, min, max, q25, q50, q75);
 
     const trace = [];
     trace.push({x:x,y:mean,type:'scatter',name:'Mean'})
@@ -52,6 +61,25 @@ export default function DatasetInfo(props){
     const data = [...trace];
 
     // const classes = useStyles();
+    const rows = [];
+    const headCells = [
+        { id: 'colname', label: 'Column' },
+        { id: 'mean', label: 'Mean' },
+        { id: 'std', label: 'Std Deviation' },
+        { id: 'min', label: 'Minimum' },
+        { id: 'max', label: 'Maximum' },
+        { id: 'q25', label: '1st Quartile' },
+        { id: 'q50', label: '2nd Quartile' },
+        { id: 'q75', label: '3rd Quartile' },
+        { id: 'iqr', label: 'IQR' },
+        { id: 'mvals', label: 'Missing Values' }
+    ];
+    
+    for(let i=0;i<len;i++)
+    {
+        rows.push(createData(columns[i], mean[i], std[i], min[i], max[i], q25[i], q50[i], q75[i], iqr[i].toFixed(2), mvals[i]));
+    }   
+
     return (
         <div className="col">
             {props.compare ? (
@@ -69,11 +97,16 @@ export default function DatasetInfo(props){
                 </div>
             )}
             <div className="row">
-                {/*Plot here*/}
-                <Plots data={data} width={900} height={675}/>
+                {/*Table here*/}
+                <GeneralTable
+                    rows={rows}
+                    headCells={headCells}
+                    tabletitle="Dataset Statistics"
+                />
             </div>
             <div className="row">
-                {/*Table here*/}
+                {/*Plot here*/}
+                <Plots data={data} width={900} height={675}/>
             </div>
         </div>
     );

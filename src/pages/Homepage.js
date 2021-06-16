@@ -152,7 +152,7 @@ const useToolbarStyles = makeStyles((theme) => ({
 
 const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles();
-  const { numSelected, selectedList, modelTypeList} = props;
+  const { numSelected, selectedList, modelTypeList, datasetIDList} = props;
   // console.log(modelTypeList);
 
   const onDeleteIconHandler = async(e) => {
@@ -193,7 +193,7 @@ const EnhancedTableToolbar = (props) => {
       {numSelected > 0 ? (
         <div className={classes.rowC}>
 
-            {numSelected < 2 || countUnique(modelTypeList) > 1 ? (
+            {numSelected < 2 || countUnique(modelTypeList) > 1 || countUnique(datasetIDList) > 1 ? (
               <Button
                 variant="contained"
                 color="secondary"
@@ -237,6 +237,7 @@ EnhancedTableToolbar.propTypes = {
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
+    paddingBottom: '3%',
   },
   paper: {
     width: '100%',
@@ -279,7 +280,7 @@ export default function Homepage(){
     if(search)
       fetchData();
   },[data,search]);
-  console.log(data);
+  // console.log(data);
   let i;
   for(i=0;i<data.evaluation_entities.length;i++)
   {
@@ -292,6 +293,7 @@ export default function Homepage(){
   const [orderBy, setOrderBy] = useState('eval_id');
   const [selected, setSelected] = useState([]);
   const [selectedModelType, setSelectedModelType] = useState([]);
+  const [selectedDatasetID, setSelectedDatasetID] = useState([]);
   const [page, setPage] = useState(0);
   const [dense, setDense] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -306,28 +308,35 @@ export default function Homepage(){
     if (event.target.checked) {
       const newSelecteds = rows.map((n) => n.eval_id);
       const newSelectedsModelTypes = rows.map((n) => n.model_type);
+      const newSelectedsDatasetIDs = rows.map((n, index) => data.evaluation_entities[index].dataset.dataset_id);
       setSelected(newSelecteds);
       setSelectedModelType(newSelectedsModelTypes);
+      setSelectedDatasetID(newSelectedsDatasetIDs);
       return;
     }
     setSelected([]);
     setSelectedModelType([]);
+    setSelectedDatasetID([]);
   };
 
-  const handleClick = (event, eval_id, model_type) => {
+  const handleClick = (event, eval_id, model_type, index) => {
     const selectedIndex = selected.indexOf(eval_id);
     let newSelected = [];
     let newSelectedModelType = [];
+    let newSelectedsDatasetID =[];
 
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, eval_id);
       newSelectedModelType = newSelectedModelType.concat(selectedModelType, model_type);
+      newSelectedsDatasetID = newSelectedsDatasetID.concat(selectedDatasetID, data.evaluation_entities[index].dataset.dataset_id)
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
       newSelectedModelType = newSelectedModelType.concat(selectedModelType.slice(1));
+      newSelectedsDatasetID = newSelectedsDatasetID.concat(selectedDatasetID.slice(1));
     } else if (selectedIndex === selected.length - 1) {
       newSelected = newSelected.concat(selected.slice(0, -1));
       newSelectedModelType = newSelectedModelType.concat(selectedModelType.slice(0, -1));
+      newSelectedsDatasetID = newSelectedsDatasetID.concat(selectedDatasetID.slice(0, -1));
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(
         selected.slice(0, selectedIndex),
@@ -337,10 +346,15 @@ export default function Homepage(){
         selectedModelType.slice(0, selectedIndex),
         selectedModelType.slice(selectedIndex + 1),
       );
+      newSelectedsDatasetID = newSelectedsDatasetID.concat(
+        selectedDatasetID.slice(0, selectedIndex),
+        selectedDatasetID.slice(selectedIndex + 1),
+      );
     }
 
     setSelected(newSelected);
     setSelectedModelType(newSelectedModelType);
+    setSelectedDatasetID(newSelectedsDatasetID);
   };
 
   const handleChangePage = (event, newPage) => {
@@ -361,6 +375,7 @@ export default function Homepage(){
 
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
+  // console.log(selectedDatasetID);
 
   return (
     <div className={classes.root}>
@@ -369,7 +384,8 @@ export default function Homepage(){
         <EnhancedTableToolbar 
           numSelected={selected.length} 
           selectedList={selected} 
-          modelTypeList={selectedModelType} />
+          modelTypeList={selectedModelType}
+          datasetIDList={selectedDatasetID} />
         <TableContainer>
           <Table
             className={classes.table}
@@ -396,7 +412,7 @@ export default function Homepage(){
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.eval_id, row.model_type)}
+                      onClick={(event) => handleClick(event, row.eval_id, row.model_type, index)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
