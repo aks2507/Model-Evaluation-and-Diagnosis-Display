@@ -144,7 +144,7 @@ export default function Comparison(props) {
 							null
 						) : (
 							
-							<Tab label="ROC AUC Curves" {...a11yProps(2)}/>
+							<Tab label="Curves" {...a11yProps(2)}/>
 
 						)}
 					</Tabs>
@@ -167,8 +167,8 @@ export default function Comparison(props) {
 						) : (
 							<>
 							<TabPanel value={value} index={2}>
-								
 								<ROC_AUC evaluations={evalList}/>
+								<PrecisionRecall evaluations={evalList}/>
 							</TabPanel>
 							</>
 						)}
