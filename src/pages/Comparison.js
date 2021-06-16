@@ -14,7 +14,7 @@ import Details from '../comparisonComps/Details';
 import Metrics from '../comparisonComps/Metrics';
 import PrecisionRecall from '../comparisonComps/PrecisionRecall';
 import ROC_AUC from '../comparisonComps/ROC_AUC';
-
+import FeatureImportance from '../comparisonComps/FeatureImportance'
 
 function TabPanel(props) {
 	const { children, value, index, ...other } = props;
@@ -172,7 +172,7 @@ export default function Comparison(props) {
 			  <Metrics evaluations={evalList}/>
               </TabPanel>
               <TabPanel value={value} index={1}>
-			  <Details evaluations={evalList}/>
+			  <FeatureImportance evaluations={evalList}/>
               </TabPanel>
               <TabPanel value={value} index={2}>
 			  <Details evaluations={evalList}/>
@@ -193,11 +193,9 @@ export default function Comparison(props) {
 			  <PrecisionRecall evaluations={evalList}/>
               </TabPanel>
               <TabPanel value={value} index={3}>
-			  <Details evaluations={evalList}/>
+			  <FeatureImportance evaluations={evalList}/>
               </TabPanel>
               <TabPanel value={value} index={4}>
-               
-              
               </TabPanel>
             </div>
           </>
