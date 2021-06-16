@@ -245,6 +245,7 @@ export default function Evaluation(props) {
                   date_created={data.date_created}
                   modelinfo={data.model}
                 />
+                
                 <FeatureImp
                   model_type={data.model_type}
                   date_created={data.date_created}
@@ -254,6 +255,8 @@ export default function Evaluation(props) {
                   datasetinfo={data.dataset}
                   modelinfo={data.model}
                 />
+               
+                
                 <ClassImb
                   model_type={data.model_type}
                   name={data.name}

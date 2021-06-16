@@ -120,6 +120,7 @@ export default function Comparison(props) {
 	return (
 		<>
 			<Navbar/>
+			<h1>HelloWorld</h1>
 		</>
 	);
 }

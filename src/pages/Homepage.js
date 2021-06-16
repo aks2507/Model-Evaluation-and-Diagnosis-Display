@@ -153,8 +153,6 @@ const useToolbarStyles = makeStyles((theme) => ({
 const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles();
   const { numSelected, selectedList, modelTypeList, datasetIDList} = props;
-  // console.log(modelTypeList);
-
   const onDeleteIconHandler = async(e) => {
     e.preventDefault();
     let i;
@@ -166,7 +164,10 @@ const EnhancedTableToolbar = (props) => {
 
   const CompareHandler = eval_ids => async(e) => {
     console.log(eval_ids);
+    if(countUnique(datasetIDList)==1) 
     window.location.replace("/comparison/"+eval_ids.toString());
+    else
+    window.location.replace("/comparisonDatasets/"+eval_ids.toString());
   };
 
   return (
@@ -192,8 +193,8 @@ const EnhancedTableToolbar = (props) => {
 
       {numSelected > 0 ? (
         <div className={classes.rowC}>
-
-            {numSelected < 2 || countUnique(modelTypeList) > 1 || countUnique(datasetIDList) > 1 ? (
+            
+            {numSelected < 2 || (countUnique(modelTypeList) > 1 && countUnique(datasetIDList) > 1) ? (
               <Button
                 variant="contained"
                 color="secondary"
@@ -268,26 +269,23 @@ export default function Homepage(){
   let rows = [];
   useEffect(() => {
     const fetchData = async () => {
-      // setSearch(true);
       const result = await axios(
         '/evaluate'
       );
-      // console.log(result.data);
       setData(result.data);
-      // console.log(data);
       setSearch(false);
     };
     if(search)
       fetchData();
   },[data,search]);
-  // console.log(data);
   let i;
   for(i=0;i<data.evaluation_entities.length;i++)
   {
     let k=data.evaluation_entities[i];
     rows.push(createData(k.eval_id,k.name,k.model_type,k.model.name,k.dataset.name,k.date_created));
   }
-
+ 
+  
   const classes = useStyles();
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('eval_id');
@@ -376,7 +374,9 @@ export default function Homepage(){
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
   // console.log(selectedDatasetID);
-
+  console.log(selectedModelType);
+console.log(selectedDatasetID);
+console.log(selected);
   return (
     <div className={classes.root}>
       <Navbar/>
