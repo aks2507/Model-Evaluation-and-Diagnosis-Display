@@ -84,7 +84,7 @@ export default function Evaluation(props) {
 
 
   let url = "/evaluate/"+eval_id;
-  const [{ data, loading, error }, refetch] = useAxios(url);
+  const [{ data, loading, error }] = useAxios(url);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error!</p>;

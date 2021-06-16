@@ -14,6 +14,8 @@ import Metrics from '../comparisonComps/Metrics';
 import PrecisionRecall from '../comparisonComps/PrecisionRecall';
 import ROC_AUC from '../comparisonComps/ROC_AUC';
 import DatasetInfo from '../components/DatasetInfo';
+import FeatureImportance from '../comparisonComps/FeatureImportance';
+import ClassImb from '../components/ClassImb';
 
 
 function TabPanel(props) {
@@ -115,7 +117,7 @@ export default function Comparison(props) {
 	}
 	if(load)
 	{
-		const evals = mapLoop().then((data) => {
+		mapLoop().then((data) => {
 				setevalList(data);
 		});
 		setLoad(false);
@@ -156,11 +158,14 @@ export default function Comparison(props) {
 							<Metrics evaluations={evalList}/>
 						</TabPanel>
 						<TabPanel value={value} index={1}>
-						<DatasetInfo
-							compare={1}
-							datasetinfo={evalList[0].data.dataset}
-							evaluations={evalList}
-                		/>
+							<DatasetInfo
+								compare={1}
+								datasetinfo={evalList[0].data.dataset}
+								evaluations={evalList}
+							/>
+							<FeatureImportance evaluations={evalList}/>
+							<ClassImb output_label={evalList[0].data.dataset.metadata.output_label}/>
+							
 						</TabPanel>
 						{evalList[0].data.model_type === "regression" ? (
 							null
