@@ -7,8 +7,43 @@ Model evaluation performance metrics teach us:
 - Is my model under-fitting or over-fitting?
 
 ## Steps:
-  Clone the repo and run the command `yarn install`  to install the neccessary dependencies
-## Run the code on your local machine
+### Step 1:
+#### Bring your own test dataset and Serialised Model
+Train your model in Jupyter Notebook/Kaggle/GoogleColab and obtain the serialised model and dataset as follows:<br>
+
+```python
+import pandas as pd
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.model_selection import train_test_split 
+```
+
+```python
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=0)
+df1=pd.DataFrame(X_test)
+df2=pd.DataFrame(y_test)
+result=pd.concat([df1,df2],axis=1)
+
+#Saving the Testing Data used for evaluation
+result.to_csv('test_data_DecisionTree.csv',index=False)
+
+```
+```python
+#Training the model
+from sklearn.linear_model import LogisticRegression
+LR=LogisticRegression(solver='lbfgs', max_iter=10000)
+LR.fit(X_train,y_train)
+filename = 'finalized_model.sav'
+
+#Obtaining the Serialised Model
+pickle.dump(LR, open(filename, 'wb'))
+
+```
+
+### Step 2:
+Clone the repo and run the command `yarn install`  to install the neccessary dependencies
+
+### Step 3:
+#### Run the code on your local machine
 ### Server Side
 The api folder is included in this repository itself, along with the frontend code. To spin up the server at http://localhost:5000 , open a terminal, navigate to the folder where you have cloned this repository, and run:
 
@@ -20,6 +55,20 @@ In the project directory, to spin up the client at http://localhost:3000 ,  run:
 ### `yarn start`
 
 As soon as both the server and client are up and running, you will be able to surf through the site and call API endpoints. The React-frontend has a proxy setup to port 5000. That way, the urls that are not recognised on port 3000, get redirected to port 5000, thus invoking the endpoints, if they have been defined in the backend.
+
+### Step 4:
+While the server side is running, populate your models and datasets using POSTMAN triggering the following API endpoints:
+#### `http://localhost:5000/models, method=["POST"]`
+This endpoint adds a model to the "Models" table of the database, based on json payload provided.
+#### `http://localhost:5000/models, method=["GET"]`
+This endpoint gives the list of all models that are stored in the "Models" table of the database.
+
+
+#### `http://localhost:5000/datasets, method=["POST"]`
+This endpoint adds a dataset to the "datasets" table of the database, based on json payload provided.
+#### `http://localhost:5000/datasets, method=["GET"]`
+This endpoint gives the list of all datasets that are stored in the "Datasets" table of the database.
+
 
 ## FrontEnd
 1) ReactJS
