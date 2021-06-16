@@ -1,19 +1,19 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+// import { makeStyles } from '@material-ui/core/styles';
 import Plot from 'react-plotly.js';
 //Components
-import Details from './Details';
+// import Details from './Details';
 import Box from '@material-ui/core/Box';
-const useStyles = makeStyles({
-  table: {
-    width:"90%",
-    margin:"auto",
-  },
-  plot:{
-        justifyContent: 'center',
-        alignItems: 'center',
-  },
-});
+// const useStyles = makeStyles({
+//   table: {
+//     width:"90%",
+//     margin:"auto",
+//   },
+//   plot:{
+//         justifyContent: 'center',
+//         alignItems: 'center',
+//   },
+// });
 
 
 
@@ -33,7 +33,7 @@ export default function FeatureImportance(props){
         traces.push({x:columns,y:features[i],name:evalList[i].data.name,type:'bar'});
     }
     var data=[...traces]
-     const classes = useStyles();
+    //  const classes = useStyles();
 return(
     <div className="col">
 

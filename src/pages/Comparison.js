@@ -13,8 +13,8 @@ import Navbar from '../components/Navbar';
 import Metrics from '../comparisonComps/Metrics';
 import PrecisionRecall from '../comparisonComps/PrecisionRecall';
 import ROC_AUC from '../comparisonComps/ROC_AUC';
+import FeatureImportance from '../comparisonComps/FeatureImportance'
 import DatasetInfo from '../components/DatasetInfo';
-import FeatureImportance from '../comparisonComps/FeatureImportance';
 import ClassImb from '../components/ClassImb';
 
 
