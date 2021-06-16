@@ -13,12 +13,9 @@ import Navbar from '../components/Navbar';
 import Metrics from '../comparisonComps/Metrics';
 import PrecisionRecall from '../comparisonComps/PrecisionRecall';
 import ROC_AUC from '../comparisonComps/ROC_AUC';
-<<<<<<< HEAD
 import FeatureImportance from '../comparisonComps/FeatureImportance'
-=======
 import DatasetInfo from '../components/DatasetInfo';
-
->>>>>>> 6995b5c3b482c6891900df3422337942a9016c63
+import Details from '../comparisonComps/Details';
 
 function TabPanel(props) {
 	const { children, value, index, ...other } = props;
