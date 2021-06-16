@@ -39,7 +39,7 @@ export default function FeatureImp(props){
   return(
     <div>
 
-      <div className="row">
+      {/* <div className="row">
         <Details
           area={1}
           name={props.name}
@@ -48,7 +48,7 @@ export default function FeatureImp(props){
           datasetinfo={props.datasetinfo}
           modelinfo={props.modelinfo}
         />
-      </div>
+      </div> */}
 
       <div className="row">
 

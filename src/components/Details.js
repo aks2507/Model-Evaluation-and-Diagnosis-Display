@@ -67,7 +67,7 @@ export default function Details(props) {
     setValue(index);
   };
 
-  console.log(props.datasetinfo.metadata.memory);
+  // console.log(props.datasetinfo.metadata.memory);
 
   return (
     <div className={classes.root}>

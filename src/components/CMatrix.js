@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Plot from 'react-plotly.js';
 
 import Details from './Details';
-import SwipeableViews from 'react-swipeable-views';
+// import SwipeableViews from 'react-swipeable-views';
 
 const useStyles = makeStyles({
   plot: {
@@ -28,20 +28,20 @@ export default function Confusion_matrix(props){
     y.push(c2);
   }
   x.reverse();
-  var n=z.length;
-  var m=z.length;
+  let n=z.length;
+  let m=z.length;
   let cmatrix=[];
   for(i=0;i<n;i++){
-    var k=[];
+    let k=[];
     for(let j=0;j<m;j++) k.push(0);
     cmatrix.push(k);
   }
 
-  var n=z.length;
-  var m=z.length;
+  n=z.length;
+  m=z.length;
   for(i=0;i<n;i++)
   {
-    for(var j=0;j<m;j++)
+    for(let j=0;j<m;j++)
     {
       cmatrix[i][j]=z[n-i-1][j];
     }

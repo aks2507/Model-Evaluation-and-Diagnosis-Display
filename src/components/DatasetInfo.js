@@ -1,15 +1,16 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+// import { makeStyles } from '@material-ui/core/styles';
 // components
 import Details from './Details';
 import Plots from '../comparisonComps/Plots';
+import DetailsComp from '../comparisonComps/Details';
 
-const useStyles = makeStyles({
-    table: {
-      width:"90%",
-      margin:"auto",
-    },
-});
+// const useStyles = makeStyles({
+//     table: {
+//       width:"90%",
+//       margin:"auto",
+//     },
+// });
 
 export default function DatasetInfo(props){
 
@@ -50,19 +51,23 @@ export default function DatasetInfo(props){
 
     const data = [...trace];
 
-    const classes = useStyles();
+    // const classes = useStyles();
     return (
         <div className="col">
-            <div className="row">
-                <Details
-                    area={1}
-                    name={props.name}
-                    model_type={props.model_type}
-                    date_created={props.date_created}
-                    datasetinfo={props.datasetinfo}
-                    modelinfo={props.modelinfo}
-                />
-            </div>
+            {props.compare ? (
+                <DetailsComp evaluations={props.evaluations}/>
+            ) : (
+                <div className="row">
+                    <Details
+                        area={1}
+                        name={props.name}
+                        model_type={props.model_type}
+                        date_created={props.date_created}
+                        datasetinfo={props.datasetinfo}
+                        modelinfo={props.modelinfo}
+                    />
+                </div>
+            )}
             <div className="row">
                 {/*Plot here*/}
                 <Plots data={data} width={900} height={675}/>
