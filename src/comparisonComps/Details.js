@@ -67,6 +67,9 @@ export default function Details(props) {
     setValue(index);
   };
 
+  console.log(evalList[0].data);
+  console.log(evalList[0].data.dataset.name);
+
   return (
     <div className={classes.root}>
       <AppBar position="static" color="default">
@@ -111,6 +114,22 @@ export default function Details(props) {
                         </div>
                         <div className="col">
                           <p><strong>Date Created: </strong>{evaluation.data.date_created}</p>
+                        </div>
+                      </div>
+                      <div className="row">
+                        <div className="col">
+                          <p><strong>Dataset: </strong>{evaluation.data.dataset.name}</p>
+                        </div>
+                        <div className="col">
+                          <p><strong>Model: </strong>{evaluation.data.model.name}</p>
+                        </div>
+                      </div>
+                      <div className="row">
+                        <div className="col">
+                          <p><strong>Rows, Columns: </strong>{evaluation.data.dataset.metadata.number_of_rows}, {evaluation.data.dataset.metadata.number_of_columns}</p>
+                        </div>
+                        <div className="col">
+                          <p><strong>Dataset Size: </strong>{evaluation.data.dataset.metadata.memory} bytes</p>
                         </div>
                       </div>
                     </div>

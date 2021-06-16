@@ -153,6 +153,7 @@ export default function Evaluation(props) {
               </TabPanel>
               <TabPanel value={value} index={2}>
                 <DatasetInfo
+                  compare={0}
                   model_type={data.model_type}
                   name={data.name}
                   datasetinfo={data.dataset}
@@ -237,6 +238,7 @@ export default function Evaluation(props) {
               </TabPanel>
               <TabPanel value={value} index={3}>
                 <DatasetInfo
+                  compare={0}
                   model_type={data.model_type}
                   name={data.name}
                   datasetinfo={data.dataset}

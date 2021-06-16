@@ -33,7 +33,7 @@ function pushAll(metric, value, x, y) {
 export default function Metrics(props){
     let evalList = props.evaluations;
     let numTabs = evalList.length;
-    console.log(props.evaluations);
+    // console.log(props.evaluations[0].data.dataset.name);
     const rows = [];
     const x = [];
     const y = [];

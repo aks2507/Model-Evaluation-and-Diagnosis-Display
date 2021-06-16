@@ -10,10 +10,10 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 // Components
 import Navbar from '../components/Navbar';
-import Details from '../comparisonComps/Details';
 import Metrics from '../comparisonComps/Metrics';
 import PrecisionRecall from '../comparisonComps/PrecisionRecall';
 import ROC_AUC from '../comparisonComps/ROC_AUC';
+import DatasetInfo from '../components/DatasetInfo';
 
 
 function TabPanel(props) {
@@ -80,9 +80,9 @@ export default function Comparison(props) {
 	const initialValue = [];
 	for(let i=0;i<eval_ids.length;i++)
 	{
-		initialValue.push({data:{}});
+		initialValue.push({data:{dataset:{metadata:{description:{}}},model:{metedata:{}}}});
 	}
-	console.log(initialValue);
+	// console.log(initialValue);
 
 	const [evalList, setevalList] = React.useState(initialValue);
 	const [load, setLoad] = React.useState(true);
@@ -100,7 +100,7 @@ export default function Comparison(props) {
 	}
 
 	const mapLoop = async _ => {
-		console.log('Start')
+		// console.log('Start')
 	  
 		const promises = urls.map(async url => {
 		  const evaluation = await axios.get(url)
@@ -110,7 +110,7 @@ export default function Comparison(props) {
 		const evaluations = await Promise.all(promises)
 		// console.log(evaluations)
 	  
-		console.log('End')
+		// console.log('End')
 		return evaluations;
 	}
 	if(load)
@@ -122,7 +122,7 @@ export default function Comparison(props) {
 	}
 
 	evalList.map((evaluation) => {
-		console.log(evaluation,typeof(evaluation));
+		console.log(evaluation.data.dataset.name,evaluation.data.dataset.dataset_id);
 		return null;
 	})
 	return (
@@ -156,7 +156,11 @@ export default function Comparison(props) {
 							<Metrics evaluations={evalList}/>
 						</TabPanel>
 						<TabPanel value={value} index={1}>
-							<Details evaluations={evalList}/>
+						<DatasetInfo
+							compare={1}
+							datasetinfo={evalList[0].data.dataset}
+							evaluations={evalList}
+                		/>
 						</TabPanel>
 						{evalList[0].data.model_type === "regression" ? (
 							null
@@ -165,10 +169,6 @@ export default function Comparison(props) {
 							<TabPanel value={value} index={2}>
 								
 								<ROC_AUC evaluations={evalList}/>
-							</TabPanel>
-							<TabPanel value={value} index={3}>
-								<Details evaluations={evalList}/>
-								
 							</TabPanel>
 							</>
 						)}
