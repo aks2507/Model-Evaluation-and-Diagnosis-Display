@@ -97,9 +97,6 @@ export default function PrecisionRecallCurve(props) {
         <div className="col">
 
              <div className="row">
-                <Details
-                    evaluations={evalList}
-                />
             </div> 
             <div className="row">
                 <Plot

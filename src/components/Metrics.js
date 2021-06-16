@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -8,16 +8,40 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Plot from 'react-plotly.js';
-
+import Box from '@material-ui/core/Box';
 import Details from './Details';
+import TableHead from '@material-ui/core/TableHead';
+
+const StyledTableCell = withStyles((theme) => ({
+  head: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  body: {
+    fontSize: 14,
+  },
+}))(TableCell);
+
+const StyledTableRow = withStyles((theme) => ({
+  root: {
+    '&:nth-of-type(odd)': {
+      backgroundColor: theme.palette.action.hover,
+    },
+  },
+}))(TableRow);
+
+
 
 const useStyles = makeStyles({
   table: {
-    width:"90%",
-    margin:"auto",
+      minWidth: 400,
+      margin: "auto",
+  },
+  plot: {
+      justifyContent: 'center',
+      alignItems: 'center',
   },
 });
-
 
 
 function createData(metric, value) {
@@ -66,11 +90,10 @@ export default function Metrics(props){
           modelinfo={props.modelinfo}
         />
       </div>
-
-      <div className="row">
+        <div className="row">
         {props.model_type === "regression" ? (
           <>
-            <div className="col">
+            
               <Plot
                 data={[
                   {type: 'bar', x: x, y: y},
@@ -81,8 +104,8 @@ export default function Metrics(props){
                   respnsive:true
                 } }
               />
-            </div>
-            <div className="col">
+           
+          
               <Plot
                 data={[
                   {type: 'bar', x: x_two, y: y_two},
@@ -93,38 +116,46 @@ export default function Metrics(props){
                   respnsive:true
                 } }
               />
-            </div>
           </>
         ) : (
           <Plot
             data={[
               {type: 'bar', x: x, y: y},
             ]}
-            layout={ {width: 600, height: 450, title: 'Evaluation Metrics'} }
+            layout={ {width: 500, height: 450, title: 'Evaluation Metrics'} }
             config={ {
               scrollZoom:true,
               respnsive:true
             } }
           />
         )}
-      </div>
-      <div className="row">
-        <TableContainer component={Paper}>
-          <Table className={classes.table} aria-label="simple table">
-            <TableBody>
-              {rows.map((row) => (
-                <TableRow key={row.metric}>
-                  <TableCell align="center">{row.metric}</TableCell>
-                  <TableCell align="center">{row.value}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </div>
-
+          <div>
       
-
+                   <Box  m={4} pt={3}>
+                    <TableContainer  component={Paper}>
+                    <Table className={classes.table} aria-label="simple table">
+                        <TableHead>
+                        <TableRow>
+                            <StyledTableCell>Metrics</StyledTableCell>
+                            <StyledTableCell align="right">Score</StyledTableCell>
+                        </TableRow>
+                        </TableHead>
+                        <TableBody>
+                        {rows.map((row) => (
+                            <TableRow key={row.name}>
+                            <StyledTableCell component="th" scope="row">
+                                {row.metric}
+                            </StyledTableCell>
+                            <StyledTableCell align="right">{row.value}</StyledTableCell>
+                            </TableRow>
+                        ))}
+                        </TableBody>
+                    </Table>
+                    </TableContainer>
+                    </Box>
+      
+    </div>
+    </div>
     </div>
   );
 }

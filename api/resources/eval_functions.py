@@ -26,6 +26,7 @@ class EvaluationFunctions():
 		loaded_model = pickle.load(open(path, 'rb'))
 		feature_scores=[]
 		key = "coef_"
+		print(loaded_model.__dict__.keys(),'hii shivam2')
 		if key in loaded_model.__dict__.keys():
 			feature_scores=loaded_model.coef_[0]
 		else:

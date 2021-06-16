@@ -65,7 +65,7 @@ export default function Confusion_matrix(props){
           data={[
             {type: 'heatmap', x: x, y: y, z: cmatrix},
           ]}
-          layout={ {width: 500, height: 375, title: "Confusion Matrix"} }
+          layout={ {width: 500, height: 450, title: "Confusion Matrix"} }
           config={ {
             scrollZoom:true,
             respnsive:true
