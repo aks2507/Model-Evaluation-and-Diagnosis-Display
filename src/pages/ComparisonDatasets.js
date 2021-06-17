@@ -10,10 +10,10 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 // Components
 import Navbar from '../components/Navbar';
-import Metrics from '../comparisonComps/Metrics';
+import DetailsComp from '../comparisonComps/Details';
 import PrecisionRecall from '../comparisonComps/PrecisionRecall';
 import ROC_AUC from '../comparisonComps/ROC_AUC';
-import FeatureImportance from '../comparisonComps/FeatureImportance'
+import FeatureImp from '../components/FeatureImp'
 import DatasetInfo from '../components/DatasetInfo';
 import ClassImb from '../components/ClassImb';
 import MetricsDatasetComparision from '../comparisonComps/MetricsDatasetComparision';
@@ -81,7 +81,7 @@ export default function Comparison(props) {
 	const initialValue = [];
 	for(let i=0;i<eval_ids.length;i++)
 	{
-		initialValue.push({data:{dataset:{metadata:{description:{}}},model:{metadata:{}}}});
+		initialValue.push({data:{dataset:{metadata:{description:{}}},model:{metadata:{}},metadata:{}}});
 	}
 	console.log(initialValue);
 
@@ -157,7 +157,22 @@ export default function Comparison(props) {
 						/>
 						</TabPanel>
 						<TabPanel value={value} index={1}>
-							
+							<DetailsComp c={0} evaluations={evalList} />
+							{evalList.map((evaluation, index) =>
+								<>
+								 	<h2>{evaluation.data.name}</h2>
+									<h3>{evaluation.data.dataset.name}</h3>
+								 	<DatasetInfo
+										compare={2}
+										datasetinfo={evaluation.data.dataset}
+									/>
+									<FeatureImp 
+										feature_scores={evaluation.data.metadata.feature_scores}
+										columns={evaluation.data.metadata.columns}
+									/>
+									<ClassImb output_label={evaluation.data.dataset.metadata.output_label} />
+								</>
+							)}
 						</TabPanel>
 
 						{evalList[0].data.model_type === "regression" ? (

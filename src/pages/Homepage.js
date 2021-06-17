@@ -22,7 +22,7 @@ import Switch from '@material-ui/core/Switch';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import Button from '@material-ui/core/Button';
-
+import Box from '@material-ui/core/Box';
 import Navbar from '../components/Navbar'; 
 
 function createData(eval_id, name, model_type, model_name, dataset_name, date_created) {
@@ -183,12 +183,15 @@ const EnhancedTableToolbar = (props) => {
         </Typography>
       ) : (
         <>
-          <Typography className={classes.title} variant="h4" id="tableTitle" component="div">
+         <Box ml={70}>
+         <Typography  className={classes.title} variant="h4" id="tableTitle" component="div">
             Evaluations
             <Typography variant="body2" component="div">
               Click on an Evaluation name to visualize
             </Typography>
           </Typography>
+         </Box>
+        
         </>
       )}
 
@@ -285,6 +288,7 @@ export default function Homepage(){
     let k=data.evaluation_entities[i];
     rows.push(createData(k.eval_id,k.name,k.model_type,k.model.name,k.dataset.name,k.date_created));
   }
+  
  
   
   const classes = useStyles();
@@ -319,15 +323,27 @@ export default function Homepage(){
   };
 
   const handleClick = (event, eval_id, model_type, index) => {
+    console.log(selected);
+    console.log(selectedDatasetID);
+    console.log(index);
     const selectedIndex = selected.indexOf(eval_id);
     let newSelected = [];
     let newSelectedModelType = [];
     let newSelectedsDatasetID =[];
-
+    let entity=data.evaluation_entities.find((p)=>{
+      return p.eval_id==eval_id;
+    });
+    console.log(selectedIndex);
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, eval_id);
+      console.log(newSelected);
       newSelectedModelType = newSelectedModelType.concat(selectedModelType, model_type);
-      newSelectedsDatasetID = newSelectedsDatasetID.concat(selectedDatasetID, data.evaluation_entities[index].dataset.dataset_id)
+      console.log(newSelectedModelType);
+      console.log(index);
+      console.log(data.evaluation_entities[index]);
+      newSelectedsDatasetID = newSelectedsDatasetID.concat(selectedDatasetID, entity.dataset.dataset_id)
+      console.log(selectedDatasetID);
+      console.log(newSelectedsDatasetID);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
       newSelectedModelType = newSelectedModelType.concat(selectedModelType.slice(1));
@@ -354,6 +370,8 @@ export default function Homepage(){
     setSelected(newSelected);
     setSelectedModelType(newSelectedModelType);
     setSelectedDatasetID(newSelectedsDatasetID);
+    console.log(selectedDatasetID);
+    console.log(newSelectedsDatasetID);
   };
 
   const handleChangePage = (event, newPage) => {
@@ -374,10 +392,10 @@ export default function Homepage(){
 
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
-  // console.log(selectedDatasetID);
-  console.log(selectedModelType);
+console.log(selectedModelType);
 console.log(selectedDatasetID);
 console.log(selected);
+console.log(data);
   return (
     <div className={classes.root}>
       <Navbar/>

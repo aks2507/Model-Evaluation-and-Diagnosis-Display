@@ -41,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
 export default function EvalForm(props) {
   let datasets = props.datasets;
   let models = props.models;
+  console.log(datasets);
   const classes = useStyles();
   const [modelType, setModelType] = React.useState('regression');
   const [openMT, setOpenMT] = React.useState(false);

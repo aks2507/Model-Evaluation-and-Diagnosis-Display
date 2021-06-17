@@ -83,7 +83,12 @@ export default function DatasetInfo(props){
     return (
         <div className="col">
             {props.compare ? (
-                <DetailsComp evaluations={props.evaluations}/>
+                props.compare === 1 ? (
+                    <DetailsComp evaluations={props.evaluations}/>
+                ) : (
+                    null
+                )
+                
             ) : (
                 <div className="row">
                     <Details
