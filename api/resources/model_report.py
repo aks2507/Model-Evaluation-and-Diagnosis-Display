@@ -13,7 +13,6 @@ class ModelReport():
 		final_values=[]
 		final_keys=[]
 		for i in range(len(self.values)):
-			# print(self.keys[i],type(self.keys[i]),self.keys[i] == 'estimators_')
 			if self.keys[i] == 'estimators_':
 				continue
 			if isinstance(self.values[i],np.ndarray):
@@ -42,7 +41,6 @@ class ModelReport():
 	def get_parameters(self):
 		self.params = self.loaded_model.__dict__
 		print(self.params, type(self.params))
-		# self.params.popitem()
 		self.keys = list(self.loaded_model.__dict__.keys())
 		self.values = list(self.loaded_model.__dict__.values())
 
