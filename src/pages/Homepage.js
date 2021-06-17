@@ -20,10 +20,10 @@ import Tooltip from '@material-ui/core/Tooltip';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import DeleteIcon from '@material-ui/icons/Delete';
-import FilterListIcon from '@material-ui/icons/FilterList';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import Navbar from '../components/Navbar'; 
+import { styled } from '@material-ui/core/styles';
 
 function createData(eval_id, name, model_type, model_name, dataset_name, date_created) {
   return { eval_id, name, model_type, model_name, dataset_name, date_created };
@@ -162,6 +162,16 @@ const EnhancedTableToolbar = (props) => {
     }
   };
 
+  const MyButton = styled(Button)({
+    background: 'linear-gradient(20deg,  #00008B 30%, #00008B 90%)',
+    border: 0,
+    borderRadius: 5,
+    boxShadow: '0 5px 5px 2px rgba(0, 0, 0, .3)',
+    color: 'white',
+    height: 40,
+    padding: '0 20px',
+  });
+
   const CompareHandler = eval_ids => async(e) => {
     console.log(eval_ids);
     console.log(countUnique(datasetIDList));
@@ -183,12 +193,9 @@ const EnhancedTableToolbar = (props) => {
         </Typography>
       ) : (
         <>
-         <Box ml={70}>
+         <Box ml={60}>
          <Typography  className={classes.title} variant="h4" id="tableTitle" component="div">
-            Evaluations
-            <Typography variant="body2" component="div">
-              Click on an Evaluation name to visualize
-            </Typography>
+            <MyButton>Click on Evaluation Name to Visualize</MyButton>
           </Typography>
          </Box>
         
@@ -225,11 +232,8 @@ const EnhancedTableToolbar = (props) => {
 
         </div>
       ) : (
-        <Tooltip title="Filter list">
-          <IconButton aria-label="filter list">
-            <FilterListIcon />
-          </IconButton>
-        </Tooltip>
+        <>
+        </>
       )}
     </Toolbar>
   );

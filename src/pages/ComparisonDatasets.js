@@ -7,8 +7,6 @@ import Box from '@material-ui/core/Box';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import CssBaseline from '@material-ui/core/CssBaseline';
-
-// Components
 import Navbar from '../components/Navbar';
 import DetailsComp from '../comparisonComps/Details';
 import PrecisionRecall from '../comparisonComps/PrecisionRecall';
@@ -92,7 +90,6 @@ export default function Comparison(props) {
 		setValue(newValue);
 	};
 
-	// Fetching the data
 	let urls = [];
 	let i;
 	for(i=0;i<eval_ids.length;i++)
