@@ -159,6 +159,17 @@ export default function Comparison(props) {
 						<TabPanel value={value} index={1}>
 							
 						</TabPanel>
+
+						{evalList[0].data.model_type === "regression" ? (
+							null
+						) : (
+							<>
+							<TabPanel value={value} index={2}>
+								<ROC_AUC c={0} evaluations={evalList}/>
+								<PrecisionRecall c={0} evaluations={evalList}/>
+							</TabPanel>
+							</>
+						)}
 						
 					</div>
 				</>

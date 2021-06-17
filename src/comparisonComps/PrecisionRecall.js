@@ -50,7 +50,7 @@ function createData(name,area){
 export default function PrecisionRecallCurve(props) {
     let evalList = props.evaluations;
     let numTabs = evalList.length;
-
+    let c=props.c;
     let precision = [];
     let recall = [];
     let auc = [];
@@ -69,6 +69,9 @@ export default function PrecisionRecallCurve(props) {
     let trace = [];
 
     for (let i = 0; i < numTabs; i++) {
+        if(c==0)
+        trace.push({ x: precision[i], y: recall[i], type: 'scatter', name: evalList[i].data.dataset.name });
+        else
         trace.push({ x: precision[i], y: recall[i], type: 'scatter', name: evalList[i].data.name });
     }
     let data = [...trace]
@@ -78,6 +81,9 @@ export default function PrecisionRecallCurve(props) {
     var info = [];
     var auc_ = [];
     for (var i = 0; i < numTabs; i++) {
+        if(c==0)
+        info.push(evalList[i].data.dataset.name)
+        else
         info.push(evalList[i].data.name);
         auc_.push(auc[i].toFixed(2));
     }
@@ -88,6 +94,9 @@ export default function PrecisionRecallCurve(props) {
     var rows=[];
     for(var i=0;i<numTabs;i++)
     {
+        if(c==0)
+        rows.push(createData(evalList[i].data.dataset.name,auc[i].toFixed(2)));
+        else
         rows.push(createData(evalList[i].data.name,auc[i].toFixed(2)));
     }
     
