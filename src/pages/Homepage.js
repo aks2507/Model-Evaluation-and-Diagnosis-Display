@@ -165,7 +165,7 @@ const EnhancedTableToolbar = (props) => {
   const CompareHandler = eval_ids => async(e) => {
     console.log(eval_ids);
     console.log(countUnique(datasetIDList));
-    if(countUnique(datasetIDList)==1) 
+    if(countUnique(datasetIDList)===1) 
     window.location.replace("/comparison/"+eval_ids.toString());
     else
     window.location.replace("/comparisonDatasets/"+eval_ids.toString());
@@ -331,7 +331,7 @@ export default function Homepage(){
     let newSelectedModelType = [];
     let newSelectedsDatasetID =[];
     let entity=data.evaluation_entities.find((p)=>{
-      return p.eval_id==eval_id;
+      return p.eval_id===eval_id;
     });
     console.log(selectedIndex);
     if (selectedIndex === -1) {

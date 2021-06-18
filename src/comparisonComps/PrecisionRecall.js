@@ -9,7 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Plot from 'react-plotly.js';
 import Box from '@material-ui/core/Box';
-import Details from './Details';
+// import Details from './Details';
 
 
 const StyledTableCell = withStyles((theme) => ({
@@ -22,13 +22,13 @@ const StyledTableCell = withStyles((theme) => ({
     },
   }))(TableCell);
   
-  const StyledTableRow = withStyles((theme) => ({
-    root: {
-      '&:nth-of-type(odd)': {
-        backgroundColor: theme.palette.action.hover,
-      },
-    },
-  }))(TableRow);
+//   const StyledTableRow = withStyles((theme) => ({
+//     root: {
+//       '&:nth-of-type(odd)': {
+//         backgroundColor: theme.palette.action.hover,
+//       },
+//     },
+//   }))(TableRow);
 
 
 
@@ -69,7 +69,7 @@ export default function PrecisionRecallCurve(props) {
     let trace = [];
 
     for (let i = 0; i < numTabs; i++) {
-        if(c==0)
+        if(c===0)
         trace.push({ x: precision[i], y: recall[i], type: 'scatter', name: evalList[i].data.dataset.name });
         else
         trace.push({ x: precision[i], y: recall[i], type: 'scatter', name: evalList[i].data.name });
@@ -81,7 +81,7 @@ export default function PrecisionRecallCurve(props) {
     var info = [];
     var auc_ = [];
     for (var i = 0; i < numTabs; i++) {
-        if(c==0)
+        if(c===0)
         info.push(evalList[i].data.dataset.name)
         else
         info.push(evalList[i].data.name);
@@ -92,9 +92,9 @@ export default function PrecisionRecallCurve(props) {
     curve_info.push(auc_);
     const classes = useStyles();
     var rows=[];
-    for(var i=0;i<numTabs;i++)
+    for(i=0;i<numTabs;i++)
     {
-        if(c==0)
+        if(c===0)
         rows.push(createData(evalList[i].data.dataset.name,auc[i].toFixed(2)));
         else
         rows.push(createData(evalList[i].data.name,auc[i].toFixed(2)));

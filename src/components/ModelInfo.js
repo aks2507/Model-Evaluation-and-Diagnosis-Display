@@ -18,6 +18,9 @@ export default function ModelInfo(props) {
 
   let k = props.keys;
   let v = props.values;
+  for(let i=0;i<k.length;i++){
+    console.log(typeof(v[i]));
+  }
 
   return (
     <>

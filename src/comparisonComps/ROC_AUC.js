@@ -22,13 +22,13 @@ const StyledTableCell = withStyles((theme) => ({
   },
 }))(TableCell);
 
-const StyledTableRow = withStyles((theme) => ({
-  root: {
-    '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.action.hover,
-    },
-  },
-}))(TableRow);
+// const StyledTableRow = withStyles((theme) => ({
+//   root: {
+//     '&:nth-of-type(odd)': {
+//       backgroundColor: theme.palette.action.hover,
+//     },
+//   },
+// }))(TableRow);
 
 
 
@@ -75,7 +75,7 @@ export default function ROC_AUC(props){
   console.log(tpr.length);
   for(let i=0;i<numTabs;i++)
   {
-    if(c==0)
+    if(c===0)
     trace.push({x:fpr[i],y:tpr[i],type:'scatter',name:evalList[i].data.dataset.name});
     else
     trace.push({x:fpr[i],y:tpr[i],type:'scatter',name:evalList[i].data.name});
@@ -87,7 +87,7 @@ export default function ROC_AUC(props){
   var info=[];
   var auc_=[];
   for(var i=0;i<numTabs;i++){
-      if(c==0) info.push(evalList[i].data.dataset.name)
+      if(c===0) info.push(evalList[i].data.dataset.name)
       else
       info.push(evalList[i].data.name);
       auc_.push(auc[i].toFixed(2));
@@ -97,9 +97,9 @@ export default function ROC_AUC(props){
   curve_info.push(auc_);
   const classes = useStyles();
   var rows=[];
-  for(var i=0;i<numTabs;i++)
+  for(i=0;i<numTabs;i++)
   {
-      if(c==0)  
+      if(c===0)  
       rows.push(createData(evalList[i].data.dataset.name,auc[i].toFixed(2)));
       else
       rows.push(createData(evalList[i].data.name,auc[i].toFixed(2)));
