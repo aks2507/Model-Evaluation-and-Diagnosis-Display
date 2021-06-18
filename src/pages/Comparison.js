@@ -7,8 +7,6 @@ import Box from '@material-ui/core/Box';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import CssBaseline from '@material-ui/core/CssBaseline';
-
-// Components
 import Navbar from '../components/Navbar';
 import Metrics from '../comparisonComps/Metrics';
 import PrecisionRecall from '../comparisonComps/PrecisionRecall';

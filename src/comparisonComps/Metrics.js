@@ -1,7 +1,5 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-
-//Components
 import Details from './Details';
 import CompareTable from './CompareTable';
 import Plots from './Plots';

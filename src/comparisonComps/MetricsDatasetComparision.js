@@ -1,7 +1,5 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-
-//Components
 import Details from '../comparisonComps/Details';
 import CompareTable from './CompareTable';
 import Plots from './Plots';
@@ -102,16 +100,16 @@ export default function Metrics(props){
         let linetrace_two = [];
         for(let i=0;i<numTabs;i++)
         {
-            bartrace_one.push({x:x_one[i],y:y_one[i],type:'bar',name:evalList[i].data.name});
-            bartrace_two.push({x:x_two[i],y:y_two[i],type:'bar',name:evalList[i].data.name});
+            bartrace_one.push({x:x_one[i],y:y_one[i],type:'bar',name:evalList[i].data.dataset.name});
+            bartrace_two.push({x:x_two[i],y:y_two[i],type:'bar',name:evalList[i].data.dataset.name});
         }
         data_one = [...bartrace_one]
         data_two = [...bartrace_two]
 
         for(let i=0;i<numTabs;i++)
         {
-            linetrace_one.push({x:x_one[i],y:y_one[i],type:'scatter',name:evalList[i].data.name});
-            linetrace_two.push({x:x_two[i],y:y_two[i],type:'scatter',name:evalList[i].data.name});
+            linetrace_one.push({x:x_one[i],y:y_one[i],type:'scatter',name:evalList[i].data.dataset.name});
+            linetrace_two.push({x:x_two[i],y:y_two[i],type:'scatter',name:evalList[i].data.dataset.name});
         }
         linedata_one = [...linetrace_one]
         linedata_two = [...linetrace_two]
@@ -121,13 +119,13 @@ export default function Metrics(props){
         let linetrace = [];
         for(let i=0;i<numTabs;i++)
         {
-            bartrace.push({x:x[i],y:y[i],type:'bar',name:evalList[i].data.name});
+            bartrace.push({x:x[i],y:y[i],type:'bar',name:evalList[i].data.dataset.name});
         }
         data = [...bartrace]
         
         for(let i=0;i<numTabs;i++)
         {
-            linetrace.push({x:x[i],y:y[i],type:'scatter',name:evalList[i].data.name});
+            linetrace.push({x:x[i],y:y[i],type:'scatter',name:evalList[i].data.dataset.name});
         }
         linedata = [...linetrace]
     }
@@ -154,6 +152,49 @@ export default function Metrics(props){
                 
             </div>
         </div>
+
+        
+        {evalList[0].data.model_type === "regression" ? (
+            <>
+                <div className="row">
+                    <div className="col">
+                    <Box m={20} mt={1}>
+                        <Plots data={data_one} width={700} height={450}/>
+                    </Box>
+                    </div>
+                    <div className="col">
+                    <Box m={20} mt={1}>
+                        <Plots data={data_two} width={700} height={450}/>
+                        </Box>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col">
+                    <Box m={20} mt={1}>
+                        <Plots data={linedata_one} width={700} height={450}/>
+                        </Box>
+                    </div>
+                    <div className="col">
+                    <Box m={20} mt={1}>
+                        <Plots data={linedata_two} width={700} height={450}/>
+                        </Box>
+                    </div>
+                </div>
+            </>
+        ) : (
+            <>
+                <div className="row">
+                <Box m={20} mt={0}>
+                    <Plots data={data} width={700} height={450}/>
+                    </Box>
+                </div>
+                <div className="row">
+                <Box m={20} mt={0}>
+                    <Plots data={linedata} width={700} height={450}/>
+                    </Box>
+                </div>
+            </>
+        )}
 
      </div>
   );
