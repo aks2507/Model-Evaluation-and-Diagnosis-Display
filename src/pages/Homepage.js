@@ -152,7 +152,7 @@ const useToolbarStyles = makeStyles((theme) => ({
 
 const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles();
-  const { numSelected, selectedList, modelTypeList, datasetIDList} = props;
+  const { numSelected, selectedList, modelTypeList, datasetIDList, modelIDList} = props;
   const onDeleteIconHandler = async(e) => {
     e.preventDefault();
     let i;
@@ -205,7 +205,9 @@ const EnhancedTableToolbar = (props) => {
       {numSelected > 0 ? (
         <div className={classes.rowC}>
             
-            {numSelected < 2 || (countUnique(modelTypeList) > 1 && countUnique(datasetIDList) > 1) ? (
+            {numSelected < 2 
+            || (countUnique(modelTypeList) > 1 && countUnique(datasetIDList) !== 1 ) 
+            || (countUnique(datasetIDList) > 1 && countUnique(modelIDList) !== 1 ) ? (
               <Button
                 variant="contained"
                 color="secondary"
@@ -301,6 +303,7 @@ export default function Homepage(){
   const [selected, setSelected] = useState([]);
   const [selectedModelType, setSelectedModelType] = useState([]);
   const [selectedDatasetID, setSelectedDatasetID] = useState([]);
+  const [selectedModelID, setSelectedModelID] = useState([]);
   const [page, setPage] = useState(0);
   const [dense, setDense] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -316,46 +319,53 @@ export default function Homepage(){
       const newSelecteds = rows.map((n) => n.eval_id);
       const newSelectedsModelTypes = rows.map((n) => n.model_type);
       const newSelectedsDatasetIDs = rows.map((n, index) => data.evaluation_entities[index].dataset.dataset_id);
+      const newSelectedsModelIDs = rows.map((n, index) => data.evaluation_entities[index].model.model_id);
       setSelected(newSelecteds);
       setSelectedModelType(newSelectedsModelTypes);
       setSelectedDatasetID(newSelectedsDatasetIDs);
+      setSelectedModelID(newSelectedsModelIDs);
       return;
     }
     setSelected([]);
     setSelectedModelType([]);
     setSelectedDatasetID([]);
+    setSelectedModelID([]);
   };
 
   const handleClick = (event, eval_id, model_type, index) => {
-    console.log(selected);
-    console.log(selectedDatasetID);
-    console.log(index);
+    // console.log(selected);
+    // console.log(selectedDatasetID);
+    // console.log(index);
     const selectedIndex = selected.indexOf(eval_id);
     let newSelected = [];
     let newSelectedModelType = [];
     let newSelectedsDatasetID =[];
+    let newSelectedsModelID =[];
     let entity=data.evaluation_entities.find((p)=>{
       return p.eval_id===eval_id;
     });
-    console.log(selectedIndex);
+    // console.log(selectedIndex);
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, eval_id);
-      console.log(newSelected);
+      // console.log(newSelected);
       newSelectedModelType = newSelectedModelType.concat(selectedModelType, model_type);
-      console.log(newSelectedModelType);
-      console.log(index);
-      console.log(data.evaluation_entities[index]);
+      // console.log(newSelectedModelType);
+      // console.log(index);
+      // console.log(data.evaluation_entities[index]);
       newSelectedsDatasetID = newSelectedsDatasetID.concat(selectedDatasetID, entity.dataset.dataset_id)
-      console.log(selectedDatasetID);
-      console.log(newSelectedsDatasetID);
+      newSelectedsModelID = newSelectedsModelID.concat(selectedModelID, entity.model.model_id)
+      // console.log(selectedDatasetID);
+      // console.log(newSelectedsDatasetID);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
       newSelectedModelType = newSelectedModelType.concat(selectedModelType.slice(1));
       newSelectedsDatasetID = newSelectedsDatasetID.concat(selectedDatasetID.slice(1));
+      newSelectedsModelID = newSelectedsModelID.concat(selectedModelID.slice(1));
     } else if (selectedIndex === selected.length - 1) {
       newSelected = newSelected.concat(selected.slice(0, -1));
       newSelectedModelType = newSelectedModelType.concat(selectedModelType.slice(0, -1));
       newSelectedsDatasetID = newSelectedsDatasetID.concat(selectedDatasetID.slice(0, -1));
+      newSelectedsModelID = newSelectedsModelID.concat(selectedModelID.slice(0, -1));
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(
         selected.slice(0, selectedIndex),
@@ -369,13 +379,18 @@ export default function Homepage(){
         selectedDatasetID.slice(0, selectedIndex),
         selectedDatasetID.slice(selectedIndex + 1),
       );
+      newSelectedsModelID = newSelectedsModelID.concat(
+        selectedModelID.slice(0, selectedIndex),
+        selectedModelID.slice(selectedIndex + 1),
+      );
     }
 
     setSelected(newSelected);
     setSelectedModelType(newSelectedModelType);
     setSelectedDatasetID(newSelectedsDatasetID);
-    console.log(selectedDatasetID);
-    console.log(newSelectedsDatasetID);
+    setSelectedModelID(newSelectedsModelID);
+    // console.log(selectedDatasetID);
+    // console.log(newSelectedsDatasetID);
   };
 
   const handleChangePage = (event, newPage) => {
@@ -396,10 +411,11 @@ export default function Homepage(){
 
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
-console.log(selectedModelType);
-console.log(selectedDatasetID);
-console.log(selected);
-console.log(data);
+// console.log("model_types: ",selectedModelType);
+// console.log("datasetIDs: ",selectedDatasetID);
+// console.log("evalIDs: ",selected);
+// console.log("modelIDs: ",selectedModelID);
+// console.log(data);
   return (
     <div className={classes.root}>
       <Navbar/>
@@ -408,7 +424,8 @@ console.log(data);
           numSelected={selected.length} 
           selectedList={selected} 
           modelTypeList={selectedModelType}
-          datasetIDList={selectedDatasetID} />
+          datasetIDList={selectedDatasetID}
+          modelIDList={selectedModelID} />
         <TableContainer>
           <Table
             className={classes.table}

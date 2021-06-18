@@ -59,7 +59,7 @@ export default function Metrics(props){
   const y= [];
   const x_two=[];
   const y_two=[];
-  console.log(props);
+  // console.log(props);
   if(props.model_type==="regression") {
     pushAll("MAE",props.metadata.mean_absolute_error.toFixed(2), rows, x, y);
     pushAll("MSE",props.metadata.mean_squared_error.toFixed(2), rows, x, y);

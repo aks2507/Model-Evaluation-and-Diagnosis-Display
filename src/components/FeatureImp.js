@@ -35,7 +35,7 @@ export default function FeatureImp(props){
   const rows = [];
   const x = [];
   const y = [];
-  console.log(props);
+  // console.log(props);
 
   let i;
   for(i=0;i<props.feature_scores.length;i++)

@@ -7,12 +7,15 @@ import Box from '@material-ui/core/Box';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import CssBaseline from '@material-ui/core/CssBaseline';
+
+//Comaponents
 import Navbar from '../components/Navbar';
 import DetailsComp from '../comparisonComps/Details';
 import PrecisionRecall from '../comparisonComps/PrecisionRecall';
 import ROC_AUC from '../comparisonComps/ROC_AUC';
 import FeatureImp from '../components/FeatureImp'
 import DatasetInfo from '../components/DatasetInfo';
+import ModelInfo from '../components/ModelInfo';
 import ClassImb from '../components/ClassImb';
 import MetricsDatasetComparision from '../comparisonComps/MetricsDatasetComparision';
 function TabPanel(props) {
@@ -136,11 +139,12 @@ export default function Comparison(props) {
 					>
 						<Tab label="Metrics" {...a11yProps(0)} />
 						<Tab label="Dataset Information" {...a11yProps(1)} />
+						<Tab label="Model Information" {...a11yProps(2)}/>
 						{evalList[0].data.model_type === "regression" ? (
 							null
 						) : (
 							
-							<Tab label="Curves" {...a11yProps(2)}/>
+							<Tab label="Curves" {...a11yProps(3)}/>
 
 						)}
 					</Tabs>
@@ -149,9 +153,9 @@ export default function Comparison(props) {
 					<CssBaseline/>
 					<div className={classes.leftarea}>
 						<TabPanel value={value} index={0}>
-						<MetricsDatasetComparision
-						evaluations={evalList}
-						/>
+							<MetricsDatasetComparision
+							evaluations={evalList}
+							/>
 						</TabPanel>
 						<TabPanel value={value} index={1}>
 							<DetailsComp c={0} evaluations={evalList} />
@@ -171,12 +175,17 @@ export default function Comparison(props) {
 								</>
 							)}
 						</TabPanel>
-
+						<TabPanel value={value} index={2}>
+							<ModelInfo
+								keys={evalList[0].data.model.metadata.keys}
+								values={evalList[0].data.model.metadata.values}
+							/>
+						</TabPanel>
 						{evalList[0].data.model_type === "regression" ? (
 							null
 						) : (
 							<>
-							<TabPanel value={value} index={2}>
+							<TabPanel value={value} index={3}>
 								<ROC_AUC c={0} evaluations={evalList}/>
 								<PrecisionRecall c={0} evaluations={evalList}/>
 							</TabPanel>

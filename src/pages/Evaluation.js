@@ -74,7 +74,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Evaluation(props) {
   const eval_id = props.match.params.eval_id;
-  console.log(eval_id);
+  // console.log(eval_id);
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -89,7 +89,7 @@ export default function Evaluation(props) {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error!</p>;
   var labels=data.dataset.metadata.output_label;
-  console.log(data);
+  // console.log(data);
   return (
     <>
       <Navbar/>
