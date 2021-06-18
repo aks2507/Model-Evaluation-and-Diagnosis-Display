@@ -116,7 +116,7 @@ export default function Comparison(props) {
 	}
 	if(load)
 	{
-		const evals = mapLoop().then((data) => {
+		mapLoop().then((data) => {
 				setevalList(data);
 		});
 		setLoad(false);
@@ -161,7 +161,6 @@ export default function Comparison(props) {
 							<DetailsComp c={0} evaluations={evalList} />
 							{evalList.map((evaluation, index) =>
 								<>
-								 	<h2>{evaluation.data.name}</h2>
 									<h3>{evaluation.data.dataset.name}</h3>
 								 	<DatasetInfo
 										compare={2}
@@ -176,6 +175,7 @@ export default function Comparison(props) {
 							)}
 						</TabPanel>
 						<TabPanel value={value} index={2}>
+							<DetailsComp c={0} evaluations={evalList} />
 							<ModelInfo
 								keys={evalList[0].data.model.metadata.keys}
 								values={evalList[0].data.model.metadata.values}

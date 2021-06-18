@@ -11,6 +11,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 //Components
 import Navbar from '../components/Navbar';
 import Metrics from '../comparisonComps/Metrics';
+import DetailsComp from '../comparisonComps/Details';
 import PrecisionRecall from '../comparisonComps/PrecisionRecall';
 import ROC_AUC from '../comparisonComps/ROC_AUC';
 import FeatureImportance from '../comparisonComps/FeatureImportance'
@@ -169,6 +170,10 @@ export default function Comparison(props) {
 							
 						</TabPanel>
 						<TabPanel value={value} index={2}>
+							<DetailsComp
+        						c={1}
+                				evaluations={evalList}
+            				/>
 							{evalList.map((evaluation) =>
 								<>
 									<h3>{evaluation.data.name}</h3>
