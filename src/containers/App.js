@@ -19,7 +19,7 @@ class App extends Component{
           <Switch>
             <Route exact path="/" component={Homepage} />
             <Route exact path="/addeval" component={ModelsDatasets} />
-            <Route exact path="/evaluation/:eval_id" component={Evaluation} />
+            <Route exact path="/evaluationReport/:eval_id" component={Evaluation} />
             <Route exact path="/comparison/:eval_ids" component={Comparison} />
             <Route exact path="/comparisonDatasets/:eval_ids" component={ComparisonDatasets} />
           </Switch>

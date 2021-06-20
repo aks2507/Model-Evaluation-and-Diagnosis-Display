@@ -100,7 +100,7 @@ export default function Comparison(props) {
 	let i;
 	for(i=0;i<eval_ids.length;i++)
 	{
-		urls.push("/evaluate/"+eval_ids[i])
+		urls.push("/modelEvaluations/"+eval_ids[i])
 	}
 
 	const mapLoop = async _ => {

@@ -105,7 +105,7 @@ export default function EvalForm(props) {
         const { name, model_type, model_id, dataset_id, metadata } = values;
         const payload = { name, model_type, model_id, dataset_id, metadata };
 
-        await axios.post('/evaluate', payload).then(() => {window.location="/";});
+        await axios.post('/modelEvaluations', payload).then(() => {window.location="/";});
     };
 
     const handleChange = name => e => {

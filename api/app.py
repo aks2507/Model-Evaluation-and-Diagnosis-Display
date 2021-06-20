@@ -23,8 +23,8 @@ api = Api(app)
 def create_tables():
 	db.create_all()
 
-api.add_resource(Evaluate,"/evaluate/<int:eval_id>")
-api.add_resource(EvaluateList,"/evaluate")
+api.add_resource(Evaluate,"/modelEvaluations/<int:eval_id>")
+api.add_resource(EvaluateList,"/modelEvaluations")
 api.add_resource(DatasetResource,"/datasets/<int:dataset_id>")
 api.add_resource(DatasetList,"/datasets")
 api.add_resource(MLModelResource,"/models/<int:model_id>")

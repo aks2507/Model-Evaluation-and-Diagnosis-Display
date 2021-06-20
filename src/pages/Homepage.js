@@ -56,7 +56,7 @@ function stableSort(array, comparator) {
 }
 
 const VisualizeHandler = (eval_id) => async(e) => {
-  window.location.replace("/evaluation/"+eval_id);
+  window.location.replace("/evaluationReport/"+eval_id);
 };
 
 function countUnique(iterable) {
@@ -158,7 +158,7 @@ const EnhancedTableToolbar = (props) => {
     let i;
     for(i=0;i<selectedList.length;i++)
     {
-      await axios.delete("/evaluate/"+selectedList[i]).then(() => {window.location.replace("/");});
+      await axios.delete("/modelEvaluations/"+selectedList[i]).then(() => {window.location.replace("/");});
     }
   };
 
@@ -280,7 +280,7 @@ export default function Homepage(){
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios(
-        '/evaluate'
+        '/modelEvaluations'
       );
       setData(result.data);
       setSearch(false);
