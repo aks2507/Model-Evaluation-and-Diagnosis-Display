@@ -4,8 +4,6 @@ import pandas as pd
 import pickle
 from sklearn import metrics
 import csv
-import seaborn as sn
-import matplotlib.pyplot as plt
 class EvaluationFunctions():
 	def __init__(self, model_type, model_path, dataset_path):
 		self.model_path = model_path
