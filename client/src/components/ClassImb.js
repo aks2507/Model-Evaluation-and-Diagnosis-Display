@@ -1,20 +1,6 @@
 import React from 'react';
-// import { makeStyles } from '@material-ui/core/styles';
 import Plot from 'react-plotly.js';
 import Box from '@material-ui/core/Box';
-// const useStyles = makeStyles({
-//   table: {
-//     width:"90%",
-//     margin:"auto",
-//   },
-// });
-
-
-
-// function createData(metric, value) {
-//   return { metric, value };
-// }
-
 
 export default function ClassImb(props){
   const labels=props.output_label;
@@ -58,7 +44,7 @@ export default function ClassImb(props){
                     textinfo: 'none'
                   }]}
                   layout={ 
-                    {width: 600, height: 575, title: 'Class Imbalance'}
+                    {width: 300, height: 275, title: 'Class Imbalance'}
                    }
                   config={ 
                     {

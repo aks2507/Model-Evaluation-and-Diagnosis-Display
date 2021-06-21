@@ -13,12 +13,12 @@ import Navbar from '../components/Navbar';
 import DetailsComp from '../comparisonComps/Details';
 import PrecisionRecall from '../comparisonComps/PrecisionRecall';
 import ROC_AUC from '../comparisonComps/ROC_AUC';
-import FeatureImp from '../components/FeatureImp'
 import DatasetInfo from '../components/DatasetInfo';
 import ModelInfo from '../components/ModelInfo';
 import ClassImb from '../components/ClassImb';
 import MetricsDatasetComparision from '../comparisonComps/MetricsDatasetComparision';
 import FeatureImpDatasetComparison from '../components/FeatureImpDatasetComparison';
+import ClassImbDatasetComparision from '../components/ClassImbDatasetComparision';
 
 function TabPanel(props) {
 	const { children, value, index, ...other } = props;
@@ -72,6 +72,11 @@ const useStyles = makeStyles((theme) => ({
 		height: "100%",
 		width: "100%",
 	},
+	flexcontainer: {
+		display: 'flex',
+    	flexDirection: 'row',
+	}
+	
 }));
 
 
@@ -172,12 +177,11 @@ export default function Comparison(props) {
 							)}
 								
 							<FeatureImpDatasetComparison evalList={evalList} />
-						
-							{evalList.map((evaluation, index) =>
-								<>
-									<ClassImb output_label={evaluation.data.dataset.metadata.output_label} />
-								</>
-							)}
+							
+							<ClassImbDatasetComparision
+							evalList={evalList}
+							></ClassImbDatasetComparision>
+
 						</TabPanel>
 						<TabPanel value={value} index={2}>
 							<DetailsComp c={0} evaluations={evalList} />
