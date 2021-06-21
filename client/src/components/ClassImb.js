@@ -44,7 +44,7 @@ export default function ClassImb(props){
                     textinfo: 'none'
                   }]}
                   layout={ 
-                    {width: 300, height: 275, title: 'Class Imbalance'}
+                    {width: 400, height: 400, title: 'Class Imbalance'}
                    }
                   config={ 
                     {
