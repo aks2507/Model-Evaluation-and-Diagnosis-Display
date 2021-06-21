@@ -24,10 +24,10 @@ import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import Navbar from '../components/Navbar'; 
 import { styled } from '@material-ui/core/styles';
+
 function createData(eval_id, name, model_type, model_name, dataset_name, date_created) {
   return { eval_id, name, model_type, model_name, dataset_name, date_created };
 }
-
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -505,9 +505,9 @@ export default function Homepage(){
       />
       <div className="text-center">
 
-      <Button variant="contained" color="primary" size="large" onClick={handleAdd}>
-        Add Evaluation
-      </Button>
+        <Button variant="contained" color="primary" size="large" onClick={handleAdd}>
+          Add Evaluation
+        </Button>
       </div>
     </div>
   );

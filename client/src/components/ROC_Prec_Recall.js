@@ -37,6 +37,11 @@ export default function ROC_Prec_Recall(props){
         setY(chart_y_val);
     }
 
+    const handleBeginClick = (e) => {
+        setX(props.x);
+        setY(props.y);
+    };
+
     let plot_title = props.curve === 0 ? "ROC Curve":"Precision-Recall Curve";
     const classes = useStyles();
     var auc=props.auc.toFixed(2);
@@ -48,6 +53,22 @@ export default function ROC_Prec_Recall(props){
             size: 20,
         }
     };
+
+    let updatemenus = [{
+        x: 0,
+        y: 0,
+        yanchor: 'top',
+        xanchor: 'left',
+        showactive: false,
+        direction: 'left',
+        type: 'buttons',
+        pad: {t: 87, r: 10},
+        buttons: [{
+            method: 'skip',
+            label: 'Reset',
+        }]
+    }];
+
     let steps = [];
     let div = (Math.max(...props.x) - Math.min(...props.x))/100;
     for(let i=0;i<100;i++){
@@ -65,12 +86,12 @@ export default function ROC_Prec_Recall(props){
         })
     }
 
-    
+    // console.log(steps);
     let slider = [{pad: {t: 30},
         len: 0.5,
         x: 0.5,
         currentvalue: currentvalue,
-        steps: steps
+        steps: steps,
     }]
 
 
@@ -101,12 +122,20 @@ export default function ROC_Prec_Recall(props){
                     data={[
                         {type: 'scatter', x: x, y: y},
                     ]}
-                    layout={ {width: 500, height: 405, title: plot_title,align:'right', sliders:slider} }
+                    layout={ {
+                        width: 500, 
+                        height: 405, 
+                        title: plot_title,
+                        align:'right', 
+                        sliders:slider,
+                        updatemenus:updatemenus
+                    } }
                     config={ {
                         scrollZoom:true,
                         respnsive:true
                     } }
                     onSliderChange={handleSliderChangeX}
+                    onButtonClicked={handleBeginClick}
                 />
             </div>    
         </div>
