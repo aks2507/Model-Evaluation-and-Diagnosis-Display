@@ -24,14 +24,7 @@ export default function ClassImb(props){
     <div>
 
       <div className="row">
-        {/* <Details
-          area={1}
-          name={props.name}
-          model_type={props.model_type}
-          date_created={props.date_created}
-          datasetinfo={props.datasetinfo}
-          modelinfo={props.modelinfo}
-        /> */}
+        
       </div>
         <div>
           <Box mx={11} pt={1}>

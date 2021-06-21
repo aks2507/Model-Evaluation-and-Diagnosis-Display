@@ -2,7 +2,6 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Plot from 'react-plotly.js';
 import Box from '@material-ui/core/Box';
-// import Details from './Details';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
@@ -11,7 +10,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '50%',
+    width: '60%',
     align:"right"
   },
   heading: {
@@ -23,10 +22,12 @@ const useStyles = makeStyles((theme) => ({
 export default function ROC_Prec_Recall(props){
     const [x, setX] = React.useState(props.x);
     const [y, setY] = React.useState(props.y);
-    
+    const [cutoff,setCutoff]=React.useState(0);
     const handleSliderChangeX = (e) => {
         let chart_x_val = [];
         let chart_y_val = [];
+        
+        console.log(e);
         for(let i=0;i<x.length;i++){
             let val_x = props.x[i] - e.step.value < 0 ? 0 : props.x[i] - e.step.value;
             let val_y = props.y[i] - e.step.value < 0 ? 0 : props.y[i] - e.step.value;
@@ -35,6 +36,7 @@ export default function ROC_Prec_Recall(props){
         }
         setX(chart_x_val);
         setY(chart_y_val);
+        setCutoff(e.step.value);
     }
 
     const handleBeginClick = (e) => {
@@ -46,6 +48,7 @@ export default function ROC_Prec_Recall(props){
     const classes = useStyles();
     var auc=props.auc.toFixed(2);
     let currentvalue = {
+     
         xanchor: 'right',
         prefix: 'cutoff: ',
         font: {
@@ -70,28 +73,26 @@ export default function ROC_Prec_Recall(props){
     }];
 
     let steps = [];
-    let div = (Math.max(...props.x) - Math.min(...props.x))/100;
-    for(let i=0;i<100;i++){
-        if(i<5){
-            steps.push({
-                method:'skip',
-                label: 0,
-                value: 0
-            })
-        }
+    for(let i=0;i<1;i+=0.01){
         steps.push({
             method:'skip',
-            label: (i*div + Math.min(...props.x)).toFixed(2).toString(),
-            value: Math.min(...props.x) + (i*div)
+            label: cutoff,
+            value: i.toFixed(2),
         })
     }
 
-    // console.log(steps);
-    let slider = [{pad: {t: 30},
+    let slider = [
+      {
+        pad: {t: 30},
         len: 0.5,
         x: 0.5,
         currentvalue: currentvalue,
         steps: steps,
+        tickcolor: 'white',
+        font: {
+          color: 'white'
+        },
+        
     }]
 
 
@@ -100,14 +101,14 @@ export default function ROC_Prec_Recall(props){
 
         <div className="col">
             <div className={classes.root}>
-                <Box ml={8}>
+                <Box ml={26}>
                     <Accordion>
                         <AccordionSummary
                             expandIcon={<ExpandMoreIcon />}
                             aria-controls="panel1a-content"
                             id="panel1a-header"
                         >
-                            <Typography className={classes.heading}>Area Under Curve</Typography>
+                        <Typography className={classes.heading}>Area Under Curve</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
                             <Typography>
@@ -118,6 +119,9 @@ export default function ROC_Prec_Recall(props){
                 </Box>
             </div>
             <div>
+               <Box ml={17}>
+
+             
                 <Plot className={classes.plot}
                     data={[
                         {type: 'scatter', x: x, y: y},
@@ -134,9 +138,11 @@ export default function ROC_Prec_Recall(props){
                         scrollZoom:true,
                         respnsive:true
                     } }
-                    onSliderChange={handleSliderChangeX}
+                    
                     onButtonClicked={handleBeginClick}
+                    onSliderChange={handleSliderChangeX}
                 />
+                  </Box>
             </div>    
         </div>
 

@@ -6,7 +6,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-// import Plot from 'react-plotly.js';
+import Details from './Details';
 import Box from '@material-ui/core/Box';
 import TableHead from '@material-ui/core/TableHead';
 
@@ -33,7 +33,7 @@ function createData(param, val) {
 
 export default function ModelInfo(props) {
   const classes = useStyles();
-
+  console.log(props.name);
   let k = props.keys;
   let v = props.values;
   let final_keys = [];
@@ -57,6 +57,16 @@ export default function ModelInfo(props) {
 
   return (
     <>
+    <div className="row">
+        <Details
+          area={1}
+          name={props.name}
+          model_type={props.model_type}
+          date_created={props.date_created}
+          datasetinfo={props.datasetinfo}
+          modelinfo={props.modelinfo}
+        />
+      </div>
       <Box m={2} pr={10}>
         <TableContainer component={Paper}>
           <Table className={classes.table} aria-label="simple table">

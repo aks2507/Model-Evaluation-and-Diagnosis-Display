@@ -149,6 +149,9 @@ export default function Evaluation(props) {
                   columns={data.dataset.metadata.columns}
                   datasetinfo={data.dataset}
                   modelinfo={data.model}
+                  name={data.name}
+                  date_created={data.date_created}
+                  metadata={data.metadata}
                 />
               </TabPanel>
               <TabPanel value={value} index={2}>
@@ -215,6 +218,10 @@ export default function Evaluation(props) {
                   datasetinfo={data.dataset}
                   modelinfo={data.model}
                 />
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
                 <ROCPrecRecall
                   curve={1}
                   model_type={data.model_type}
@@ -234,6 +241,9 @@ export default function Evaluation(props) {
                   columns={data.dataset.metadata.columns}
                   datasetinfo={data.dataset}
                   modelinfo={data.model}
+                  name={data.name}
+                  model_type={data.model_type}
+                  date_created={data.date_created}
                 />
               </TabPanel>
               <TabPanel value={value} index={3}>

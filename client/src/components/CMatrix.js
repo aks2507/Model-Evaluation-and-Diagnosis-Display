@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Plot from 'react-plotly.js';
-
+import Box from '@material-ui/core/Box';
 import Details from './Details';
 // import SwipeableViews from 'react-swipeable-views';
 
@@ -61,16 +61,19 @@ export default function Confusion_matrix(props){
       </div>
 
       <div className="row">
-        <Plot className={classes.plot}
-          data={[
-            {type: 'heatmap', x: x, y: y, z: cmatrix},
-          ]}
-          layout={ {width: 500, height: 450, title: "Confusion Matrix"} }
-          config={ {
-            scrollZoom:true,
-            respnsive:true
-          } }
-        />
+        <Box ml={20}>
+            <Plot className={classes.plot}
+              data={[
+                {type: 'heatmap', x: x, y: y, z: cmatrix},
+              ]}
+              layout={ {width: 500, height: 450, title: "Confusion Matrix"} }
+              config={ {
+                scrollZoom:true,
+                respnsive:true
+              } }
+            />
+        </Box>
+       
       </div>
 
     </div>
