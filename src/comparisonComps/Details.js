@@ -85,7 +85,7 @@ export default function Details(props) {
               aria-label="full width tabs example"
             >
               {
-              c==0 ?(
+              c===0 ?(
                 evalList.map((evaluation, index) => 
                 <Tab key={index}
                 label={evaluation.data.dataset.name} {...a11yProps(index)} />)

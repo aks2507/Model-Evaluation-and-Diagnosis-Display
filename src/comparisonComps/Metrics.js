@@ -160,24 +160,24 @@ export default function Metrics(props){
                 <div className="row">
                     <div className="col">
                     <Box m={20} mt={1}>
-                        <Plots data={data_one} width={700} height={450}/>
+                        <Plots data={data_one} width={700} height={450} title="Evaluation Metrics"/>
                     </Box>
                     </div>
                     <div className="col">
                     <Box m={20} mt={1}>
-                        <Plots data={data_two} width={700} height={450}/>
+                        <Plots data={data_two} width={700} height={450} title="Evaluation Metrics"/>
                         </Box>
                     </div>
                 </div>
                 <div className="row">
                     <div className="col">
                     <Box m={20} mt={1}>
-                        <Plots data={linedata_one} width={700} height={450}/>
+                        <Plots data={linedata_one} width={700} height={450} title="Evaluation Metrics"/>
                         </Box>
                     </div>
                     <div className="col">
                     <Box m={20} mt={1}>
-                        <Plots data={linedata_two} width={700} height={450}/>
+                        <Plots data={linedata_two} width={700} height={450} title="Evaluation Metrics"/>
                         </Box>
                     </div>
                 </div>
@@ -186,12 +186,12 @@ export default function Metrics(props){
             <>
                 <div className="row">
                 <Box m={20} mt={0}>
-                    <Plots data={data} width={700} height={450}/>
+                    <Plots data={data} width={700} height={450} title="Evaluation Metrics"/>
                     </Box>
                 </div>
                 <div className="row">
                 <Box m={20} mt={0}>
-                    <Plots data={linedata} width={700} height={450}/>
+                    <Plots data={linedata} width={700} height={450} title="Evaluation Metrics"/>
                     </Box>
                 </div>
             </>

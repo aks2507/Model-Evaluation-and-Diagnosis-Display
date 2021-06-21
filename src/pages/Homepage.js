@@ -24,7 +24,6 @@ import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import Navbar from '../components/Navbar'; 
 import { styled } from '@material-ui/core/styles';
-
 function createData(eval_id, name, model_type, model_name, dataset_name, date_created) {
   return { eval_id, name, model_type, model_name, dataset_name, date_created };
 }

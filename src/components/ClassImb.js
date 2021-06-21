@@ -1,20 +1,19 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+// import { makeStyles } from '@material-ui/core/styles';
 import Plot from 'react-plotly.js';
-import Details from './Details';
 import Box from '@material-ui/core/Box';
-const useStyles = makeStyles({
-  table: {
-    width:"90%",
-    margin:"auto",
-  },
-});
+// const useStyles = makeStyles({
+//   table: {
+//     width:"90%",
+//     margin:"auto",
+//   },
+// });
 
 
 
-function createData(metric, value) {
-  return { metric, value };
-}
+// function createData(metric, value) {
+//   return { metric, value };
+// }
 
 
 export default function ClassImb(props){

@@ -16,7 +16,7 @@ export default function Plots(props){
             <Plot
 
                 data={props.data}
-                layout={ {width: props.width, height: props.height, title: 'Evaluation Metrics'} }
+                layout={ {width: props.width, height: props.height, title: props.title} }
                 config={ {
                     scrollZoom:true,
                     respnsive:true

@@ -22,13 +22,13 @@ const StyledTableCell = withStyles((theme) => ({
   },
 }))(TableCell);
 
-const StyledTableRow = withStyles((theme) => ({
-  root: {
-    '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.action.hover,
-    },
-  },
-}))(TableRow);
+// const StyledTableRow = withStyles((theme) => ({
+//   root: {
+//     '&:nth-of-type(odd)': {
+//       backgroundColor: theme.palette.action.hover,
+//     },
+//   },
+// }))(TableRow);
 
 
 
@@ -129,33 +129,33 @@ export default function Metrics(props){
             } }
           />
         )}
-          <div>
-      
-                   <Box  m={4} pt={3}>
-                    <TableContainer  component={Paper}>
-                    <Table className={classes.table} aria-label="simple table">
-                        <TableHead>
-                        <TableRow>
-                            <StyledTableCell>Metrics</StyledTableCell>
-                            <StyledTableCell align="right">Score</StyledTableCell>
-                        </TableRow>
-                        </TableHead>
-                        <TableBody>
-                        {rows.map((row) => (
-                            <TableRow key={row.name}>
-                            <StyledTableCell component="th" scope="row">
-                                {row.metric}
-                            </StyledTableCell>
-                            <StyledTableCell align="right">{row.value}</StyledTableCell>
-                            </TableRow>
-                        ))}
-                        </TableBody>
-                    </Table>
-                    </TableContainer>
-                    </Box>
-      
-    </div>
-    </div>
+        <div>
+    
+          <Box  m={4} pt={3}>
+            <TableContainer  component={Paper}>
+            <Table className={classes.table} aria-label="simple table">
+                <TableHead>
+                <TableRow>
+                    <StyledTableCell>Metrics</StyledTableCell>
+                    <StyledTableCell align="right">Score</StyledTableCell>
+                </TableRow>
+                </TableHead>
+                <TableBody>
+                {rows.map((row) => (
+                    <TableRow key={row.name}>
+                    <StyledTableCell component="th" scope="row">
+                        {row.metric}
+                    </StyledTableCell>
+                    <StyledTableCell align="right">{row.value}</StyledTableCell>
+                    </TableRow>
+                ))}
+                </TableBody>
+            </Table>
+            </TableContainer>
+          </Box>
+    
+        </div>
+      </div>
     </div>
   );
 }

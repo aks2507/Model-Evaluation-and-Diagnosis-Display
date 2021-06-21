@@ -88,7 +88,7 @@ export default function Evaluation(props) {
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error!</p>;
-  var labels=data.dataset.metadata.output_label;
+  // var labels=data.dataset.metadata.output_label;
   // console.log(data);
   return (
     <>

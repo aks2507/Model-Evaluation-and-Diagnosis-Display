@@ -18,6 +18,8 @@ import DatasetInfo from '../components/DatasetInfo';
 import ModelInfo from '../components/ModelInfo';
 import ClassImb from '../components/ClassImb';
 import MetricsDatasetComparision from '../comparisonComps/MetricsDatasetComparision';
+import FeatureImpDatasetComparison from '../components/FeatureImpDatasetComparison';
+
 function TabPanel(props) {
 	const { children, value, index, ...other } = props;
 
@@ -155,7 +157,7 @@ export default function Comparison(props) {
 						<TabPanel value={value} index={0}>
 							<MetricsDatasetComparision
 							evaluations={evalList}
-							/>
+						/>
 						</TabPanel>
 						<TabPanel value={value} index={1}>
 							<DetailsComp c={0} evaluations={evalList} />
@@ -166,10 +168,13 @@ export default function Comparison(props) {
 										compare={2}
 										datasetinfo={evaluation.data.dataset}
 									/>
-									<FeatureImp 
-										feature_scores={evaluation.data.metadata.feature_scores}
-										columns={evaluation.data.metadata.columns}
-									/>
+								</>
+							)}
+								
+							<FeatureImpDatasetComparison evalList={evalList} />
+						
+							{evalList.map((evaluation, index) =>
+								<>
 									<ClassImb output_label={evaluation.data.dataset.metadata.output_label} />
 								</>
 							)}

@@ -111,7 +111,7 @@ export default function DatasetInfo(props){
             </div>
             <div className="row">
                 {/*Plot here*/}
-                <Plots data={data} width={900} height={675}/>
+                <Plots data={data} width={900} height={675} title="Dataset Statistics" />
             </div>
         </div>
     );
