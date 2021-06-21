@@ -23,7 +23,7 @@
   },
   "scripts": {
     "start": "react-scripts --max_old_space_size=4096 start",
-    "start-api": "cd api && flask run --no-debugger",
+    "start-api": "cd ../api && flask run --no-debugger",
     "build": "react-scripts --max_old_space_size=4096 build",
     "test": "react-scripts --max_old_space_size=4096 test",
     "eject": "react-scripts --max_old_space_size=4096 eject"
