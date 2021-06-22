@@ -58,14 +58,6 @@ export default function ModelInfo(props) {
   return (
     <>
     <div className="row">
-        <Details
-          area={1}
-          name={props.name}
-          model_type={props.model_type}
-          date_created={props.date_created}
-          datasetinfo={props.datasetinfo}
-          modelinfo={props.modelinfo}
-        />
       </div>
       <Box m={2} pr={10}>
         <TableContainer component={Paper}>

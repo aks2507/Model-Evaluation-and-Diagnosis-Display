@@ -164,10 +164,9 @@ export default function Comparison(props) {
 						/>
 						</TabPanel>
 						<TabPanel value={value} index={1}>
-							<DetailsComp c={0} evaluations={evalList} />
+						
 							
 							<MutipleDatasetsStats evalList={evalList} />
-
 							<FeatureImpDatasetComparison evalList={evalList} />
 							
 							<ClassImbDatasetComparision
@@ -178,6 +177,7 @@ export default function Comparison(props) {
 						<TabPanel value={value} index={2}>
 							<DetailsComp c={0} evaluations={evalList} />
 							<ModelInfo
+							   
 								keys={evalList[0].data.model.metadata.keys}
 								values={evalList[0].data.model.metadata.values}
 							/>

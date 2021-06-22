@@ -6,8 +6,6 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-
-// Components
 import Plots from '../comparisonComps/Plots';
 
 function TabPanel(props) {
@@ -45,7 +43,7 @@ function a11yProps(index) {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '70%',
+    width: '100%',
     backgroundColor: theme.palette.background.paper,
   },
 }));
@@ -108,7 +106,8 @@ export default function MultipleDatasetsStatsPlots(props) {
 
     return (
         <div className={classes.root}>
-            <AppBar position="static" color="default">
+            <Box mr={12}>
+            <AppBar  position="static" color="default">
                 <Tabs
                 value={value}
                 onChange={handleChange}
@@ -129,32 +128,48 @@ export default function MultipleDatasetsStatsPlots(props) {
                     <Tab label="Missing Values" {...a11yProps(8)} />
                 </Tabs>
             </AppBar>
+            </Box>
             <TabPanel value={value} index={0}>
+              <Box ml={15}>
                 <Plots data={traces.mean} width={600} height={500} title="Mean" />
+                </Box>
             </TabPanel>
             <TabPanel value={value} index={1}>
+            <Box ml={15}>
                 <Plots data={traces.std} width={600} height={500} title="Standard Deviation" />
+                </Box>
             </TabPanel>
             <TabPanel value={value} index={2}>
+            <Box ml={15}>
+            
                 <Plots data={traces.min} width={600} height={500} title="Minimum" />
+                </Box>
             </TabPanel>
             <TabPanel value={value} index={3}>
-                <Plots data={traces.max} width={600} height={500} title="Maximum" />
+            
+            <Box ml={15}>
+                <Plots data={traces.max} width={600} height={500} title="Maximum" /> </Box>
             </TabPanel>
             <TabPanel value={value} index={4}>
-                <Plots data={traces.q25} width={600} height={500} title="First Quartile" />
+            <Box ml={15}>
+                <Plots data={traces.q25} width={600} height={500} title="First Quartile" /> </Box>
             </TabPanel>
             <TabPanel value={value} index={5}>
-                <Plots data={traces.q50} width={600} height={500} title="Second Quartile" />
+            <Box ml={15}>
+                <Plots data={traces.q50} width={600} height={500} title="Second Quartile" /> </Box>
             </TabPanel>
             <TabPanel value={value} index={6}>
-                <Plots data={traces.q75} width={600} height={500} title="Third Quartile" />
+            <Box ml={15}>
+                <Plots data={traces.q75} width={600} height={500} title="Third Quartile" /> </Box>
             </TabPanel>
             <TabPanel value={value} index={7}>
-                <Plots data={traces.iqr} width={600} height={500} title="IQR" />
+            <Box ml={15}>
+                <Plots data={traces.iqr} width={600} height={500} title="IQR" /> </Box>
             </TabPanel>
             <TabPanel value={value} index={8}>
+            <Box ml={15}>
                 <Plots data={traces.mvals} width={600} height={500} title="Missing Values" />
+                </Box>
             </TabPanel>
         </div>
     );

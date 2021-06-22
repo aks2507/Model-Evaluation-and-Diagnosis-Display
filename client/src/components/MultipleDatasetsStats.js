@@ -6,14 +6,14 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-
-// Components
+import DetailsComp from '../comparisonComps/Details';
 import MultipleDatasetsStatsPlots from './MultipleDatasetsStatsPlots';
 import MultipleDatasetsStatsTables from './MultipleDatasetsStatsTables';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
-
+  console.log(props);
+  console.log(children);
   return (
     <div
       role="tabpanel"
@@ -23,7 +23,7 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box p={3}>
+        <Box p={10}>
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -47,7 +47,7 @@ function a11yProps(index) {
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    width: '80%',
+    width: '77%',
     backgroundColor: theme.palette.background.paper,
   },
 }));
@@ -62,6 +62,7 @@ export default function SimpleTabs(props) {
 
   return (
     <div className={classes.root}>
+      	<DetailsComp c={0} evaluations={props.evalList} />
       <AppBar position="static">
         <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
           <Tab label="Tables" {...a11yProps(0)} />

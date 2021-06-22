@@ -51,38 +51,25 @@ export default function FeatureImpDatasetComparison(props){
     let data = [...trace];
 
     return(
-    <div>
-        <div className="row">
-
-            <div className="col">
-                <Box m={2} pr={10}>
+          <div>
+                <Box ml={30}>
                     <Plot
                         data={data}
                         layout={{
                             width:600,
-                            height:600,
+                            height:400,
                             title:"Feature Importances"
                         }}
-                        config={{
-                            scrollZoom:true,
-                            responsive:true
-                        }}
-                    />
-                </Box>
-                
-            </div>
 
-            <div className="col">
-                <Box m={2} pr={10}>
+                    />
+                </Box> 
+                <Box ml={2} pr={30}>
                     <GeneralTable 
                         headCells={headCells}
                         rows={rows}
                         tabletitle="Feature Importances"
                     />
                 </Box>
-            </div>
-
-        </div>
-    </div>
+                </div>
     );
 }

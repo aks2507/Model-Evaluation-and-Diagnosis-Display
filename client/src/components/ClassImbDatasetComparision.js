@@ -52,7 +52,7 @@ export default function ClassImbDatasetComparision(props){
   var layout = {
     title: 'Class Imbalance Comparision',
     height: 400,
-    width: 300*evalList.length,
+    width: 250*evalList.length,
     showlegend: true,
     grid: {rows: 1, columns: evalList.length}
   };
@@ -60,7 +60,7 @@ export default function ClassImbDatasetComparision(props){
   return(
     
     <div>
-        <Box ml={2}>
+        <Box ml={10}>
             <Plot   
                 data={data1}
                 layout={layout}

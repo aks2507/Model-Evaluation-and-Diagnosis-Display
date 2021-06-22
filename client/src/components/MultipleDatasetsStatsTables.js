@@ -45,9 +45,10 @@ function a11yProps(index) {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '70%',
+    width: '100%',
     backgroundColor: theme.palette.background.paper,
   },
+  
 }));
 
 function createData(column, datasets){
@@ -116,7 +117,8 @@ export default function ScrollableTabsButtonAuto(props) {
 
     return (
         <div className={classes.root}>
-            <AppBar position="static" color="default">
+          <Box mr={12}>
+            <AppBar  position="static" color="default">
                 <Tabs
                 value={value}
                 onChange={handleChange}
@@ -137,6 +139,7 @@ export default function ScrollableTabsButtonAuto(props) {
                     <Tab label="Missing Values" {...a11yProps(8)} />
                 </Tabs>
             </AppBar>
+            </Box>
             <TabPanel value={value} index={0}>
                 <GeneralTable rows={rows.mean} headCells={headCells} tabletitle="Mean" />
             </TabPanel>

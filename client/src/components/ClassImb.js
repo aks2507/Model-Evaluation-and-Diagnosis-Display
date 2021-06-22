@@ -13,13 +13,10 @@ export default function ClassImb(props){
   const x=[];
   const y=[];
   for (const [key, value] of Object.entries(counts)) {
-    // console.log(`${key}: ${value}`);
     x.push(parseInt(key));
     y.push(value);
  }
-//  console.log(typeof x[0]);
-//  console.log(y);
-//  console.log(x);
+
   return(
     <div>
 
@@ -48,8 +45,6 @@ export default function ClassImb(props){
             />
           </Box>
         </div>
-        
-     
       </div>
 
   );

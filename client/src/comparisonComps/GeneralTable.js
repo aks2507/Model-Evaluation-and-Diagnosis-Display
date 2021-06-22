@@ -53,7 +53,7 @@ function EnhancedTableHead(props) {
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
-            align="center"
+            align="left"
             padding='default'
             sortDirection={orderBy === headCell.id ? order : false}
           >
@@ -108,7 +108,6 @@ const EnhancedTableToolbar = (props) => {
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: '90%',
-    // minWidth: '90%',
   },
   paper: {
     width: '100%',
