@@ -207,6 +207,8 @@ export default function Evaluation(props) {
                   datasetinfo={data.dataset}
                   modelinfo={data.model}
                 />
+                <br></br><br></br>
+                <br></br>
                 <ROCPrecRecall
                   curve={0}
                   model_type={data.model_type}
