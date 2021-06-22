@@ -3,15 +3,10 @@ import pandas as pd
 from flask_restful import Api
 from db import db
 
-from flask import Flask,request,render_template,redirect,url_for, Response
-
+from flask import Flask
 from resources.evaluation import Evaluate, EvaluateList
 from resources.datasets import DatasetResource, DatasetList
 from resources.mlmodels import MLModelResource, ModelList
-
-from models.evaluation import EvalModel
-from models.datasets import Dataset
-from models.mlmodels import MLModel
 
 app=Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'

@@ -66,7 +66,7 @@ const headCells = [
   { id: 'eval_id', numeric: true, disablePadding: false, label: 'Evaluation ID' },
   { id: 'name', numeric: false, disablePadding: false, label: 'Evaluation Name' },
   { id: 'model_type', numeric: false, disablePadding: false, label: 'Model Type' },
-  { id: 'model_name', numeric: false, disablePadding: false, label: 'Model' },
+  { id: 'model_name', numeric: false, disablePadding: false, label: 'Model Name' },
   { id: 'dataset_name', numeric: false, disablePadding: false, label: 'Dataset' },
   { id: 'date_created', numeric: false, disablePadding: false, label: 'Date Created' },
 ];
@@ -192,9 +192,9 @@ const EnhancedTableToolbar = (props) => {
         </Typography>
       ) : (
         <>
-         <Box ml={60}>
+         <Box ml={70}>
          <Typography  className={classes.title} variant="h4" id="tableTitle" component="div">
-            <MyButton>Click on Evaluation Name to Visualize</MyButton>
+            <MyButton>Evaluations List</MyButton>
           </Typography>
          </Box>
         
@@ -332,9 +332,6 @@ export default function Homepage(){
   };
 
   const handleClick = (event, eval_id, model_type, index) => {
-    // console.log(selected);
-    // console.log(selectedDatasetID);
-    // console.log(index);
     const selectedIndex = selected.indexOf(eval_id);
     let newSelected = [];
     let newSelectedModelType = [];
@@ -343,18 +340,12 @@ export default function Homepage(){
     let entity=data.evaluation_entities.find((p)=>{
       return p.eval_id===eval_id;
     });
-    // console.log(selectedIndex);
+
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, eval_id);
-      // console.log(newSelected);
       newSelectedModelType = newSelectedModelType.concat(selectedModelType, model_type);
-      // console.log(newSelectedModelType);
-      // console.log(index);
-      // console.log(data.evaluation_entities[index]);
       newSelectedsDatasetID = newSelectedsDatasetID.concat(selectedDatasetID, entity.dataset.dataset_id)
       newSelectedsModelID = newSelectedsModelID.concat(selectedModelID, entity.model.model_id)
-      // console.log(selectedDatasetID);
-      // console.log(newSelectedsDatasetID);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
       newSelectedModelType = newSelectedModelType.concat(selectedModelType.slice(1));
@@ -388,8 +379,6 @@ export default function Homepage(){
     setSelectedModelType(newSelectedModelType);
     setSelectedDatasetID(newSelectedsDatasetID);
     setSelectedModelID(newSelectedsModelID);
-    // console.log(selectedDatasetID);
-    // console.log(newSelectedsDatasetID);
   };
 
   const handleChangePage = (event, newPage) => {
@@ -409,12 +398,6 @@ export default function Homepage(){
   const isSelected = (eval_id) => selected.indexOf(eval_id) !== -1;
 
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
-
-// console.log("model_types: ",selectedModelType);
-// console.log("datasetIDs: ",selectedDatasetID);
-// console.log("evalIDs: ",selected);
-// console.log("modelIDs: ",selectedModelID);
-// console.log(data);
   return (
     <div className={classes.root}>
       <Navbar/>
@@ -464,15 +447,19 @@ export default function Homepage(){
                           inputProps={{ 'aria-labelledby': labelId }}
                         />
                       </TableCell>
-                      <TableCell component="th" id={labelId} scope="row" align="center">{row.eval_id}</TableCell>
-                      <TableCell align="center">
+                      <TableCell component="th" id={labelId} scope="row" align="center">
+                        
                         <Button 
-                          color="inherit" 
+                          variant="contained" 
                           style={{textTransform: 'none'}} 
                           onClick={VisualizeHandler(row.eval_id)}
                         >
-                          {row.name}
+                        {row.eval_id}
                         </Button>
+                       
+                      </TableCell>
+                      <TableCell align="center">
+                          {row.name}
                       </TableCell>
                       <TableCell align="center">{row.model_type}</TableCell>
                       <TableCell align="center">{row.model_name}</TableCell>
