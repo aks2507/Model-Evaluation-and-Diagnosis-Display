@@ -7,8 +7,26 @@ from flask import Flask
 from resources.evaluation import Evaluate, EvaluateList
 from resources.datasets import DatasetResource, DatasetList
 from resources.mlmodels import MLModelResource, ModelList
+from flask_swagger_ui import get_swaggerui_blueprint
+
 
 app=Flask(__name__)
+
+### swagger specific ###
+SWAGGER_URL = '/swagger'
+API_URL = '/static/swagger.json'
+SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
+    SWAGGER_URL,
+    API_URL,
+    config={
+        'app_name': "Seans-Python-Flask-REST-Boilerplate"
+    }
+)
+app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
+### end swagger specific ###
+
+
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = '#521637819082308ryfbbjdwd89'
