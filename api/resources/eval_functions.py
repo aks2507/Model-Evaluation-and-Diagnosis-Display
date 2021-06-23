@@ -100,9 +100,11 @@ class EvaluationFunctions():
 		label=col_names[-1]
 
 		X = dataset.loc[:,feature_cols]
-		print(X.shape)
+		# print(X.shape)
 		y_test_pred=loaded_model.predict(X)
 		y_test=dataset[label]
+		residuals = np.array(y_test_pred) - np.array(y_test)
+		residuals = residuals.tolist()
 
 		from sklearn.preprocessing import MinMaxScaler
 		scaler = MinMaxScaler()
@@ -140,5 +142,6 @@ class EvaluationFunctions():
 			"root_mean_squared_error":rmse,
 			"root_mean_squared_log_error":rmsle,
 			"feature_scores":feature_scores,
-			"columns":columns
+			"columns":columns,
+			"residuals":residuals
 		}

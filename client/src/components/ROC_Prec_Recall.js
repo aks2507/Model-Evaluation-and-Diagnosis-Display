@@ -7,7 +7,6 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import Details from './Details';
 import Plot from 'react-plotly.js';
 import Box from '@material-ui/core/Box';
 
