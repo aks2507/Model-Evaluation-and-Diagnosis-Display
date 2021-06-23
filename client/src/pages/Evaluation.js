@@ -92,10 +92,10 @@ export default function Evaluation(props) {
   if (error) return <p>Error!</p>;
   
   const n_classes=data.metadata.n_classes;
-  let residuals=[];
-  if(data.model_type=='regression')
-  residuals = data.metadata.observed.map((item,index) => item - data.metadata.predicted[index])
-  console.log(data);
+  let residuals = [];
+  if(data.model_type === 'regression')
+    residuals = data.metadata.observed.map((item,index) => item - data.metadata.predicted[index])
+
   return (
     <>
       <Navbar/>

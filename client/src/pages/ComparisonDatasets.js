@@ -18,6 +18,7 @@ import MetricsDatasetComparision from '../comparisonComps/MetricsDatasetComparis
 import FeatureImpDatasetComparison from '../components/FeatureImpDatasetComparison';
 import ClassImbDatasetComparision from '../components/ClassImbDatasetComparision';
 import MutipleDatasetsStats from '../components/MultipleDatasetsStats';
+import DatasetCompRegressionPlots from '../comparisonComps/DatasetCompRegressionPlots';
 
 function TabPanel(props) {
 	const { children, value, index, ...other } = props;
@@ -146,13 +147,7 @@ export default function Comparison(props) {
 						<Tab label="Metrics" {...a11yProps(0)} />
 						<Tab label="Dataset Information" {...a11yProps(1)} />
 						<Tab label="Model Information" {...a11yProps(2)}/>
-						{evalList[0].data.model_type === "regression" ? (
-							null
-						) : (
-							
-							<Tab label="Curves" {...a11yProps(3)}/>
-
-						)}
+						<Tab label="Curves" {...a11yProps(3)}/>
 					</Tabs>
 				</div>
 				<>
@@ -183,7 +178,12 @@ export default function Comparison(props) {
 							/>
 						</TabPanel>
 						{evalList[0].data.model_type === "regression" ? (
-							null
+							<Box ml={2} mr={2} mt={3}>
+								<DetailsComp c={0} evaluations={evalList} />
+								<TabPanel value={value} index={3}>
+									<DatasetCompRegressionPlots c={0} evalList={evalList} />
+								</TabPanel>
+							</Box>
 						) : (
 							<>
 							<TabPanel value={value} index={3}>
