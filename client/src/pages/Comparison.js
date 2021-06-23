@@ -18,6 +18,7 @@ import FeatureImportance from '../comparisonComps/FeatureImportance'
 import DatasetInfo from '../components/DatasetInfo';
 import ModelInfo from '../components/ModelInfo';
 import ClassImb from '../components/ClassImb';
+import DatasetCompRegressionPlots from '../comparisonComps/DatasetCompRegressionPlots';
 
 
 function TabPanel(props) {
@@ -144,13 +145,7 @@ export default function Comparison(props) {
 						<Tab label="Metrics" {...a11yProps(0)} />
 						<Tab label="Dataset Information" {...a11yProps(1)} />
 						<Tab label="Model Information" {...a11yProps(2)} />
-						{evalList[0].data.model_type === "regression" ? (
-							null
-						) : (
-							
-							<Tab label="Curves" {...a11yProps(3)}/>
-
-						)}
+						<Tab label="Curves" {...a11yProps(3)}/>
 					</Tabs>
 				</div>
 				<>
@@ -185,7 +180,12 @@ export default function Comparison(props) {
 							)}
 						</TabPanel>
 						{evalList[0].data.model_type === "regression" ? (
-							null
+							<Box ml={2} mr={2} mt={3}>
+							<DetailsComp c={1} evaluations={evalList} />
+							<TabPanel value={value} index={3}>
+								<DatasetCompRegressionPlots c={1} evalList={evalList} />
+							</TabPanel>
+						</Box>
 						) : (
 							<>
 							<TabPanel value={value} index={3}>

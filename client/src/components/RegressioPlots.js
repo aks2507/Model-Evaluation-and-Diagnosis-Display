@@ -25,7 +25,11 @@ export default function RegressionPlots(props){
         console.log(e);
         for(let i=0;i<x.length;i++){
             let val_x = props.x[i] - e.step.value < 0 ? 0 : props.x[i] - e.step.value;
-            let val_y = props.y[i] - e.step.value < 0 ? 0 : props.y[i] - e.step.value;
+            let val_y = 0;
+            if(props.y[i]>=0)
+                val_y = props.y[i] - e.step.value < 0 ? 0 : props.y[i] - e.step.value;
+            else if(props.y[i] < 0)
+                val_y = Number(props.y[i]) + Number(e.step.value) > 0 ? 0 : Number(props.y[i]) + Number(e.step.value);
             chart_x_val.push(val_x);
             chart_y_val.push(val_y);
         }
