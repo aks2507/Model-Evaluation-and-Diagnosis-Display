@@ -109,6 +109,71 @@ This endpoint returns the evaluation with the given eval_id stored in the "Evalu
 ### `http://localhost:5000/evaluate/<int:eval_id>, method=["DELETE"]`
 This endpoint deletes the evaluation with the given eval_id from the "Evaluations" table of the database.
 
+# Quick Start
+## Some General inormation
+1) There are two types of tables in the project
+    * Interactive
+        * Can toggle padding
+        * Change number of rows per page
+        * Navigate between table pages
+        * Checkbox to select on or multiple rows
+        * Delete button to delete slected row(s)
+        * Sort according to column
+    * Non-Interactive: Plain simple table to display data
+    * Semi-Interactive: Same as interactive, except following  are removed:
+        * Delete option
+        * Checkboxes to select
+2) Only plots that are shown in single evaluation have a slider
+## Single Model Evaluation
+The evaluation metrics for a single model can be visualized by clicking on the button encircling the Evaluation ID of the evaluation in the table at Homepage. It will render the visualisations as follows:
+### Evaluation Metrics
+Following evaluation metrics will be visible to the user the user in tabular, bar chart and line chart format:
+
+| Classification | Regression         |
+| -------------- | ------------------ |
+| Accuracy       | MAE                |
+| Precision      | MSE                |
+| Recall         | RMSE               |
+| F1-Score       | RMSLE              |
+| Log-Loss       | R-squared          |
+| ----           | Adjusted R-squared |
+
+### Curves and Charts
+The following curves and charts will be shown to the user when they select this option:
+
+| Classification   | Regression            |
+| ---------------- | --------------------- |
+| ROC              | Residual vs Observed  |
+| Precision-Recall | Observed vs Predicted |
+| Confusion Matrix | Residual vs Predicted |
+
+Along with the plots, there are also several ways to interact with them, by: 
+1) Zooming in and out using scrolling
+2) Select
+3) Lasso select
+4) Slider of cutoff value
+5) Button to reset to initial state
+6) Drag and move
+7) Save as PNG
+
+### Dataset Information
+The following data is shown about the test dataset used by the model for the prediction:
+1) Dataset Statistics are shown in Tabular format as well as in Line Chart format. Following are the statistics displayed in it, for each column of the dataset:
+    * Mean
+    * Standard deviation
+    * Minimum value
+    * Maximum value
+    * First Quartile
+    * Second Quartile
+    * Third Quartile
+    * IQR
+    * Number of missing values
+2) Feature Importances are shown in Bar chart as well as tabular format
+3) Class Imbalence is shown in Pie-chart format
+
+### Model Information
+This section gives a tabular view of the parameters and attributes that are associated with the trained model, in a tabular format.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
