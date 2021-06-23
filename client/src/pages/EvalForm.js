@@ -121,9 +121,9 @@ export default function EvalForm(props) {
   return (
     <>
       <Navbar />
-        <Box component='span'>
-          <Paper elevation={3}>
-          <Container maxWidth="xs">
+          <Box ml={36} mr={36} pr={15} pl={15}>
+            <Paper elevation={5}>
+              <Box m={2} pl={3} pr={3} pb={3}>
           <CssBaseline />
           <div className={classes.paper}>
             <Avatar className={classes.avatar}>
@@ -241,11 +241,9 @@ export default function EvalForm(props) {
                 </div>
               </form>
             </div>
-            </Container>
-          </Paper>
-        </Box>
-
-      
+            </Box>
+            </Paper>
+            </Box>
     </>
   );
 };

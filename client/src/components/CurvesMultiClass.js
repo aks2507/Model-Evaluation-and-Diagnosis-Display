@@ -9,7 +9,6 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Plot from 'react-plotly.js';
 import Box from '@material-ui/core/Box';
-import Details from './Details';
 
 
 const StyledTableCell = withStyles((theme) => ({

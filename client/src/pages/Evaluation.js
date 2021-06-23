@@ -214,7 +214,7 @@ export default function Evaluation(props) {
                 <br></br><br></br>
                 <br></br>
                {
-                 n_classes==2?(
+                 n_classes===2?(
                   <>
                     <ROCPrecRecall
                       curve={0}
