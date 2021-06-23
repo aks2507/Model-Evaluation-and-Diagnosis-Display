@@ -42,6 +42,7 @@ export default function ROC_Prec_Recall(props){
     const handleBeginClick = (e) => {
         setX(props.x);
         setY(props.y);
+        setCutoff(0);
     };
 
     let plot_title = props.curve === 0 ? "ROC Curve":"Precision-Recall Curve";
