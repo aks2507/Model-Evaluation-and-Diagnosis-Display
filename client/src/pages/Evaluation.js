@@ -92,9 +92,10 @@ export default function Evaluation(props) {
   if (error) return <p>Error!</p>;
   
   const n_classes=data.metadata.n_classes;
-
-  const residuals = data.metadata.observed.map((item,index) => item - data.metadata.predicted[index])
-
+  let residuals=[];
+  if(data.model_type=='regression')
+  residuals = data.metadata.observed.map((item,index) => item - data.metadata.predicted[index])
+  console.log(data);
   return (
     <>
       <Navbar/>
@@ -268,6 +269,14 @@ export default function Evaluation(props) {
                   tpr={data.metadata.tpr}
                   auc={data.metadata.roc_auc}
                   n_classes={data.metadata.n_classes}
+                  c={0}
+                  ></CurvesMultiClass>
+                  <CurvesMultiClass
+                  fpr={data.metadata.precision_curve}
+                  tpr={data.metadata.recall_curve}
+                  auc={data.metadata.precision_recall_auc}
+                  n_classes={data.metadata.n_classes}
+                  c={1}
                   ></CurvesMultiClass>
                   </>
 

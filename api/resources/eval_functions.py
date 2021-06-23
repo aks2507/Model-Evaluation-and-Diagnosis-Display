@@ -84,11 +84,20 @@ class EvaluationFunctions():
 			fpr = dict()
 			tpr = dict()
 			roc_auc = dict()
+
+			precision_curve=dict()
+			recall_curve=dict()
+			precision_recall_auc=dict()
 			for i in range(n_classes):
 				fpr[i], tpr[i], _ = metrics.roc_curve(yy[:, i], y_score[:, i])
 				fpr[i]=fpr[i].tolist()
 				tpr[i]=tpr[i].tolist()
 				roc_auc[i] = metrics.auc(fpr[i], tpr[i])
+
+				precision_curve[i],recall_curve[i],_=metrics.precision_recall_curve(yy[:,i],y_score[:,i])
+				precision_curve[i]=precision_curve[i].tolist()
+				recall_curve[i]=recall_curve[i].tolist()
+				precision_recall_auc[i]=metrics.auc(recall_curve[i],precision_curve[i])
 			acc=metrics.accuracy_score(y_actual,y_pred)
 			precision_score=metrics.precision_score(y_actual,y_pred,average='macro')
 			recall=metrics.recall_score(y_actual,y_pred,average='macro')
@@ -99,6 +108,8 @@ class EvaluationFunctions():
 			cmatrix = cmatrix.tolist()
 			columns=feature_cols
 			feature_scores=feature_scores.tolist()
+			print(precision_curve)
+			print(recall_curve)
 			return {"accuracy_score":acc,
 			"precision_score":precision_score,
 			"recall":recall,
@@ -110,7 +121,10 @@ class EvaluationFunctions():
 			"confusion_matrix":cmatrix,
 			"feature_scores":feature_scores,
 			"columns":columns,
-			"n_classes":n_classes
+			"n_classes":n_classes,
+			"precision_curve":precision_curve,
+			"recall_curve":recall_curve,
+			"precision_recall_auc":precision_recall_auc,
 			}
 
 
@@ -141,7 +155,6 @@ class EvaluationFunctions():
 		label=col_names[-1]
 
 		X = dataset.loc[:,feature_cols]
-		# print(X.shape)
 		y_test_pred=loaded_model.predict(X)
 		y_test=dataset[label]
 

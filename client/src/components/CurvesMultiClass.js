@@ -47,6 +47,15 @@ export default function CurvesMultiClass(props){
     let auc=props.auc;
     let n_classes=props.n_classes;
     console.log(auc);
+    const c=props.c;
+    let title="";
+    if(c==0){
+      title="ROC Curves";
+    }
+    else 
+    {
+      title="Precision-Recall Curve"
+    }
   let trace = [];
   for(let i=0;i<n_classes;i++)
   {
@@ -70,7 +79,7 @@ export default function CurvesMultiClass(props){
         <div className="col">
                 <Plot   
                         data={data}
-                        layout={ {width: 600, height: 450, title: 'ROC Curves'} }
+                        layout={ {width: 600, height: 450, title: title} }
                         config={ {
                             scrollZoom:true,
                             responsive:true
