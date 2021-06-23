@@ -7,7 +7,6 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import Details from './Details';
 import Plot from 'react-plotly.js';
 import Box from '@material-ui/core/Box';
 
@@ -55,6 +54,7 @@ export default function ROC_Prec_Recall(props){
     const handleBeginClick = (e) => {
         setX(props.x);
         setY(props.y);
+        setCutoff(0);
     };
 
     let plot_title = props.curve === 0 ? "ROC Curve":"Precision-Recall Curve";
