@@ -17,6 +17,7 @@ import ModelInfo from '../components/ModelInfo';
 import ClassImb from '../components/ClassImb';
 import Navbar from '../components/Navbar';
 import DatasetInfo from '../components/DatasetInfo';
+import CurvesMultiClass from '../components/CurvesMultiClass';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -74,7 +75,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Evaluation(props) {
   const eval_id = props.match.params.eval_id;
-  // console.log(eval_id);
+  
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -89,7 +90,10 @@ export default function Evaluation(props) {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error!</p>;
   var labels=data.dataset.metadata.output_label;
-  console.log(labels);
+  console.log(data);
+  
+  const n_classes=data.metadata.n_classes;
+  console.log(n_classes);
   return (
     <>
       <Navbar/>
@@ -209,32 +213,49 @@ export default function Evaluation(props) {
                 />
                 <br></br><br></br>
                 <br></br>
-                <ROCPrecRecall
-                  curve={0}
-                  model_type={data.model_type}
-                  name={data.name}
-                  x={data.metadata.fpr}
-                  y={data.metadata.tpr}
+               {
+                 n_classes==2?(
+                  <>
+                    <ROCPrecRecall
+                      curve={0}
+                      model_type={data.model_type}
+                      name={data.name}
+                      x={data.metadata.fpr}
+                      y={data.metadata.tpr}
+                      auc={data.metadata.roc_auc}
+                      date_created={data.date_created}
+                      datasetinfo={data.dataset}
+                      modelinfo={data.model}
+                    />
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <ROCPrecRecall
+                      curve={1}
+                      model_type={data.model_type}
+                      name={data.name}
+                      x={data.metadata.recall_curve}
+                      y={data.metadata.precision_curve}
+                      auc={data.metadata.precision_recall_auc}
+                      date_created={data.date_created}
+                      datasetinfo={data.dataset}
+                      modelinfo={data.model}
+                    />
+                  </>
+                 ):(
+                  <>
+                  <CurvesMultiClass
+                  fpr={data.metadata.fpr}
+                  tpr={data.metadata.tpr}
                   auc={data.metadata.roc_auc}
-                  date_created={data.date_created}
-                  datasetinfo={data.dataset}
-                  modelinfo={data.model}
-                />
-                <br></br>
-                <br></br>
-                <br></br>
-                <br></br>
-                <ROCPrecRecall
-                  curve={1}
-                  model_type={data.model_type}
-                  name={data.name}
-                  x={data.metadata.recall_curve}
-                  y={data.metadata.precision_curve}
-                  auc={data.metadata.precision_recall_auc}
-                  date_created={data.date_created}
-                  datasetinfo={data.dataset}
-                  modelinfo={data.model}
-                />
+                  n_classes={data.metadata.n_classes}
+                  ></CurvesMultiClass>
+                  </>
+
+                 )
+               }
+               
               </TabPanel>
               <TabPanel value={value} index={2}>
                 <ModelInfo

@@ -24,6 +24,7 @@ const StyledTableCell = withStyles((theme) => ({
 
 
 
+
 const useStyles = makeStyles({
   table: {
       minWidth: 300,
@@ -41,87 +42,49 @@ function createData(name,area){
 
 
 
-export default function ROC_AUC(props){
-    let evalList = props.evaluations;
-    let numTabs = evalList.length;
-    let c=props.c;
-
-    let tpr=[];
-    let fpr=[];
-    let auc=[];
-    console.log(evalList[0].data.metadata);
-    for(let i=0;i<numTabs;i++)
-    {
-        var fpr_list=evalList[i].data.metadata.fpr;
-        var tpr_list=evalList[i].data.metadata.tpr
-        fpr.push(fpr_list);
-        tpr.push(tpr_list);
-        auc.push(evalList[i].data.metadata.roc_auc);
-    }
+export default function CurvesMultiClass(props){
+    let fpr = props.fpr;
+    let tpr = props.tpr;
+    let auc=props.auc;
+    let n_classes=props.n_classes;
     console.log(auc);
-   
-
-  
   let trace = [];
-  console.log(fpr.length);
-  console.log(tpr.length);
-  for(let i=0;i<numTabs;i++)
+  for(let i=0;i<n_classes;i++)
   {
-    if(c===0)
-    trace.push({x:fpr[i],y:tpr[i],type:'scatter',name:evalList[i].data.dataset.name});
-    else
-    trace.push({x:fpr[i],y:tpr[i],type:'scatter',name:evalList[i].data.name});
+    const labels="ROC Curve for class "+i;
+    console.log(fpr[i]);
+    console.log(tpr[i]);
+    trace.push({x:fpr[i],y:tpr[i],type:'scatter',name:labels});
   }
-  let data = [...trace]
-  console.log(trace[0]);
-  console.log(trace[1]);
-  var curve_info=[];
-  var info=[];
-  var auc_=[];
-  for(var i=0;i<numTabs;i++){
-      if(c===0) info.push(evalList[i].data.dataset.name)
-      else
-      info.push(evalList[i].data.name);
-      auc_.push(auc[i].toFixed(2));
-  }
-  console.log(auc_);
-  curve_info.push(info);
-  curve_info.push(auc_);
   const classes = useStyles();
-  var rows=[];
-  for(i=0;i<numTabs;i++)
+  let data = [...trace]
+  let rows=[];
+  for(let i=0;i<n_classes;i++)
   {
-      if(c===0)  
-      rows.push(createData(evalList[i].data.dataset.name,auc[i].toFixed(2)));
-      else
-      rows.push(createData(evalList[i].data.name,auc[i].toFixed(2)));
+      
+      rows.push(createData("ROC Curve for class "+i,auc[i].toFixed(2)));
   }
   
   return(
-    <div className="col">
-
-        <div className="row">
-            <Details
-                c={c}
-                evaluations={evalList}
-            />
+    <div className="row">
+        
+        <div className="col">
+                <Plot   
+                        data={data}
+                        layout={ {width: 600, height: 450, title: 'ROC Curves'} }
+                        config={ {
+                            scrollZoom:true,
+                            responsive:true
+                        } }
+                />
         </div>
-        <div className="row">
-        <Plot   
-        data={data}
-        layout={ {width: 600, height: 450, title: 'ROC Curves'} }
-        config={ {
-            scrollZoom:true,
-            responsive:true
-        } }
-        />
-            <div>
-                    <Box  m={2} pt={15}>
+                 <div className="col">
+                    <Box  m={2} pt={13}>
                     <TableContainer  component={Paper}>
                     <Table className={classes.table} aria-label="simple table">
                         <TableHead>
                         <TableRow>
-                            <StyledTableCell>Model</StyledTableCell>
+                            <StyledTableCell>Class </StyledTableCell>
                             <StyledTableCell align="right">AUC</StyledTableCell>
                         </TableRow>
                         </TableHead>
@@ -138,13 +101,7 @@ export default function ROC_AUC(props){
                     </Table>
                     </TableContainer>
                     </Box>
-                   
-
-
-
-                </div>
-        </div>
-
-    </div>
+                 </div>
+             </div>
   );
 }
