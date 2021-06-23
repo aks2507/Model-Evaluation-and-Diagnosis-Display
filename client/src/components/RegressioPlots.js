@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ROC_Prec_Recall(props){
+export default function RegressionPlots(props){
     const [x, setX] = React.useState(props.x);
     const [y, setY] = React.useState(props.y);
     const [cutoff,setCutoff]=React.useState(0);
@@ -40,7 +40,7 @@ export default function ROC_Prec_Recall(props){
         setCutoff(0);
     };
 
-    let plot_title = "Residuals Plot";
+    let plot_title = props.title;
     const classes = useStyles();
     let currentvalue = {
      
@@ -68,7 +68,8 @@ export default function ROC_Prec_Recall(props){
     }];
 
     let steps = [];
-    for(let i=0;i<1;i+=0.01){
+    let mindiv = (Math.max(...props.x) - Math.min(...props.x))/100;
+    for(let i=0;i<Math.max(...props.x);i+=mindiv){
         steps.push({
             method:'skip',
             label: cutoff,
@@ -95,7 +96,7 @@ export default function ROC_Prec_Recall(props){
             <Box ml={7}>
                 <Plot className={classes.plot}
                     data={[
-                        {type: 'scatter', x: x, y: y},
+                        {mode: 'markers', type: 'scatter', x: x, y: y},
                     ]}
                     layout={ {
                         width: 500, 

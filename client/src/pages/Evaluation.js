@@ -18,6 +18,8 @@ import ClassImb from '../components/ClassImb';
 import Navbar from '../components/Navbar';
 import DatasetInfo from '../components/DatasetInfo';
 import CurvesMultiClass from '../components/CurvesMultiClass';
+import RegressionPlots from '../components/RegressioPlots';
+import Details from '../components/Details';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -83,55 +85,38 @@ export default function Evaluation(props) {
     setValue(newValue);
   };
 
-
   let url = "/modelEvaluations/"+eval_id;
   const [{ data, loading, error }] = useAxios(url);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error!</p>;
-  var labels=data.dataset.metadata.output_label;
-  console.log(data);
   
   const n_classes=data.metadata.n_classes;
-  console.log(n_classes);
+
+  const residuals = data.metadata.observed.map((item,index) => item - data.metadata.predicted[index])
+
   return (
     <>
       <Navbar/>
       <div className={classes.root}>
           
-          {data.model_type === "regression" ? (
-            <div className={classes.root}>
-              <Tabs
-                orientation="vertical"
-                variant="scrollable"
-                value={value}
-                onChange={handleChange}
-                aria-label="Vertical tabs example"
-                className={classes.tabs}
-              >
-                <Tab label="Metrics" {...a11yProps(0)} />
-                <Tab label="Model Information" {...a11yProps(1)} />
-                <Tab label="Dataset Information" {...a11yProps(2)} />
-              </Tabs>
-            </div>
-          ) : (
-            <div className={classes.root}>
-              <Tabs
-                orientation="vertical"
-                variant="scrollable"
-                value={value}
-                onChange={handleChange}
-                aria-label="Vertical tabs example"
-                className={classes.tabs}
-              >
-                <Tab label="Metrics" {...a11yProps(0)} />
-                <Tab label="Curves and Charts" {...a11yProps(1)}/>
-                <Tab label="Model Information" {...a11yProps(2)} />
-                <Tab label="Dataset Information" {...a11yProps(3)} />
-              </Tabs>
-            </div>
-          )}
-        
+          
+          <div className={classes.root}>
+            <Tabs
+              orientation="vertical"
+              variant="scrollable"
+              value={value}
+              onChange={handleChange}
+              aria-label="Vertical tabs example"
+              className={classes.tabs}
+            >
+              <Tab label="Metrics" {...a11yProps(0)} />
+              <Tab label="Curves and Charts" {...a11yProps(1)}/>
+              <Tab label="Model Information" {...a11yProps(2)} />
+              <Tab label="Dataset Information" {...a11yProps(3)} />
+            </Tabs>
+          </div>
+     
         {data.model_type === "regression" ? (
           <>
             <CssBaseline />
@@ -147,6 +132,39 @@ export default function Evaluation(props) {
                 />
               </TabPanel>
               <TabPanel value={value} index={1}>
+                <Details
+                  area={1}
+                  name={data.name}
+                  model_type={data.model_type}
+                  date_created={data.date_created}
+                  datasetinfo={data.dataset}
+                  modelinfo={data.model}
+                />
+                <RegressionPlots 
+                  x={data.metadata.observed}
+                  y={data.metadata.predicted}
+                  title="Observed vs Predicted"
+                />
+                <RegressionPlots 
+                  x={data.metadata.observed}
+                  y={residuals}
+                  title="Observed vs Residuals"
+                />
+                <RegressionPlots 
+                  x={data.metadata.predicted}
+                  y={residuals}
+                  title="Predicted vs Residuals"
+                />
+              </TabPanel>
+              <TabPanel value={value} index={2}>
+                <Details
+                  area={1}
+                  name={data.name}
+                  model_type={data.model_type}
+                  date_created={data.date_created}
+                  datasetinfo={data.dataset}
+                  modelinfo={data.model}
+                />
                 <ModelInfo
                   keys={data.model.metadata.keys}
                   values={data.model.metadata.values}
@@ -158,7 +176,7 @@ export default function Evaluation(props) {
                   metadata={data.metadata}
                 />
               </TabPanel>
-              <TabPanel value={value} index={2}>
+              <TabPanel value={value} index={3}>
                 <DatasetInfo
                   compare={0}
                   model_type={data.model_type}
