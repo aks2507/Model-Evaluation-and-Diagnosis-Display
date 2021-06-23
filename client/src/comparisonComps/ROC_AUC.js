@@ -49,16 +49,31 @@ export default function ROC_AUC(props){
     let tpr=[];
     let fpr=[];
     let auc=[];
+    const n_classes=evalList[0].data.metadata.n_classes;
     console.log(evalList[0].data.metadata);
-    for(let i=0;i<numTabs;i++)
+    if(n_classes==2)
     {
-        var fpr_list=evalList[i].data.metadata.fpr;
-        var tpr_list=evalList[i].data.metadata.tpr
-        fpr.push(fpr_list);
-        tpr.push(tpr_list);
-        auc.push(evalList[i].data.metadata.roc_auc);
+      for(let i=0;i<numTabs;i++)
+      {
+          var fpr_list=evalList[i].data.metadata.fpr;
+          var tpr_list=evalList[i].data.metadata.tpr
+          fpr.push(fpr_list);
+          tpr.push(tpr_list);
+          auc.push(evalList[i].data.metadata.roc_auc);
+      }
+     console.log(auc);
     }
-    console.log(auc);
+    else{
+      for(let i=0;i<numTabs;i++)
+      {
+          var fpr_list=evalList[i].data.metadata.fpr["micro"];
+          var tpr_list=evalList[i].data.metadata.tpr["micro"]
+          fpr.push(fpr_list);
+          tpr.push(tpr_list);
+          auc.push(evalList[i].data.metadata.roc_auc["micro"]);
+      }
+    }
+    
    
 
   
@@ -84,6 +99,7 @@ export default function ROC_AUC(props){
       info.push(evalList[i].data.name);
       auc_.push(auc[i].toFixed(2));
   }
+  const title=n_classes==2?('ROC Curves'):('Micro average ROC curve');
   console.log(auc_);
   curve_info.push(info);
   curve_info.push(auc_);
@@ -109,7 +125,7 @@ export default function ROC_AUC(props){
         <div className="row">
         <Plot   
         data={data}
-        layout={ {width: 600, height: 450, title: 'ROC Curves'} }
+        layout={ {width: 600, height: 450, title: title} }
         config={ {
             scrollZoom:true,
             responsive:true

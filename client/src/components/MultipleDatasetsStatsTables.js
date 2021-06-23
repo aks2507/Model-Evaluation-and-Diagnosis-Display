@@ -60,7 +60,8 @@ export default function ScrollableTabsButtonAuto(props) {
     const len = evalList.length;
     const numCols = evalList[0].data.dataset.metadata.columns.length;
     const cols = evalList[0].data.dataset.metadata.columns;
-
+    console.log(len);
+    console.log(evalList[0].data.dataset.metadata.description)
     const rows = {
         mean:[],
         std:[],
@@ -107,7 +108,7 @@ export default function ScrollableTabsButtonAuto(props) {
         rows.iqr.push(createData(cols[i],iqrs));
         rows.mvals.push(createData(cols[i],mvalss));
     }
-    // console.log(rows);
+    
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
 

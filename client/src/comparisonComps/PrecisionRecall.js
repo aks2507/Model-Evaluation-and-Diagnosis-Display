@@ -22,13 +22,6 @@ const StyledTableCell = withStyles((theme) => ({
     },
   }))(TableCell);
   
-//   const StyledTableRow = withStyles((theme) => ({
-//     root: {
-//       '&:nth-of-type(odd)': {
-//         backgroundColor: theme.palette.action.hover,
-//       },
-//     },
-//   }))(TableRow);
 
 
 
@@ -55,17 +48,33 @@ export default function PrecisionRecallCurve(props) {
     let recall = [];
     let auc = [];
     console.log(evalList[0].data.metadata);
-    for (let i = 0; i < numTabs; i++) {
-        var precision_temp = evalList[i].data.metadata.precision_curve;
-        var recall_temp = evalList[i].data.metadata.recall_curve;
-        precision.push(precision_temp);
-        recall.push(recall_temp);
-        auc.push(evalList[i].data.metadata.precision_recall_auc);
+    const n_classes=evalList[0].data.metadata.n_classes;
+    if(n_classes==2)
+    {
+        for (let i = 0; i < numTabs; i++) {
+            var precision_temp = evalList[i].data.metadata.precision_curve;
+            var recall_temp = evalList[i].data.metadata.recall_curve;
+            precision.push(precision_temp);
+            recall.push(recall_temp);
+            auc.push(evalList[i].data.metadata.precision_recall_auc);
+        }
+        console.log(auc);
+    }   
+    else
+    {
+        for (let i = 0; i < numTabs; i++) {
+            var precision_temp = evalList[i].data.metadata.precision_curve["micro"];
+            var recall_temp = evalList[i].data.metadata.recall_curve["micro"];
+            precision.push(precision_temp);
+            recall.push(recall_temp);
+            auc.push(evalList[i].data.metadata.precision_recall_auc["micro"]);
+        }
+        console.log(auc);
     }
-    console.log(auc);
+  
 
 
-
+    const title=n_classes==2?('Precision Recall Curve' ):('Micro average Precision Recall Curve');
     let trace = [];
 
     for (let i = 0; i < numTabs; i++) {
@@ -110,7 +119,7 @@ export default function PrecisionRecallCurve(props) {
             <div className="row">
                 <Plot
                     data={data}
-                    layout={{ width: 600, height: 450, title: 'Precision Recall Curve' }}
+                    layout={{ width: 600, height: 450, title:title }}
                     config={{
                         scrollZoom: true,
                         responsive: true
