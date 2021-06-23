@@ -269,6 +269,14 @@ export default function Evaluation(props) {
                   tpr={data.metadata.tpr}
                   auc={data.metadata.roc_auc}
                   n_classes={data.metadata.n_classes}
+                  c={0}
+                  ></CurvesMultiClass>
+                  <CurvesMultiClass
+                  fpr={data.metadata.precision_curve}
+                  tpr={data.metadata.recall_curve}
+                  auc={data.metadata.precision_recall_auc}
+                  n_classes={data.metadata.n_classes}
+                  c={1}
                   ></CurvesMultiClass>
                   </>
 
