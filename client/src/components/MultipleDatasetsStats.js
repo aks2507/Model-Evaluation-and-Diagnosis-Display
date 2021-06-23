@@ -59,7 +59,7 @@ export default function SimpleTabs(props) {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
+  console.log(props.evalList);
   return (
     <div className={classes.root}>
       	<DetailsComp c={0} evaluations={props.evalList} />

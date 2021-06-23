@@ -87,6 +87,7 @@ export default function Comparison(props) {
 	const classes = useStyles();
 	const [value, setValue] = React.useState(0);
 	const initialValue = [];
+	
 	for(let i=0;i<eval_ids.length;i++)
 	{
 		initialValue.push({data:{dataset:{metadata:{description:{}}},model:{metadata:{}},metadata:{}}});
@@ -130,6 +131,7 @@ export default function Comparison(props) {
 	}
 	
 	console.log(evalList);
+	
 	return (
 		<>
 			<Navbar/>

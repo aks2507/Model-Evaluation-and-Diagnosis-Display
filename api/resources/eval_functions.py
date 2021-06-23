@@ -98,6 +98,16 @@ class EvaluationFunctions():
 				precision_curve[i]=precision_curve[i].tolist()
 				recall_curve[i]=recall_curve[i].tolist()
 				precision_recall_auc[i]=metrics.auc(recall_curve[i],precision_curve[i])
+			fpr["micro"],tpr["micro"],_=metrics.roc_curve(yy.ravel(),y_score.ravel())
+			fpr["micro"]=fpr["micro"].tolist()
+			tpr["micro"]=tpr["micro"].tolist()
+			roc_auc["micro"] = metrics.auc(fpr["micro"], tpr["micro"])
+
+			precision_curve["micro"],recall_curve["micro"],_=metrics.precision_recall_curve(yy.ravel(),y_score.ravel())
+			precision_curve["micro"]=precision_curve["micro"].tolist()
+			recall_curve["micro"]=recall_curve["micro"].tolist()
+			precision_recall_auc["micro"]=metrics.auc(recall_curve["micro"],precision_curve["micro"])
+
 			acc=metrics.accuracy_score(y_actual,y_pred)
 			precision_score=metrics.precision_score(y_actual,y_pred,average='macro')
 			recall=metrics.recall_score(y_actual,y_pred,average='macro')
