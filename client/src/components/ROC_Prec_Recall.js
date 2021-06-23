@@ -1,12 +1,25 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { withStyles,makeStyles } from '@material-ui/core/styles';
+import TableContainer from '@material-ui/core/TableContainer';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import Details from './Details';
 import Plot from 'react-plotly.js';
 import Box from '@material-ui/core/Box';
-import Accordion from '@material-ui/core/Accordion';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+
+const StyledTableCell = withStyles((theme) => ({
+  head: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  body: {
+    fontSize: 14,
+  },
+}))(TableCell);
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -95,59 +108,63 @@ export default function ROC_Prec_Recall(props){
         },
         
     }]
-
-
+    
     return(
-    <div>
 
-        <div className="col">
-            <div className={classes.root}>
-                <Box ml={26}>
-                    <Accordion>
-                        <AccordionSummary
-                            expandIcon={<ExpandMoreIcon />}
-                            aria-controls="panel1a-content"
-                            id="panel1a-header"
-                        >
-                        <Typography className={classes.heading}>Area Under Curve</Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                            <Typography>
-                                {auc}
-                            </Typography>
-                        </AccordionDetails>
-                    </Accordion>
+   
+        <div className="row">
+
+            
+            <div className="col">
+                <Box ml={7}>
+                    <Plot className={classes.plot}
+                        data={[
+                            {type: 'scatter', x: x, y: y},
+                        ]}
+                        layout={ {
+                            width: 500, 
+                            height: 505, 
+                            title: plot_title,
+                            align:'right', 
+                            sliders:slider,
+                            updatemenus:updatemenus
+                        } }
+                        config={ {
+                            scrollZoom:true,
+                            respnsive:true
+                        } }
+                        
+                        onButtonClicked={handleBeginClick}
+                        onSliderChange={handleSliderChangeX}
+                    />
                 </Box>
             </div>
-            <div>
-               <Box ml={17}>
 
+            <div className="col">
+                    <Box pt={23}>
+                    <TableContainer className={classes.root} component={Paper}>
+                    <Table aria-label="simple table">
+                        <TableHead>
+                        <TableRow>
+                            <StyledTableCell>Model Name</StyledTableCell>
+                            <StyledTableCell align="right">AUC</StyledTableCell>
+                        </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            <TableRow key={props.name}>
+                            <StyledTableCell component="th" scope="row">
+                                {props.name}
+                            </StyledTableCell>
+                            <StyledTableCell align="right">{auc}</StyledTableCell>
+                            </TableRow>
+                        </TableBody>
+                    </Table>
+                    </TableContainer>
+                    </Box>
+            </div>
              
-                <Plot className={classes.plot}
-                    data={[
-                        {type: 'scatter', x: x, y: y},
-                    ]}
-                    layout={ {
-                        width: 500, 
-                        height: 405, 
-                        title: plot_title,
-                        align:'right', 
-                        sliders:slider,
-                        updatemenus:updatemenus
-                    } }
-                    config={ {
-                        scrollZoom:true,
-                        respnsive:true
-                    } }
-                    
-                    onButtonClicked={handleBeginClick}
-                    onSliderChange={handleSliderChangeX}
-                />
-                  </Box>
-            </div>    
-        </div>
+        </div>    
+    
 
-
-    </div>
     );
 }

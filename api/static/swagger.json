@@ -1,0 +1,231 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "description": "Model Evaluations",
+      "version": "1.0.0",
+      "title": "Model Evaluations and diagnosis-display"
+    },
+    "servers": [
+      {
+        "url": "/"
+      }
+    ],
+    "tags": [
+      {
+        "name": "Models",
+        "description": "Example API for requesting and return Model Instances"
+      },
+      {
+        "name": "Dataset",
+        "description": "Example API for requesting and return Dataset Instances"
+      },
+      {
+        "name": "Evaluations",
+        "description": "Example API for requesting and return Evaluations Instances"
+      }
+    ],
+    "paths": {
+      "/modelEvaluations":{
+        "get": {
+          "tags":["Evaluations"],
+        "summary": "Returns all Evaluation instances",
+        "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/components/schemas/bookRequests"
+              }
+            }
+        }
+      }
+      },
+      "/datasets":{
+        "get": {
+          "tags":["Dataset"],
+        "summary": "Returns all Dataset instances",
+        "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/components/schemas/bookRequests"
+              }
+            }
+        }
+      }
+      },
+      "/models": {
+        "get": {
+          "tags": [
+            "Models"
+          ],
+          "summary": "Returns all Model Instances",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/components/schemas/bookRequests"
+              }
+            }
+          }
+        },
+        "post": {
+          "tags": [
+            "Models"
+          ],
+          "summary": "Create and a new model instance",
+          "requestBody": {
+            "description": "Book Request Post Object",
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/bookRequestPostBody"
+                }
+              }
+            }
+          },
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "201": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/components/schemas/id"
+              }
+            },
+            "400": {
+              "description": "Failed. Bad post data."
+            }
+          }
+        }
+      },
+      "/models/{id}": {
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            
+            "required": true,
+            "description": "ID of the cat that we want to match",
+            "type": "string"
+          }
+        ],
+        "get": {
+          "tags": [
+            "Models"
+          ],
+          "summary": "Get model instance with given ID",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "description": "Model Request id",
+              "schema": {
+                "$ref": "#/components/schemas/id"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/components/schemas/bookRequest"
+              }
+            },
+            "400": {
+              "description": "Failed. Misunderstood Request."
+            },
+            "404": {
+              "description": "Failed. Book request not found."
+            }
+          }
+        },
+        
+        "delete": {
+          "summary": "Model Request by ID",
+          "tags": [
+            "Models"
+          ],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "description": "Model Request Id",
+              "schema": {
+                "$ref": "#/components/schemas/id"
+              }
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/components/schemas/id"
+              }
+            },
+            "400": {
+              "description": "Failed. Misunderstood Request."
+            },
+            "404": {
+              "description": "Failed. Book Request not found."
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "id": {
+          "properties": {
+            "uuid": {
+              "type": "string"
+            }
+          }
+        },
+        "bookRequestPostBody": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "format": "string"
+            },
+            "email": {
+              "type": "string",
+              "format": "email"
+            }
+          }
+        },
+        "bookRequest": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "format": "string"
+            },
+            "email": {
+              "type": "string",
+              "format": "email"
+            },
+            "timestamp": {
+              "type": "string",
+              "format": "number"
+            }
+          }
+        },
+        "bookRequests": {
+          "type": "object",
+          "properties": {
+            "bookRequest": {
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "#/components/schemas/bookRequest"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
