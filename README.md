@@ -125,8 +125,19 @@ This endpoint deletes the evaluation with the given eval_id from the "Evaluation
     * Semi-Interactive: Same as interactive, except following  are removed:
         * Delete option
         * Checkboxes to select
+
 2) Only plots that are shown in single evaluation have a slider. They have not been added in  comparisons, considering their lack of utility in such a case.
+
 3) Datasets and models are currently registered using either Postman or Swagger UI. Evauluations can be registered using the UI.
+
+4) Comaprison is only possible in two cases:
+    * Multiple models trained on the same dataset
+    * Same model tested on multiple datasets
+
+5) Only models provided by the Scikit-Learn Library are supported
+
+6) Model files are unpickled and used. So only one extension, .sav, is supported
+
 ## Single Model Evaluation
 The evaluation metrics for a single model can be visualized by clicking on the button encircling the Evaluation ID of the evaluation in the table at Homepage. It essentially sends a get request for the evaluation, and based on the received payload, It will render the visualisations as follows:
 
@@ -182,8 +193,8 @@ This section gives a tabular view of the parameters and attributes that are asso
 ### Details
 Each of the above tabs will have a Details tab, that gives information about the evaluation in general, some information about the dataset and the model used in the evaluation.
 
-## Multiple Model Singlr Dataset Comparison
-For both regression and classification, there are five types of tabs rendered:
+## Multiple Model Single Dataset Comparison
+For both regression and classification, there are five types of components rendered:
 * Metrics
 * Dataset Information
 * Model information
@@ -191,83 +202,39 @@ For both regression and classification, there are five types of tabs rendered:
 * Details(part of each tab panel)
 
 ### Metrics
-An semi-interactive table, along with both bar graph and line charts are rendered in this tab. Metrics are the same as put up in the above section on Single Evaluation.
+An semi-interactive table, along with both bar graph and line charts are rendered in this tab. Metrics are the same as put up in the above section on Single Evaluation. The table can be sorted by metrices to compare the models.
+
 ### Dataset information
 Since the evaluations being considered in this case must have the same dataset, the same component that was used for single evaluation use case has been used.
+
 ### Model Information
 Multiple tables listing out parameters and attributes of each model are rendered. 
+
 ### Curves
 The plots mentioned in the above section are rendered, with the traces of other models in the same graph.
-#### Details
-Every tab panel has it. Its the same as single evaluation, except now, it has tabs for all evaluations selected by the user.
 
-# Getting Started with Create React App
+### Details
+Every tab panel has it. Its the same as single evaluation, except now, it has tabs for all evaluations that were selected by the user.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Single Model Multiple Datasets
+For both regression and classification, there are five types of components rendered:
+* Metrics
+* Dataset Information
+* Model information
+* Curves
+* Details(part of each tab panel)
 
-## Available Scripts
+### Metrics
+An semi-interactive table, along with both bar graph and line charts are rendered in this tab. Metrics are the same as put up in the above section on Single Evaluation. The table can be sorted by metrices to compare the datasets.
 
-In the project directory, you can run:
+### Dataset information
+The The dataset statistics for all datasets are shown tab wise. User can switch between statistics and compare the datasets based on those statistics. The use can also switch between tabular view and Line Chart view. Along with this, it also contains information about the feature importances of the datasets in chart and tabular format, and the class imbalence.
 
-### `yarn start`
+### Model Information
+Since the model being used is same, there is a single table listing out all the parameters and attributes of the trained model.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Curves
+The plots mentioned in the 'Single Model Evaluation' section are rendered, with the traces of other datasets in the same graph, or in subplots.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Details
+Every tab panel has it. Its the same as single evaluation, except now, it has tabs for all evaluations that were selected by the user.

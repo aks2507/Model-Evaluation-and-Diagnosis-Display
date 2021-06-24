@@ -167,7 +167,7 @@ export default function Comparison(props) {
 							<FeatureImpDatasetComparison evalList={evalList} />
 							
 							<ClassImbDatasetComparision
-							evalList={evalList}
+								evalList={evalList}
 							></ClassImbDatasetComparision>
 
 						</TabPanel>
@@ -181,8 +181,8 @@ export default function Comparison(props) {
 						</TabPanel>
 						{evalList[0].data.model_type === "regression" ? (
 							<Box ml={2} mr={2} mt={3}>
-								<DetailsComp c={0} evaluations={evalList} />
 								<TabPanel value={value} index={3}>
+									<DetailsComp c={0} evaluations={evalList} />
 									<DatasetCompRegressionPlots c={0} evalList={evalList} />
 								</TabPanel>
 							</Box>
