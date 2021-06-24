@@ -54,6 +54,39 @@
         }
       }
       },
+      "/datasets/{id}":{
+        "delete": {
+          "summary": "Dataset delete by ID",
+          "tags": [
+            "Dataset"
+          ],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "description": "Dataset Request Id",
+              "schema": {
+                "$ref": "#/components/schemas/id"
+              }
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/components/schemas/id"
+              }
+            },
+            "400": {
+              "description": "Failed. Misunderstood Request."
+            },
+            "404": {
+              "description": "Failed. Book Request not found."
+            }
+          }
+        }
+      },
       "/datasets":{
         "get": {
           "tags":["Dataset"],
