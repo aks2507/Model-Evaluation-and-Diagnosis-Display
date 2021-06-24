@@ -25,6 +25,71 @@
       }
     ],
     "paths": {
+      "/modelEvaluations/{id}":{
+        "delete": {
+          "summary": "Evaluation instance delete by ID",
+          "tags": [
+            "Evaluations"
+          ],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "description": "Evaluation Request Id",
+              "schema": {
+                "$ref": "#/components/schemas/id"
+              }
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/components/schemas/id"
+              }
+            },
+            "400": {
+              "description": "Failed. Misunderstood Request."
+            },
+            "404": {
+              "description": "Failed. Evaluation Request not found."
+            }
+          }
+        },
+        "get": {
+          "tags": [
+            "Evaluations"
+          ],
+          "summary": "Get Evaluation instance with given ID",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "description": "Evaluation Request id",
+              "schema": {
+                "$ref": "#/components/schemas/id"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/components/schemas/bookRequest"
+              }
+            },
+            "400": {
+              "description": "Failed. Misunderstood Request."
+            },
+            "404": {
+              "description": "Failed. Evaluation request not found."
+            }
+          }
+        }
+      },
+
       "/modelEvaluations":{
         "get": {
           "tags":["Evaluations"],
@@ -37,7 +102,86 @@
               }
             }
         }
+      },
+      "post":{
+        "tags":["Evaluations"],
+        "summary":"Posts a new ModelEvaluation Instance",
+        "requestBody":{
+          "description": "ModelEvaluation Request Post Object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/bookRequestPostBody"
+              }
+            }
+          }
+        }
       }
+      },
+      "/datasets/{id}":{
+        "delete": {
+          "summary": "Dataset delete by ID",
+          "tags": [
+            "Dataset"
+          ],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "description": "Dataset Request Id",
+              "schema": {
+                "$ref": "#/components/schemas/id"
+              }
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/components/schemas/id"
+              }
+            },
+            "400": {
+              "description": "Failed. Misunderstood Request."
+            },
+            "404": {
+              "description": "Failed. Book Request not found."
+            }
+          }
+        },
+        "get": {
+          "tags": [
+            "Dataset"
+          ],
+          "summary": "Get Dataset instance with given ID",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "description": "Dataset Request id",
+              "schema": {
+                "$ref": "#/components/schemas/id"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/components/schemas/bookRequest"
+              }
+            },
+            "400": {
+              "description": "Failed. Misunderstood Request."
+            },
+            "404": {
+              "description": "Failed. Dataset request not found."
+            }
+          }
+        }
       },
       "/datasets":{
         "get": {
@@ -50,6 +194,36 @@
                 "$ref": "#/components/schemas/bookRequests"
               }
             }
+        }
+      },
+     
+      "post":{
+        "tags":["Dataset"],
+        "summary":"Posts a new Dataset Instance",
+        "requestBody":{
+          "description": "ModelEvaluation Request Post Object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/bookRequestPostBody"
+              }
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/id"
+            }
+          },
+          "400": {
+            "description": "Failed. Bad post data."
+          }
         }
       }
       },
@@ -74,7 +248,7 @@
           ],
           "summary": "Create and a new model instance",
           "requestBody": {
-            "description": "Book Request Post Object",
+            "description": "Model Request Post Object",
             "required": true,
             "content": {
               "application/json": {
@@ -107,7 +281,7 @@
             "in": "path",
             
             "required": true,
-            "description": "ID of the cat that we want to match",
+            "description": "ID of the Model instance that we want to match",
             "type": "string"
           }
         ],
@@ -138,13 +312,13 @@
               "description": "Failed. Misunderstood Request."
             },
             "404": {
-              "description": "Failed. Book request not found."
+              "description": "Failed. Model request not found."
             }
           }
         },
         
         "delete": {
-          "summary": "Model Request by ID",
+          "summary": "Model delete by ID",
           "tags": [
             "Models"
           ],
