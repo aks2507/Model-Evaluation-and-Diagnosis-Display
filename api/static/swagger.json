@@ -25,6 +25,71 @@
       }
     ],
     "paths": {
+      "/modelEvaluations/{id}":{
+        "delete": {
+          "summary": "Evaluation instance delete by ID",
+          "tags": [
+            "Evaluations"
+          ],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "description": "Evaluation Request Id",
+              "schema": {
+                "$ref": "#/components/schemas/id"
+              }
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/components/schemas/id"
+              }
+            },
+            "400": {
+              "description": "Failed. Misunderstood Request."
+            },
+            "404": {
+              "description": "Failed. Evaluation Request not found."
+            }
+          }
+        },
+        "get": {
+          "tags": [
+            "Evaluations"
+          ],
+          "summary": "Get Evaluation instance with given ID",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "description": "Evaluation Request id",
+              "schema": {
+                "$ref": "#/components/schemas/id"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/components/schemas/bookRequest"
+              }
+            },
+            "400": {
+              "description": "Failed. Misunderstood Request."
+            },
+            "404": {
+              "description": "Failed. Evaluation request not found."
+            }
+          }
+        }
+      },
+
       "/modelEvaluations":{
         "get": {
           "tags":["Evaluations"],
@@ -85,6 +150,37 @@
               "description": "Failed. Book Request not found."
             }
           }
+        },
+        "get": {
+          "tags": [
+            "Dataset"
+          ],
+          "summary": "Get Dataset instance with given ID",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "description": "Dataset Request id",
+              "schema": {
+                "$ref": "#/components/schemas/id"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/components/schemas/bookRequest"
+              }
+            },
+            "400": {
+              "description": "Failed. Misunderstood Request."
+            },
+            "404": {
+              "description": "Failed. Dataset request not found."
+            }
+          }
         }
       },
       "/datasets":{
@@ -100,6 +196,7 @@
             }
         }
       },
+     
       "post":{
         "tags":["Dataset"],
         "summary":"Posts a new Dataset Instance",
