@@ -1,3 +1,5 @@
+<img src="https://img.shields.io/badge/Oracle-F80000?style=for-the-badge&logo=oracle&logoColor=black" height="50">
+
 # Model Evaluation and Diagnosis Display
 Model Evaluation is the process through which we quantify the quality of a system’s predictions. To do this, we measure the newly trained model performance on a new and independent dataset. This model will compare labeled data with it’s own predictions.
 Model evaluation performance metrics teach us:
@@ -71,32 +73,38 @@ This endpoint gives the list of all datasets that are stored in the "Datasets" t
 
 
 ## FrontEnd
-1) ReactJS
-2) React Router
-3) React Plotly.js
-4) Material UI
-5) React Bootstrap
-6) Vanilla JavaScript
-7) JS ES6
-8) HTML5
-9) CSS
+<img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB">
+<img src="https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white">
+<img src="https://i2.paste.pics/9f1ab8b4c09535ff79576760ca24a361.png" height=28>
+<img src="https://i2.paste.pics/9c7c942ada45d6480558c55bef91a5d3.png" height=28>
+<img src="https://img.shields.io/badge/Material--UI-0081CB?style=for-the-badge&logo=material-ui&logoColor=white">
+<img src="https://i2.paste.pics/0aaddf5918d5f69030a82fd7a96ac22d.png" height=28>
+<img src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node-dot-js&logoColor=white">
+<img src="https://img.shields.io/badge/Yarn-2C8EBB?style=for-the-badge&logo=yarn&logoColor=white">
+<img src="https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E">
+<img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white">
+<img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white">
 
 ## BackEnd
-1) Python
-2) Flask
-3) Flask-RESTful
-4) SQLite3
-5) SQLAlchemy
-6) skelarn
-7) plotly
-8) matplotlib
-9) mpld3
-10) numpy
-11) pandas
-12) pickle-mixin
-13) Swagger UI
+<img src="https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=darkgreen">
 
-Apart from the above, Postman was used to test the API endpoints.
+<img src="https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white">
+<img src="https://i2.paste.pics/f77a1deb70618b7bc38d05696f8c5089.png" style="height: 28px">
+<img src="https://img.shields.io/badge/SQLite-07405E?style=for-the-badge&logo=sqlite&logoColor=white">
+<img src="https://www.sqlalchemy.org/img/sqla_logo.png" style="height: 28px; background-color: white">
+<img src="https://img.shields.io/badge/scikit_learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white">
+<img src="https://img.shields.io/badge/Plotly-239120?style=for-the-badge&logo=plotly&logoColor=white">
+<img src="https://img.shields.io/badge/Numpy-777BB4?style=for-the-badge&logo=numpy&logoColor=white">
+<img src="https://img.shields.io/badge/Pandas-2C2D72?style=for-the-badge&logo=pandas&logoColor=white">
+<img src="https://i2.paste.pics/b2bee7ba0c2eb9592bd5eccb18afe488.png" style="height: 28px;">
+<img src="https://static1.smartbear.co/swagger/media/assets/images/swagger_logo.svg" style="height: 28px; background-color: white"> 
+
+## Others
+<img src="https://img.shields.io/badge/Markdown-000000?style=for-the-badge&logo=markdown&logoColor=white">
+<img src="https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white">
+<img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white">
+<img src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=white">
+<img src="https://img.shields.io/badge/Visual_Studio_Code-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white">
 
 ## API Endpoints
 ### `http://localhost:5000/evaluate, method=["GET"]`
