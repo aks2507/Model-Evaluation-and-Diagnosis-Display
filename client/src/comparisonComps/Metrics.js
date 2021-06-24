@@ -75,7 +75,7 @@ export default function Metrics(props){
     
     }
     else if(evalList[0].data.model_type==="classification") {
-        console.log("classification");
+      
         for(let i=0;i<numTabs;i++)
         {
             let acc = evalList[i].data.metadata.accuracy_score.toFixed(2);
@@ -132,7 +132,7 @@ export default function Metrics(props){
     
 
   const classes = useStyles();
-  console.log(evalList[0].data.model_type);
+ 
   return(
     <div className="col">
 

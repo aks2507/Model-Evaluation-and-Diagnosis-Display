@@ -9,7 +9,7 @@ export default function ClassImb(props){
   {
       counts[labels[i]]=(counts[labels[i]] || 0) +1;
   }
-  console.log(counts);
+
   const x=[];
   const y=[];
   for (const [key, value] of Object.entries(counts)) {

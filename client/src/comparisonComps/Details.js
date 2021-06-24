@@ -66,10 +66,7 @@ export default function Details(props) {
   const handleChangeIndex = (index) => {
     setValue(index);
   };
-  console.log(evalList);
-  console.log(evalList[0].data);
-  console.log(evalList[0].data.dataset.name);
-  console.log(c);
+
 
   return (
     <div className={classes.root}>

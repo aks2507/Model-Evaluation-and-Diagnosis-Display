@@ -9,7 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Plot from 'react-plotly.js';
 import Box from '@material-ui/core/Box';
-// import Details from './Details';
+
 
 
 const StyledTableCell = withStyles((theme) => ({
@@ -47,7 +47,7 @@ export default function PrecisionRecallCurve(props) {
     let precision = [];
     let recall = [];
     let auc = [];
-    console.log(evalList[0].data.metadata);
+
     const n_classes=evalList[0].data.metadata.n_classes;
     if(n_classes==2)
     {
@@ -58,7 +58,7 @@ export default function PrecisionRecallCurve(props) {
             recall.push(recall_temp);
             auc.push(evalList[i].data.metadata.precision_recall_auc);
         }
-        console.log(auc);
+        
     }   
     else
     {
@@ -69,7 +69,7 @@ export default function PrecisionRecallCurve(props) {
             recall.push(recall_temp);
             auc.push(evalList[i].data.metadata.precision_recall_auc["micro"]);
         }
-        console.log(auc);
+       
     }
   
 
@@ -84,8 +84,7 @@ export default function PrecisionRecallCurve(props) {
         trace.push({ x: precision[i], y: recall[i], type: 'scatter', name: evalList[i].data.name });
     }
     let data = [...trace]
-    console.log(trace[0]);
-    console.log(trace[1]);
+
     var curve_info = [];
     var info = [];
     var auc_ = [];
@@ -96,7 +95,7 @@ export default function PrecisionRecallCurve(props) {
         info.push(evalList[i].data.name);
         auc_.push(auc[i].toFixed(2));
     }
-    console.log(auc_);
+
     curve_info.push(info);
     curve_info.push(auc_);
     const classes = useStyles();

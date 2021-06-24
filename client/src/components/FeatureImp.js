@@ -35,7 +35,7 @@ export default function FeatureImp(props){
   const rows = [];
   const x = [];
   const y = [];
-  // console.log(props);
+
 
   let i;
   for(i=0;i<props.feature_scores.length;i++)
@@ -48,17 +48,6 @@ export default function FeatureImp(props){
   const classes = useStyles();
   return(
     <div>
-
-      {/* <div className="row">
-        <Details
-          area={1}
-          name={props.name}
-          model_type={props.model_type}
-          date_created={props.date_created}
-          datasetinfo={props.datasetinfo}
-          modelinfo={props.modelinfo}
-        />
-      </div> */}
 
       <div className="row">
 

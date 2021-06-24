@@ -60,8 +60,6 @@ export default function CurvesMultiClass(props){
   for(let i=0;i<n_classes;i++)
   {
     const labels="ROC Curve for class "+i;
-    console.log(fpr[i]);
-    console.log(tpr[i]);
     trace.push({x:fpr[i],y:tpr[i],type:'scatter',name:labels});
   }
   const classes = useStyles();

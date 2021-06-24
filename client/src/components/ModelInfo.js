@@ -48,7 +48,7 @@ export default function ModelInfo(props) {
       final_keys.push(k[i]);
       final_values.push(v[i]);
     }
-    // console.log(final_keys[i]," --> ",final_values[i]);
+  
   }
 
   for(let i=0;i<final_keys.length;i++){

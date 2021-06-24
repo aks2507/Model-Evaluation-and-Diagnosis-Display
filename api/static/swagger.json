@@ -1,7 +1,7 @@
 {
     "openapi": "3.0.0",
     "info": {
-      "description": "Model Evaluations",
+      "description": "Model Evaluation is the process through which we quantify the quality of a system’s predictions. To do this, we measure the newly trained model performance on a new and independent dataset. This model will compare labeled data with it’s own predictions",
       "version": "1.0.0",
       "title": "Model Evaluations and diagnosis-display"
     },

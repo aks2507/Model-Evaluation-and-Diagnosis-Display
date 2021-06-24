@@ -7,8 +7,6 @@ import Box from '@material-ui/core/Box';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import CssBaseline from '@material-ui/core/CssBaseline';
-
-//Components
 import Navbar from '../components/Navbar';
 import Metrics from '../comparisonComps/Metrics';
 import DetailsComp from '../comparisonComps/Details';
@@ -112,9 +110,6 @@ export default function Comparison(props) {
 		})
 	  
 		const evaluations = await Promise.all(promises)
-		// console.log(evaluations)
-	  
-		// console.log('End')
 		return evaluations;
 	}
 	if(load)
@@ -125,10 +120,6 @@ export default function Comparison(props) {
 		setLoad(false);
 	}
 
-	evalList.map((evaluation) => {
-		console.log(evaluation.data.dataset.name,evaluation.data.dataset.dataset_id);
-		return null;
-	})
 	return (
 		<>
 			<Navbar/>

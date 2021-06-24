@@ -7,7 +7,6 @@ export default function ClassImbDatasetComparision(props){
  const dataset_title=[];
  const x=[];
  const y=[];
- console.log(evalList);
  for(let i=0;i<evalList.length;i++)
  {
      const label=evalList[i].data.dataset.metadata.output_label;
@@ -28,9 +27,7 @@ export default function ClassImbDatasetComparision(props){
      const data_name=evalList[i].data.dataset.name;
      dataset_title.push(data_name);
  }
- console.log(x);
- console.log(y);
- console.log(dataset_title);
+
  var traces=[]
  for(let i=0;i<evalList.length;i++)
  {  
