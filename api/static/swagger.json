@@ -37,6 +37,21 @@
               }
             }
         }
+      },
+      "post":{
+        "tags":["Evaluations"],
+        "summary":"Posts a new ModelEvaluation Instance",
+        "requestBody":{
+          "description": "ModelEvaluation Request Post Object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/bookRequestPostBody"
+              }
+            }
+          }
+        }
       }
       },
       "/datasets":{
@@ -50,6 +65,35 @@
                 "$ref": "#/components/schemas/bookRequests"
               }
             }
+        }
+      },
+      "post":{
+        "tags":["Dataset"],
+        "summary":"Posts a new Dataset Instance",
+        "requestBody":{
+          "description": "ModelEvaluation Request Post Object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/bookRequestPostBody"
+              }
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/id"
+            }
+          },
+          "400": {
+            "description": "Failed. Bad post data."
+          }
         }
       }
       },
@@ -74,7 +118,7 @@
           ],
           "summary": "Create and a new model instance",
           "requestBody": {
-            "description": "Book Request Post Object",
+            "description": "Model Request Post Object",
             "required": true,
             "content": {
               "application/json": {
@@ -107,7 +151,7 @@
             "in": "path",
             
             "required": true,
-            "description": "ID of the cat that we want to match",
+            "description": "ID of the Model instance that we want to match",
             "type": "string"
           }
         ],
@@ -138,13 +182,13 @@
               "description": "Failed. Misunderstood Request."
             },
             "404": {
-              "description": "Failed. Book request not found."
+              "description": "Failed. Model request not found."
             }
           }
         },
         
         "delete": {
-          "summary": "Model Request by ID",
+          "summary": "Model delete by ID",
           "tags": [
             "Models"
           ],
