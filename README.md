@@ -260,3 +260,13 @@ The plots mentioned in the 'Single Model Evaluation' section are rendered, with 
 
 ### Details
 Every tab panel has it. Its the same as single evaluation, except now, it has tabs for all evaluations that were selected by the user.
+
+# Demo
+## Single Model Evaluation - Linear Regression on the Boston Housing Dataset
+https://user-images.githubusercontent.com/69072965/123299590-528fb780-d537-11eb-9b53-3a406dd380e1.mp4
+
+## Single Model Multiple Datasets - Logistic Regression on the Diabetes Dataset
+https://user-images.githubusercontent.com/69072965/123299966-ad291380-d537-11eb-9ae2-b5b3101b8239.mp4
+
+
+
