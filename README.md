@@ -73,12 +73,13 @@ This endpoint gives the list of all datasets that are stored in the "Datasets" t
 ## FrontEnd
 1) ReactJS
 2) React Router
-3) Material UI
-4) React Bootstrap
-5) Vanilla JavaScript
-6) JS ES6
-7) HTML5
-8) CSS
+3) React Plotly.js
+4) Material UI
+5) React Bootstrap
+6) Vanilla JavaScript
+7) JS ES6
+8) HTML5
+9) CSS
 
 ## BackEnd
 1) Python
@@ -93,6 +94,7 @@ This endpoint gives the list of all datasets that are stored in the "Datasets" t
 10) numpy
 11) pandas
 12) pickle-mixin
+13) Swagger UI
 
 Apart from the above, Postman was used to test the API endpoints.
 
@@ -123,9 +125,12 @@ This endpoint deletes the evaluation with the given eval_id from the "Evaluation
     * Semi-Interactive: Same as interactive, except following  are removed:
         * Delete option
         * Checkboxes to select
-2) Only plots that are shown in single evaluation have a slider
+2) Only plots that are shown in single evaluation have a slider. They have not been added in  comparisons, considering their lack of utility in such a case.
+3) Datasets and models are currently registered using either Postman or Swagger UI. Evauluations can be registered using the UI.
 ## Single Model Evaluation
-The evaluation metrics for a single model can be visualized by clicking on the button encircling the Evaluation ID of the evaluation in the table at Homepage. It will render the visualisations as follows:
+The evaluation metrics for a single model can be visualized by clicking on the button encircling the Evaluation ID of the evaluation in the table at Homepage. It essentially sends a get request for the evaluation, and based on the received payload, It will render the visualisations as follows:
+
+*Note: All tables rendered in this scenario are semi-interactive, except the table for feature importance.*
 ### Evaluation Metrics
 Following evaluation metrics will be visible to the user the user in tabular, bar chart and line chart format:
 
@@ -173,6 +178,28 @@ The following data is shown about the test dataset used by the model for the pre
 
 ### Model Information
 This section gives a tabular view of the parameters and attributes that are associated with the trained model, in a tabular format.
+
+### Details
+Each of the above tabs will have a Details tab, that gives information about the evaluation in general, some information about the dataset and the model used in the evaluation.
+
+## Multiple Model Singlr Dataset Comparison
+For both regression and classification, there are five types of tabs rendered:
+* Metrics
+* Dataset Information
+* Model information
+* Curves
+* Details(part of each tab panel)
+
+### Metrics
+An semi-interactive table, along with both bar graph and line charts are rendered in this tab. Metrics are the same as put up in the above section on Single Evaluation.
+### Dataset information
+Since the evaluations being considered in this case must have the same dataset, the same component that was used for single evaluation use case has been used.
+### Model Information
+Multiple tables listing out parameters and attributes of each model are rendered. 
+### Curves
+The plots mentioned in the above section are rendered, with the traces of other models in the same graph.
+#### Details
+Every tab panel has it. Its the same as single evaluation, except now, it has tabs for all evaluations selected by the user.
 
 # Getting Started with Create React App
 
