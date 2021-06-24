@@ -89,15 +89,15 @@ This endpoint gives the list of all datasets that are stored in the "Datasets" t
 <img src="https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=darkgreen">
 
 <img src="https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white">
-<img src="https://i2.paste.pics/f77a1deb70618b7bc38d05696f8c5089.png" style="height: 28px">
+<img src="https://i2.paste.pics/f77a1deb70618b7bc38d05696f8c5089.png" height=28>
 <img src="https://img.shields.io/badge/SQLite-07405E?style=for-the-badge&logo=sqlite&logoColor=white">
-<img src="https://www.sqlalchemy.org/img/sqla_logo.png" style="height: 28px; background-color: white">
+<img src="https://www.sqlalchemy.org/img/sqla_logo.png" height=28>
 <img src="https://img.shields.io/badge/scikit_learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white">
 <img src="https://img.shields.io/badge/Plotly-239120?style=for-the-badge&logo=plotly&logoColor=white">
 <img src="https://img.shields.io/badge/Numpy-777BB4?style=for-the-badge&logo=numpy&logoColor=white">
 <img src="https://img.shields.io/badge/Pandas-2C2D72?style=for-the-badge&logo=pandas&logoColor=white">
-<img src="https://i2.paste.pics/b2bee7ba0c2eb9592bd5eccb18afe488.png" style="height: 28px;">
-<img src="https://static1.smartbear.co/swagger/media/assets/images/swagger_logo.svg" style="height: 28px; background-color: white"> 
+<img src="https://i2.paste.pics/b2bee7ba0c2eb9592bd5eccb18afe488.png" height=28>
+<img src="https://static1.smartbear.co/swagger/media/assets/images/swagger_logo.svg" height=28> 
 
 ## Others
 <img src="https://img.shields.io/badge/Markdown-000000?style=for-the-badge&logo=markdown&logoColor=white">
