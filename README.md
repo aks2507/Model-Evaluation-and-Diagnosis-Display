@@ -146,6 +146,27 @@ This endpoint deletes the evaluation with the given eval_id from the "Evaluation
 
 6) Model files are unpickled and used. So only one extension, .sav, is supported
 
+## Homepage
+The Homepage consists of a table where all the evaluations are listed. The table is fully interactive. By clicking on the EvaluationID, the user can see the visualizations related to it. The Compare button can be used to compare two or more evaluations. Refer to the General information section above to see how these work. Clicking on the Evaluation ID triggers the model evaluation, if the metrics are not there already.
+Each row has the following information:
+* Evaluation ID
+* Evaluation name
+* Model Type
+* Model
+* Dataset
+* Date Created
+
+## Evaluation Post Form
+This page contains the form that helps the user to register an evaluation.
+The user enters the following information here:
+* Evaluation name
+* Model Type(selection)
+* Dataset(selection)
+* Model(selection)
+* Description(optional)
+
+On submitting, the evaluation gets stored in the table, without the metadata.
+
 ## Single Model Evaluation
 The evaluation metrics for a single model can be visualized by clicking on the button encircling the Evaluation ID of the evaluation in the table at Homepage. It essentially sends a get request for the evaluation, and based on the received payload, It will render the visualisations as follows:
 
