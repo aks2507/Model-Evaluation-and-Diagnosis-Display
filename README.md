@@ -1,4 +1,4 @@
-<img src="https://img.shields.io/badge/Oracle-F80000?style=for-the-badge&logo=oracle&logoColor=black" height="50">
+<img align="center" src="https://img.shields.io/badge/Oracle-F80000?style=for-the-badge&logo=oracle&logoColor=black" height="50">
 
 # Model Evaluation and Diagnosis Display
 Model Evaluation is the process through which we quantify the quality of a system’s predictions. To do this, we measure the newly trained model performance on a new and independent dataset. This model will compare labeled data with it’s own predictions.
@@ -7,7 +7,12 @@ Model evaluation performance metrics teach us:
 - Is our model accurate enough to put into production
 - Will a larger training set improve my model’s performance?
 - Is my model under-fitting or over-fitting?
+# Problem Statement
+The Goal of the project is to come up with a solution which has context based visualisation capability and helps data scientist in comparing relevant metrics of the different machine learning model easily and evaluate its performance on unseen data.
 
+![Screenshot (4)](https://user-images.githubusercontent.com/42781233/123284919-418c7980-d52a-11eb-881b-2ac59f4f50fb.png)
+![Screenshot (5)](https://user-images.githubusercontent.com/42781233/123284985-4cdfa500-d52a-11eb-8062-27c974d6ca61.png)
+![Screenshot (6)](https://user-images.githubusercontent.com/42781233/123285023-5537e000-d52a-11eb-8d5e-d33e47131595.png)
 ## Steps:
 ### Step 1:
 #### Bring your own test dataset and Serialised Model
@@ -106,18 +111,6 @@ This endpoint gives the list of all datasets that are stored in the "Datasets" t
 <img src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=white">
 <img src="https://img.shields.io/badge/Visual_Studio_Code-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white">
 
-## API Endpoints
-### `http://localhost:5000/evaluate, method=["GET"]`
-This endpoint gives the list of all evaluations that are stored in the "Evaluations" table of the database.
-
-### `http://localhost:5000/evaluate, method=["POST"]`
-This endpoint adds an evaluation to the "Evaluations" table of the database, based on input given by the user.
-
-### `http://localhost:5000/evaluate/<int:eval_id>, method=["GET"]`
-This endpoint returns the evaluation with the given eval_id stored in the "Evaluations" table of the database. There is no POST request for this endpoint, because eval_id is a self-incrementing primary key of the table.
-
-### `http://localhost:5000/evaluate/<int:eval_id>, method=["DELETE"]`
-This endpoint deletes the evaluation with the given eval_id from the "Evaluations" table of the database.
 
 # Quick Start
 ## Some General inormation
