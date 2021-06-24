@@ -76,8 +76,12 @@
           "responses": {
             "200": {
               "description": "OK",
-              "schema": {
-                "$ref": "#/components/schemas/bookRequest"
+              "content":{
+                "application/json":{
+                  "schema": {
+                    "$ref": "#/components/schemas/Evaluation"
+                  }
+                }
               }
             },
             "400": {
@@ -97,9 +101,14 @@
         "responses": {
             "200": {
               "description": "OK",
-              "schema": {
-                "$ref": "#/components/schemas/bookRequests"
+              "content":{
+                "application/json":{
+                  "schema": {
+                    "$ref": "#/components/schemas/allEvaluations"
+                  }
+                }
               }
+             
             }
         }
       },
@@ -112,7 +121,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/bookRequestPostBody"
+                "$ref": "#/components/schemas/evaluationPostObject"
               }
             }
           }
@@ -170,8 +179,12 @@
           "responses": {
             "200": {
               "description": "OK",
-              "schema": {
-                "$ref": "#/components/schemas/bookRequest"
+              "content":{
+                "application/json":{
+                  "schema": {
+                    "$ref": "#/components/schemas/dataset"
+                  }
+                }
               }
             },
             "400": {
@@ -190,9 +203,14 @@
         "responses": {
             "200": {
               "description": "OK",
-              "schema": {
-                "$ref": "#/components/schemas/bookRequests"
+              "content":{
+                "application/json":{
+                  "schema": {
+                    "$ref": "#/components/schemas/datasets"
+                  }
+                }
               }
+             
             }
         }
       },
@@ -201,12 +219,12 @@
         "tags":["Dataset"],
         "summary":"Posts a new Dataset Instance",
         "requestBody":{
-          "description": "ModelEvaluation Request Post Object",
+          "description": "Dataset Request Post Object",
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/bookRequestPostBody"
+                "$ref": "#/components/schemas/datasetPostObject"
               }
             }
           }
@@ -236,8 +254,12 @@
           "responses": {
             "200": {
               "description": "OK",
-              "schema": {
-                "$ref": "#/components/schemas/bookRequests"
+              "content":{
+                "application/json":{
+                  "schema": {
+                    "$ref": "#/components/schemas/models"
+                  }
+                }
               }
             }
           }
@@ -253,7 +275,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/bookRequestPostBody"
+                  "$ref": "#/components/schemas/modelPostBody"
                 }
               }
             }
@@ -290,6 +312,10 @@
             "Models"
           ],
           "summary": "Get model instance with given ID",
+          "operationId": "getModels",
+          "produces":[
+            "application/json"
+          ],
           "parameters": [
             {
               "in": "path",
@@ -304,8 +330,12 @@
           "responses": {
             "200": {
               "description": "OK",
-              "schema": {
-                "$ref": "#/components/schemas/bookRequest"
+              "content":{
+                "application/json":{
+                  "schema": {
+                    "$ref": "#/components/schemas/model"
+                  }
+                }
               }
             },
             "400": {
@@ -359,47 +389,294 @@
             }
           }
         },
-        "bookRequestPostBody": {
-          "type": "object",
-          "properties": {
-            "title": {
-              "type": "string",
-              "format": "string"
-            },
-            "email": {
-              "type": "string",
-              "format": "email"
-            }
-          }
-        },
-        "bookRequest": {
-          "type": "object",
-          "properties": {
-            "title": {
-              "type": "string",
-              "format": "string"
-            },
-            "email": {
-              "type": "string",
-              "format": "email"
-            },
-            "timestamp": {
-              "type": "string",
-              "format": "number"
-            }
-          }
-        },
-        "bookRequests": {
-          "type": "object",
-          "properties": {
-            "bookRequest": {
-              "type": "object",
-              "additionalProperties": {
-                "$ref": "#/components/schemas/bookRequest"
+        "allEvaluations":{
+          "type":"object",
+          "properties":{
+            "evaluation_entities":{
+              "type":"array",
+              "items":{
+                "type":"object",
+                "$ref":"#/components/schemas/Evaluation"
               }
+            }
+          }
+        },
+        "evaluationPostObject":{
+          "type":"object",
+          "properties":{
+            "model_id":{
+              "type":"string"
+            },
+            "dataset_id":{
+              "type":"string"
+            },
+            "name":{
+              "type":"string"
+            },
+            "model_type":{
+              "type":"string"
+            }
+          }
+        },
+        "Evaluation":{
+          "type":"object",
+          "properties":{
+            "eval_id":{
+              "type": "number",
+              "format":"number"
+            },
+            "name":{
+              "type":"string",
+              "format":"string"
+            },
+            "model_type":{
+              "type":"string",
+              "format":"string"
+            },
+            "metadata":{
+              "type":"object",
+              "$ref": "#/components/schemas/evalMetadata"
+              
+            },
+            "model":{
+              "type":"object",
+              "$ref": "#/components/schemas/model"
+
+            },
+            "dataset":{
+              "type":"object",
+              "$ref":"#/components/schemas/dataset"
+            },
+            "date_created":{
+              "type":"string"
+            }
+          }
+        },
+        "modelPostBody":{
+          "type":"object",
+          "properties":{
+            "model_path":{
+              "type":"string",
+              "format":"string"
+            },
+            "name":{
+              "type":"string",
+              "format":"string"
+            },
+            "model_type":{
+              "type":"string",
+              "format":"string"
+            }
+          }
+        },
+        "evalMetadata":{
+          "type":"object",
+          "properties":{
+            "accuracy":{
+              "type":"number",
+              "format":"number"
+            },
+            "precision":{
+              "type":"number",
+              "format":"number"
+            },
+            "recall":{
+              "type":"number",
+              "format":"number"
+            },
+            "fpr":{
+              "type":"array",
+              "items":{
+                "type":"number"
+              }
+            },
+              "tpr":{
+                "type":"array",
+                "items":{
+                  "type":"number"
+                }
+              },
+              "f1-score":
+                {
+                  "type":"number",
+                  "format":"number"
+                },
+                "log loss":
+                {
+                  "type":"number",
+                  "format":"number"
+                },
+                "roc_auc":
+                {
+                  "type":"number",
+                  "format":"number"
+                },
+                "confusion_matrix":{
+                  "type":"array",
+                  "items":{
+                    "type":"array",
+                    "items":{
+                      "type":"number"
+                    }
+                  }
+                }
+               
+          }
+
+        },
+        "models":{
+          "type":"object",
+           "properties":{
+             "model_entities":{
+               "type":"array",
+               "items":{
+                 "type":"object",
+                 "$ref":"#/components/schemas/model"
+               }
+             }
+           }
+        },
+        "model":{
+          "type":"object",
+          "properties":{
+            "model_id":{
+              "type":"number"
+            },
+            "name":{
+              "type":"string"
+            },
+            "model_type":{
+              "type":"string"
+            },
+            "metadata":{
+              "type":"object",
+              "$ref":"#/components/schemas/modelMetadata"
+            }
+            ,"model_path":{
+              "type":"string"
+            },"date_created":{
+              "type":"string"
+            }
+
+          }
+        },
+        "modelMetadata":{
+          "type":"object",
+          "properties":{
+            "keys":{
+              "type":"array",
+              "items":{
+                "type":"number"
+              }
+            },
+            "values":{
+              "type":"array",
+              "items":{
+                "type":"number"
+              }
+            }
+          }
+        },
+        "datasets":{
+          "type":"object",
+          "properties":{
+            "dataset_entities":{
+              "type":"array",
+              "items":{
+                "type":"object",
+                "$ref":"#/components/schemas/dataset"
+              }
+            }
+          }
+        },
+        "dataset":{
+          "type":"object",
+          "properties":{
+            "dataset_id":{
+              "type":"number"
+            },
+            "name":{
+              "type":"string"
+            },
+            "dataset_type":{
+              "type":"string"
+            },
+            "metadata":{
+              "type":"object",
+              "$ref":"#/components/schemas/datasetMetadata"
+            },
+            "dataset_path":{
+              "type":"string"
+            },
+            "date_created":{
+              "type":"string"
+            }
+
+          }
+        },
+        "datasetMetadata":{
+          "type":"object",
+          "properties":{
+            "columns":{
+              "type":"array",
+              "items":{
+                "type":"string"
+              }
+            },
+            "number_of_columns":{
+              "type":"number"
+            },
+            "number_of_rows":{
+              "type":"number"
+            },
+            "missing_values":{
+              "type":"array",
+              "items":{
+                "type":"number"
+              }
+            },
+            "iqr":{
+              "type":"array",
+              "items":{
+                "type":"number"
+              }
+            },
+            "number_of_outliers":{
+              "type":"number"
+            },
+            "memory":{
+              "type":"number"
+            },
+            "number_of_duplicates":{
+              "type":"number"
+            },
+            "output_label":{
+              "type":"array",
+              "items":{
+                "type":"number"
+              }
+            }
+
+          }
+        },
+        "datasetPostObject":{
+          "type":"object",
+          "properties":{
+            "name":{
+              "type":"string",
+              "format":"string"
+            },
+            "dataset_path":{
+              "type":"string",
+              "format":"string"
+            },
+            "dataset_type":{
+              "type":"string",
+              "format":"string"
             }
           }
         }
       }
+     
     }
   }
