@@ -181,17 +181,17 @@ export default function Comparison(props) {
 						</TabPanel>
 						{evalList[0].data.model_type === "regression" ? (
 							<Box ml={2} mr={2} mt={3}>
-							<DetailsComp c={1} evaluations={evalList} />
-							<TabPanel value={value} index={3}>
-								<DatasetCompRegressionPlots c={1} evalList={evalList} />
-							</TabPanel>
-						</Box>
+								<TabPanel value={value} index={3}>
+									<DetailsComp c={1} evaluations={evalList} />
+									<DatasetCompRegressionPlots c={1} evalList={evalList} />
+								</TabPanel>
+							</Box>
 						) : (
 							<>
-							<TabPanel value={value} index={3}>
-								<ROC_AUC c={1} evaluations={evalList}/>
-								<PrecisionRecall  c={1} evaluations={evalList}/>
-							</TabPanel>
+								<TabPanel value={value} index={3}>
+									<ROC_AUC c={1} evaluations={evalList}/>
+									<PrecisionRecall  c={1} evaluations={evalList}/>
+								</TabPanel>
 							</>
 						)}
 					</div>
