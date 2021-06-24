@@ -27,8 +27,10 @@ class EvaluationFunctions():
 		key = "coef_"
 		if key in loaded_model.__dict__.keys():
 			feature_scores=loaded_model.coef_[0]
+		elif 'support_vectors_' in loaded_model.__dict__.keys():
+    			feature_scores=loaded_model.support_vectors_[0]
 		else:
-			feature_scores=loaded_model.feature_importances_
+    			feature_scores=loaded_model.feature_importances_
 		col_names = list_of_column_names[0]
 		pima=pd.read_csv(dataset_file,header=None,names=col_names,skiprows=1)
 		feature_cols=col_names[0:-1]
@@ -110,8 +112,8 @@ class EvaluationFunctions():
 
 			acc=metrics.accuracy_score(y_actual,y_pred)
 			precision_score=metrics.precision_score(y_actual,y_pred,average='macro')
-			recall=metrics.recall_score(y_actual,y_pred,average='macro')
-			f1=metrics.f1_score(y_actual,y_pred,average='macro')
+			recall=metrics.recall_score(y_actual,y_pred,average='samples')
+			f1=metrics.f1_score(y_actual,y_pred,average='samples')
 			log_loss=metrics.log_loss(y_actual,probs)
 			probs=probs[::,1]
 			cmatrix = metrics.confusion_matrix(y_actual,y_pred)
