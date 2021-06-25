@@ -4,6 +4,7 @@ from models.datasets import Dataset
 from resources.dataset_report import DatasetReport
 from flask import Flask,request,render_template,redirect,url_for, jsonify
 import json
+import logging
 
 class DatasetResource(Resource):
 	parser = reqparse.RequestParser()
@@ -27,11 +28,10 @@ class DatasetResource(Resource):
 		dataset_entity = Dataset.find_by_id(dataset_id)
 		if dataset_entity:
 			if dataset_entity.meta:
+				logging.debug('Dataset metadata already exists')
 				return dataset_entity.json()
 			dataset_dict = dataset_entity.json()
-			# print(dataset_dict,type(dataset_dict))
 			dataset_object =  DatasetReport(dataset_dict['dataset_path'])
-			print(dataset_object.dataset_report(),type(dataset_object.dataset_report()))
 			dataset_info = dataset_object.dataset_report()
 			dataset_entity.meta = dataset_info
 

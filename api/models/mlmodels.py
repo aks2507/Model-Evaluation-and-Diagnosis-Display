@@ -12,7 +12,6 @@ class MLModel(db.Model):
     model_path = db.Column(db.String(80))
     date_created = db.Column(db.DateTime, default=datetime.datetime.now)
 
-    # evaluations = db.relationship("EvalModel", lazy='dynamic')
 
     def __init__(self,name,model_type,model_path):
         self.name = name

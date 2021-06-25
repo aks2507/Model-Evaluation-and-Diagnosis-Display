@@ -13,8 +13,6 @@ class Dataset(db.Model):
 	dataset_path = db.Column(db.String(100))
 	date_created = db.Column(db.DateTime, default=datetime.datetime.now)
 
-	# evaluations = db.relationship("EvalModel", lazy='dynamic')
-
 	def __init__(self,name,dataset_type,dataset_path):
 		self.name = name
 		self.meta = {}
