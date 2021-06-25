@@ -1,16 +1,25 @@
 import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+
+
+const useStyles = makeStyles({
+    table: {
+      minWidth: 500,
+    },
+  });
   
 
 
 export default function CmatrixTableRow(props) {
     const row=props.row;
     console.log(row);
+  
 
     return (
         <div>

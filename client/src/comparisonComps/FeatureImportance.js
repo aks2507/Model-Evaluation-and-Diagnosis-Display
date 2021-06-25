@@ -1,19 +1,7 @@
 import React from 'react';
-// import { makeStyles } from '@material-ui/core/styles';
 import Plot from 'react-plotly.js';
-//Components
-// import Details from './Details';
 import Box from '@material-ui/core/Box';
-// const useStyles = makeStyles({
-//   table: {
-//     width:"90%",
-//     margin:"auto",
-//   },
-//   plot:{
-//         justifyContent: 'center',
-//         alignItems: 'center',
-//   },
-// });
+
 
 import GeneralTable from './GeneralTable';
 
@@ -24,7 +12,6 @@ function createData(evals, features){
 export default function FeatureImportance(props){
     let evalList = props.evaluations;
     let numTabs = evalList.length;
-    console.log(props.evaluations);
     let features=[];
     let columns=evalList[0].data.metadata.columns;
     for(let i=0;i<numTabs;i++)
@@ -45,7 +32,6 @@ export default function FeatureImportance(props){
     }
     let data=[...traces];
     let linedata=[...linetraces];
-    //  const classes = useStyles();
     const headCells = [];
     headCells.push({id:'evals',label:'Evaluation'});
     for(let i=0;i<columns.length;i++){
@@ -60,12 +46,6 @@ export default function FeatureImportance(props){
 
 return(
     <div className="col">
-
-    {/* <div className="row">
-        <Details
-            evaluations={evalList}
-        />
-    </div> */}
     <div className="row">
         <Box m={10} pt={1}>
             <GeneralTable

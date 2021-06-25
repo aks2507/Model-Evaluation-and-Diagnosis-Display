@@ -68,8 +68,7 @@ export default function Confusion_matrix(props){
       cmatrix[i][j]=z[n-i-1][j];
     }
   }
-  console.log(cmatrix);
-  console.log(z);
+
   const classes = useStyles();
   return(
     <>

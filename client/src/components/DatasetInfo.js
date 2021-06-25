@@ -1,17 +1,8 @@
 import React from 'react';
-// import { makeStyles } from '@material-ui/core/styles';
-// components
 import Details from './Details';
 import Plots from '../comparisonComps/Plots';
 import DetailsComp from '../comparisonComps/Details';
 import GeneralTable from '../comparisonComps/GeneralTable';
-
-// const useStyles = makeStyles({
-//     table: {
-//       width:"90%",
-//       margin:"auto",
-//     },
-// });
 
 function createData(colname, mean, std, min, max, q25, q50, q75, iqr, mvals){
     return { colname, mean, std, min, max, q25, q50, q75, iqr, mvals };
@@ -24,7 +15,6 @@ export default function DatasetInfo(props){
     const len = columns.length;
 
     const x = columns;
-    // console.log(description,typeof(description))
     const mean = [];
     const std = [];
     const min = [];
@@ -37,7 +27,6 @@ export default function DatasetInfo(props){
     console.log(mvals);
 
     for(const [key, value] of Object.entries(description)){
-        // console.log(key, value);
         mean.push(value.mean.toFixed(2));
         std.push(value.std.toFixed(2));
         min.push(value.min.toFixed(2));
@@ -47,7 +36,6 @@ export default function DatasetInfo(props){
         q75.push(value['75%'].toFixed(2));
     }
 
-    // console.log(mean, std, min, max, q25, q50, q75);
 
     const trace = [];
     trace.push({x:x,y:mean,type:'scatter',name:'Mean'})
@@ -59,8 +47,6 @@ export default function DatasetInfo(props){
     trace.push({x:x,y:q75,type:'scatter',name:'Third Quartile'})
 
     const data = [...trace];
-
-    // const classes = useStyles();
     const rows = [];
     const headCells = [
         { id: 'colname', label: 'Column' },

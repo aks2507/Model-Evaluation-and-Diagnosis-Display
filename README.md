@@ -10,6 +10,8 @@ Model evaluation performance metrics teach us:
 # Problem Statement
 The Goal of the project is to come up with a solution which has context based visualisation capability and helps data scientist in comparing relevant metrics of the different machine learning model easily and evaluate its performance on unseen data.
 
+![Screenshot (8)](https://user-images.githubusercontent.com/42781233/123310733-08f99980-d544-11eb-8e97-b9d29e721183.png)
+# REST API Endpoints
 ![Screenshot (4)](https://user-images.githubusercontent.com/42781233/123284919-418c7980-d52a-11eb-881b-2ac59f4f50fb.png)
 ![Screenshot (5)](https://user-images.githubusercontent.com/42781233/123284985-4cdfa500-d52a-11eb-8062-27c974d6ca61.png)
 ![Screenshot (6)](https://user-images.githubusercontent.com/42781233/123285023-5537e000-d52a-11eb-8d5e-d33e47131595.png)
@@ -260,3 +262,13 @@ The plots mentioned in the 'Single Model Evaluation' section are rendered, with 
 
 ### Details
 Every tab panel has it. Its the same as single evaluation, except now, it has tabs for all evaluations that were selected by the user.
+
+# Demo
+## Single Model Evaluation - Linear Regression on the Boston Housing Dataset
+https://user-images.githubusercontent.com/69072965/123299590-528fb780-d537-11eb-9b53-3a406dd380e1.mp4
+
+## Single Model Multiple Datasets - Logistic Regression on the Diabetes Dataset
+https://user-images.githubusercontent.com/69072965/123299966-ad291380-d537-11eb-9ae2-b5b3101b8239.mp4
+
+
+

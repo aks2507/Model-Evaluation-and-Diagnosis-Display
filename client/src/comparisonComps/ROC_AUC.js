@@ -50,8 +50,7 @@ export default function ROC_AUC(props){
     let fpr=[];
     let auc=[];
     const n_classes=evalList[0].data.metadata.n_classes;
-    console.log(evalList[0].data.metadata);
-    if(n_classes===2)
+    if(n_classes==2)
     {
       for(let i=0;i<numTabs;i++)
       {
@@ -61,7 +60,6 @@ export default function ROC_AUC(props){
           tpr.push(tpr_list);
           auc.push(evalList[i].data.metadata.roc_auc);
       }
-     console.log(auc);
     }
     else{
       for(let i=0;i<numTabs;i++)
@@ -78,8 +76,6 @@ export default function ROC_AUC(props){
 
   
   let trace = [];
-  console.log(fpr.length);
-  console.log(tpr.length);
   for(let i=0;i<numTabs;i++)
   {
     if(c===0)
@@ -88,8 +84,7 @@ export default function ROC_AUC(props){
     trace.push({x:fpr[i],y:tpr[i],type:'scatter',name:evalList[i].data.name});
   }
   let data = [...trace]
-  console.log(trace[0]);
-  console.log(trace[1]);
+
   var curve_info=[];
   var info=[];
   var auc_=[];
@@ -99,10 +94,8 @@ export default function ROC_AUC(props){
       info.push(evalList[i].data.name);
       auc_.push(auc[i].toFixed(2));
   }
-  const title=n_classes===2?('ROC Curves'):('Micro average ROC curve');
-  console.log(auc_);
-  curve_info.push(info);
-  curve_info.push(auc_);
+  const title=n_classes==2?('ROC Curves'):('Micro average ROC curve');
+
   const classes = useStyles();
   var rows=[];
   for(i=0;i<numTabs;i++)

@@ -31,7 +31,6 @@ function pushAll(metric, value, x, y) {
 export default function Metrics(props){
     let evalList = props.evaluations;
     let numTabs = evalList.length;
-    console.log(evalList);
     const rows = [];
     const x = [];
     const y = [];
@@ -56,7 +55,7 @@ export default function Metrics(props){
 
   
     if(evalList[0].data.model_type==="regression") {
-        console.log("regression");
+    
         for(let i=0;i<numTabs;i++){
             let mae = evalList[i].data.metadata.mean_absolute_error.toFixed(2);
             let mse = evalList[i].data.metadata.mean_squared_error.toFixed(2);
@@ -75,7 +74,7 @@ export default function Metrics(props){
     
     }
     else if(evalList[0].data.model_type==="classification") {
-        console.log("classification");
+       
         for(let i=0;i<numTabs;i++)
         {
             let acc = evalList[i].data.metadata.accuracy_score.toFixed(2);
@@ -132,7 +131,7 @@ export default function Metrics(props){
     
 
   const classes = useStyles();
-  console.log(evalList);
+ 
   return(
      <div className="col">
          <div className="row">
