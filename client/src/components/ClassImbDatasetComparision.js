@@ -1,9 +1,22 @@
 import React from 'react';
 import Plot from 'react-plotly.js';
-import Box from '@material-ui/core/Box';
+import { makeStyles } from '@material-ui/styles';
+import { Grid } from '@material-ui/core';
+const useStyles = makeStyles((theme) => ({
+    plot: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: '90%',
+      height: '80%',
+    },
+    tableContainer: {
+        maxWidth: '80%'
+    },
+}));
 
 export default function ClassImbDatasetComparision(props){
  const evalList=props.evalList;
+ const classes = useStyles();
  const dataset_title=[];
  const x=[];
  const y=[];
@@ -45,26 +58,22 @@ export default function ClassImbDatasetComparision(props){
         );
  }
 
- const data1=[...traces]
-  var layout = {
-    title: 'Class Imbalance Comparision',
-    height: 400,
-    width: 250*evalList.length,
-    showlegend: true,
-    grid: {rows: 1, columns: evalList.length}
-  };
+    const data1=[...traces]
+    var layout = {
+        title: 'Class Imbalance Comparision',
+        showlegend: true,
+        grid: {rows: 1, columns: evalList.length}
+    };
 
   return(
     
-    <div>
-        <Box ml={10}>
-            <Plot   
-                data={data1}
-                layout={layout}
-            />
-        </Box>
-        
-
+    <div className={classes.tableContainer}>
+        <Plot   
+            className={classes.plot}
+            data={data1}
+            layout={layout}
+            config={{responsive:true}}
+        />
     </div>
 
   );
