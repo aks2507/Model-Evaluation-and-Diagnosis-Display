@@ -4,7 +4,7 @@ from models.evaluation import EvalModel
 from resources.eval_functions import EvaluationFunctions
 from flask import Flask,request,render_template,redirect,url_for, jsonify
 import json
-
+import logging
 class Evaluate(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('model_id',
@@ -32,6 +32,7 @@ class Evaluate(Resource):
         evaluation_entity = EvalModel.find_by_id(eval_id)
         if evaluation_entity:
             if evaluation_entity.meta:
+                logging.debug("Evaluation instance metrics are already computed")
                 return evaluation_entity.json()
             eval_dict = evaluation_entity.json()
             evaluation_object = EvaluationFunctions(eval_dict['model_type'], eval_dict['model']['model_path'], eval_dict['dataset']['dataset_path'])

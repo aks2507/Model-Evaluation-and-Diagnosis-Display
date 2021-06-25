@@ -5,6 +5,8 @@ import pickle
 from sklearn import metrics
 import csv
 from sklearn.preprocessing import label_binarize
+import logging
+
 class EvaluationFunctions():
 	def __init__(self, model_type, model_path, dataset_path):
 		self.model_path = model_path
@@ -23,6 +25,7 @@ class EvaluationFunctions():
 				break
 		path = r'%s' % model_file
 		loaded_model = pickle.load(open(path, 'rb'))
+		
 		feature_scores=[]
 		key = "coef_"
 		if key in loaded_model.__dict__.keys():
