@@ -129,14 +129,14 @@ export default function Metrics(props){
           ) : (
             <Grid item xs={12} sm={6}>
               <Paper elevation={5}>
-                <Plot
+                <Plot className={classes.plot}
                   data={[
                     {type: 'bar', x: x, y: y},
                   ]}
-                  layout={ {width: 500, height: 450, title: 'Evaluation Metrics'} }
+                  layout={ {title: 'Evaluation Metrics'} }
                   config={ {
                     scrollZoom:true,
-                    respnsive:true
+                    responsive:true
                   } }
                 />
               </Paper>

@@ -1,8 +1,18 @@
 import React from 'react';
 import Plot from 'react-plotly.js';
-import Box from '@material-ui/core/Box';
+import {makeStyles} from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  plot: {
+      width: '90%',
+      height: '90%',
+      justifyContent:'center',
+      alignItems: 'center',
+  },
+}));
 
 export default function ClassImb(props){
+  const classes=useStyles();
   const labels=props.output_label;
   let counts={};
   for(let i=0;i<labels.length;i++)
@@ -19,33 +29,25 @@ export default function ClassImb(props){
 
   return(
     <div>
-
-      <div className="row">
-        
+      <div>
+        <Plot className={classes.plot}
+          data = {[{
+              values: y,
+              labels: x,
+              type: 'pie',
+              hoverinfo: 'label+percent',
+              textinfo: 'none'
+            }]}
+          layout={{title: 'Class Imbalance'}}
+          config={ 
+            {
+              scrollZoom:true,
+              responsive:true
+            }
+          }
+        />
       </div>
-        <div>
-          <Box mx={11} pt={1}>
-            <Plot
-                data = {[{
-                    values: y,
-                    labels: x,
-                    type: 'pie',
-                    hoverinfo: 'label+percent',
-                    textinfo: 'none'
-                  }]}
-                  layout={ 
-                    {width: 400, height: 400, title: 'Class Imbalance'}
-                   }
-                  config={ 
-                    {
-                    scrollZoom:true,
-                    respnsive:true
-                  }
-                 }
-            />
-          </Box>
-        </div>
-      </div>
+    </div>
 
   );
 }

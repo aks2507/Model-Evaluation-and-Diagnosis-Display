@@ -216,29 +216,25 @@ export default function Evaluation(props) {
               <TabPanel value={value} index={3}>
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
-                    <Paper elevation={5}>
-                      <DatasetInfo
-                        compare={0}
-                        model_type={data.model_type}
-                        name={data.name}
-                        datasetinfo={data.dataset}
-                        date_created={data.date_created}
-                        modelinfo={data.model}
-                      />
-                    </Paper>
+                    <DatasetInfo
+                      compare={0}
+                      model_type={data.model_type}
+                      name={data.name}
+                      datasetinfo={data.dataset}
+                      date_created={data.date_created}
+                      modelinfo={data.model}
+                    />
                   </Grid>
                   <Grid item xs={12}>
-                    <Paper elevation={5}>
-                      <FeatureImp
-                        model_type={data.model_type}
-                        date_created={data.date_created}
-                        name={data.name}
-                        feature_scores={data.metadata.feature_scores}
-                        columns={data.metadata.columns}
-                        datasetinfo={data.dataset}
-                        modelinfo={data.model}
-                      />
-                    </Paper>
+                    <FeatureImp
+                      model_type={data.model_type}
+                      date_created={data.date_created}
+                      name={data.name}
+                      feature_scores={data.metadata.feature_scores}
+                      columns={data.metadata.columns}
+                      datasetinfo={data.dataset}
+                      modelinfo={data.model}
+                    />
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <Paper elevation={5}>
@@ -272,62 +268,66 @@ export default function Evaluation(props) {
                 />
               </TabPanel>
               <TabPanel value={value} index={1}>
-                <CMatrix
-                  model_type={data.model_type}
-                  date_created={data.date_created}
-                  name={data.name}
-                  cmatrix={data.metadata.confusion_matrix}
-                  datasetinfo={data.dataset}
-                  modelinfo={data.model}
-                />
-                <br></br><br></br>
-                <br></br>
+                <Grid item xs={12}>
+                  <CMatrix
+                    model_type={data.model_type}
+                    date_created={data.date_created}
+                    name={data.name}
+                    cmatrix={data.metadata.confusion_matrix}
+                    datasetinfo={data.dataset}
+                    modelinfo={data.model}
+                  />
+                </Grid>
                {
                  n_classes===2?(
                   <>
-                    <ROCPrecRecall
-                      curve={0}
-                      model_type={data.model_type}
-                      name={data.name}
-                      x={data.metadata.fpr}
-                      y={data.metadata.tpr}
-                      auc={data.metadata.roc_auc}
-                      date_created={data.date_created}
-                      datasetinfo={data.dataset}
-                      modelinfo={data.model}
-                    />
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <ROCPrecRecall
-                      curve={1}
-                      model_type={data.model_type}
-                      name={data.name}
-                      x={data.metadata.recall_curve}
-                      y={data.metadata.precision_curve}
-                      auc={data.metadata.precision_recall_auc}
-                      date_created={data.date_created}
-                      datasetinfo={data.dataset}
-                      modelinfo={data.model}
-                    />
+                    <Grid item xs={12}>
+                        <ROCPrecRecall
+                          curve={0}
+                          model_type={data.model_type}
+                          name={data.name}
+                          x={data.metadata.fpr}
+                          y={data.metadata.tpr}
+                          auc={data.metadata.roc_auc}
+                          date_created={data.date_created}
+                          datasetinfo={data.dataset}
+                          modelinfo={data.model}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <ROCPrecRecall
+                          curve={1}
+                          model_type={data.model_type}
+                          name={data.name}
+                          x={data.metadata.recall_curve}
+                          y={data.metadata.precision_curve}
+                          auc={data.metadata.precision_recall_auc}
+                          date_created={data.date_created}
+                          datasetinfo={data.dataset}
+                          modelinfo={data.model}
+                        />
+                    </Grid>
                   </>
                  ):(
                   <>
-                  <CurvesMultiClass
-                  fpr={data.metadata.fpr}
-                  tpr={data.metadata.tpr}
-                  auc={data.metadata.roc_auc}
-                  n_classes={data.metadata.n_classes}
-                  c={0}
-                  ></CurvesMultiClass>
-                  <CurvesMultiClass
-                  fpr={data.metadata.precision_curve}
-                  tpr={data.metadata.recall_curve}
-                  auc={data.metadata.precision_recall_auc}
-                  n_classes={data.metadata.n_classes}
-                  c={1}
-                  ></CurvesMultiClass>
+                    <Grid item xs={12}>
+                      <CurvesMultiClass
+                        fpr={data.metadata.fpr}
+                        tpr={data.metadata.tpr}
+                        auc={data.metadata.roc_auc}
+                        n_classes={data.metadata.n_classes}
+                        c={0}
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <CurvesMultiClass
+                        fpr={data.metadata.precision_curve}
+                        tpr={data.metadata.recall_curve}
+                        auc={data.metadata.precision_recall_auc}
+                        n_classes={data.metadata.n_classes}
+                        c={1}
+                      />
+                    </Grid>
                   </>
 
                  )
@@ -335,47 +335,72 @@ export default function Evaluation(props) {
                
               </TabPanel>
               <TabPanel value={value} index={2}>
-                <ModelInfo
-                  keys={data.model.metadata.keys}
-                  values={data.model.metadata.values}
-                  columns={data.dataset.metadata.columns}
-                  datasetinfo={data.dataset}
-                  modelinfo={data.model}
-                  name={data.name}
-                  model_type={data.model_type}
-                  date_created={data.date_created}
-                />
+                <Grid container spacing={2}>
+                  <Grid item xs={12}>
+                    <Paper elevation={5}>
+                      <Details
+                        area={1}
+                        name={data.name}
+                        model_type={data.model_type}
+                        date_created={data.date_created}
+                        datasetinfo={data.dataset}
+                        modelinfo={data.model}
+                      />
+                    </Paper>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Paper elevation={5}>
+                      <ModelInfo
+                        keys={data.model.metadata.keys}
+                        values={data.model.metadata.values}
+                        columns={data.dataset.metadata.columns}
+                        datasetinfo={data.dataset}
+                        modelinfo={data.model}
+                        name={data.name}
+                        model_type={data.model_type}
+                        date_created={data.date_created}
+                      />
+                    </Paper>
+                  </Grid>
+                </Grid>
               </TabPanel>
               <TabPanel value={value} index={3}>
-                <DatasetInfo
-                  compare={0}
-                  model_type={data.model_type}
-                  name={data.name}
-                  datasetinfo={data.dataset}
-                  date_created={data.date_created}
-                  modelinfo={data.model}
-                />
-                
-                <FeatureImp
-                  model_type={data.model_type}
-                  date_created={data.date_created}
-                  name={data.name}
-                  feature_scores={data.metadata.feature_scores}
-                  columns={data.metadata.columns}
-                  datasetinfo={data.dataset}
-                  modelinfo={data.model}
-                />
-               
-                
-                <ClassImb
-                  model_type={data.model_type}
-                  name={data.name}
-                  metadata={data.metadata}
-                  date_created={data.date_created}
-                  output_label={data.dataset.metadata.output_label}
-                  datasetinfo={data.dataset}
-                  modelinfo={data.model}
-                />
+                <Grid container spacing={2}>
+                  <Grid item xs={12}>
+                    <DatasetInfo
+                      compare={0}
+                      model_type={data.model_type}
+                      name={data.name}
+                      datasetinfo={data.dataset}
+                      date_created={data.date_created}
+                      modelinfo={data.model}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <FeatureImp
+                      model_type={data.model_type}
+                      date_created={data.date_created}
+                      name={data.name}
+                      feature_scores={data.metadata.feature_scores}
+                      columns={data.metadata.columns}
+                      datasetinfo={data.dataset}
+                      modelinfo={data.model}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <Paper elevation={5}>
+                      <ClassImb
+                        model_type={data.model_type}
+                        name={data.name}
+                        metadata={data.metadata}
+                        date_created={data.date_created}
+                        output_label={data.dataset.metadata.output_label}
+                        datasetinfo={data.dataset}
+                        modelinfo={data.model}
+                      />
+                    </Paper>
+                  </Grid>
+                </Grid>
               </TabPanel>
             </div>
           </>

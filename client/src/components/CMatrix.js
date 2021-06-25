@@ -6,6 +6,7 @@ import Details from './Details';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
+import { Grid, Paper } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import CMatrixTable from './CMatrixTable';
@@ -25,7 +26,6 @@ const useStyles = makeStyles((theme) => ({
   },
   plot: {
     width:"90%",
-    margin:"auto",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -71,63 +71,72 @@ export default function Confusion_matrix(props){
 
   const classes = useStyles();
   return(
-    <>
-     <Details
-          area={1}
-          name={props.name}
-          model_type={props.model_type}
-          date_created={props.date_created}
-          datasetinfo={props.datasetinfo}
-          modelinfo={props.modelinfo}
+    <Grid container xs={12}>
+      <Grid item xs={12}><Paper elevation={5}>
+        <Details
+            area={1}
+            name={props.name}
+            model_type={props.model_type}
+            date_created={props.date_created}
+            datasetinfo={props.datasetinfo}
+            modelinfo={props.modelinfo}
         />
-    <div className={classes.root}>
-    <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
-      <AccordionSummary
-        expandIcon={<ExpandMoreIcon />}
-        aria-controls="panel1bh-content"
-        id="panel1bh-header"
-      >
-        <Typography className={classes.heading}>Confusion Matrix Table</Typography>
-        <Typography className={classes.secondaryHeading} >Tabular View</Typography>
-      </AccordionSummary>
-      <AccordionDetails>
-        <Typography>
-           <CMatrixTable matrix={z}></CMatrixTable>
-        </Typography>
-      </AccordionDetails>
-    </Accordion>
-    <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
-      <AccordionSummary
-        expandIcon={<ExpandMoreIcon />}
-        aria-controls="panel2bh-content"
-        id="panel2bh-header"
-      >
-        <Typography className={classes.heading}>Confusion Matrix Heatmap</Typography>
-        <Typography className={classes.secondaryHeading}>
-          Heatmap view
-        </Typography>
-      </AccordionSummary>
-      <AccordionDetails>
-        <Typography>
-        <div className="row">
-        <Box ml={20}>
-            <Plot className={classes.plot}
-              data={[
-                {type: 'heatmap', x: x, y: y, z: cmatrix},
-              ]}
-              layout={ {width: 500, height: 450, title: "Confusion Matrix"} }
-              config={ {
-                scrollZoom:true,
-                respnsive:true
-              } }
-            />
-        </Box>
-       
-      </div>
-        </Typography>
-      </AccordionDetails>
-    </Accordion>
-  </div>
-    </>
+      </Paper></Grid>
+      <Box mt={2} mb={2}>
+        <Grid item xs={12} className={classes.root}>
+          <Paper elevation={5}>
+            <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1bh-content"
+                id="panel1bh-header"
+              >
+                <Typography className={classes.heading}>Confusion Matrix Table</Typography>
+                <Typography className={classes.secondaryHeading} >Tabular View</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography>
+                  <CMatrixTable matrix={z}></CMatrixTable>
+                </Typography>
+              </AccordionDetails>
+            </Accordion>
+          </Paper>
+        </Grid>
+        <Grid item xs={12} className={classes.root}>
+          <Paper elevation={5}>
+            <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel2bh-content"
+                id="panel2bh-header"
+              >
+                <Typography className={classes.heading}>Confusion Matrix Heatmap</Typography>
+                <Typography className={classes.secondaryHeading}>
+                  Heatmap view
+                </Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography>
+                  <div className="row">
+                    <Box ml={20}>
+                      <Plot className={classes.plot}
+                        data={[
+                          {type: 'heatmap', x: x, y: y, z: cmatrix},
+                        ]}
+                        layout={ {title: "Confusion Matrix"} }
+                        config={ {
+                          scrollZoom:true,
+                          respnsive:true
+                        } }
+                      />
+                    </Box>
+                  </div>
+                </Typography>
+              </AccordionDetails>
+            </Accordion>
+          </Paper>
+        </Grid>
+      </Box>
+    </Grid>
   );
 }

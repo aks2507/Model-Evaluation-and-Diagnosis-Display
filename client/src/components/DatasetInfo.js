@@ -3,13 +3,26 @@ import Details from './Details';
 import Plots from '../comparisonComps/Plots';
 import DetailsComp from '../comparisonComps/Details';
 import GeneralTable from '../comparisonComps/GeneralTable';
+import { Grid, Paper, Box } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 function createData(colname, mean, std, min, max, q25, q50, q75, iqr, mvals){
     return { colname, mean, std, min, max, q25, q50, q75, iqr, mvals };
 }
 
-export default function DatasetInfo(props){
+const useStyles = makeStyles((theme) => ({
+    root: {
+      maxWidth: '90%',
+    },
+    paper: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '90%',
+    },
+  }));
 
+export default function DatasetInfo(props){
+    const classes=useStyles();
     const description = props.datasetinfo.metadata.description;
     const columns = props.datasetinfo.metadata.columns;
     const len = columns.length;
@@ -67,38 +80,51 @@ export default function DatasetInfo(props){
     }   
 
     return (
-        <div className="col">
+        <Grid container spacing={2}>
             {props.compare ? (
                 props.compare === 1 ? (
-                    <DetailsComp evaluations={props.evaluations}/>
+                    <Grid item xs={12}>
+                        <Paper elevation={5}>
+                            <DetailsComp evaluations={props.evaluations}/>
+                        </Paper>
+                    </Grid>
                 ) : (
                     null
                 )
                 
             ) : (
-                <div className="row">
-                    <Details
-                        area={1}
-                        name={props.name}
-                        model_type={props.model_type}
-                        date_created={props.date_created}
-                        datasetinfo={props.datasetinfo}
-                        modelinfo={props.modelinfo}
-                    />
-                </div>
+                <Grid item xs={12}>
+                    <Paper elevation={5} className={classes.paper}>
+                        <Details
+                            area={1}
+                            name={props.name}
+                            model_type={props.model_type}
+                            date_created={props.date_created}
+                            datasetinfo={props.datasetinfo}
+                            modelinfo={props.modelinfo}
+                        />
+                    </Paper>
+                </Grid>
             )}
-            <div className="row">
+            <Grid item xs={12}>
                 {/*Table here*/}
-                <GeneralTable
-                    rows={rows}
-                    headCells={headCells}
-                    tabletitle="Dataset Statistics"
-                />
-            </div>
-            <div className="row">
+                <Paper elevation={5} className={classes.paper}>
+                    <Box m={2}>
+                        <GeneralTable
+                            rows={rows}
+                            headCells={headCells}
+                            tabletitle="Dataset Statistics"
+                        />
+                    </Box>
+                </Paper>
+                
+            </Grid>
+            <Grid item xs={12}>
                 {/*Plot here*/}
-                <Plots data={data} width={900} height={675} title="Dataset Statistics" />
-            </div>
-        </div>
+                <Paper elevation={5} className={classes.paper}>
+                    <Plots data={data} title="Dataset Statistics" />
+                </Paper>
+            </Grid>
+        </Grid>
     );
 }

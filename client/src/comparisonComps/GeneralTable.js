@@ -11,7 +11,6 @@ import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 
@@ -107,14 +106,8 @@ const EnhancedTableToolbar = (props) => {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: '90%',
-  },
-  paper: {
-    width: '100%',
-    marginBottom: theme.spacing(2),
-  },
-  table: {
-    minWidth: 750,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   visuallyHidden: {
     border: 0,
@@ -164,11 +157,9 @@ export default function CompareTable(props) {
 
   return (
     <div className={classes.root}>
-      <Paper className={classes.paper}>
         <EnhancedTableToolbar tabletitle={props.tabletitle}/>
         <TableContainer>
           <Table
-            className={classes.table}
             aria-labelledby="tableTitle"
             size={dense ? 'small' : 'medium'}
             aria-label="enhanced table"
@@ -214,7 +205,6 @@ export default function CompareTable(props) {
           onChangePage={handleChangePage}
           onChangeRowsPerPage={handleChangeRowsPerPage}
         />
-      </Paper>
       <FormControlLabel
         control={<Switch checked={dense} onChange={handleChangeDense} />}
         label="Dense padding"

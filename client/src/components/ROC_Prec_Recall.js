@@ -8,7 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Plot from 'react-plotly.js';
-import Box from '@material-ui/core/Box';
+import {Grid} from '@material-ui/core';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -21,14 +21,25 @@ const StyledTableCell = withStyles((theme) => ({
 }))(TableCell);
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    width: '60%',
-    align:"right"
-  },
-  heading: {
-    fontSize: theme.typography.pxToRem(15),
-    fontWeight: theme.typography.fontWeightRegular,
-  },
+    root: {
+        width: '60%',
+        align:"right"
+    },
+    table: {
+        width: '100%',
+        justifyContent:'center',
+        alignItems: 'center',
+    },
+    heading: {
+        fontSize: theme.typography.pxToRem(15),
+        fontWeight: theme.typography.fontWeightRegular,
+    },
+    plot: {
+        width: '90%',
+        height: '90%',
+        justifyContent:'center',
+        alignItems: 'center',
+    },
 }));
 
 export default function ROC_Prec_Recall(props){
@@ -109,60 +120,54 @@ export default function ROC_Prec_Recall(props){
     }]
     
     return(
-
-   
-        <div className="row">
-
-            
-            <div className="col">
-                <Box ml={7}>
+        <Grid container spacing={2}>
+            <Grid item xs={12} sm={8}>
+                <Paper elevation={5}>
                     <Plot className={classes.plot}
                         data={[
                             {type: 'scatter', x: x, y: y},
                         ]}
-                        layout={ {
-                            width: 500, 
-                            height: 505, 
+                        layout={ { 
                             title: plot_title,
-                            align:'right', 
+                            align:'center', 
                             sliders:slider,
                             updatemenus:updatemenus
                         } }
                         config={ {
                             scrollZoom:true,
-                            respnsive:true
+                            responsive:true
                         } }
                         
                         onButtonClicked={handleBeginClick}
                         onSliderChange={handleSliderChangeX}
                     />
-                </Box>
-            </div>
+                </Paper>
+            </Grid>
 
-            <div className="col">
-                    <Box pt={23}>
-                    <TableContainer className={classes.root} component={Paper}>
-                    <Table aria-label="simple table">
-                        <TableHead>
-                        <TableRow>
-                            <StyledTableCell>Model Name</StyledTableCell>
-                            <StyledTableCell align="right">AUC</StyledTableCell>
-                        </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            <TableRow key={props.name}>
-                            <StyledTableCell component="th" scope="row">
-                                {props.name}
-                            </StyledTableCell>
-                            <StyledTableCell align="right">{auc}</StyledTableCell>
+            <Grid item xs={12} sm={4}>
+                <Paper elevation={5}>
+                    <TableContainer className={classes.table}>
+                        <Table aria-label="simple table">
+                            <TableHead>
+                            <TableRow>
+                                <StyledTableCell>Model Name</StyledTableCell>
+                                <StyledTableCell align="right">AUC</StyledTableCell>
                             </TableRow>
-                        </TableBody>
-                    </Table>
+                            </TableHead>
+                            <TableBody>
+                                <TableRow key={props.name}>
+                                <StyledTableCell component="th" scope="row">
+                                    {props.name}
+                                </StyledTableCell>
+                                <StyledTableCell align="right">{auc}</StyledTableCell>
+                                </TableRow>
+                            </TableBody>
+                        </Table>
                     </TableContainer>
-                    </Box>
-            </div>
+                </Paper>
+            </Grid>
              
-        </div>    
+        </Grid>    
     
 
     );
