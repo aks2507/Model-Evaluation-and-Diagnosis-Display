@@ -1,4 +1,3 @@
-<img align="center" src="https://img.shields.io/badge/Oracle-F80000?style=for-the-badge&logo=oracle&logoColor=black" height="50">
 
 # Model Evaluation and Diagnosis Display
 Model Evaluation is the process through which we quantify the quality of a system’s predictions. To do this, we measure the newly trained model performance on a new and independent dataset. This model will compare labeled data with it’s own predictions.
@@ -15,7 +14,19 @@ The Goal of the project is to come up with a solution which has context based vi
 ![Screenshot (4)](https://user-images.githubusercontent.com/42781233/123284919-418c7980-d52a-11eb-881b-2ac59f4f50fb.png)
 ![Screenshot (5)](https://user-images.githubusercontent.com/42781233/123284985-4cdfa500-d52a-11eb-8062-27c974d6ca61.png)
 ![Screenshot (6)](https://user-images.githubusercontent.com/42781233/123285023-5537e000-d52a-11eb-8d5e-d33e47131595.png)
-## Steps:
+
+
+### You can view the REST endpoints through swagger UI by following steps:
+- Clone the repo by `git clone https://github.com/aks2507/react-flask-project.git`
+- `cd react-flask-project`
+- `yarn install`
+- `yarn start-api`
+- Then go to `http://127.0.0.1:5000/swagger`
+
+
+
+
+## Steps to build Evaluations:
 ### Step 1:
 #### Bring your own test dataset and Serialised Model
 Train your model in Jupyter Notebook/Kaggle/GoogleColab and obtain the serialised model and dataset as follows:<br>

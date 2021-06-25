@@ -1,11 +1,11 @@
-2021-06-25 14:19:20,391 INFO werkzeug Thread-35 : 127.0.0.1 - - [25/Jun/2021 14:19:20] "GET /modelEvaluations HTTP/1.1" 200 -
-2021-06-25 14:19:20,658 INFO werkzeug Thread-36 : 127.0.0.1 - - [25/Jun/2021 14:19:20] "GET /modelEvaluations HTTP/1.1" 200 -
-2021-06-25 14:19:23,257 INFO werkzeug Thread-37 : 127.0.0.1 - - [25/Jun/2021 14:19:23] "GET /modelEvaluations/1 HTTP/1.1" 200 -
-2021-06-25 14:19:25,953 INFO werkzeug Thread-38 : 127.0.0.1 - - [25/Jun/2021 14:19:25] "GET /modelEvaluations HTTP/1.1" 200 -
-2021-06-25 14:19:26,509 INFO werkzeug Thread-39 : 127.0.0.1 - - [25/Jun/2021 14:19:26] "GET /modelEvaluations HTTP/1.1" 200 -
-2021-06-25 14:19:29,313 INFO werkzeug Thread-40 : 127.0.0.1 - - [25/Jun/2021 14:19:29] "GET /modelEvaluations/1 HTTP/1.1" 200 -
-2021-06-25 14:19:29,316 INFO werkzeug Thread-41 : 127.0.0.1 - - [25/Jun/2021 14:19:29] "GET /modelEvaluations/2 HTTP/1.1" 200 -
-2021-06-25 14:19:29,335 INFO werkzeug Thread-42 : 127.0.0.1 - - [25/Jun/2021 14:19:29] "GET /modelEvaluations/1 HTTP/1.1" 200 -
-2021-06-25 14:19:29,344 INFO werkzeug Thread-43 : 127.0.0.1 - - [25/Jun/2021 14:19:29] "GET /modelEvaluations/2 HTTP/1.1" 200 -
-2021-06-25 14:19:31,933 INFO werkzeug Thread-44 : 127.0.0.1 - - [25/Jun/2021 14:19:31] "GET /modelEvaluations HTTP/1.1" 200 -
-2021-06-25 14:19:32,189 INFO werkzeug Thread-45 : 127.0.0.1 - - [25/Jun/2021 14:19:32] "GET /modelEvaluations HTTP/1.1" 200 -
+2021-06-26 00:48:46,696 INFO werkzeug MainThread :  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-06-26 00:49:02,997 INFO werkzeug Thread-1 : 127.0.0.1 - - [26/Jun/2021 00:49:02] "GET /modelEvaluations HTTP/1.1" 200 -
+2021-06-26 00:49:03,254 INFO werkzeug Thread-2 : 127.0.0.1 - - [26/Jun/2021 00:49:03] "GET /modelEvaluations HTTP/1.1" 200 -
+2021-06-26 00:49:05,227 DEBUG root Thread-3 : Evaluation instance metrics are already computed
+2021-06-26 00:49:05,234 INFO werkzeug Thread-3 : 127.0.0.1 - - [26/Jun/2021 00:49:05] "GET /modelEvaluations/1 HTTP/1.1" 200 -
+2021-06-26 00:49:07,398 INFO werkzeug Thread-4 : 127.0.0.1 - - [26/Jun/2021 00:49:07] "GET /modelEvaluations HTTP/1.1" 200 -
+2021-06-26 00:49:07,614 INFO werkzeug Thread-5 : 127.0.0.1 - - [26/Jun/2021 00:49:07] "GET /modelEvaluations HTTP/1.1" 200 -
+2021-06-26 00:49:08,868 DEBUG root Thread-6 : Evaluation instance metrics are already computed
+2021-06-26 00:49:08,876 INFO werkzeug Thread-6 : 127.0.0.1 - - [26/Jun/2021 00:49:08] "GET /modelEvaluations/2 HTTP/1.1" 200 -
+2021-06-26 00:49:12,157 INFO werkzeug Thread-7 : 127.0.0.1 - - [26/Jun/2021 00:49:12] "GET /modelEvaluations HTTP/1.1" 200 -
+2021-06-26 00:49:12,424 INFO werkzeug Thread-8 : 127.0.0.1 - - [26/Jun/2021 00:49:12] "GET /modelEvaluations HTTP/1.1" 200 -

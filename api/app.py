@@ -1,5 +1,3 @@
-import numpy as np
-import pandas as pd
 from flask_restful import Api
 from db import db
 
@@ -8,12 +6,16 @@ from resources.evaluation import Evaluate, EvaluateList
 from resources.datasets import DatasetResource, DatasetList
 from resources.mlmodels import MLModelResource, ModelList
 from flask_swagger_ui import get_swaggerui_blueprint
+import logging
 
-from logging.config import fileConfig
-
-fileConfig('logging.cfg')
+#logging config
+logging.basicConfig(filename='record.log', level=logging.DEBUG, format=f'%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s')
+ 
 
 app=Flask(__name__)
+
+
+
 
 ### swagger specific ###
 SWAGGER_URL = '/swagger'
