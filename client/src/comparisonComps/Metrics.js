@@ -3,13 +3,15 @@ import { makeStyles } from '@material-ui/core/styles';
 import Details from './Details';
 import CompareTable from './CompareTable';
 import Plots from './Plots';
-import Box from '@material-ui/core/Box';
+import {Grid, Paper} from '@material-ui/core';
 const useStyles = makeStyles({
   table: {
     width:"90%",
     margin:"auto",
   },
   plot:{
+        height:'80%',
+        width: '90%',
         justifyContent: 'center',
         alignItems: 'center',
   },
@@ -134,68 +136,68 @@ export default function Metrics(props){
   const classes = useStyles();
  
   return(
-    <div className="col">
+    <Grid container spacing={2}>
 
-        <div className="row">
-            <Details
-                c={1}
-                evaluations={evalList}
-            />
-        </div>
+        <Grid item xs={12}>
+            <Paper elevation={5}>
+                <Details
+                    c={1}
+                    evaluations={evalList}
+                />
+            </Paper>
+        </Grid>
 
-        <div className="row">
+        <Grid item xs={12}>
             <div className={classes.plot}>
-                <Box ml={10}>
                 <CompareTable
                     rows={rows}
                     model_type={evalList[0].data.model_type}
                 />
-                </Box>
-                
             </div>
-        </div>
+        </Grid>
 
         {evalList[0].data.model_type === "regression" ? (
-            <>
-                <div className="row">
-                    <div className="col">
-                    <Box m={20} mt={1}>
-                        <Plots data={data_one} width={700} height={450} title="Evaluation Metrics"/>
-                    </Box>
-                    </div>
-                    <div className="col">
-                    <Box m={20} mt={1}>
-                        <Plots data={data_two} width={700} height={450} title="Evaluation Metrics"/>
-                        </Box>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col">
-                    <Box m={20} mt={1}>
-                        <Plots data={linedata_one} width={700} height={450} title="Evaluation Metrics"/>
-                        </Box>
-                    </div>
-                    <div className="col">
-                    <Box m={20} mt={1}>
-                        <Plots data={linedata_two} width={700} height={450} title="Evaluation Metrics"/>
-                        </Box>
-                    </div>
-                </div>
-            </>
+            <Grid container xs={12} spacing={2}>
+                
+                <Grid item xs={12} sm={6}>
+                    <Paper elevation={5}>
+                        <Plots data={data_one} title="Evaluation Metrics"/>
+                    </Paper>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    <Paper elevation={5}>
+                        <Plots data={data_two} title="Evaluation Metrics"/>
+                    </Paper>
+                </Grid>
+                
+                
+                <Grid item xs={12} sm={6}>
+                    <Paper elevation={5}>
+                        <Plots data={linedata_one} title="Evaluation Metrics"/>
+                    </Paper>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    <Paper elevation={5}>
+                        <Plots data={linedata_two} title="Evaluation Metrics"/>
+                    </Paper>
+                </Grid>
+                
+            </Grid>
         ) : (
-            <>
-                <div className="row">
-                <Box m={20} mt={0}>
-                    <Plots data={data} width={700} height={450} title="Evaluation Metrics"/>
-                    </Box>
-                </div>
-                <div className="row">
-                <Box m={20} mt={0}>
-                    <Plots data={linedata} width={700} height={450} title="Evaluation Metrics"/>
-                    </Box>
-                </div>
-            </>
+            
+            <Grid container xs ={12} spacing={2}>
+                <Grid item xs={12} sm={6}>
+                    <Paper elevation={5}>
+                        <Plots data={data} title="Evaluation Metrics"/>
+                    </Paper>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    <Paper elevation={5}>
+                        <Plots data={linedata} title="Evaluation Metrics"/>
+                    </Paper>
+                </Grid>
+            </Grid>
         )}
-    </div>
+    </Grid>
   );
 }

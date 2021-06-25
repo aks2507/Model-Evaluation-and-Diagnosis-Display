@@ -8,7 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Plot from 'react-plotly.js';
-import Box from '@material-ui/core/Box';
+import {Grid} from '@material-ui/core';
 
 
 
@@ -31,6 +31,7 @@ const StyledTableCell = withStyles((theme) => ({
         margin: "auto",
     },
     plot: {
+        width:'90%',
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -111,50 +112,44 @@ export default function PrecisionRecallCurve(props) {
 
 
     return (
-        <div className="col">
-
-             <div className="row">
-            </div> 
-            <div className="row">
-                <Plot
-                    data={data}
-                    layout={{ width: 600, height: 450, title:title }}
-                    config={{
-                        scrollZoom: true,
-                        responsive: true
-                    }}
-                />
-                <div>
-                    <Box  m={2} pt={15}>
-                    <TableContainer  component={Paper}>
+        <Grid container spacing={2}>
+            <Grid item xs={12} sm={6}>
+                <Paper elevation={5}>
+                    <Plot 
+                        className={classes.plot}
+                        data={data}
+                        layout={{title:title }}
+                        config={{
+                            scrollZoom: true,
+                            responsive: true
+                        }}
+                    />
+                </Paper>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+                <Paper elevation={5}>
+                    <TableContainer>
                     <Table className={classes.table} aria-label="simple table">
                         <TableHead>
-                        <TableRow>
-                            <StyledTableCell>Model</StyledTableCell>
-                            <StyledTableCell align="right">AUC</StyledTableCell>
-                        </TableRow>
+                            <TableRow>
+                                <StyledTableCell>Model</StyledTableCell>
+                                <StyledTableCell align="right">AUC</StyledTableCell>
+                            </TableRow>
                         </TableHead>
                         <TableBody>
                         {rows.map((row) => (
                             <TableRow key={row.name}>
-                            <StyledTableCell component="th" scope="row">
-                                {row.name}
-                            </StyledTableCell>
-                            <StyledTableCell align="right">{row.area}</StyledTableCell>
+                                <StyledTableCell component="th" scope="row">
+                                    {row.name}
+                                </StyledTableCell>
+                                <StyledTableCell align="right">{row.area}</StyledTableCell>
                             </TableRow>
                         ))}
                         </TableBody>
                     </Table>
                     </TableContainer>
-                    </Box>
-                   
-
-
-
-                </div>
-            </div>
-
-
-        </div>
+                </Paper>
+            </Grid>
+        </Grid>
     );
 }

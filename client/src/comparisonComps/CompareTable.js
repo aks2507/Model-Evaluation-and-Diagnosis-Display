@@ -11,7 +11,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
+import {Paper, Box} from '@material-ui/core';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 
@@ -184,82 +184,86 @@ export default function CompareTable(props) {
 
   return (
     <div className={classes.root}>
-      <Paper className={classes.paper}>
-        <EnhancedTableToolbar />
-        <TableContainer>
-          <Table
-            className={classes.table}
-            aria-labelledby="tableTitle"
-            size={dense ? 'small' : 'medium'}
-            aria-label="enhanced table"
-          >
-            <EnhancedTableHead
-              classes={classes}
-              order={order}
-              orderBy={orderBy}
-              onRequestSort={handleRequestSort}
-              headCells={headCells}
-            />
-            <TableBody>
-              {stableSort(rows, getComparator(order, orderBy))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row, index) => {
-                  const labelId = `enhanced-table-checkbox-${index}`;
+      <Paper elevation={5} className={classes.paper}>
+        <Box m={2}>
+          <EnhancedTableToolbar />
+          <TableContainer>
+            <Table
+              className={classes.table}
+              aria-labelledby="tableTitle"
+              size={dense ? 'small' : 'medium'}
+              aria-label="enhanced table"
+            >
+              <EnhancedTableHead
+                classes={classes}
+                order={order}
+                orderBy={orderBy}
+                onRequestSort={handleRequestSort}
+                headCells={headCells}
+              />
+              <TableBody>
+                {stableSort(rows, getComparator(order, orderBy))
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((row, index) => {
+                    const labelId = `enhanced-table-checkbox-${index}`;
 
-                  return (
-                    <TableRow
-                      hover
-                      tabIndex={-1}
-                      key={row.evalName}
-                    >
-                      
-                      <TableCell align="center" id={labelId} scope="row">
-                        {row.evalName}
-                      </TableCell>
-                      {model_type === "regression" ? (
-                            <>
-                                <TableCell align="center">{row.mae}</TableCell>
-                                <TableCell align="center">{row.mse}</TableCell>
-                                <TableCell align="center">{row.rmse}</TableCell>
-                                <TableCell align="center">{row.rmsle}</TableCell>
-                                <TableCell align="center">{row.r2}</TableCell>
-                                <TableCell align="center">{row.ar2}</TableCell>
-                            </>
-                      ) : (
-                        <>
-                            <TableCell align="center">{row.acc}</TableCell>
-                            <TableCell align="center">{row.prec}</TableCell>
-                            <TableCell align="center">{row.recall}</TableCell>
-                            <TableCell align="center">{row.f1}</TableCell>
-                            <TableCell align="center">{row.logloss}</TableCell>
-                        </>
-                      )}
-                      
-                    </TableRow>
-                  );
-                })}
-              {emptyRows > 0 && (
-                <TableRow style={{ height: (dense ? 33 : 53) * emptyRows }}>
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={rows.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onChangePage={handleChangePage}
-          onChangeRowsPerPage={handleChangeRowsPerPage}
-        />
+                    return (
+                      <TableRow
+                        hover
+                        tabIndex={-1}
+                        key={row.evalName}
+                      >
+                        
+                        <TableCell align="center" id={labelId} scope="row">
+                          {row.evalName}
+                        </TableCell>
+                        {model_type === "regression" ? (
+                              <>
+                                  <TableCell align="center">{row.mae}</TableCell>
+                                  <TableCell align="center">{row.mse}</TableCell>
+                                  <TableCell align="center">{row.rmse}</TableCell>
+                                  <TableCell align="center">{row.rmsle}</TableCell>
+                                  <TableCell align="center">{row.r2}</TableCell>
+                                  <TableCell align="center">{row.ar2}</TableCell>
+                              </>
+                        ) : (
+                          <>
+                              <TableCell align="center">{row.acc}</TableCell>
+                              <TableCell align="center">{row.prec}</TableCell>
+                              <TableCell align="center">{row.recall}</TableCell>
+                              <TableCell align="center">{row.f1}</TableCell>
+                              <TableCell align="center">{row.logloss}</TableCell>
+                          </>
+                        )}
+                        
+                      </TableRow>
+                    );
+                  })}
+                {emptyRows > 0 && (
+                  <TableRow style={{ height: (dense ? 33 : 53) * emptyRows }}>
+                    <TableCell colSpan={6} />
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 25]}
+            component="div"
+            count={rows.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onChangePage={handleChangePage}
+            onChangeRowsPerPage={handleChangeRowsPerPage}
+          />
+          <FormControlLabel
+            control={<Switch checked={dense} onChange={handleChangeDense} />}
+            label="Dense padding"
+          />
+        </Box>
       </Paper>
-      <FormControlLabel
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
-      />
+
+      
     </div>
   );
 }

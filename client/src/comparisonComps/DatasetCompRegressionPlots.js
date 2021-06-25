@@ -1,6 +1,6 @@
 import React from 'react';
 import Plot from 'react-plotly.js';
-import Box from '@material-ui/core/Box';
+import {Grid, Paper, Box} from '@material-ui/core';
 
 export default function DatasetCompRegressionPlots(props){
     const c = props.c;
@@ -112,29 +112,44 @@ export default function DatasetCompRegressionPlots(props){
         
     return(
 
-    <div>
-        <Box align="center">
-            <Plot   
-                data={observedVsPredictedTraces}
-                layout={observedVsPredictedLayout}
-                config={config}
-            />
-        </Box>
-        <Box align="center">
-            <Plot   
-                data={residualVsPredictedTraces}
-                layout={residualVsPredictedLayout}
-                config={config}
-            />
-        </Box>
-        <Box align="center">
-            <Plot   
-                data={residualVsObservedTraces}
-                layout={residualVsObservedLayout}
-                config={config}
-            />
-        </Box>
-    </div>
+    <Grid container spacing={2}>
+        
+        <Grid item xs={12}>
+            <Paper elevation={5}>
+                <Box align='center'>
+                    <Plot   
+                        data={observedVsPredictedTraces}
+                        layout={observedVsPredictedLayout}
+                        config={config}
+                    />
+                </Box>
+            </Paper>
+        </Grid>
+    
+        <Grid item xs={12}>
+            <Paper elevation={5}>
+                <Box align='center'>
+                    <Plot   
+                        data={residualVsPredictedTraces}
+                        layout={residualVsPredictedLayout}
+                        config={config}
+                    />
+                </Box>
+            </Paper>
+        </Grid>
+    
+        <Grid item xs={12}>
+            <Paper elevation={5}>
+                <Box align='center'>
+                    <Plot   
+                        data={residualVsObservedTraces}
+                        layout={residualVsObservedLayout}
+                        config={config}
+                    />    
+                </Box>
+            </Paper>
+        </Grid>
+    </Grid>
 
     );
 }

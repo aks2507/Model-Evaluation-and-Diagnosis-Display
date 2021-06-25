@@ -54,23 +54,26 @@ export default function ModelInfo(props) {
   }
 
   return (
-    <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-              <StyledTableCell align="center">Parameter or Attribute</StyledTableCell>
-              <StyledTableCell align="center">Value</StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.column}>
-              <TableCell align="center">{row.param}</TableCell>
-              <TableCell align="center">{row.val}</TableCell>
+    <Paper elevation={5}>
+      <TableContainer>
+        <Table className={classes.table} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+                <StyledTableCell align="center">Parameter or Attribute</StyledTableCell>
+                <StyledTableCell align="center">Value</StyledTableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {rows.map((row) => (
+              <TableRow key={row.column}>
+                <TableCell align="center">{row.param}</TableCell>
+                <TableCell align="center">{row.val}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Paper>
+    
   );
 }
