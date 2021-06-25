@@ -25,7 +25,7 @@ export default function CMatrixTable(props) {
     const r=[];
     for(let i=0;i<numClass+1;i++)
     {
-        if(i==0) r.push("");
+        if(i===0) r.push("");
         else r.push(""+i-1);
     }
     rows.push(r);

@@ -1,6 +1,6 @@
 import React from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-
+import { Grid } from '@material-ui/core';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -22,16 +22,6 @@ const StyledTableCell = withStyles((theme) => ({
   },
 }))(TableCell);
 
-// const StyledTableRow = withStyles((theme) => ({
-//   root: {
-//     '&:nth-of-type(odd)': {
-//       backgroundColor: theme.palette.action.hover,
-//     },
-//   },
-// }))(TableRow);
-
-
-
 const useStyles = makeStyles({
   table: {
       minWidth: 400,
@@ -40,6 +30,15 @@ const useStyles = makeStyles({
   plot: {
       justifyContent: 'center',
       alignItems: 'center',
+      width: '90%',
+      height: '80%',
+  },
+  root: {
+    backgroundColor: 'rgb(219, 219, 219)',
+  },
+  gridContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
@@ -78,84 +77,98 @@ export default function Metrics(props){
   }
   const classes = useStyles();
   return(
-    <div className="col">
-
-      <div className="row">
-        <Details
-          area={1}
-          name={props.name}
-          model_type={props.model_type}
-          date_created={props.date_created}
-          datasetinfo={props.datasetinfo}
-          modelinfo={props.modelinfo}
-        />
-      </div>
-        <div className="row">
+    <Grid container xs={12} className={classes.root}>
+      <Grid item xs={12}>
+        <Box mb={2} >
+          <Paper elevation={5}>
+            <Details
+              area={1}
+              name={props.name}
+              model_type={props.model_type}
+              date_created={props.date_created}
+              datasetinfo={props.datasetinfo}
+              modelinfo={props.modelinfo}
+            />
+          </Paper> 
+        </Box>
+      </Grid>
+      <Grid container spacing={2}>
         {props.model_type === "regression" ? (
-          <>
+        <>
+          <Grid item xs={12} sm={6}>
             
-              <Plot
+            <Paper elevation={5} className={classes.gridContainer}>
+              <Plot className={classes.plot}
                 data={[
                   {type: 'bar', x: x, y: y},
                 ]}
-                layout={ {width: 500, height: 375, title: 'Evaluation Metrics'} }
+                layout={ {title: 'Evaluation Metrics'} }
                 config={ {
                   scrollZoom:true,
-                  respnsive:true
+                  responsive: true
                 } }
               />
-           
-          
-              <Plot
-                data={[
-                  {type: 'bar', x: x_two, y: y_two},
-                ]}
-                layout={ {width: 500, height: 375, title: 'Evaluation Metrics'} }
-                config={ {
-                  scrollZoom:true,
-                  respnsive:true
-                } }
-              />
+            </Paper>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Paper elevation={5} className={classes.gridContainer}>
+                <Plot className={classes.plot}
+                  data={[
+                    {type: 'bar', x: x_two, y: y_two},
+                  ]}
+                  layout={ {title: 'Evaluation Metrics'} }
+                  config={ {
+                    scrollZoom:true,
+                    responsive: true
+                  } }
+                />
+              </Paper>
+            </Grid>
           </>
-        ) : (
-          <Plot
-            data={[
-              {type: 'bar', x: x, y: y},
-            ]}
-            layout={ {width: 500, height: 450, title: 'Evaluation Metrics'} }
-            config={ {
-              scrollZoom:true,
-              respnsive:true
-            } }
-          />
-        )}
-        <div>
-    
-          <Box  m={4} pt={3}>
-            <TableContainer  component={Paper}>
-            <Table className={classes.table} aria-label="simple table">
-                <TableHead>
-                <TableRow>
-                    <StyledTableCell>Metrics</StyledTableCell>
-                    <StyledTableCell align="right">Score</StyledTableCell>
-                </TableRow>
-                </TableHead>
-                <TableBody>
-                {rows.map((row) => (
-                    <TableRow key={row.name}>
-                    <StyledTableCell component="th" scope="row">
-                        {row.metric}
-                    </StyledTableCell>
-                    <StyledTableCell align="right">{row.value}</StyledTableCell>
+          ) : (
+            <Grid item xs={12} sm={6}>
+              <Paper elevation={5}>
+                <Plot
+                  data={[
+                    {type: 'bar', x: x, y: y},
+                  ]}
+                  layout={ {width: 500, height: 450, title: 'Evaluation Metrics'} }
+                  config={ {
+                    scrollZoom:true,
+                    respnsive:true
+                  } }
+                />
+              </Paper>
+              
+            </Grid>
+            
+          )}
+          <Grid item xs={12} sm={6}>
+            <Paper elevation={5}>
+              <TableContainer  component={Paper}>
+                <Table className={classes.table} aria-label="simple table">
+                  <TableHead>
+                    <TableRow>
+                        <StyledTableCell>Metrics</StyledTableCell>
+                        <StyledTableCell align="right">Score</StyledTableCell>
                     </TableRow>
-                ))}
-                </TableBody>
-            </Table>
-            </TableContainer>
-          </Box>
-    
-        </div>
-      </div>
-    </div>
+                  </TableHead>
+                  <TableBody>
+                    {rows.map((row) => (
+                        <TableRow key={row.name}>
+                        <StyledTableCell component="th" scope="row">
+                            {row.metric}
+                        </StyledTableCell>
+                        <StyledTableCell align="right">{row.value}</StyledTableCell>
+                        </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Paper>
+              
+          </Grid>
+      </Grid>
+    </Grid>
   );
 }

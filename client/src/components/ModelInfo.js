@@ -6,8 +6,6 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import Details from './Details';
-import Box from '@material-ui/core/Box';
 import TableHead from '@material-ui/core/TableHead';
 
 const StyledTableCell = withStyles((theme) => ({
@@ -56,29 +54,23 @@ export default function ModelInfo(props) {
   }
 
   return (
-    <>
-    <div className="row">
-      </div>
-      <Box m={2} pr={10}>
-        <TableContainer component={Paper}>
-          <Table className={classes.table} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                  <StyledTableCell align="center">Parameter or Attribute</StyledTableCell>
-                  <StyledTableCell align="center">Value</StyledTableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows.map((row) => (
-                <TableRow key={row.column}>
-                  <TableCell align="center">{row.param}</TableCell>
-                  <TableCell align="center">{row.val}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Box>
-    </>
+    <TableContainer component={Paper}>
+      <Table className={classes.table} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+              <StyledTableCell align="center">Parameter or Attribute</StyledTableCell>
+              <StyledTableCell align="center">Value</StyledTableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {rows.map((row) => (
+            <TableRow key={row.column}>
+              <TableCell align="center">{row.param}</TableCell>
+              <TableCell align="center">{row.val}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 }

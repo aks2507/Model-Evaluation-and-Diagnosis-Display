@@ -12,6 +12,12 @@ const useStyles = makeStyles((theme) => ({
     fontSize: theme.typography.pxToRem(15),
     fontWeight: theme.typography.fontWeightRegular,
   },
+  plot: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '90%',
+    height: '80%',
+  },
 }));
 
 export default function RegressionPlots(props){
@@ -103,8 +109,6 @@ export default function RegressionPlots(props){
                         {mode: 'markers', type: 'scatter', x: x, y: y},
                     ]}
                     layout={ {
-                        width: 500, 
-                        height: 505, 
                         title: plot_title,
                         align:'right', 
                         sliders:slider,

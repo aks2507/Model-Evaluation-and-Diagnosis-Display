@@ -49,7 +49,7 @@ export default function PrecisionRecallCurve(props) {
     let auc = [];
     console.log(evalList[0].data.metadata);
     const n_classes=evalList[0].data.metadata.n_classes;
-    if(n_classes==2)
+    if(n_classes===2)
     {
         for (let i = 0; i < numTabs; i++) {
             var precision_temp = evalList[i].data.metadata.precision_curve;
@@ -63,8 +63,8 @@ export default function PrecisionRecallCurve(props) {
     else
     {
         for (let i = 0; i < numTabs; i++) {
-            var precision_temp = evalList[i].data.metadata.precision_curve["micro"];
-            var recall_temp = evalList[i].data.metadata.recall_curve["micro"];
+            precision_temp = evalList[i].data.metadata.precision_curve["micro"];
+            recall_temp = evalList[i].data.metadata.recall_curve["micro"];
             precision.push(precision_temp);
             recall.push(recall_temp);
             auc.push(evalList[i].data.metadata.precision_recall_auc["micro"]);
@@ -74,7 +74,7 @@ export default function PrecisionRecallCurve(props) {
   
 
 
-    const title=n_classes==2?('Precision Recall Curve' ):('Micro average Precision Recall Curve');
+    const title=n_classes===2?('Precision Recall Curve' ):('Micro average Precision Recall Curve');
     let trace = [];
 
     for (let i = 0; i < numTabs; i++) {
