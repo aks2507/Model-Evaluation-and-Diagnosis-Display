@@ -30,7 +30,7 @@ const useStyles = makeStyles({
 		margin: "auto",
 	},
 	plot: {
-		width: '90%',
+		width: '100%',
 		justifyContent: 'center',
 		alignItems: 'center',
 	},
@@ -118,7 +118,7 @@ export default function ROC_AUC(props){
 					/>
 				</Paper>
 			</Grid>
-			<Grid container xs={12} spacing={2}>
+			<Grid container xs={12} spacing={1}>
 				<Grid item xs={12} sm={6}>
 					<Paper elevation={5}>
 						<Plot   

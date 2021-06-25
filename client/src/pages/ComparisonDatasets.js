@@ -188,6 +188,7 @@ export default function Comparison(props) {
 							<>
 							<TabPanel value={value} index={3}>
 								<ROC_AUC c={0} evaluations={evalList}/>
+								<br></br>
 								<PrecisionRecall c={0} evaluations={evalList}/>
 							</TabPanel>
 							</>
