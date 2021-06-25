@@ -8,7 +8,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Plot from 'react-plotly.js';
-import {Grid} from '@material-ui/core';
 import Box from '@material-ui/core/Box';
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -35,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: theme.typography.fontWeightRegular,
     },
     plot: {
-        width: '800px',
+        width: '600px',
         height: '500px',
         justifyContent:'center',
         alignItems: 'center',

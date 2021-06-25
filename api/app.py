@@ -9,7 +9,10 @@ from resources.datasets import DatasetResource, DatasetList
 from resources.mlmodels import MLModelResource, ModelList
 from flask_swagger_ui import get_swaggerui_blueprint
 
+import logging
 
+logging.basicConfig(filename='record.log', level=logging.DEBUG, format=f'%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s')
+ 
 app=Flask(__name__)
 
 ### swagger specific ###
