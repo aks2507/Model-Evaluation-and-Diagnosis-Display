@@ -84,14 +84,13 @@ export default function DatasetInfo(props){
             {props.compare ? (
                 props.compare === 1 ? (
                     <Grid item xs={12}>
-                        <Paper elevation={5}>
+                        <Paper elevation={5} className={classes.paper}>
                             <DetailsComp evaluations={props.evaluations}/>
                         </Paper>
                     </Grid>
                 ) : (
                     null
                 )
-                
             ) : (
                 <Grid item xs={12}>
                     <Paper elevation={5} className={classes.paper}>
