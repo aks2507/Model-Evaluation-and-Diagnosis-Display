@@ -73,6 +73,9 @@ export default function Confusion_matrix(props){
   return(
     <Grid container xs={12}>
       <Grid item xs={12}><Paper elevation={5}>
+        <Box mb={3}>
+
+      
         <Details
             area={1}
             name={props.name}
@@ -81,8 +84,10 @@ export default function Confusion_matrix(props){
             datasetinfo={props.datasetinfo}
             modelinfo={props.modelinfo}
         />
-      </Paper></Grid>
-      <Box mt={2} mb={2}>
+          </Box>
+      </Paper>
+      </Grid>
+
         <Grid item xs={12} className={classes.root}>
           <Paper elevation={5}>
             <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
@@ -136,7 +141,6 @@ export default function Confusion_matrix(props){
             </Accordion>
           </Paper>
         </Grid>
-      </Box>
     </Grid>
   );
 }

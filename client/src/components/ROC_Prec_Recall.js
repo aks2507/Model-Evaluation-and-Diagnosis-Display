@@ -9,7 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Plot from 'react-plotly.js';
 import {Grid} from '@material-ui/core';
-
+import Box from '@material-ui/core/Box';
 const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: theme.palette.common.black,
@@ -22,7 +22,7 @@ const StyledTableCell = withStyles((theme) => ({
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        width: '60%',
+        width: '100%',
         align:"right"
     },
     table: {
@@ -35,8 +35,8 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: theme.typography.fontWeightRegular,
     },
     plot: {
-        width: '90%',
-        height: '90%',
+        width: '800px',
+        height: '500px',
         justifyContent:'center',
         alignItems: 'center',
     },
@@ -120,10 +120,10 @@ export default function ROC_Prec_Recall(props){
     }]
     
     return(
-        <Grid container spacing={2}>
-            <Grid item xs={12} sm={8}>
-                <Paper elevation={5}>
-                    <Plot className={classes.plot}
+        
+             <div className="row">
+                 <div className="col">
+                 <Plot className={classes.plot}
                         data={[
                             {type: 'scatter', x: x, y: y},
                         ]}
@@ -141,11 +141,17 @@ export default function ROC_Prec_Recall(props){
                         onButtonClicked={handleBeginClick}
                         onSliderChange={handleSliderChangeX}
                     />
-                </Paper>
-            </Grid>
+                 </div>
+             
+                   
 
-            <Grid item xs={12} sm={4}>
-                <Paper elevation={5}>
+                    <div className="col">
+                        <Box mt={15}>
+
+                      
+                        <Paper elevation={5}>
+
+                        
                     <TableContainer className={classes.table}>
                         <Table aria-label="simple table">
                             <TableHead>
@@ -164,10 +170,11 @@ export default function ROC_Prec_Recall(props){
                             </TableBody>
                         </Table>
                     </TableContainer>
-                </Paper>
-            </Grid>
-             
-        </Grid>    
+                    </Paper>
+                    </Box>
+                    </div>
+                    
+            </div>
     
 
     );

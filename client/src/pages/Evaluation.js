@@ -258,6 +258,7 @@ export default function Evaluation(props) {
             <CssBaseline />
             <div className={classes.leftarea}>
               <TabPanel value={value} index={0}>
+               
                 <Metrics
                   model_type={data.model_type}
                   name={data.name}
@@ -268,7 +269,9 @@ export default function Evaluation(props) {
                 />
               </TabPanel>
               <TabPanel value={value} index={1}>
-                <Grid item xs={12}>
+                 
+
+                 
                   <CMatrix
                     model_type={data.model_type}
                     date_created={data.date_created}
@@ -277,11 +280,12 @@ export default function Evaluation(props) {
                     datasetinfo={data.dataset}
                     modelinfo={data.model}
                   />
-                </Grid>
+                <br></br>
+               
                {
                  n_classes===2?(
                   <>
-                    <Grid item xs={12}>
+                  
                         <ROCPrecRecall
                           curve={0}
                           model_type={data.model_type}
@@ -293,8 +297,7 @@ export default function Evaluation(props) {
                           datasetinfo={data.dataset}
                           modelinfo={data.model}
                         />
-                    </Grid>
-                    <Grid item xs={12}>
+                  
                         <ROCPrecRecall
                           curve={1}
                           model_type={data.model_type}
@@ -306,11 +309,11 @@ export default function Evaluation(props) {
                           datasetinfo={data.dataset}
                           modelinfo={data.model}
                         />
-                    </Grid>
+                   
                   </>
                  ):(
                   <>
-                    <Grid item xs={12}>
+                   
                       <CurvesMultiClass
                         fpr={data.metadata.fpr}
                         tpr={data.metadata.tpr}
@@ -318,8 +321,7 @@ export default function Evaluation(props) {
                         n_classes={data.metadata.n_classes}
                         c={0}
                       />
-                    </Grid>
-                    <Grid item xs={12}>
+                  
                       <CurvesMultiClass
                         fpr={data.metadata.precision_curve}
                         tpr={data.metadata.recall_curve}
@@ -327,7 +329,7 @@ export default function Evaluation(props) {
                         n_classes={data.metadata.n_classes}
                         c={1}
                       />
-                    </Grid>
+                   
                   </>
 
                  )
