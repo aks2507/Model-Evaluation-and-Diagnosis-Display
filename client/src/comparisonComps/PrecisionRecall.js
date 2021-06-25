@@ -31,7 +31,7 @@ const StyledTableCell = withStyles((theme) => ({
         margin: "auto",
     },
     plot: {
-        width:'90%',
+        width:'100%',
         justifyContent: 'center',
         alignItems: 'center',
     },
