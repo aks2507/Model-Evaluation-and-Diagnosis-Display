@@ -19,6 +19,7 @@ The Goal of the project is to come up with a solution which has context based vi
 ### You can view the REST endpoints through swagger UI by following steps:
 - Clone the repo by `git clone https://github.com/aks2507/react-flask-project.git`
 - `cd react-flask-project`
+- `cd client`
 - `yarn install`
 - `yarn start-api`
 - Then go to `http://127.0.0.1:5000/swagger`
