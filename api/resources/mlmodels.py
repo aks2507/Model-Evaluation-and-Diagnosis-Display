@@ -4,6 +4,8 @@ from models.mlmodels import MLModel
 from resources.model_report import ModelReport
 from flask import Flask,request,render_template,redirect,url_for, jsonify
 import json
+import logging 
+
 
 class MLModelResource(Resource):
     parser = reqparse.RequestParser()
@@ -28,19 +30,14 @@ class MLModelResource(Resource):
         model_entity = MLModel.find_by_id(model_id)
         
         if model_entity:
-            print('hii shivam')
             if model_entity.meta:
-                print("meta exists")
+                logging.debug("Model metadata exists")
                 return model_entity.json()
-            print("meta does not exist")
+
             model_dict = model_entity.json()
-            print(model_dict,type(model_dict))
             model_object = ModelReport(model_dict['model_path'])
-
             metrics = model_object.model_report()
-            print(metrics,type(metrics))
             model_entity.meta = metrics
-
             model_entity.save_to_db()
             return model_entity.json()
 

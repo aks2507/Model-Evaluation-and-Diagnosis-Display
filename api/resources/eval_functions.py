@@ -6,6 +6,8 @@ from sklearn import metrics
 import csv
 from sklearn.preprocessing import label_binarize
 import logging
+from sklearn.preprocessing import MinMaxScaler
+
 
 class EvaluationFunctions():
 	def __init__(self, model_type, model_path, dataset_path):
@@ -24,16 +26,23 @@ class EvaluationFunctions():
 				list_of_column_names.append(row)
 				break
 		path = r'%s' % model_file
-		loaded_model = pickle.load(open(path, 'rb'))
+		try:
+			loaded_model = pickle.load(open(path, 'rb'))
+		except:
+			logging.debug("Model unpickle unscuccessfull")
+
 		
 		feature_scores=[]
 		key = "coef_"
 		if key in loaded_model.__dict__.keys():
 			feature_scores=loaded_model.coef_[0]
 		elif 'support_vectors_' in loaded_model.__dict__.keys():
-    			feature_scores=loaded_model.support_vectors_[0]
+			feature_scores=loaded_model.support_vectors_[0]
 		else:
-    			feature_scores=loaded_model.feature_importances_
+			try:
+				feature_scores=loaded_model.feature_importances_
+			except:
+				logging.debug("Model's feature importance doesn't exist")
 		col_names = list_of_column_names[0]
 		pima=pd.read_csv(dataset_file,header=None,names=col_names,skiprows=1)
 		feature_cols=col_names[0:-1]
@@ -42,7 +51,6 @@ class EvaluationFunctions():
 		y_test=pima[label]
 		y_pred=loaded_model.predict(x)
 		probs=loaded_model.predict_proba(x)
-		print(loaded_model.get_params())
 		y_actual=pima[label]
 		n_classes=len(set(y_test.tolist()))
 		if n_classes==2:
@@ -103,28 +111,31 @@ class EvaluationFunctions():
 				precision_curve[i]=precision_curve[i].tolist()
 				recall_curve[i]=recall_curve[i].tolist()
 				precision_recall_auc[i]=metrics.auc(recall_curve[i],precision_curve[i])
-			fpr["micro"],tpr["micro"],_=metrics.roc_curve(yy.ravel(),y_score.ravel())
-			fpr["micro"]=fpr["micro"].tolist()
-			tpr["micro"]=tpr["micro"].tolist()
-			roc_auc["micro"] = metrics.auc(fpr["micro"], tpr["micro"])
+			try:
+				fpr["micro"],tpr["micro"],_=metrics.roc_curve(yy.ravel(),y_score.ravel())
+				fpr["micro"]=fpr["micro"].tolist()
+				tpr["micro"]=tpr["micro"].tolist()
+				roc_auc["micro"] = metrics.auc(fpr["micro"], tpr["micro"])
+				precision_curve["micro"],recall_curve["micro"],_=metrics.precision_recall_curve(yy.ravel(),y_score.ravel())
+				precision_curve["micro"]=precision_curve["micro"].tolist()
+				recall_curve["micro"]=recall_curve["micro"].tolist()
+				precision_recall_auc["micro"]=metrics.auc(recall_curve["micro"],precision_curve["micro"])
+			except:
+				logging.debug("ROC/Precision curves' Metadata not calculated properly")
+			try:
+				acc=metrics.accuracy_score(y_actual,y_pred)
+				precision_score=metrics.precision_score(y_actual,y_pred,average='weighted')
+				recall=metrics.recall_score(y_actual,y_pred,average='weighted')
+				f1=metrics.f1_score(y_actual,y_pred,average='weighted')
+				log_loss=metrics.log_loss(y_actual,probs)
+				probs=probs[::,1]
+				cmatrix = metrics.confusion_matrix(y_actual,y_pred)
+				cmatrix = cmatrix.tolist()
+			except:
+				logging.debug("Multiclass classification metrics computation Error")
 
-			precision_curve["micro"],recall_curve["micro"],_=metrics.precision_recall_curve(yy.ravel(),y_score.ravel())
-			precision_curve["micro"]=precision_curve["micro"].tolist()
-			recall_curve["micro"]=recall_curve["micro"].tolist()
-			precision_recall_auc["micro"]=metrics.auc(recall_curve["micro"],precision_curve["micro"])
-
-			acc=metrics.accuracy_score(y_actual,y_pred)
-			precision_score=metrics.precision_score(y_actual,y_pred,average='macro')
-			recall=metrics.recall_score(y_actual,y_pred,average='samples')
-			f1=metrics.f1_score(y_actual,y_pred,average='samples')
-			log_loss=metrics.log_loss(y_actual,probs)
-			probs=probs[::,1]
-			cmatrix = metrics.confusion_matrix(y_actual,y_pred)
-			cmatrix = cmatrix.tolist()
 			columns=feature_cols
 			feature_scores=feature_scores.tolist()
-			print(precision_curve)
-			print(recall_curve)
 			return {"accuracy_score":acc,
 			"precision_score":precision_score,
 			"recall":recall,
@@ -153,15 +164,20 @@ class EvaluationFunctions():
 			for row in csv_reader:
 				list_of_column_names.append(row)
 				break
-		print(list_of_column_names[0])
 		path = r'%s' % model_file
-		loaded_model = pickle.load(open(path, 'rb'))
+		try:
+			loaded_model = pickle.load(open(path, 'rb'))
+		except:
+			logging.debug("Model unpickling unsuccessful")
 
 		key = "coef_"
 		if key in loaded_model.__dict__.keys():
 			feature_scores=loaded_model.coef_
 		else:
-			feature_scores=loaded_model.feature_importances_
+			try:
+				feature_scores=loaded_model.feature_importances_
+			except:
+				logging.debug('Feature Importance doesn\'t exist')
 
 		col_names = list_of_column_names[0]
 		dataset=pd.read_csv(dataset_file,header=None,names=col_names,skiprows=1)
@@ -173,7 +189,7 @@ class EvaluationFunctions():
 		y_test_pred=loaded_model.predict(X)
 		y_test=dataset[label]
 
-		from sklearn.preprocessing import MinMaxScaler
+
 		scaler = MinMaxScaler()
 		y_test_pred_rs = y_test_pred.reshape(-1,1)
 
@@ -199,7 +215,6 @@ class EvaluationFunctions():
 
 		columns=feature_cols
 		feature_scores=feature_scores.tolist()
-		print(columns,type(columns),'ih')
 		return {
 			"Coefficient_of_Determination":r2,
 			"Adjusted_r_squared":ar2,
