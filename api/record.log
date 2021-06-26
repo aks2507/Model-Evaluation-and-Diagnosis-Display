@@ -426,3 +426,35 @@
 2021-06-26 21:06:25,024 DEBUG root Thread-278 : Evaluation instance metrics are already computed
 2021-06-26 21:06:25,026 INFO werkzeug Thread-277 : 127.0.0.1 - - [26/Jun/2021 21:06:25] "GET /modelEvaluations/1 HTTP/1.1" 200 -
 2021-06-26 21:06:25,032 INFO werkzeug Thread-278 : 127.0.0.1 - - [26/Jun/2021 21:06:25] "GET /modelEvaluations/3 HTTP/1.1" 200 -
+2021-06-26 21:13:12,403 INFO werkzeug Thread-279 : 127.0.0.1 - - [26/Jun/2021 21:13:12] "GET /modelEvaluations HTTP/1.1" 200 -
+2021-06-26 21:13:12,596 INFO werkzeug Thread-280 : 127.0.0.1 - - [26/Jun/2021 21:13:12] "GET /modelEvaluations HTTP/1.1" 200 -
+2021-06-26 21:13:20,188 DEBUG root Thread-281 : Evaluation instance metrics are already computed
+2021-06-26 21:13:20,190 DEBUG root Thread-283 : Evaluation instance metrics are already computed
+2021-06-26 21:13:20,192 DEBUG root Thread-282 : Evaluation instance metrics are already computed
+2021-06-26 21:13:20,199 INFO werkzeug Thread-281 : 127.0.0.1 - - [26/Jun/2021 21:13:20] "GET /modelEvaluations/13 HTTP/1.1" 200 -
+2021-06-26 21:13:20,201 INFO werkzeug Thread-282 : 127.0.0.1 - - [26/Jun/2021 21:13:20] "GET /modelEvaluations/14 HTTP/1.1" 200 -
+2021-06-26 21:13:20,205 INFO werkzeug Thread-283 : 127.0.0.1 - - [26/Jun/2021 21:13:20] "GET /modelEvaluations/15 HTTP/1.1" 200 -
+2021-06-26 21:13:20,209 DEBUG root Thread-284 : Evaluation instance metrics are already computed
+2021-06-26 21:13:20,215 INFO werkzeug Thread-284 : 127.0.0.1 - - [26/Jun/2021 21:13:20] "GET /modelEvaluations/13 HTTP/1.1" 200 -
+2021-06-26 21:13:20,218 DEBUG root Thread-285 : Evaluation instance metrics are already computed
+2021-06-26 21:13:20,223 DEBUG root Thread-286 : Evaluation instance metrics are already computed
+2021-06-26 21:13:20,228 INFO werkzeug Thread-285 : 127.0.0.1 - - [26/Jun/2021 21:13:20] "GET /modelEvaluations/14 HTTP/1.1" 200 -
+2021-06-26 21:13:20,231 INFO werkzeug Thread-286 : 127.0.0.1 - - [26/Jun/2021 21:13:20] "GET /modelEvaluations/15 HTTP/1.1" 200 -
+2021-06-26 21:13:41,575 INFO werkzeug Thread-287 : 127.0.0.1 - - [26/Jun/2021 21:13:41] "GET /modelEvaluations HTTP/1.1" 200 -
+2021-06-26 21:13:41,752 INFO werkzeug Thread-288 : 127.0.0.1 - - [26/Jun/2021 21:13:41] "GET /modelEvaluations HTTP/1.1" 200 -
+2021-06-26 21:13:54,230 INFO werkzeug Thread-289 : 127.0.0.1 - - [26/Jun/2021 21:13:54] "GET /modelEvaluations HTTP/1.1" 200 -
+2021-06-26 21:13:54,430 INFO werkzeug Thread-290 : 127.0.0.1 - - [26/Jun/2021 21:13:54] "GET /modelEvaluations HTTP/1.1" 200 -
+2021-06-26 21:14:09,849 DEBUG root Thread-292 : Evaluation instance metrics are already computed
+2021-06-26 21:14:09,850 DEBUG root Thread-291 : Evaluation instance metrics are already computed
+2021-06-26 21:14:09,854 DEBUG root Thread-293 : Evaluation instance metrics are already computed
+2021-06-26 21:14:09,859 INFO werkzeug Thread-292 : 127.0.0.1 - - [26/Jun/2021 21:14:09] "GET /modelEvaluations/19 HTTP/1.1" 200 -
+2021-06-26 21:14:09,862 INFO werkzeug Thread-291 : 127.0.0.1 - - [26/Jun/2021 21:14:09] "GET /modelEvaluations/6 HTTP/1.1" 200 -
+2021-06-26 21:14:09,866 INFO werkzeug Thread-293 : 127.0.0.1 - - [26/Jun/2021 21:14:09] "GET /modelEvaluations/25 HTTP/1.1" 200 -
+2021-06-26 21:14:09,870 DEBUG root Thread-294 : Evaluation instance metrics are already computed
+2021-06-26 21:14:09,877 DEBUG root Thread-295 : Evaluation instance metrics are already computed
+2021-06-26 21:14:09,879 INFO werkzeug Thread-294 : 127.0.0.1 - - [26/Jun/2021 21:14:09] "GET /modelEvaluations/19 HTTP/1.1" 200 -
+2021-06-26 21:14:09,881 DEBUG root Thread-296 : Evaluation instance metrics are already computed
+2021-06-26 21:14:09,887 INFO werkzeug Thread-295 : 127.0.0.1 - - [26/Jun/2021 21:14:09] "GET /modelEvaluations/6 HTTP/1.1" 200 -
+2021-06-26 21:14:09,891 INFO werkzeug Thread-296 : 127.0.0.1 - - [26/Jun/2021 21:14:09] "GET /modelEvaluations/25 HTTP/1.1" 200 -
+2021-06-26 21:15:31,561 INFO werkzeug Thread-297 : 127.0.0.1 - - [26/Jun/2021 21:15:31] "GET /modelEvaluations HTTP/1.1" 200 -
+2021-06-26 21:15:31,785 INFO werkzeug Thread-298 : 127.0.0.1 - - [26/Jun/2021 21:15:31] "GET /modelEvaluations HTTP/1.1" 200 -

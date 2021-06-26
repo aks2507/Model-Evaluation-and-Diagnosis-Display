@@ -138,7 +138,8 @@ export default function FeatureImpDatasetComparison(props){
                                 className={classes.plot}
                                 data={data}
                                 layout={{
-                                    title:"Feature Importances", barmode: 'stack'
+                                    title:"Feature Importances", barmode: 'stack',
+                                    legend: {"orientation":"h"}
                                 }}
                                 config={{
                                     scrollZoom: true,

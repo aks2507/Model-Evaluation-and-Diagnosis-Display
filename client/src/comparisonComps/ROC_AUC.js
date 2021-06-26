@@ -124,7 +124,7 @@ export default function ROC_AUC(props){
 						<Plot   
 							className={classes.plot}
 							data={data}
-							layout={ {title: title} }
+							layout={ {title: title,legend: {"orientation":"h"}} }
 							config={ {
 								scrollZoom:true,
 								responsive:true

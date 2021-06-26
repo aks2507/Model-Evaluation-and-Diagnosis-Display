@@ -1,7 +1,6 @@
 import React from 'react';
 import Plot from 'react-plotly.js';
 import { makeStyles } from '@material-ui/styles';
-// import { Grid } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
     plot: {
       justifyContent: 'center',

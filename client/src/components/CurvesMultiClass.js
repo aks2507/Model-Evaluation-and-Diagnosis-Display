@@ -77,7 +77,7 @@ export default function CurvesMultiClass(props){
         <div className="col">
                 <Plot   
                         data={data}
-                        layout={ {width: 600, height: 450, title: title} }
+                        layout={ {width: 600, height: 450, title: title,legend: {"orientation":"h"}} }
                         config={ {
                             scrollZoom:true,
                             responsive:true
