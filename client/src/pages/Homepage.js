@@ -167,15 +167,7 @@ const EnhancedTableToolbar = (props) => {
     }
   };
 
-  // const MyButton = styled(Button)({
-  //   background: 'linear-gradient(20deg,  #00008B 30%, #00008B 90%)',
-  //   border: 0,
-  //   borderRadius: 5,
-  //   boxShadow: '0 5px 5px 2px rgba(0, 0, 0, .3)',
-  //   color: 'white',
-  //   height: 40,
-  //   padding: '0 20px',
-  // });
+
 
   const CompareHandler = eval_ids => async(e) => {
     console.log(eval_ids);
@@ -284,8 +276,9 @@ const useStyles = makeStyles((theme) => ({
     width: 1,
   },
   searchInput:{
-    width: '75%',
+    width: '40%',
     height: '90%',
+    paddingRight:'20px'
   },
 }));
 
@@ -480,33 +473,33 @@ export default function Homepage(){
           selectedList={selected} 
           modelTypeList={selectedModelType}
           datasetIDList={selectedDatasetID}
-          modelIDList={selectedModelID} ></EnhancedTableToolbar>
+          modelIDList={selectedModelID} >
+        </EnhancedTableToolbar>
           <FilterToolbar>
-            <Grid container>
-              <Grid item xs={6}>
-                <Controls.Input 
-                  className={classes.searchInput}
-                  label="Search Evaluations"
-                  InputProps= {{
-                    startAdornment:(
-                      <InputAdornment position="start">
-                        <Search />
-                      </InputAdornment>
-                    )
-                  }}
-                  onChange={handleSearch}
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <Controls.Select 
-                  label= "Model Type"
-                  options={rows}
-                  onModelTypeChange={handleModelTypeChange}
-                  onModelChange={handleModelChange}
-                  onDatasetChange={handleDatasetChange}
-                />
-              </Grid>
-            </Grid>
+           
+             
+                  <Controls.Input 
+                    className={classes.searchInput}
+                    label="Search Evaluations"
+                    InputProps= {{
+                      startAdornment:(
+                        <InputAdornment position="start">
+                          <Search />
+                        </InputAdornment>
+                      )
+                    }}
+                    onChange={handleSearch}
+                  />
+              
+              
+                  <Controls.Select 
+
+                    options={rows}
+                    onModelTypeChange={handleModelTypeChange}
+                    onModelChange={handleModelChange}
+                    onDatasetChange={handleDatasetChange}
+                  />
+      
           </FilterToolbar>
         <TableContainer>
           <Table
