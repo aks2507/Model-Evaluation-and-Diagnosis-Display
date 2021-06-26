@@ -10,7 +10,7 @@
 /api/record.log
 # production
 /build
-
+record.log
 # misc
 .DS_Store
 .env.local
