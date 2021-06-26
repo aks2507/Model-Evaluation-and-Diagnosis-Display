@@ -24,8 +24,6 @@ import Button from '@material-ui/core/Button';
 import {Grid, InputAdornment} from '@material-ui/core';
 import Navbar from '../components/Navbar'; 
 import Controls from '../components/Controls/Controls';
-import Input from '../components/Controls/Controls';
-import { styled } from '@material-ui/core/styles';
 import {Search} from '@material-ui/icons';
 
 function createData(eval_id, name, model_type, model_name, dataset_name, date_created) {
@@ -242,16 +240,21 @@ const EnhancedTableToolbar = (props) => {
 
 const FilterToolbar = (props) => {
   const classes = useToolbarStyles();
-  const { numSelected, selectedList, modelTypeList, datasetIDList, modelIDList, children} = props;
+  const { numSelected, children} = props;
   return(
     <Toolbar
       className={clsx(classes.root, {
         [classes.highlight]: numSelected > 0,
       })}
     >
-      <Grid container spacing={2} style={{width: '100%', height: '80%'}}>
+      {numSelected > 0 ? (
+        <div></div>
+      ) : (
+        <Grid container spacing={2} style={{width: '100%', height: '80%'}}>
           {children}
-      </Grid>
+        </Grid>
+      )}
+      
     </Toolbar>
   );
 };
@@ -481,7 +484,7 @@ export default function Homepage(){
           modelTypeList={selectedModelType}
           datasetIDList={selectedDatasetID}
           modelIDList={selectedModelID} ></EnhancedTableToolbar>
-          <FilterToolbar>
+          <FilterToolbar numSelected={selected.length}>
             <Grid container>
               <Grid item xs={6}>
                 <Controls.Input 
