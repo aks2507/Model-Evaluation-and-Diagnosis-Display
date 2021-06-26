@@ -1,10 +1,6 @@
-import numpy as np
 import pandas as pd
-import pickle
-from sklearn import metrics
 import csv
 import json
-
 class DatasetReport():
 	def __init__(self, dataset_path):
 		self.dataset_file = dataset_path
@@ -88,6 +84,3 @@ class DatasetReport():
 			"output_label":self.output
 		}
 
-
-# obj = DatasetReport("F:\\flask_related\\Datasets\\housing_test_dataset.csv")
-# print(obj.dataset_report())

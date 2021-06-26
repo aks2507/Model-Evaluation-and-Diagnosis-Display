@@ -1,9 +1,6 @@
-import sqlite3
 from flask_restful import Resource, reqparse
 from models.evaluation import EvalModel
 from resources.eval_functions import EvaluationFunctions
-from flask import Flask,request,render_template,redirect,url_for, jsonify
-import json
 import logging
 class Evaluate(Resource):
     parser = reqparse.RequestParser()

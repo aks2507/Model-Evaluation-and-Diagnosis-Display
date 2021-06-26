@@ -1,9 +1,6 @@
-import sqlite3
 from flask_restful import Resource, reqparse
 from models.datasets import Dataset
 from resources.dataset_report import DatasetReport
-from flask import Flask,request,render_template,redirect,url_for, jsonify
-import json
 import logging
 
 class DatasetResource(Resource):
@@ -30,12 +27,17 @@ class DatasetResource(Resource):
 			if dataset_entity.meta:
 				logging.debug('Dataset metadata already exists')
 				return dataset_entity.json()
-			dataset_dict = dataset_entity.json()
+			try:
+				dataset_dict = dataset_entity.json()
+			except:
+				logging.error("Error converting dataset entity to json")
 			dataset_object =  DatasetReport(dataset_dict['dataset_path'])
 			dataset_info = dataset_object.dataset_report()
 			dataset_entity.meta = dataset_info
-
-			dataset_entity.save_to_db()
+			try:
+				dataset_entity.save_to_db()
+			except:
+				logging.error("There is an error saving dataset entity to database")
 			return dataset_entity.json()
 
 		return {"message":"Requested dataset entity doesn't exist"}, 404

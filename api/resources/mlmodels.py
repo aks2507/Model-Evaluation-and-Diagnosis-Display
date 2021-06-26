@@ -1,11 +1,7 @@
-import sqlite3
 from flask_restful import Resource, reqparse
 from models.mlmodels import MLModel
 from resources.model_report import ModelReport
-from flask import Flask,request,render_template,redirect,url_for, jsonify
-import json
 import logging 
-
 
 class MLModelResource(Resource):
     parser = reqparse.RequestParser()

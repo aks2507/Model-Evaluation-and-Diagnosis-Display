@@ -1,10 +1,6 @@
+import logging
 import numpy as np 
-import pandas as pd 
 import pickle
-from sklearn import metrics 
-import csv 
-import json
-
 class ModelReport():
 	def __init__(self, model_path):
 		self.model_file = model_path
@@ -28,9 +24,12 @@ class ModelReport():
 				final_values.append(self.values[i])
 				final_keys.append(self.keys[i])
 			else:
-				if isinstance(self.values[i],(float, int, str, list, dict, tuple, bool, complex, set, bytes, bytearray, frozenset)) == True:
-					final_values.append(self.values[i])
-					final_keys.append(self.keys[i])
+				try:
+					if isinstance(self.values[i],(float, int, str, list, dict, tuple, bool, complex, set, bytes, bytearray, frozenset)) == True:
+						final_values.append(self.values[i])
+						final_keys.append(self.keys[i])
+				except:
+					logging.error("Model Encoding Error")
 		self.final_values = final_values
 		self.final_keys = final_keys
 
