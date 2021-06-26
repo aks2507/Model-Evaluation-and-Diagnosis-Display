@@ -7,7 +7,7 @@
 
 # testing
 /coverage
-
+/api/record.log
 # production
 /build
 
