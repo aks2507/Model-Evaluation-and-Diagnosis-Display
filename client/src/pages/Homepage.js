@@ -155,7 +155,7 @@ const useToolbarStyles = makeStyles((theme) => ({
 
 const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles();
-  const { numSelected, selectedList, modelTypeList, datasetIDList, modelIDList, children} = props;
+  const { numSelected, selectedList, modelTypeList, datasetIDList, modelIDList} = props;
   const onDeleteIconHandler = async(e) => {
     e.preventDefault();
     let i;
