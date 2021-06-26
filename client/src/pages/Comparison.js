@@ -14,10 +14,9 @@ import PrecisionRecall from '../comparisonComps/PrecisionRecall';
 import ROC_AUC from '../comparisonComps/ROC_AUC';
 import FeatureImportance from '../comparisonComps/FeatureImportance'
 import DatasetInfo from '../components/DatasetInfo';
-import ModelInfo from '../components/ModelInfo';
 import ClassImb from '../components/ClassImb';
 import DatasetCompRegressionPlots from '../comparisonComps/DatasetCompRegressionPlots';
-
+import ModelComparison from '../comparisonComps/ModelComparison';
 
 function TabPanel(props) {
 	const { children, value, index, ...other } = props;
@@ -171,16 +170,15 @@ export default function Comparison(props) {
 								</Grid>
 							</TabPanel>
 							<TabPanel value={value} index={2}>
-								<Grid container spacing={2}>
-									<Grid item xs={12}>
+								
 										<Paper elevation={5}>
 											<DetailsComp
 												c={1}
 												evaluations={evalList}
 											/>
 										</Paper>
-									</Grid>
-									{evalList.map((evaluation) =>
+								
+									{/* {evalList.map((evaluation) =>
 										<Grid item xs={12}>
 											<h3>{evaluation.data.name}</h3>
 											<ModelInfo
@@ -188,8 +186,11 @@ export default function Comparison(props) {
 												values={evaluation.data.model.metadata.values} 
 											/>
 										</Grid>
-									)}
-								</Grid>
+									)} */}
+									<ModelComparison
+									evaluation={evalList}
+									></ModelComparison>
+								
 							</TabPanel>
 							{evalList[0].data.model_type === "regression" ? (
 									<TabPanel value={value} index={3}>

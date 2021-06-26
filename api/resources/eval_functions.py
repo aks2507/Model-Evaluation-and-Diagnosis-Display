@@ -1,4 +1,3 @@
-from flask import Flask,request,render_template,redirect,url_for
 import numpy as np
 import pandas as pd
 import pickle
@@ -121,7 +120,7 @@ class EvaluationFunctions():
 				recall_curve["micro"]=recall_curve["micro"].tolist()
 				precision_recall_auc["micro"]=metrics.auc(recall_curve["micro"],precision_curve["micro"])
 			except:
-				logging.debug("ROC/Precision curves' Metadata not calculated properly")
+				logging.warning("ROC/Precision curves' Metadata not calculated properly")
 			try:
 				acc=metrics.accuracy_score(y_actual,y_pred)
 				precision_score=metrics.precision_score(y_actual,y_pred,average='weighted')
@@ -132,7 +131,7 @@ class EvaluationFunctions():
 				cmatrix = metrics.confusion_matrix(y_actual,y_pred)
 				cmatrix = cmatrix.tolist()
 			except:
-				logging.debug("Multiclass classification metrics computation Error")
+				logging.error("Multiclass classification metrics computation Error")
 
 			columns=feature_cols
 			feature_scores=feature_scores.tolist()
@@ -168,7 +167,7 @@ class EvaluationFunctions():
 		try:
 			loaded_model = pickle.load(open(path, 'rb'))
 		except:
-			logging.debug("Model unpickling unsuccessful")
+			logging.error("Model unpickling unsuccessful")
 
 		key = "coef_"
 		if key in loaded_model.__dict__.keys():
@@ -177,7 +176,7 @@ class EvaluationFunctions():
 			try:
 				feature_scores=loaded_model.feature_importances_
 			except:
-				logging.debug('Feature Importance doesn\'t exist')
+				logging.error('Feature Importance doesn\'t exist')
 
 		col_names = list_of_column_names[0]
 		dataset=pd.read_csv(dataset_file,header=None,names=col_names,skiprows=1)
