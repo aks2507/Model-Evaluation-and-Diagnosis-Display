@@ -4,7 +4,10 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.4",
+    "@material-ui/data-grid": "^4.0.0-alpha.32",
     "@material-ui/icons": "^4.11.2",
+    "@material-ui/x-grid": "^4.0.0-alpha.32",
+    "@material-ui/x-grid-data-generator": "^4.0.0-alpha.32",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -12,6 +15,7 @@
     "axios-hooks": "^2.6.3",
     "flask": "^0.2.10",
     "http-proxy-middleware": "^2.0.0",
+    "mui-datatables": "^3.7.7",
     "plotly.js": "^2.0.0",
     "react": "^17.0.2",
     "react-csv-downloader": "^2.5.0",

@@ -58,7 +58,7 @@ export default function FeatureImp(props){
               data={[
                 {type: 'bar', x: x, y: y},
               ]}
-              layout={ {title: 'Feature Importance'} }
+              layout={ {title: 'Feature Importance', legend: {"orientation":"h"}} }
               config={ {
                 scrollZoom:true,
                 responsive:true

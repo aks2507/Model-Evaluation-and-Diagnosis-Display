@@ -19,7 +19,7 @@ export default function Plots(props){
             <Plot
                 className={classes.plot}
                 data={props.data}
-                layout={ {title: props.title} }
+                layout={ {title: props.title, legend:{"orientation":"h", "xanchor":"auto"}} }
                 config={ {
                     scrollZoom:true,
                     responsive:true

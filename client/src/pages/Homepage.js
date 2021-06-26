@@ -21,9 +21,12 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Button from '@material-ui/core/Button';
-import Box from '@material-ui/core/Box';
+import {Grid, InputAdornment} from '@material-ui/core';
 import Navbar from '../components/Navbar'; 
+import Controls from '../components/Controls/Controls';
+import Input from '../components/Controls/Controls';
 import { styled } from '@material-ui/core/styles';
+import {Search} from '@material-ui/icons';
 
 function createData(eval_id, name, model_type, model_name, dataset_name, date_created) {
   return { eval_id, name, model_type, model_name, dataset_name, date_created };
@@ -142,6 +145,9 @@ const useToolbarStyles = makeStyles((theme) => ({
         },
   title: {
     flex: '1 1 100%',
+    // alignContent: 'left',
+    alignItems: 'left',
+    justifyContent: 'left',
   },
   rowC: {
     flex: '1 6 100%',
@@ -151,7 +157,7 @@ const useToolbarStyles = makeStyles((theme) => ({
 
 const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles();
-  const { numSelected, selectedList, modelTypeList, datasetIDList, modelIDList} = props;
+  const { numSelected, selectedList, modelTypeList, datasetIDList, modelIDList, children} = props;
   const onDeleteIconHandler = async(e) => {
     e.preventDefault();
     let i;
@@ -161,15 +167,15 @@ const EnhancedTableToolbar = (props) => {
     }
   };
 
-  const MyButton = styled(Button)({
-    background: 'linear-gradient(20deg,  #00008B 30%, #00008B 90%)',
-    border: 0,
-    borderRadius: 5,
-    boxShadow: '0 5px 5px 2px rgba(0, 0, 0, .3)',
-    color: 'white',
-    height: 40,
-    padding: '0 20px',
-  });
+  // const MyButton = styled(Button)({
+  //   background: 'linear-gradient(20deg,  #00008B 30%, #00008B 90%)',
+  //   border: 0,
+  //   borderRadius: 5,
+  //   boxShadow: '0 5px 5px 2px rgba(0, 0, 0, .3)',
+  //   color: 'white',
+  //   height: 40,
+  //   padding: '0 20px',
+  // });
 
   const CompareHandler = eval_ids => async(e) => {
     console.log(eval_ids);
@@ -191,14 +197,9 @@ const EnhancedTableToolbar = (props) => {
           {numSelected} selected
         </Typography>
       ) : (
-        <>
-         <Box ml={70}>
-         <Typography  className={classes.title} variant="h4" id="tableTitle" component="div">
-            <MyButton>Evaluations List</MyButton>
-          </Typography>
-         </Box>
-        
-        </>
+        <Typography  className={classes.title} variant="h4" id="tableTitle" component="div">
+            Evaluations List
+        </Typography>
       )}
 
       {numSelected > 0 ? (
@@ -233,9 +234,24 @@ const EnhancedTableToolbar = (props) => {
 
         </div>
       ) : (
-        <>
-        </>
+        null
       )}
+    </Toolbar>
+  );
+};
+
+const FilterToolbar = (props) => {
+  const classes = useToolbarStyles();
+  const { numSelected, selectedList, modelTypeList, datasetIDList, modelIDList, children} = props;
+  return(
+    <Toolbar
+      className={clsx(classes.root, {
+        [classes.highlight]: numSelected > 0,
+      })}
+    >
+      <Grid container spacing={2} style={{width: '100%', height: '80%'}}>
+          {children}
+      </Grid>
     </Toolbar>
   );
 };
@@ -266,6 +282,10 @@ const useStyles = makeStyles((theme) => ({
     position: 'absolute',
     top: 20,
     width: 1,
+  },
+  searchInput:{
+    width: '75%',
+    height: '90%',
   },
 }));
 
@@ -306,6 +326,10 @@ export default function Homepage(){
   const [page, setPage] = useState(0);
   const [dense, setDense] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [filterFn, setFilterFn] = useState({fn: items => {return items;}});
+  const [modelTypeFilterFn, setModelTypeFilterFn] = useState({fn: items => {return items;}});
+  const [modelFilterFn, setModelFilterFn] = useState({fn: items => {return items;}});
+  const [datasetFilterFn, setDatasetFilterFn] = useState({fn: items => {return items;}});
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -394,6 +418,55 @@ export default function Homepage(){
     setDense(event.target.checked);
   };
   
+  const handleSearch = e => {
+    let target = e.target;
+    setFilterFn({
+      fn: items => {
+        if(target.value==="")
+          return items;
+        else
+          return items.filter(x => x.name.toLowerCase().includes(target.value));
+      }
+    })
+  };
+
+  const handleModelTypeChange = e => {
+    let target = e.target;
+    setModelTypeFilterFn({
+      fn: items => {
+        if(target.value === "")
+          return items;
+        else
+          return items.filter(x => x.model_type.toLowerCase().includes(target.value));
+      }
+    });
+  };
+  const handleModelChange = e => {
+    let target = e.target;
+    setModelFilterFn({
+      fn: items => {
+        if(target.value === "")
+          return items;
+        else
+          return items.filter(x => x.model_name.includes(target.value));
+      }
+    });
+  };
+  const handleDatasetChange = e => {
+    let target = e.target;
+    setDatasetFilterFn({
+      fn: items => {
+        if(target.value === "")
+          return items;
+        else
+          return items.filter(x => x.dataset_name.includes(target.value));
+      }
+    });
+  };
+
+  const filters = (items) => {
+    return filterFn.fn(modelTypeFilterFn.fn(modelFilterFn.fn(datasetFilterFn.fn(items))));
+  };
 
   const isSelected = (eval_id) => selected.indexOf(eval_id) !== -1;
 
@@ -407,7 +480,34 @@ export default function Homepage(){
           selectedList={selected} 
           modelTypeList={selectedModelType}
           datasetIDList={selectedDatasetID}
-          modelIDList={selectedModelID} />
+          modelIDList={selectedModelID} ></EnhancedTableToolbar>
+          <FilterToolbar>
+            <Grid container>
+              <Grid item xs={6}>
+                <Controls.Input 
+                  className={classes.searchInput}
+                  label="Search Evaluations"
+                  InputProps= {{
+                    startAdornment:(
+                      <InputAdornment position="start">
+                        <Search />
+                      </InputAdornment>
+                    )
+                  }}
+                  onChange={handleSearch}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <Controls.Select 
+                  label= "Model Type"
+                  options={rows}
+                  onModelTypeChange={handleModelTypeChange}
+                  onModelChange={handleModelChange}
+                  onDatasetChange={handleDatasetChange}
+                />
+              </Grid>
+            </Grid>
+          </FilterToolbar>
         <TableContainer>
           <Table
             className={classes.table}
@@ -425,7 +525,7 @@ export default function Homepage(){
               rowCount={rows.length}
             />
             <TableBody>
-              {stableSort(rows, getComparator(order, orderBy))
+              {stableSort(filters(rows), getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
                   const isItemSelected = isSelected(row.eval_id);
