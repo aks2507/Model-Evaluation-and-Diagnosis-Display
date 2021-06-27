@@ -1,0 +1,8 @@
+{"author": "author2", 
+    "label": "Survived", 
+    "copy": null,
+     "dataset_split_method": 
+     "sklearn.model_selection.test_train_split",
+      "use_case_type": 
+      "classification"
+    }

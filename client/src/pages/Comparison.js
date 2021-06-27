@@ -85,7 +85,7 @@ export default function Comparison(props) {
 	const initialValue = [];
 	for(let i=0;i<eval_ids.length;i++)
 	{
-		initialValue.push({data:{dataset:{metadata:{description:{}}},model:{metadata:{}}}});
+		initialValue.push({data:{dataset:{metadata:{description:{}}},model:{metadata:{hyperparameters:{}}}}});
 	}
 	
 
@@ -177,19 +177,9 @@ export default function Comparison(props) {
 												evaluations={evalList}
 											/>
 										</Paper>
-								
-									{/* {evalList.map((evaluation) =>
-										<Grid item xs={12}>
-											<h3>{evaluation.data.name}</h3>
-											<ModelInfo
-												keys={evaluation.data.model.metadata.keys}
-												values={evaluation.data.model.metadata.values} 
-											/>
-										</Grid>
-									)} */}
 									<ModelComparison
-									evaluation={evalList}
-									></ModelComparison>
+										evaluation={evalList}
+									/>
 								
 							</TabPanel>
 							{evalList[0].data.model_type === "regression" ? (

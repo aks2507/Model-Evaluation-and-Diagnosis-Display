@@ -103,7 +103,8 @@ export default function Details(props) {
               onChangeIndex={handleChangeIndex}
             >
                 {evalList.map((evaluation, idx) => 
-                    <TabPanel key={idx} value={value} index={idx} dir={theme.direction}>
+                  <TabPanel key={idx} value={value} index={idx} dir={theme.direction}>
+                    <h2>Evaluation:</h2>
                     <div className="container-fluid">
                       <div className="row">
                         <div className="col">
@@ -121,20 +122,73 @@ export default function Details(props) {
                           <p><strong>Date Created: </strong>{evaluation.data.date_created}</p>
                         </div>
                       </div>
+
+
+                      <h2>Dataset:</h2>
                       <div className="row">
                         <div className="col">
                           <p><strong>Dataset: </strong>{evaluation.data.dataset.name}</p>
                         </div>
                         <div className="col">
-                          <p><strong>Model: </strong>{evaluation.data.model.name}</p>
+                          <p><strong>Rows, Columns </strong>{evaluation.data.dataset.metadata.number_of_rows}, {evaluation.data.dataset.metadata.number_of_columns}</p>
                         </div>
                       </div>
                       <div className="row">
                         <div className="col">
-                          <p><strong>Rows, Columns: </strong>{evaluation.data.dataset.metadata.number_of_rows}, {evaluation.data.dataset.metadata.number_of_columns}</p>
+                          <p><strong>Dataset size: </strong>{evaluation.data.dataset.metadata.memory} bytes</p>
                         </div>
                         <div className="col">
-                          <p><strong>Dataset Size: </strong>{evaluation.data.dataset.metadata.memory} bytes</p>
+                          <p><strong>Author: </strong>{evaluation.data.dataset.metadata.author}</p>
+                        </div>
+                      </div>
+                      <div className="row">
+                        <div className="col">
+                          <p><strong>Label: </strong>{evaluation.data.dataset.metadata.label}</p>
+                        </div>
+                        <div className="col">
+                          <p><strong>Dataset Split method: </strong>{evaluation.data.dataset.metadata.dataset_split_method}</p>
+                        </div>
+                      </div>
+                      <div className="row">
+                        <div className="col">
+                          <p><strong>Number of Duplicates, Outliers: </strong>{evaluation.data.dataset.metadata.number_of_duplicates}, {evaluation.data.dataset.metadata.number_of_outliers}</p>
+                        </div>
+                        <div className="col">
+                          <p><strong>Date Created: </strong>{evaluation.data.dataset.date_created}</p>
+                        </div>
+                      </div>
+
+                      <h2>Model: </h2>
+                      <div className="row">
+                        <div className="col">
+                          <p><strong>Name: </strong>{evaluation.data.model.name}</p>
+                        </div>
+                        <div className="col">
+                          <p><strong>Date Created: </strong>{evaluation.data.model.date_created}</p>
+                        </div>
+                      </div>
+                      <div className="row">
+                        <div className="col">
+                          <p><strong>Model used: </strong>{evaluation.data.model.metadata.model}</p>
+                        </div>
+                        <div className="col">
+                          <p><strong>Algorithm: </strong>{evaluation.data.model.metadata.algorithm}</p>
+                        </div>
+                      </div>
+                      <div className="row">
+                        <div className="col">
+                          <p><strong>Library used: </strong>{evaluation.data.model.metadata.library}</p>
+                        </div>
+                        <div className="col">
+                          <p><strong>Library version: </strong>{evaluation.data.model.metadata.library_version}</p>
+                        </div>
+                      </div>
+                      <div className="row">
+                        <div className="col">
+                          <p><strong>Author: </strong>{evaluation.data.model.metadata.author}</p>
+                        </div>
+                        <div className="col">
+                          <p><strong>Model Use Case: </strong>{evaluation.data.model.model_type}</p>
                         </div>
                       </div>
                     </div>

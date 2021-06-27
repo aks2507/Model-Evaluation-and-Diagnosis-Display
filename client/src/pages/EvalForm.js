@@ -44,8 +44,6 @@ export default function EvalForm(props) {
   let models = props.models;
   console.log(datasets);
   const classes = useStyles();
-  const [modelType, setModelType] = React.useState('regression');
-  const [openMT, setOpenMT] = React.useState(false);
   const [openDS, setOpenDS] = React.useState(false);
   const [openModel, setOpenModel] = React.useState(false);
   const [modelID, setModelID] = React.useState(0);
@@ -59,12 +57,6 @@ export default function EvalForm(props) {
         metadata: {},
     });
 
-
-  const handleDropdownChangeModelType = (event) => {
-    setModelType(event.target.value);
-    setValues({ ...values, 'model_type': event.target.value });
-  };
-
   const handleDropdownChangeModelID = (event) => {
     setModelID(event.target.value);
     setValues({ ...values, 'model_id': event.target.value });
@@ -73,14 +65,6 @@ export default function EvalForm(props) {
   const handleDropdownChangeDatasetID = (event) => {
     setDatasetID(event.target.value);
     setValues({ ...values, 'dataset_id': event.target.value });
-  };
-
-  const handleModelTypeClose = () => {
-    setOpenMT(false);
-  };
-
-  const handleModelTypeOpen = () => {
-    setOpenMT(true);
   };
 
   const handleModelClose = () => {
@@ -102,9 +86,8 @@ export default function EvalForm(props) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        const { name, model_type, model_id, dataset_id, metadata } = values;
-        const payload = { name, model_type, model_id, dataset_id, metadata };
+        const { name, model_id, dataset_id, metadata } = values;
+        const payload = { name, model_id, dataset_id, metadata };
 
         await axios.post('/modelEvaluations', payload).then(() => {window.location="/";});
     };
@@ -144,23 +127,6 @@ export default function EvalForm(props) {
                 autoFocus
                 onChange={handleChange('name')}
               />
-
-              <div className={classes.formControl}>
-                <InputLabel id="model_type">Model Type</InputLabel>
-                <Select
-                  labelId="model_type"
-                  id="mtype"
-                  open={openMT}
-                  fullWidth
-                  onClose={handleModelTypeClose}
-                  onOpen={handleModelTypeOpen}
-                  onChange={handleDropdownChangeModelType}
-                >
-                  <MenuItem value="regression">Regression</MenuItem>
-                  <MenuItem value="classification">Classification</MenuItem>
-                  <MenuItem value="clustering">Clustering</MenuItem>
-                </Select>
-              </div>
 
               <div className={classes.formControl}>
                 <InputLabel id="dataset_id">Dataset</InputLabel>

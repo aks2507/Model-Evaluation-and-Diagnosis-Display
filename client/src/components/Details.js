@@ -111,7 +111,8 @@ export default function Details(props) {
               onChangeIndex={handleChangeIndex}
             >
               <TabPanel value={value} index={0} dir={theme.direction}>
-              <div className="container-fluid">
+                <h2>Evaluation:</h2>
+                <div className="container-fluid">
                   <div className="row">
                     <div className="col">
                       <p><strong>Name: </strong>{props.name}</p>
@@ -128,6 +129,9 @@ export default function Details(props) {
                       <p><strong>Date Created: </strong>{props.date_created}</p>
                     </div>
                   </div>
+
+
+                  <h2>Dataset:</h2>
                   <div className="row">
                     <div className="col">
                       <p><strong>Dataset: </strong>{props.datasetinfo.name}</p>
@@ -141,7 +145,57 @@ export default function Details(props) {
                       <p><strong>Dataset size: </strong>{props.datasetinfo.metadata.memory} bytes</p>
                     </div>
                     <div className="col">
-                      <p><strong>Model: </strong>{props.modelinfo.name}</p>
+                      <p><strong>Author: </strong>{props.datasetinfo.metadata.author}</p>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col">
+                      <p><strong>Label: </strong>{props.datasetinfo.metadata.label}</p>
+                    </div>
+                    <div className="col">
+                      <p><strong>Dataset Split method: </strong>{props.datasetinfo.metadata.dataset_split_method}</p>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col">
+                      <p><strong>Number of Duplicates, Outliers: </strong>{props.datasetinfo.metadata.number_of_duplicates}, {props.datasetinfo.metadata.number_of_outliers}</p>
+                    </div>
+                    <div className="col">
+                      <p><strong>Date Created: </strong>{props.datasetinfo.date_created}</p>
+                    </div>
+                  </div>
+
+                  <h2>Model: </h2>
+                  <div className="row">
+                    <div className="col">
+                      <p><strong>Name: </strong>{props.modelinfo.name}</p>
+                    </div>
+                    <div className="col">
+                      <p><strong>Date Created: </strong>{props.modelinfo.date_created}</p>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col">
+                      <p><strong>Model used: </strong>{props.modelinfo.metadata.model}</p>
+                    </div>
+                    <div className="col">
+                      <p><strong>Algorithm: </strong>{props.modelinfo.metadata.algorithm}</p>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col">
+                      <p><strong>Library used: </strong>{props.modelinfo.metadata.library}</p>
+                    </div>
+                    <div className="col">
+                      <p><strong>Library version: </strong>{props.modelinfo.metadata.library_version}</p>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col">
+                      <p><strong>Author: </strong>{props.modelinfo.metadata.author}</p>
+                    </div>
+                    <div className="col">
+                      <p><strong>Model Use Case: </strong>{props.modelinfo.model_type}</p>
                     </div>
                   </div>
                 </div>

@@ -93,7 +93,7 @@ export default function Comparison(props) {
 	
 	for(let i=0;i<eval_ids.length;i++)
 	{
-		initialValue.push({data:{dataset:{metadata:{description:{}}},model:{metadata:{}},metadata:{}}});
+		initialValue.push({data:{dataset:{metadata:{description:{}}},model:{metadata:{hyperparameters:{}}},metadata:{}}});
 	}
 	console.log(initialValue);
 

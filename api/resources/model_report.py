@@ -66,5 +66,5 @@ class ModelReport():
 			"algorithm":self.json_payload["algorithm"],
 			"library_version":self.json_payload["library_version"],
 			"author":self.json_payload["author"],
-			"hyperparameters":self.json_payload["hyperparameters"],
+			"hyperparameters":self.json_payload["hyperparameters"]
 		}

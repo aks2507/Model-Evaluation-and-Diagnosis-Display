@@ -9,10 +9,11 @@ from sklearn.preprocessing import MinMaxScaler
 
 
 class EvaluationFunctions():
-	def __init__(self, model_type, model_path, dataset_path):
+	def __init__(self, model_type, model_path, dataset_path, label):
 		self.model_path = model_path
 		self.model_type = model_type
 		self.dataset_path = dataset_path
+		self.label = label
 
 	def evaluate_classification(self):
 		model_file=self.model_path
@@ -45,7 +46,7 @@ class EvaluationFunctions():
 		col_names = list_of_column_names[0]
 		pima=pd.read_csv(dataset_file,header=None,names=col_names,skiprows=1)
 		feature_cols=col_names[0:-1]
-		label=col_names[-1]
+		label=self.label
 		x=pima[feature_cols]
 		y_test=pima[label]
 		y_pred=loaded_model.predict(x)
@@ -182,7 +183,7 @@ class EvaluationFunctions():
 		dataset=pd.read_csv(dataset_file,header=None,names=col_names,skiprows=1)
 
 		feature_cols= col_names[0:-1]
-		label=col_names[-1]
+		label=self.label
 
 		X = dataset.loc[:,feature_cols]
 		y_test_pred=loaded_model.predict(X)
