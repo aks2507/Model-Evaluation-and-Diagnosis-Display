@@ -1,0 +1,1 @@
+{"author": "author5", "label": "MEDV", "copy": null, "dataset_split_method": "sklearn.model_selection.train_test_split", "use_case_type": "regression"}

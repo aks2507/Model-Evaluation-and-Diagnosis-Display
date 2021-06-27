@@ -2,25 +2,9 @@ from flask_restful import Resource, reqparse
 from models.datasets import Dataset
 from resources.dataset_report import DatasetReport
 import logging
+import json
 
 class DatasetResource(Resource):
-	parser = reqparse.RequestParser()
-	parser.add_argument('dataset_path',
-		type=str,
-		required=True,
-		help="Please provide a model path"
-	)
-	parser.add_argument('dataset_type',
-		type=str,
-		required=True,
-		help="Please define the type of model"
-	)
-	parser.add_argument('name',
-		type=str,
-		required=True,
-		help="Please define the name of model"
-	)
-
 	def get(self,dataset_id):
 		dataset_entity = Dataset.find_by_id(dataset_id)
 		if dataset_entity:
@@ -29,10 +13,15 @@ class DatasetResource(Resource):
 				return dataset_entity.json()
 			try:
 				dataset_dict = dataset_entity.json()
+				path = '\\'.join(dataset_dict['dataset_path'].split("\\")[:-1])
+				filename = dataset_dict['dataset_path'].split("\\")[-1].split(".")[0] + ".json"
+				json_path = "\\".join([path, filename])
 			except:
 				logging.error("Error converting dataset entity to json")
-			dataset_object =  DatasetReport(dataset_dict['dataset_path'])
+			logging.debug(json_path)
+			dataset_object =  DatasetReport(dataset_dict['dataset_path'], json_path)
 			dataset_info = dataset_object.dataset_report()
+			logging.debug(dataset_info)
 			dataset_entity.meta = dataset_info
 			try:
 				dataset_entity.save_to_db()
@@ -56,11 +45,6 @@ class DatasetList(Resource):
 		required=True,
 		help="Please provide a dataset path"
 	)
-	parser.add_argument('dataset_type',
-		type=str,
-		required=True,
-		help="Please define the type of dataset"
-	)
 	parser.add_argument('name',
 		type=str,
 		required=True,
@@ -71,9 +55,15 @@ class DatasetList(Resource):
 
 	def post(self):
 		data = DatasetList.parser.parse_args()
-		print(data)
+		logging.debug(data)
+		path = '\\'.join(data['dataset_path'].split("\\")[:-1])
+		filename = data['dataset_path'].split("\\")[-1].split(".")[0] + ".json"
+		json_path = "\\".join([path, filename])
+		f = open(json_path,)
+		json_payload = json.load(f)
+		f.close()
+		data["dataset_type"] = json_payload['use_case_type']
 		item = Dataset(**data)
-
 		try:
 			item.save_to_db()
 		except:

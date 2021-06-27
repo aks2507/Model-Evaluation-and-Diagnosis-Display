@@ -2,8 +2,14 @@ import pandas as pd
 import csv
 import json
 class DatasetReport():
-	def __init__(self, dataset_path):
+	def __init__(self, dataset_path, json_path):
 		self.dataset_file = dataset_path
+		self.json_path = json_path
+
+	def extract_json(self):
+		f = open(self.json_path,)
+		self.json_payload = json.load(f)
+		f.close()
 
 	def make_dataframe_set_cols(self):
 		with open(self.dataset_file) as csv_file:
@@ -59,6 +65,7 @@ class DatasetReport():
 		self.outliers = sum(x == True for x in h)
 
 	def get_report(self):
+		self.extract_json()
 		self.make_dataframe_set_cols()
 		self.rows_and_cols()
 		self.description()
@@ -81,6 +88,10 @@ class DatasetReport():
 			"memory":int(self.memory),
 			"number_of_duplicates":self.duplicates,
 			"description":self.describe,
-			"output_label":self.output
+			"output_label":self.output,
+			"author":self.json_payload["author"],
+			"label":self.json_payload["label"],
+			"copy":self.json_payload["copy"],
+			"dataset_split_method":self.json_payload["dataset_split_method"]
 		}
 

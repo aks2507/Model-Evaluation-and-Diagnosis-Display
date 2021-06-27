@@ -1,0 +1,1 @@
+{"use_case_type": "classification", "library": "sklearn.svm", "model": "SVMClassifier", "algorithm": "SVM_OVR", "hyperparameters": {"C": 50, "gamma": 1, "probability": true, "kernel": "rbf"}, "library_version": "0.24.2", "author": "author3"}

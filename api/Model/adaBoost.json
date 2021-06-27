@@ -1,0 +1,1 @@
+{"use_case_type": "classification", "library": "sklearn.ensemble", "model": "AdaBoostClassifier", "algorithm": "SAMME.R", "hyperparameters": {"n_estimators": 50, "learning_rate": 1}, "library_version": "0.24.2", "author": "author1"}

@@ -1,9 +1,16 @@
 import logging
 import numpy as np 
 import pickle
+import json
 class ModelReport():
-	def __init__(self, model_path):
+	def __init__(self, model_path, json_path):
 		self.model_file = model_path
+		self.json_path = json_path
+	
+	def extract_json(self):
+		f = open(self.json_path,)
+		self.json_payload = json.load(f)
+		f.close()
 
 	def encode(self):
 		final_values=[]
@@ -39,11 +46,11 @@ class ModelReport():
 
 	def get_parameters(self):
 		self.params = self.loaded_model.__dict__
-		print(self.params, type(self.params))
 		self.keys = list(self.loaded_model.__dict__.keys())
 		self.values = list(self.loaded_model.__dict__.values())
 
 	def get_report(self):
+		self.extract_json()
 		self.get_loaded_model()
 		self.get_parameters()
 		self.encode()
@@ -53,5 +60,11 @@ class ModelReport():
 		self.get_report()
 		return {
 			"keys":self.final_keys,
-			"values":self.final_values
+			"values":self.final_values,
+			"library":self.json_payload["library"],
+			"model":self.json_payload["model"],
+			"algorithm":self.json_payload["algorithm"],
+			"library_version":self.json_payload["library_version"],
+			"author":self.json_payload["author"],
+			"hyperparameters":self.json_payload["hyperparameters"],
 		}
