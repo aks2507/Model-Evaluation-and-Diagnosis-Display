@@ -16,7 +16,44 @@ The Goal of the project is to come up with a solution which has context based vi
 ![Screenshot (6)](https://user-images.githubusercontent.com/42781233/123285023-5537e000-d52a-11eb-8d5e-d33e47131595.png)
 
 
-### You can view the REST endpoints through swagger UI by following steps:
+## How to Use?
+Firstly, download [Docker desktop](https://www.docker.com/products/docker-desktop) and follow its
+ instructions to install it. This allows us to start using Docker containers.
+ 
+Create a local copy of this repository and run
+
+    docker-compose build
+    
+This spins up Compose and builds a local development environment according to 
+our specifications in [docker-compose.yml](docker-compose.yml). 
+
+After the containers have been built (this may take a few minutes), run
+
+    docker-compose up
+    
+This one command boots up a local server for Flask (on port 5000)
+and React (on port 3000). Head over to
+
+    http://localhost:3000/ 
+    
+to view an incredibly overwhelming React webpage triggering REST API call to our Flask server.
+    
+The API endpoints can be tweaked easily
+in [api/app.py](api/app.py). 
+The front-end logic for consuming our API is
+contained in [client/src/](client/src/). 
+The code contained within
+these files simply exists to demonstrate how our front-end might consume our back-end
+API.
+
+Finally, to gracefully stop running our local servers, you can run
+ 
+    docker-compose down
+
+in a separate terminal window or press __control + C__.
+
+
+## You can view the REST endpoints through swagger UI by following steps:
 - Clone the repo by `git clone https://github.com/aks2507/react-flask-project.git`
 - `cd react-flask-project`
 - `cd client`
