@@ -43,10 +43,8 @@ class DatasetReport():
 		self.duplicates = x
   
 	def get_output_label(self):
-		self.output=self.dataframe[self.col_names[-1]]
+		self.output=self.dataframe[self.json_payload["label"]]
 		self.output=self.output.tolist()
-		print(type(self.output))
-
   
 	def get_memory(self):
 		self.memory = self.dataframe.memory_usage(index=True,deep=True).sum()
@@ -77,7 +75,6 @@ class DatasetReport():
 
 	def dataset_report(self):
 		self.get_report()
-		print(self.output)
 		return {
 			"columns":self.col_names,
 			"number_of_columns":self.cols,

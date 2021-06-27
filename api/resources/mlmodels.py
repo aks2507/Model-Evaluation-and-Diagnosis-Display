@@ -5,17 +5,6 @@ import json
 import logging 
 
 class MLModelResource(Resource):
-    parser = reqparse.RequestParser()
-    parser.add_argument('model_path',
-        type=str,
-        required=True,
-        help="Please provide a model path"
-    )
-    parser.add_argument('name',
-        type=str,
-        required=True,
-        help="Please define the name of model"
-    )
 
     def get(self,model_id):
         

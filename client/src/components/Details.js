@@ -5,10 +5,14 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import List from '@material-ui/core/List';
 import ListItemText from '@material-ui/core/ListItemText';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import Typography from '@material-ui/core/Typography';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 
 function TabPanel(props) {
@@ -51,6 +55,10 @@ const useStyles = makeStyles((theme) => ({
     margin: "auto",
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  heading: {
+    fontSize: theme.typography.pxToRem(15),
+    fontWeight: theme.typography.fontWeightRegular,
   },
 }));
 
@@ -111,27 +119,53 @@ export default function Details(props) {
               onChangeIndex={handleChangeIndex}
             >
               <TabPanel value={value} index={0} dir={theme.direction}>
-                <h2>Evaluation:</h2>
-                <div className="container-fluid">
-                  <div className="row">
-                    <div className="col">
-                      <p><strong>Name: </strong>{props.name}</p>
-                    </div>
-                    <div className="col">
-                      <p><strong>Model Type: </strong>{props.model_type}</p>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col">
-                      <p><strong>Status: </strong></p>
-                    </div>
-                    <div className="col">
-                      <p><strong>Date Created: </strong>{props.date_created}</p>
-                    </div>
-                  </div>
 
 
-                  <h2>Dataset:</h2>
+
+
+                <Accordion>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel2a-content"
+                    id="panel2a-header"
+                  >
+                  <Typography className={classes.heading}><h4>Evaluation Info</h4></Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Typography>
+                    
+                              <div className="container-fluid">
+                                  <div className="row">
+                                    <div className="col">
+                                      <p><strong>Name: </strong>{props.name}</p>
+                                    </div>
+                                    <div className="col">
+                                      <p><strong>Model Type: </strong>{props.model_type}</p>
+                                    </div>
+                                  </div>
+                                <div className="row">
+                                  <div className="col">
+                                    <p><strong>Status: </strong></p>
+                                  </div>
+                                  <div className="col">
+                                    <p><strong>Date Created: </strong>{props.date_created}</p>
+                                  </div>
+                                </div>
+                                </div>
+                    </Typography>
+                  </AccordionDetails>
+                  </Accordion>
+                  <Accordion>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel2a-content"
+                    id="panel2a-header"
+                  >
+                    <Typography className={classes.heading}> <h4>Dataset Info</h4></Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Typography>
+                   
                   <div className="row">
                     <div className="col">
                       <p><strong>Dataset: </strong>{props.datasetinfo.name}</p>
@@ -140,6 +174,7 @@ export default function Details(props) {
                       <p><strong>Rows, Columns </strong>{props.datasetinfo.metadata.number_of_rows}, {props.datasetinfo.metadata.number_of_columns}</p>
                     </div>
                   </div>
+
                   <div className="row">
                     <div className="col">
                       <p><strong>Dataset size: </strong>{props.datasetinfo.metadata.memory} bytes</p>
@@ -148,6 +183,7 @@ export default function Details(props) {
                       <p><strong>Author: </strong>{props.datasetinfo.metadata.author}</p>
                     </div>
                   </div>
+
                   <div className="row">
                     <div className="col">
                       <p><strong>Label: </strong>{props.datasetinfo.metadata.label}</p>
@@ -156,6 +192,7 @@ export default function Details(props) {
                       <p><strong>Dataset Split method: </strong>{props.datasetinfo.metadata.dataset_split_method}</p>
                     </div>
                   </div>
+
                   <div className="row">
                     <div className="col">
                       <p><strong>Number of Duplicates, Outliers: </strong>{props.datasetinfo.metadata.number_of_duplicates}, {props.datasetinfo.metadata.number_of_outliers}</p>
@@ -165,7 +202,20 @@ export default function Details(props) {
                     </div>
                   </div>
 
-                  <h2>Model: </h2>
+                    </Typography>
+                  </AccordionDetails>
+                </Accordion>
+                <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel2a-content"
+          id="panel2a-header"
+        >
+          <Typography className={classes.heading}><h4>Model Info</h4></Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+                  
                   <div className="row">
                     <div className="col">
                       <p><strong>Name: </strong>{props.modelinfo.name}</p>
@@ -174,6 +224,7 @@ export default function Details(props) {
                       <p><strong>Date Created: </strong>{props.modelinfo.date_created}</p>
                     </div>
                   </div>
+
                   <div className="row">
                     <div className="col">
                       <p><strong>Model used: </strong>{props.modelinfo.metadata.model}</p>
@@ -182,6 +233,7 @@ export default function Details(props) {
                       <p><strong>Algorithm: </strong>{props.modelinfo.metadata.algorithm}</p>
                     </div>
                   </div>
+
                   <div className="row">
                     <div className="col">
                       <p><strong>Library used: </strong>{props.modelinfo.metadata.library}</p>
@@ -190,6 +242,7 @@ export default function Details(props) {
                       <p><strong>Library version: </strong>{props.modelinfo.metadata.library_version}</p>
                     </div>
                   </div>
+
                   <div className="row">
                     <div className="col">
                       <p><strong>Author: </strong>{props.modelinfo.metadata.author}</p>
@@ -197,8 +250,12 @@ export default function Details(props) {
                     <div className="col">
                       <p><strong>Model Use Case: </strong>{props.modelinfo.model_type}</p>
                     </div>
-                  </div>
-                </div>
+                  
+                    </div>
+
+                        </Typography>
+                      </AccordionDetails>
+                    </Accordion>
               </TabPanel>
               <TabPanel value={value} index={1} dir={theme.direction}>
                 <ul>

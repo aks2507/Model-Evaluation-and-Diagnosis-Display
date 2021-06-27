@@ -1,0 +1,9 @@
+{
+    "use_case_type": "classification", 
+    "library": "sklearn.tree", 
+    "model": "DecisionTree", 
+    "algorithm": "DecisionTree", 
+    "hyperparameters": {"ccp_alpha": "0.7", "min_samples_leaf": 1}, 
+    "library_version": "0.24.2", 
+    "author": "author1"
+}
