@@ -412,9 +412,6 @@
             },
             "name":{
               "type":"string"
-            },
-            "model_type":{
-              "type":"string"
             }
           }
         },
@@ -462,11 +459,8 @@
             "name":{
               "type":"string",
               "format":"string"
-            },
-            "model_type":{
-              "type":"string",
-              "format":"string"
             }
+           
           }
         },
         "evalMetadata":{
@@ -566,7 +560,7 @@
             "keys":{
               "type":"array",
               "items":{
-                "type":"number"
+                "type":"string"
               }
             },
             "values":{
@@ -574,7 +568,25 @@
               "items":{
                 "type":"number"
               }
-            }
+            },
+            "library":{
+              "type":"string"
+            },
+            "model":{
+              "type":"string"
+            },
+            "algorithm":{
+              "type":"string"
+            },
+            "library_version":{
+              "type":"string"
+            },
+            "author":{
+              "type":"string"
+            },
+          "hyperparameters": {
+              "type":"object"
+          }
           }
         },
         "datasets":{
@@ -655,6 +667,21 @@
               "items":{
                 "type":"number"
               }
+            },
+            "description":{
+              "type":"object"
+            },
+            "author":{
+              "type":"string"
+            },
+            "label":{
+              "type":"string"
+            },
+            "copy":{
+              "type":"string"
+            },
+            "dataset_split_method":{
+              "type":"string"
             }
 
           }
@@ -667,10 +694,6 @@
               "format":"string"
             },
             "dataset_path":{
-              "type":"string",
-              "format":"string"
-            },
-            "dataset_type":{
               "type":"string",
               "format":"string"
             }
