@@ -9,6 +9,10 @@ Model evaluation performance metrics teach us:
 # Problem Statement
 The Goal of the project is to come up with a solution which has context based visualisation capability and helps data scientist in comparing relevant metrics of the different machine learning model easily and evaluate its performance on unseen data.
 
+This project is focused on evaluating several machine learning models, given a model and a testing dataset.It also provides capability to compare model evaluations  on the basis of different metrics. However comparison of model evaluation is only possible for following 2 scenarios
+- Evaluation reports for one model against different validation datasets(having same schema)
+- Evaluation report for multiple models (2 or more) generated against same validation dataset
+
 ![Screenshot (8)](https://user-images.githubusercontent.com/42781233/123310733-08f99980-d544-11eb-8e97-b9d29e721183.png)
 # REST API Endpoints
 ![Screenshot (4)](https://user-images.githubusercontent.com/42781233/123284919-418c7980-d52a-11eb-881b-2ac59f4f50fb.png)
