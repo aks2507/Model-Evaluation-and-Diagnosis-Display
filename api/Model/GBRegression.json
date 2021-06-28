@@ -1,0 +1,1 @@
+{"use_case_type": "regression", "library": "sklearn.ensemble", "model": "GradientBoostingRegressor", "algorithm": "GradientBoostingRegression", "hyperparameters": {"random_state": 0}, "library_version": "0.24.2", "author": "author4"}

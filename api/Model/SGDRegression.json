@@ -1,0 +1,1 @@
+{"use_case_type": "regression", "library": "sklearn.linear_model", "model": "SGDRegressor", "algorithm": "SGDRegression", "hyperparameters": {"max_iter": 1000, "tol": 0.001}, "library_version": "0.24.2", "author": "author4"}
