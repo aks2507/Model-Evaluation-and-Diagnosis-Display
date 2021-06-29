@@ -55,7 +55,7 @@ export default function EvalForm(props) {
         model_id: 0,
         dataset_id: 0,
         metadata: {},
-    });
+  });
 
   const handleDropdownChangeModelID = (event) => {
     setModelID(event.target.value);

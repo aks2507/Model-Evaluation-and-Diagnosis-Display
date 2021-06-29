@@ -39,6 +39,11 @@ class Evaluate(Resource):
         required=True,
         help="Please provide an adjusted r squared score"
     )
+    regression_parser.add_argument('additional_metrics',
+        type=dict,
+        required=True,
+        help="Please provide additional metrics"
+    )
 
     # Classification parser
     classification_parser.add_argument('accuracy_score',
@@ -65,6 +70,11 @@ class Evaluate(Resource):
         type=float,
         required=True,
         help="Please provide a log loss value"
+    )
+    classification_parser.add_argument('additional_metrics',
+        type=dict,
+        required=True,
+        help="Please provide additional metrics"
     )
 
     def get(self,eval_id):
