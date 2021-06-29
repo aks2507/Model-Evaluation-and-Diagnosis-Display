@@ -143,7 +143,6 @@ const useToolbarStyles = makeStyles((theme) => ({
         },
   title: {
     flex: '1 1 100%',
-    // alignContent: 'left',
     alignItems: 'left',
     justifyContent: 'left',
   },
@@ -279,10 +278,11 @@ const useStyles = makeStyles((theme) => ({
     width: 1,
   },
   searchInput:{
-    width: '40%',
-    height: '90%',
-    paddingRight:'20px'
+    width: '450px',
+    height: '50px',
+    paddingRight:'50px'
   },
+  
 }));
 
 export default function Homepage(){
@@ -496,7 +496,7 @@ export default function Homepage(){
               
               
                   <Controls.Select 
-
+                    className={classes.searchSelect}
                     options={rows}
                     onModelTypeChange={handleModelTypeChange}
                     onModelChange={handleModelChange}
