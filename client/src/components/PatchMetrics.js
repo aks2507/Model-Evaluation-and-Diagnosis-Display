@@ -15,7 +15,7 @@ import TableHead from '@material-ui/core/TableHead';
 import UpdateMetricsForm from './UpdateMetricsForm';
 import AddMetricsForm from './AddMetricsForm';
 import UpdateMetricsFormClassification from './UpdateMetricsFormClassification';
-
+import AddMetricsFormClassification from './AddMetricsFormClassification';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -149,12 +149,24 @@ export default function Metrics(props){
                         >
                             Add Metrics
                         </Button>
-                        <AddMetricsForm 
-                            open={addOpen}
-                            handleClose={handleAddClose}
-                            eval_id={props.eval_id}
-                            metadata={props.metadata}
-                        />
+                        {
+                            props.model_type=="regression"?(
+                                <AddMetricsForm 
+                                open={addOpen}
+                                handleClose={handleAddClose}
+                                eval_id={props.eval_id}
+                                metadata={props.metadata}
+                              />
+                            ):(
+                                <AddMetricsFormClassification 
+                                open={addOpen}
+                                handleClose={handleAddClose}
+                                eval_id={props.eval_id}
+                                metadata={props.metadata}
+                                />
+                            )
+                        }
+                      
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <Button 
