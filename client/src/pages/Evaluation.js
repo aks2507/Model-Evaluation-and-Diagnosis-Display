@@ -21,6 +21,7 @@ import DatasetInfo from '../components/DatasetInfo';
 import CurvesMultiClass from '../components/CurvesMultiClass';
 import RegressionPlots from '../components/RegressioPlots';
 import Details from '../components/Details';
+import PatchMetrics from '../components/PatchMetrics';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -123,6 +124,7 @@ export default function Evaluation(props) {
               <Tab label="Curves and Charts" {...a11yProps(1)}/>
               <Tab label="Model Information" {...a11yProps(2)} />
               <Tab label="Dataset Information" {...a11yProps(3)} />
+              <Tab label="Add/Update Metrics" {...a11yProps(4)} />
             </Tabs>
           </div>
      
@@ -249,6 +251,19 @@ export default function Evaluation(props) {
                       />
                     </Paper>
                   </Grid>
+                </Grid>
+              </TabPanel>
+              <TabPanel value={value} index={4}>
+                <Grid container spacing={2}>
+                  <PatchMetrics 
+                    model_type={data.model_type}
+                    name={data.name}
+                    metadata={data.metadata}
+                    date_created={data.date_created}
+                    datasetinfo={data.dataset}
+                    modelinfo={data.model}
+                    eval_id={data.eval_id}
+                  />
                 </Grid>
               </TabPanel>
             </div>
@@ -402,6 +417,19 @@ export default function Evaluation(props) {
                       />
                     </Paper>
                   </Grid>
+                </Grid>
+              </TabPanel>
+              <TabPanel value={value} index={4}>
+                <Grid container spacing={2}>
+                  <PatchMetrics 
+                    model_type={data.model_type}
+                    name={data.name}
+                    metadata={data.metadata}
+                    date_created={data.date_created}
+                    datasetinfo={data.dataset}
+                    modelinfo={data.model}
+                    eval_id={data.eval_id}
+                  />
                 </Grid>
               </TabPanel>
             </div>
