@@ -1,9 +1,9 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
-import {TextField, Button} from '@material-ui/core';
+import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
+import CancelOutlinedIcon from '@material-ui/icons/CancelOutlined';
+import {TextField, Button, Dialog, DialogActions, Grid,
+    DialogContent, DialogContentText, DialogTitle} from '@material-ui/core';
 import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
@@ -24,15 +24,29 @@ export default function TransitionsModal(props) {
     const classes = useStyles();
     let [keys, setKeys] = React.useState([]);
     let [values, setValues] = React.useState([]);
-    const [payload, setPayload] = React.useState({
-        mean_absolute_error: props.metadata.mean_absolute_error,
-        mean_squared_error: props.metadata.mean_squared_error,
-        root_mean_squared_error: props.metadata.root_mean_squared_error,
-        root_mean_squared_log_error: props.metadata.root_mean_squared_log_error,
-        Coefficient_of_Determination: props.metadata.Coefficient_of_Determination,
-        Adjusted_r_squared: props.metadata.Adjusted_r_squared,
-        additional_metrics:props.metadata.additional_metrics
-    });
+    let initialState = {};
+    if(props.model_type==="regression"){
+        initialState = {
+            mean_absolute_error: props.metadata.mean_absolute_error,
+            mean_squared_error: props.metadata.mean_squared_error,
+            root_mean_squared_error: props.metadata.root_mean_squared_error,
+            root_mean_squared_log_error: props.metadata.root_mean_squared_log_error,
+            Coefficient_of_Determination: props.metadata.Coefficient_of_Determination,
+            Adjusted_r_squared: props.metadata.Adjusted_r_squared,
+            additional_metrics:props.metadata.additional_metrics
+        }
+    }
+    else{
+        initialState = {
+            accuracy_score: props.metadata.accuracy_score,
+            precision_score: props.metadata.precision_score,
+            recall: props.metadata.recall,
+            f1_score: props.metadata.f1_score,
+            log_loss: props.metadata.log_loss,
+            additional_metrics:props.metadata.additional_metrics
+        }
+    }
+    const [payload, setPayload] = React.useState(initialState);
     const handleChangeKey = i => e1 => {
         e1.preventDefault();
         let new_keys = [...keys];
@@ -78,122 +92,168 @@ export default function TransitionsModal(props) {
         e.preventDefault();
         let addn_metrics_dict = payload.additional_metrics;
         console.log("Payload before adding anything: ",payload);
-        // for(let [key, value] in Object.entries(payload.additional_metrics)){
-        //     addn_metrics_dict[key] = value;
-        // }
         for(let i=0;i<keys.length;i++){
             addn_metrics_dict[keys[i]] = Number(values[i]);
         }
         console.log("The temp dictionary: ",addn_metrics_dict);
         setPayload({...payload, additional_metrics: addn_metrics_dict});
         console.log("Payload after setting the payload: ",payload);
-        const { 
-            mean_absolute_error, 
-            mean_squared_error, 
-            root_mean_squared_error, 
-            root_mean_squared_log_error,
-            Coefficient_of_Determination,
-            Adjusted_r_squared,
-            additional_metrics
-        } = payload;
-        const request_body = {
-            mean_absolute_error, 
-            mean_squared_error, 
-            root_mean_squared_error, 
-            root_mean_squared_log_error,
-            Coefficient_of_Determination,
-            Adjusted_r_squared,
-            additional_metrics
-        };
-
+        let request_body;
+        if(props.model_type === "regression"){
+            const { 
+                mean_absolute_error, 
+                mean_squared_error, 
+                root_mean_squared_error, 
+                root_mean_squared_log_error,
+                Coefficient_of_Determination,
+                Adjusted_r_squared,
+                additional_metrics
+            } = payload;
+            request_body = {
+                mean_absolute_error, 
+                mean_squared_error, 
+                root_mean_squared_error, 
+                root_mean_squared_log_error,
+                Coefficient_of_Determination,
+                Adjusted_r_squared,
+                additional_metrics
+            };
+        }
+        else{
+            const { 
+                accuracy_score, 
+                precision_score, 
+                recall, 
+                f1_score,
+                log_loss,
+                additional_metrics
+            } = payload;
+            request_body = {
+                accuracy_score, 
+                precision_score, 
+                recall, 
+                f1_score,
+                log_loss,
+                additional_metrics
+            };
+    
+        }
         console.log("request body: ",request_body);
 
         await axios.patch('/modelEvaluations/'+props.eval_id, request_body).then(() => {window.location="/evaluationReport/"+props.eval_id;});
     }
 
-    // console.log(keys,values)
     return (
         <div>
-            <Modal
-                aria-labelledby="transition-modal-title"
-                aria-describedby="transition-modal-description"
+            <Dialog
+                aria-labelledby="scroll-dialog-title"
+                aria-describedby="scroll-dialog-description"
                 className={classes.modal}
                 open={props.open}
                 onClose={props.handleClose}
                 closeAfterTransition
-                BackdropComponent={Backdrop}
-                BackdropProps={{
-                    timeout: 500,
-                }}
                 disableBackdropClick
             >
-                <Fade in={props.open}>
-                    <div className={classes.paper}>
-                        <h2 id="transition-modal-title">Update Metrics</h2>
-                        <p id="transition-modal-description">Enter new values of already existing metrics</p>
-                        <form 
-                            // onSubmit={handleSubmit}
-                        >
-                            {keys.map((el,i) => 
-                                <div key={i}>
-                                    <TextField
-                                        variant="outlined"
-                                        margin="normal"
-                                        required
-                                        id={i}
-                                        name={i}
-                                        autoFocus
-                                        onChange={handleChangeKey(i)}
-                                    />
-                                    <TextField
-                                        variant="outlined"
-                                        margin="normal"
-                                        required
-                                        id={i}
-                                        name={i}
-                                        autoFocus
-                                        onChange={handleChangeValue(i)}
-                                    />
-                                    <Button 
-                                        variant="contained"
-                                        color="secondary"
-                                        size="large"
-                                        value="remove"
-                                        onClick={removeClick(i)}
-                                    >
-                                        Remove
-                                    </Button>
-                                </div>
-                            )}
+                <DialogTitle id="scroll-dialog-title">Add Metrics</DialogTitle>
+                <DialogContent style={{alignItems:'center', justifyContent:'center',}}>
+                    <DialogContentText id="scroll-dialog-description" >
+                        Enter new metrics that you have calculated, as key value pairs.
+                        Click on the Add Sign to spawn a new empty pair.
+                        Click on cancel to close.
+                        Click on Submit to add the metrices.
+                    </DialogContentText>
+                    {keys.map((el,i) => 
+                        <Grid container spacing={1} key={i}>
+                            <Grid item xs={4} sm={4}>
+                                <TextField
+                                    variant="outlined"
+                                    required
+                                    id={i}
+                                    name={i}
+                                    autoFocus
+                                    onChange={handleChangeKey(i)}
+                                />
+                            </Grid>
+                            <Grid item xs={4} sm={4}>
+                                <TextField
+                                    variant="outlined"
+                                    required
+                                    id={i}
+                                    name={i}
+                                    autoFocus
+                                    onChange={handleChangeValue(i)}
+                                />
+                            </Grid>
+                            <Grid item xs={4} sm={4}>
+                                <Button 
+                                    variant="contained"
+                                    color="secondary"
+                                    size="large"
+                                    value="remove"
+                                    onClick={removeClick(i)}
+                                >
+                                    <CancelOutlinedIcon fontSize="large"/>
+                                </Button>
+                            </Grid>
+                        </Grid>
+                    )}
+                </DialogContent>
+                <DialogActions style={{alignItems:'center', justifyContent:'center',}}>
+                    <Grid 
+                        container 
+                        spacing={2}
+                        style={{
+                            alignItems:'center', 
+                            justifyContent:'center',
+                        }}
+                    >
+                        <Grid item xs={2}>
                             <Button
                                 variant="contained"
-                                color="secondary"
+                                color="primary"
                                 size="large"
                                 onClick={addClick}
                             >
-                                Add More
+                                <AddCircleOutlineOutlinedIcon />
                             </Button>
-                            <Button
-                                type="submit"
-                                variant="contained"
-                                color="secondary"
-                                size="large"
-                                onClick={handleSubmit}
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Grid 
+                                container 
+                                spacing={2}
+                                style={{
+                                    alignItems:'center', 
+                                    justifyContent:'center',
+                                }}
                             >
-                                Submit
-                            </Button>
-                            <Button
-                                variant="contained"
-                                color="secondary"
-                                size="large"
-                                onClick={handleCancel}
-                            >
-                                Cancel
-                            </Button>
-                        </form>
-                    </div>
-                </Fade>
-            </Modal>
+                                <Grid item xs={4} sm={4}>
+                                    <Button
+                                        fullWidth
+                                        type="submit"
+                                        variant="contained"
+                                        color="primary"
+                                        size="large"
+                                        onClick={handleSubmit}
+                                    >
+                                        Submit
+                                    </Button>
+                                </Grid>
+                                <Grid item xs={4} sm={4}>
+                                    <Button
+                                        fullWidth
+                                        variant="contained"
+                                        color="secondary"
+                                        size="large"
+                                        onClick={handleCancel}
+                                    >
+                                        Cancel
+                                    </Button>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </DialogActions>
+            </Dialog>
         </div>
     );
 }

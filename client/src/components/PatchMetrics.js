@@ -15,7 +15,6 @@ import TableHead from '@material-ui/core/TableHead';
 import UpdateMetricsForm from './UpdateMetricsForm';
 import AddMetricsForm from './AddMetricsForm';
 import UpdateMetricsFormClassification from './UpdateMetricsFormClassification';
-import AddMetricsFormClassification from './AddMetricsFormClassification';
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -49,6 +48,9 @@ const useStyles = makeStyles({
     },
 });
 
+function isEmpty(obj) {
+    return Object.keys(obj).length === 0;
+}
 
 function createData(metric, value) {
     return { metric, value };
@@ -77,10 +79,12 @@ export default function Metrics(props){
     }
 
     const other_metrics_rows = [];
-    console.log(props.metadata.additional_metrics);
-    for(let [key, value] of Object.entries(props.metadata.additional_metrics)){
-        pushAll(key, value, other_metrics_rows);
+    if(props.metadata.additional_metrics){
+        for(let [key, value] of Object.entries(props.metadata.additional_metrics)){
+            pushAll(key, value, other_metrics_rows);
+        }
     }
+    
     
 
     const [open, setOpen] = React.useState(false);
@@ -117,66 +121,66 @@ export default function Metrics(props){
             <Grid item xs={12}>
                 <Grid container spacing={2} className={classes.gridContainer}>
                     <Grid item xs={12} sm={3}>
-                        <Button 
-                            fullWidth
-                            color="primary" 
-                            variant="contained"
-                            onClick={handleAddOpen}
-                        >
-                            Add Metrics
-                        </Button>
-                        {
-                            props.model_type=="regression"?(
+                        <Grid container spacing={2} className={classes.gridContainer}>
+                            <Grid item xs={12}>
+                                <Button 
+                                    fullWidth
+                                    color="primary" 
+                                    variant="contained"
+                                    onClick={handleAddOpen}
+                                >
+                                    Add Metrics
+                                </Button>
+                            </Grid>
+                            <Grid item xs={12}>
                                 <AddMetricsForm 
-                                open={addOpen}
-                                handleClose={handleAddClose}
-                                eval_id={props.eval_id}
-                                metadata={props.metadata}
-                              />
-                            ):(
-                                <AddMetricsFormClassification 
-                                open={addOpen}
-                                handleClose={handleAddClose}
-                                eval_id={props.eval_id}
-                                metadata={props.metadata}
+                                    model_type={props.model_type}
+                                    open={addOpen}
+                                    handleClose={handleAddClose}
+                                    eval_id={props.eval_id}
+                                    metadata={props.metadata}
                                 />
-                            )
-                        }
-                      
+                            </Grid>
+                        </Grid>
                     </Grid>
-                    <Grid item xs={12} sm={3}>  
-                        <Button 
-                            fullWidth
-                            color="primary" 
-                            variant="contained"
-                            onClick={handleOpen}
-                        >
-                            Update Metrics
-                        </Button>
-                        {
-                            props.model_type=='regression'?(
-                                <UpdateMetricsForm 
-                                open={open}
-                                handleClose={handleClose}
-                                eval_id={props.eval_id}
-                                metadata={props.metadata}
-                            />
-                            ):(
-                            <UpdateMetricsFormClassification 
-                                open={open}
-                                handleClose={handleClose}
-                                eval_id={props.eval_id}
-                                metadata={props.metadata}
-                           />
-                            )
-                        }
-                        
+                    <Grid item xs={12} sm={3}> 
+                        <Grid container spacing={2} className={classes.gridContainer}>
+                            <Grid item xs={12}>
+                                <Button 
+                                    fullWidth
+                                    color="primary" 
+                                    variant="contained"
+                                    onClick={handleOpen}
+                                >
+                                    Update Metrics
+                                </Button>
+                            </Grid>
+                            <Grid item xs={12}>
+                                {
+                                    props.model_type==='regression'?(
+                                        <UpdateMetricsForm 
+                                            open={open}
+                                            handleClose={handleClose}
+                                            eval_id={props.eval_id}
+                                            metadata={props.metadata}
+                                    />
+                                    ):(
+                                        <UpdateMetricsFormClassification 
+                                            open={open}
+                                            handleClose={handleClose}
+                                            eval_id={props.eval_id}
+                                            metadata={props.metadata}
+                                        />
+                                    )
+                                }
+                            </Grid>
+                        </Grid>
                     </Grid>
                 </Grid>
             </Grid>
             <Grid item xs={12}>
                 <Grid container spacing={2} className={classes.gridContainer}>
-                    {props.metadata.additional_metrics.length === 0 ? (
+                    {isEmpty(props.metadata.additional_metrics) ? (
                         <Grid item xs={12} sm={6}>
                             <Paper elevation={5}>
                                 <TableContainer  component={Paper}>

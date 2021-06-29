@@ -3,7 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
-import {TextField, Button} from '@material-ui/core';
+import {TextField, Button, Dialog, DialogActions, Grid,
+    DialogContent, DialogContentText, DialogTitle} from '@material-ui/core';
 import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
@@ -58,9 +59,9 @@ export default function TransitionsModal(props) {
     };
     return (
         <div>
-            <Modal
-                aria-labelledby="transition-modal-title"
-                aria-describedby="transition-modal-description"
+            <Dialog
+                aria-labelledby="scroll-dialog-title"
+                aria-describedby="scroll-dialog-description"
                 className={classes.modal}
                 open={props.open}
                 onClose={props.handleClose}
@@ -70,11 +71,13 @@ export default function TransitionsModal(props) {
                     timeout: 500,
                 }}
             >
-                <Fade in={props.open}>
-                    <div className={classes.paper}>
-                        <h2 id="transition-modal-title">Update Metrics</h2>
-                        <p id="transition-modal-description">Enter new values of already existing metrics</p>
-                        <form onSubmit={handleSubmit}>
+                <DialogTitle id="scroll-dialog-title">Update Metrics</DialogTitle>
+                <DialogContent style={{alignItems:'center', justifyContent:'center',}}>
+                    <DialogContentText id="scroll-dialog-description" >
+                        Enter new values of already existing metrics
+                    </DialogContentText>
+                    <Grid container spacing={2}>
+                        <Grid item xs={6} sm={6}>
                             <TextField
                                 variant="outlined"
                                 margin="normal"
@@ -85,6 +88,8 @@ export default function TransitionsModal(props) {
                                 autoFocus
                                 onChange={handleChange('accuracy_score')}
                             />
+                        </Grid>
+                        <Grid item xs={6} sm={6}>
                             <TextField
                                 variant="outlined"
                                 margin="normal"
@@ -95,6 +100,8 @@ export default function TransitionsModal(props) {
                                 autoFocus
                                 onChange={handleChange('precision_score')}
                             />
+                        </Grid>
+                        <Grid item xs={6} sm={6}>
                             <TextField
                                 variant="outlined"
                                 margin="normal"
@@ -104,7 +111,9 @@ export default function TransitionsModal(props) {
                                 autoComplete="RMSE"
                                 autoFocus
                                 onChange={handleChange('recall')}
-                            />
+                            />  
+                        </Grid>
+                        <Grid item xs={6} sm={6}>
                             <TextField
                                 variant="outlined"
                                 margin="normal"
@@ -115,6 +124,8 @@ export default function TransitionsModal(props) {
                                 autoFocus
                                 onChange={handleChange('f1_score')}
                             />
+                        </Grid>
+                        <Grid item xs={6} sm={6}>
                             <TextField
                                 variant="outlined"
                                 margin="normal"
@@ -125,20 +136,21 @@ export default function TransitionsModal(props) {
                                 autoFocus
                                 onChange={handleChange('log_loss')}
                             />
-                          
-                            <Button
-                                type="submit"
-                                variant="contained"
-                                color="secondary"
-                                size="large"
-                                onClick={handleSubmit}
-                            >
-                                Update
-                            </Button>
-                        </form>
-                    </div>
-                </Fade>
-            </Modal>
+                        </Grid>
+                    </Grid>
+                </DialogContent>
+                <DialogActions style={{alignItems:'center', justifyContent:'center',}}>
+                    <Button
+                        type="submit"
+                        variant="contained"
+                        color="secondary"
+                        size="large"
+                        onClick={handleSubmit}
+                    >
+                        Update
+                    </Button>
+                </DialogActions>    
+            </Dialog>
         </div>
     );
 }

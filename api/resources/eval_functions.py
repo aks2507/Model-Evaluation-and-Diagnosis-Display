@@ -72,21 +72,23 @@ class EvaluationFunctions():
 			recall_curve=recall_curve.tolist()
 			columns=feature_cols
 			feature_scores=feature_scores.tolist()
-			return {"accuracy_score":acc,
-			"precision_score":precision_score,
-			"recall":recall,
-			"f1_score":f1,
-			"log_loss":log_loss,
-			"fpr":fpr,
-			"tpr":tpr,
-			"roc_auc":roc_auc,
-			"precision_curve":precision_curve,
-			"recall_curve":recall_curve,
-			"precision_recall_auc":precision_recall_auc,
-			"confusion_matrix":cmatrix,
-			"feature_scores":feature_scores,
-			"columns":columns,
-			"n_classes":n_classes
+			return {
+				"accuracy_score":acc,
+				"precision_score":precision_score,
+				"recall":recall,
+				"f1_score":f1,
+				"log_loss":log_loss,
+				"fpr":fpr,
+				"tpr":tpr,
+				"roc_auc":roc_auc,
+				"precision_curve":precision_curve,
+				"recall_curve":recall_curve,
+				"precision_recall_auc":precision_recall_auc,
+				"confusion_matrix":cmatrix,
+				"feature_scores":feature_scores,
+				"columns":columns,
+				"n_classes":n_classes,
+				"additional_metrics":{}
 			}
 		else:
 			classes=[]
@@ -136,21 +138,23 @@ class EvaluationFunctions():
 
 			columns=feature_cols
 			feature_scores=feature_scores.tolist()
-			return {"accuracy_score":acc,
-			"precision_score":precision_score,
-			"recall":recall,
-			"fpr":fpr,
-			"tpr":tpr,
-			"roc_auc":roc_auc,
-			"f1_score":f1,
-			"log_loss":log_loss,
-			"confusion_matrix":cmatrix,
-			"feature_scores":feature_scores,
-			"columns":columns,
-			"n_classes":n_classes,
-			"precision_curve":precision_curve,
-			"recall_curve":recall_curve,
-			"precision_recall_auc":precision_recall_auc,
+			return {
+				"accuracy_score":acc,
+				"precision_score":precision_score,
+				"recall":recall,
+				"fpr":fpr,
+				"tpr":tpr,
+				"roc_auc":roc_auc,
+				"f1_score":f1,
+				"log_loss":log_loss,
+				"confusion_matrix":cmatrix,
+				"feature_scores":feature_scores,
+				"columns":columns,
+				"n_classes":n_classes,
+				"precision_curve":precision_curve,
+				"recall_curve":recall_curve,
+				"precision_recall_auc":precision_recall_auc,
+				"additional_metrics":{}
 			}
 
 
@@ -225,5 +229,6 @@ class EvaluationFunctions():
 			"feature_scores":feature_scores,
 			"columns":columns,
 			"observed":y_test.tolist(),
-			"predicted":y_test_pred.tolist()
+			"predicted":y_test_pred.tolist(),
+			"additional_metrics":{}
 		}

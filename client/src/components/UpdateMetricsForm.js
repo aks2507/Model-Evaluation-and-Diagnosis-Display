@@ -1,9 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
-import {TextField, Button} from '@material-ui/core';
+import {TextField, Button, Dialog, DialogActions, Grid,
+    DialogContent, DialogContentText, DialogTitle} from '@material-ui/core';
 import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
@@ -11,12 +9,22 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    alignSelf: 'center',
+    overflow:'scroll',
+    position:'absolute',
+    top:'10%',
+    left:'10%',
   },
   paper: {
+    position: 'absolute',
     backgroundColor: theme.palette.background.paper,
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
+    padding: theme.spacing.unit * 4,
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    width: theme.spacing.unit * 50,
   },
 }));
 
@@ -60,23 +68,22 @@ export default function TransitionsModal(props) {
     };
     return (
         <div>
-            <Modal
-                aria-labelledby="transition-modal-title"
-                aria-describedby="transition-modal-description"
+            <Dialog
+                aria-labelledby="scroll-dialog-title"
+                aria-describedby="scroll-dialog-description"
                 className={classes.modal}
                 open={props.open}
                 onClose={props.handleClose}
                 closeAfterTransition
-                BackdropComponent={Backdrop}
-                BackdropProps={{
-                    timeout: 500,
-                }}
+                scroll='paper'
             >
-                <Fade in={props.open}>
-                    <div className={classes.paper}>
-                        <h2 id="transition-modal-title">Update Metrics</h2>
-                        <p id="transition-modal-description">Enter new values of already existing metrics</p>
-                        <form onSubmit={handleSubmit}>
+                <DialogTitle id="scroll-dialog-title">Update Metrics</DialogTitle>
+                <DialogContent style={{alignItems:'center', justifyContent:'center',}}>
+                    <DialogContentText id="scroll-dialog-description" >
+                        Enter new values of already existing metrics
+                    </DialogContentText>
+                    <Grid container spacing={2}>
+                        <Grid item xs={6} sm={6}>
                             <TextField
                                 variant="outlined"
                                 margin="normal"
@@ -87,6 +94,8 @@ export default function TransitionsModal(props) {
                                 autoFocus
                                 onChange={handleChange('mean_absolute_error')}
                             />
+                        </Grid>
+                        <Grid item xs={6} sm={6}>
                             <TextField
                                 variant="outlined"
                                 margin="normal"
@@ -97,6 +106,8 @@ export default function TransitionsModal(props) {
                                 autoFocus
                                 onChange={handleChange('mean_squared_error')}
                             />
+                        </Grid>
+                        <Grid item xs={6} sm={6}>
                             <TextField
                                 variant="outlined"
                                 margin="normal"
@@ -107,6 +118,8 @@ export default function TransitionsModal(props) {
                                 autoFocus
                                 onChange={handleChange('root_mean_squared_error')}
                             />
+                        </Grid>
+                        <Grid item xs={6} sm={6}>
                             <TextField
                                 variant="outlined"
                                 margin="normal"
@@ -117,6 +130,8 @@ export default function TransitionsModal(props) {
                                 autoFocus
                                 onChange={handleChange('root_mean_squared_log_error')}
                             />
+                        </Grid>
+                        <Grid item xs={6} sm={6}>
                             <TextField
                                 variant="outlined"
                                 margin="normal"
@@ -127,6 +142,8 @@ export default function TransitionsModal(props) {
                                 autoFocus
                                 onChange={handleChange('Coefficient_of_Determination')}
                             />
+                        </Grid>
+                        <Grid item xs={6} sm={6}>
                             <TextField
                                 variant="outlined"
                                 margin="normal"
@@ -137,19 +154,21 @@ export default function TransitionsModal(props) {
                                 autoFocus
                                 onChange={handleChange('Adjusted_r_squared')}
                             />
-                            <Button
-                                type="submit"
-                                variant="contained"
-                                color="secondary"
-                                size="large"
-                                onClick={handleSubmit}
-                            >
-                                Update
-                            </Button>
-                        </form>
-                    </div>
-                </Fade>
-            </Modal>
+                        </Grid>
+                    </Grid>
+                </DialogContent>
+                <DialogActions style={{alignItems:'center', justifyContent:'center',}}>
+                    <Button
+                        type="submit"
+                        variant="contained"
+                        color="secondary"
+                        size="large"
+                        onClick={handleSubmit}
+                    >
+                        Update
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </div>
     );
 }
