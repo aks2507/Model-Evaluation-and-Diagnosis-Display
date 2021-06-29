@@ -78,6 +78,7 @@ export default function Metrics(props){
 
     const other_metrics_rows = [];
     console.log(props.metadata.additional_metrics);
+    if (props.metadata.additional_metrics!=null)
     for(let [key, value] of Object.entries(props.metadata.additional_metrics)){
         pushAll(key, value, other_metrics_rows);
     }
@@ -176,7 +177,7 @@ export default function Metrics(props){
             </Grid>
             <Grid item xs={12}>
                 <Grid container spacing={2} className={classes.gridContainer}>
-                    {props.metadata.additional_metrics.length === 0 ? (
+                    {Object.keys(props.metadata.additional_metrics).length==0? (
                         <Grid item xs={12} sm={6}>
                             <Paper elevation={5}>
                                 <TableContainer  component={Paper}>
