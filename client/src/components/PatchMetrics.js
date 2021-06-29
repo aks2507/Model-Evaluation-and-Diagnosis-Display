@@ -177,7 +177,7 @@ export default function Metrics(props){
             </Grid>
             <Grid item xs={12}>
                 <Grid container spacing={2} className={classes.gridContainer}>
-                    {Object.keys(props.metadata.additional_metrics).length==0? (
+                    {(props.metadata.additional_metrics==null || Object.keys(props.metadata.additional_metrics).length==0 )? (
                         <Grid item xs={12} sm={6}>
                             <Paper elevation={5}>
                                 <TableContainer  component={Paper}>
