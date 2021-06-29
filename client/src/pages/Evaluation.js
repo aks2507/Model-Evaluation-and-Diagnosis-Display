@@ -8,8 +8,6 @@ import Box from '@material-ui/core/Box';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import useAxios from 'axios-hooks'
 import { Grid, Paper } from '@material-ui/core';
-
-// Components
 import Metrics from '../components/Metrics';
 import FeatureImp from '../components/FeatureImp';
 import ROCPrecRecall from '../components/ROC_Prec_Recall';
