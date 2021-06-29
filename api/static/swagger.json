@@ -1,230 +1,322 @@
 {
-    "openapi": "3.0.0",
-    "info": {
-      "description": "Model Evaluation is the process through which we quantify the quality of a system’s predictions. To do this, we measure the newly trained model performance on a new and independent dataset. This model will compare labeled data with it’s own predictions",
-      "version": "1.0.0",
-      "title": "Model Evaluations and diagnosis-display"
+  "openapi": "3.0.0",
+  "info": {
+    "description": "Model Evaluation is the process through which we quantify the quality of a system’s predictions. To do this, we measure the newly trained model performance on a new and independent dataset. This model will compare labeled data with it’s own predictions",
+    "version": "1.0.0",
+    "title": "Model Evaluations and diagnosis-display"
+  },
+  "servers": [
+    {
+      "url": "/"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Models",
+      "description": "Example API for requesting and return Model Instances"
     },
-    "servers": [
-      {
-        "url": "/"
-      }
-    ],
-    "tags": [
-      {
-        "name": "Models",
-        "description": "Example API for requesting and return Model Instances"
-      },
-      {
-        "name": "Dataset",
-        "description": "Example API for requesting and return Dataset Instances"
-      },
-      {
-        "name": "Evaluations",
-        "description": "Example API for requesting and return Evaluations Instances"
-      }
-    ],
-    "paths": {
-      "/modelEvaluations/{id}":{
-        "delete": {
-          "summary": "Evaluation instance delete by ID",
-          "tags": [
-            "Evaluations"
-          ],
-          "parameters": [
-            {
-              "in": "path",
-              "name": "id",
-              "required": true,
-              "description": "Evaluation Request Id",
-              "schema": {
-                "$ref": "#/components/schemas/id"
-              }
-            }
-          ],
-          "responses": {
-            "204": {
-              "description": "OK",
-              "schema": {
-                "$ref": "#/components/schemas/id"
-              }
-            },
-            "400": {
-              "description": "Failed. Misunderstood Request."
-            },
-            "404": {
-              "description": "Failed. Evaluation Request not found."
+    {
+      "name": "Dataset",
+      "description": "Example API for requesting and return Dataset Instances"
+    },
+    {
+      "name": "Evaluations",
+      "description": "Example API for requesting and return Evaluations Instances"
+    }
+  ],
+  "paths": {
+    "/modelEvaluations/{id}":{
+      "delete": {
+        "summary": "Evaluation instance delete by ID",
+        "tags": [
+          "Evaluations"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Evaluation Request Id",
+            "schema": {
+              "$ref": "#/components/schemas/id"
             }
           }
-        },
-        "get": {
-          "tags": [
-            "Evaluations"
-          ],
-          "summary": "Get Evaluation instance with given ID",
-          "parameters": [
-            {
-              "in": "path",
-              "name": "id",
-              "required": true,
-              "description": "Evaluation Request id",
-              "schema": {
-                "$ref": "#/components/schemas/id"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "OK",
-              "content":{
-                "application/json":{
-                  "schema": {
-                    "$ref": "#/components/schemas/Evaluation"
-                  }
-                }
-              }
-            },
-            "400": {
-              "description": "Failed. Misunderstood Request."
-            },
-            "404": {
-              "description": "Failed. Evaluation request not found."
-            }
-          }
-        }
-      },
-
-      "/modelEvaluations":{
-        "get": {
-          "tags":["Evaluations"],
-        "summary": "Returns all Evaluation instances",
+        ],
         "responses": {
-            "200": {
-              "description": "OK",
-              "content":{
-                "application/json":{
-                  "schema": {
-                    "$ref": "#/components/schemas/allEvaluations"
-                  }
-                }
-              }
-             
+          "204": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/id"
             }
+          },
+          "400": {
+            "description": "Failed. Misunderstood Request."
+          },
+          "404": {
+            "description": "Failed. Evaluation Request not found."
+          }
         }
       },
-      "post":{
+      "patch":{
+        "summary":"update/add metrics related to the particular eval_id",
         "tags":["Evaluations"],
-        "summary":"Posts a new ModelEvaluation Instance",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Evaluation Request Id",
+            "schema": {
+              "$ref": "#/components/schemas/id"
+            }
+          }
+        ],
         "requestBody":{
           "description": "ModelEvaluation Request Post Object",
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/evaluationPostObject"
+                "$ref": "#/components/schemas/evaluationPatchPostObject"
               }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/id"
+            }
+          },
+          "400": {
+            "description": "Failed. Misunderstood Request."
+          },
+          "404": {
+            "description": "Failed. Evaluation Request not found."
+          }
+        }
+
+      },
+      "get": {
+        "tags": [
+          "Evaluations"
+        ],
+        "summary": "Get Evaluation instance with given ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Evaluation Request id",
+            "schema": {
+              "$ref": "#/components/schemas/id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content":{
+              "application/json":{
+                "schema": {
+                  "$ref": "#/components/schemas/Evaluation"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Failed. Misunderstood Request."
+          },
+          "404": {
+            "description": "Failed. Evaluation request not found."
+          }
+        }
+      }
+    },
+
+    "/modelEvaluations":{
+      "get": {
+        "tags":["Evaluations"],
+      "summary": "Returns all Evaluation instances",
+      "responses": {
+          "200": {
+            "description": "OK",
+            "content":{
+              "application/json":{
+                "schema": {
+                  "$ref": "#/components/schemas/allEvaluations"
+                }
+              }
+            }
+           
+          }
+      }
+    },
+    "post":{
+      "tags":["Evaluations"],
+      "summary":"Posts a new ModelEvaluation Instance",
+      "requestBody":{
+        "description": "ModelEvaluation Request Post Object",
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/evaluationPostObject"
             }
           }
         }
       }
+    }
+    },
+    "/datasets/{id}":{
+      "delete": {
+        "summary": "Dataset delete by ID",
+        "tags": [
+          "Dataset"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Dataset Request Id",
+            "schema": {
+              "$ref": "#/components/schemas/id"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/id"
+            }
+          },
+          "400": {
+            "description": "Failed. Misunderstood Request."
+          },
+          "404": {
+            "description": "Failed. Book Request not found."
+          }
+        }
       },
-      "/datasets/{id}":{
-        "delete": {
-          "summary": "Dataset delete by ID",
-          "tags": [
-            "Dataset"
-          ],
-          "parameters": [
-            {
-              "in": "path",
-              "name": "id",
-              "required": true,
-              "description": "Dataset Request Id",
-              "schema": {
-                "$ref": "#/components/schemas/id"
+      "get": {
+        "tags": [
+          "Dataset"
+        ],
+        "summary": "Get Dataset instance with given ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Dataset Request id",
+            "schema": {
+              "$ref": "#/components/schemas/id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content":{
+              "application/json":{
+                "schema": {
+                  "$ref": "#/components/schemas/dataset"
+                }
               }
             }
-          ],
-          "responses": {
-            "204": {
-              "description": "OK",
-              "schema": {
-                "$ref": "#/components/schemas/id"
+          },
+          "400": {
+            "description": "Failed. Misunderstood Request."
+          },
+          "404": {
+            "description": "Failed. Dataset request not found."
+          }
+        }
+      }
+    },
+    "/datasets":{
+      "get": {
+        "tags":["Dataset"],
+      "summary": "Returns all Dataset instances",
+      "responses": {
+          "200": {
+            "description": "OK",
+            "content":{
+              "application/json":{
+                "schema": {
+                  "$ref": "#/components/schemas/datasets"
+                }
               }
-            },
-            "400": {
-              "description": "Failed. Misunderstood Request."
-            },
-            "404": {
-              "description": "Failed. Book Request not found."
             }
+           
+          }
+      }
+    },
+   
+    "post":{
+      "tags":["Dataset"],
+      "summary":"Posts a new Dataset Instance",
+      "requestBody":{
+        "description": "Dataset Request Post Object",
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/datasetPostObject"
+            }
+          }
+        }
+      },
+      "produces": [
+        "application/json"
+      ],
+      "responses": {
+        "201": {
+          "description": "OK",
+          "schema": {
+            "$ref": "#/components/schemas/id"
           }
         },
-        "get": {
-          "tags": [
-            "Dataset"
-          ],
-          "summary": "Get Dataset instance with given ID",
-          "parameters": [
-            {
-              "in": "path",
-              "name": "id",
-              "required": true,
-              "description": "Dataset Request id",
-              "schema": {
-                "$ref": "#/components/schemas/id"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "OK",
-              "content":{
-                "application/json":{
-                  "schema": {
-                    "$ref": "#/components/schemas/dataset"
-                  }
+        "400": {
+          "description": "Failed. Bad post data."
+        }
+      }
+    }
+    },
+    "/models": {
+      "get": {
+        "tags": [
+          "Models"
+        ],
+        "summary": "Returns all Model Instances",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content":{
+              "application/json":{
+                "schema": {
+                  "$ref": "#/components/schemas/models"
                 }
               }
-            },
-            "400": {
-              "description": "Failed. Misunderstood Request."
-            },
-            "404": {
-              "description": "Failed. Dataset request not found."
             }
           }
         }
       },
-      "/datasets":{
-        "get": {
-          "tags":["Dataset"],
-        "summary": "Returns all Dataset instances",
-        "responses": {
-            "200": {
-              "description": "OK",
-              "content":{
-                "application/json":{
-                  "schema": {
-                    "$ref": "#/components/schemas/datasets"
-                  }
-                }
-              }
-             
-            }
-        }
-      },
-     
-      "post":{
-        "tags":["Dataset"],
-        "summary":"Posts a new Dataset Instance",
-        "requestBody":{
-          "description": "Dataset Request Post Object",
+      "post": {
+        "tags": [
+          "Models"
+        ],
+        "summary": "Create and a new model instance",
+        "requestBody": {
+          "description": "Model Request Post Object",
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/datasetPostObject"
+                "$ref": "#/components/schemas/modelPostBody"
               }
             }
           }
@@ -244,462 +336,434 @@
           }
         }
       }
-      },
-      "/models": {
-        "get": {
-          "tags": [
-            "Models"
-          ],
-          "summary": "Returns all Model Instances",
-          "responses": {
-            "200": {
-              "description": "OK",
-              "content":{
-                "application/json":{
-                  "schema": {
-                    "$ref": "#/components/schemas/models"
-                  }
-                }
-              }
+    },
+    "/models/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          
+          "required": true,
+          "description": "ID of the Model instance that we want to match",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Models"
+        ],
+        "summary": "Get model instance with given ID",
+        "operationId": "getModels",
+        "produces":[
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Model Request id",
+            "schema": {
+              "$ref": "#/components/schemas/id"
             }
           }
-        },
-        "post": {
-          "tags": [
-            "Models"
-          ],
-          "summary": "Create and a new model instance",
-          "requestBody": {
-            "description": "Model Request Post Object",
-            "required": true,
-            "content": {
-              "application/json": {
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content":{
+              "application/json":{
                 "schema": {
-                  "$ref": "#/components/schemas/modelPostBody"
+                  "$ref": "#/components/schemas/model"
                 }
               }
             }
           },
-          "produces": [
-            "application/json"
-          ],
-          "responses": {
-            "201": {
-              "description": "OK",
-              "schema": {
-                "$ref": "#/components/schemas/id"
-              }
-            },
-            "400": {
-              "description": "Failed. Bad post data."
+          "400": {
+            "description": "Failed. Misunderstood Request."
+          },
+          "404": {
+            "description": "Failed. Model request not found."
+          }
+        }
+      },
+      
+      "delete": {
+        "summary": "Model delete by ID",
+        "tags": [
+          "Models"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Model Request Id",
+            "schema": {
+              "$ref": "#/components/schemas/id"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/id"
+            }
+          },
+          "400": {
+            "description": "Failed. Misunderstood Request."
+          },
+          "404": {
+            "description": "Failed. Book Request not found."
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "id": {
+        "properties": {
+          "uuid": {
+            "type": "string"
+          }
+        }
+      },
+      "allEvaluations":{
+        "type":"object",
+        "properties":{
+          "evaluation_entities":{
+            "type":"array",
+            "items":{
+              "type":"object",
+              "$ref":"#/components/schemas/Evaluation"
             }
           }
         }
       },
-      "/models/{id}": {
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            
-            "required": true,
-            "description": "ID of the Model instance that we want to match",
-            "type": "string"
-          }
-        ],
-        "get": {
-          "tags": [
-            "Models"
-          ],
-          "summary": "Get model instance with given ID",
-          "operationId": "getModels",
-          "produces":[
-            "application/json"
-          ],
-          "parameters": [
-            {
-              "in": "path",
-              "name": "id",
-              "required": true,
-              "description": "Model Request id",
-              "schema": {
-                "$ref": "#/components/schemas/id"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "OK",
-              "content":{
-                "application/json":{
-                  "schema": {
-                    "$ref": "#/components/schemas/model"
-                  }
-                }
-              }
-            },
-            "400": {
-              "description": "Failed. Misunderstood Request."
-            },
-            "404": {
-              "description": "Failed. Model request not found."
-            }
-          }
-        },
-        
-        "delete": {
-          "summary": "Model delete by ID",
-          "tags": [
-            "Models"
-          ],
-          "parameters": [
-            {
-              "in": "path",
-              "name": "id",
-              "required": true,
-              "description": "Model Request Id",
-              "schema": {
-                "$ref": "#/components/schemas/id"
-              }
-            }
-          ],
-          "responses": {
-            "204": {
-              "description": "OK",
-              "schema": {
-                "$ref": "#/components/schemas/id"
-              }
-            },
-            "400": {
-              "description": "Failed. Misunderstood Request."
-            },
-            "404": {
-              "description": "Failed. Book Request not found."
-            }
+      "evaluationPostObject":{
+        "type":"object",
+        "properties":{
+          "model_id":{
+            "type":"string"
+          },
+          "dataset_id":{
+            "type":"string"
+          },
+          "name":{
+            "type":"string"
           }
         }
-      }
-    },
-    "components": {
-      "schemas": {
-        "id": {
-          "properties": {
-            "uuid": {
-              "type": "string"
-            }
-          }
-        },
-        "allEvaluations":{
-          "type":"object",
-          "properties":{
-            "evaluation_entities":{
-              "type":"array",
-              "items":{
-                "type":"object",
-                "$ref":"#/components/schemas/Evaluation"
-              }
-            }
-          }
-        },
-        "evaluationPostObject":{
-          "type":"object",
-          "properties":{
-            "model_id":{
-              "type":"string"
-            },
-            "dataset_id":{
-              "type":"string"
-            },
-            "name":{
-              "type":"string"
-            }
-          }
-        },
-        "Evaluation":{
-          "type":"object",
-          "properties":{
-            "eval_id":{
-              "type": "number",
-              "format":"number"
-            },
-            "name":{
-              "type":"string",
-              "format":"string"
-            },
-            "model_type":{
-              "type":"string",
-              "format":"string"
-            },
-            "metadata":{
-              "type":"object",
-              "$ref": "#/components/schemas/evalMetadata"
-              
-            },
-            "model":{
-              "type":"object",
-              "$ref": "#/components/schemas/model"
+      },
+      "Evaluation":{
+        "type":"object",
+        "properties":{
+          "eval_id":{
+            "type": "number",
+            "format":"number"
+          },
+          "name":{
+            "type":"string",
+            "format":"string"
+          },
+          "model_type":{
+            "type":"string",
+            "format":"string"
+          },
+          "metadata":{
+            "type":"object",
+            "$ref": "#/components/schemas/evalMetadata"
+            
+          },
+          "model":{
+            "type":"object",
+            "$ref": "#/components/schemas/model"
 
-            },
-            "dataset":{
-              "type":"object",
-              "$ref":"#/components/schemas/dataset"
-            },
-            "date_created":{
-              "type":"string"
-            }
+          },
+          "dataset":{
+            "type":"object",
+            "$ref":"#/components/schemas/dataset"
+          },
+          "date_created":{
+            "type":"string"
           }
-        },
-        "modelPostBody":{
-          "type":"object",
-          "properties":{
-            "model_path":{
-              "type":"string",
-              "format":"string"
-            },
-            "name":{
-              "type":"string",
-              "format":"string"
-            }
-           
+        }
+      },
+      "modelPostBody":{
+        "type":"object",
+        "properties":{
+          "model_path":{
+            "type":"string",
+            "format":"string"
+          },
+          "name":{
+            "type":"string",
+            "format":"string"
           }
-        },
-        "evalMetadata":{
-          "type":"object",
-          "properties":{
-            "accuracy":{
-              "type":"number",
-              "format":"number"
-            },
-            "precision":{
-              "type":"number",
-              "format":"number"
-            },
-            "recall":{
-              "type":"number",
-              "format":"number"
-            },
-            "fpr":{
+         
+        }
+      },
+      "evalMetadata":{
+        "type":"object",
+        "properties":{
+          "accuracy":{
+            "type":"number",
+            "format":"number"
+          },
+          "precision":{
+            "type":"number",
+            "format":"number"
+          },
+          "recall":{
+            "type":"number",
+            "format":"number"
+          },
+          "fpr":{
+            "type":"array",
+            "items":{
+              "type":"number"
+            }
+          },
+            "tpr":{
               "type":"array",
               "items":{
                 "type":"number"
               }
             },
-              "tpr":{
+            "f1-score":
+              {
+                "type":"number",
+                "format":"number"
+              },
+              "log loss":
+              {
+                "type":"number",
+                "format":"number"
+              },
+              "roc_auc":
+              {
+                "type":"number",
+                "format":"number"
+              },
+              "confusion_matrix":{
                 "type":"array",
                 "items":{
-                  "type":"number"
-                }
-              },
-              "f1-score":
-                {
-                  "type":"number",
-                  "format":"number"
-                },
-                "log loss":
-                {
-                  "type":"number",
-                  "format":"number"
-                },
-                "roc_auc":
-                {
-                  "type":"number",
-                  "format":"number"
-                },
-                "confusion_matrix":{
                   "type":"array",
                   "items":{
-                    "type":"array",
-                    "items":{
-                      "type":"number"
-                    }
+                    "type":"number"
                   }
                 }
-               
-          }
+              }
+             
+        }
 
-        },
-        "models":{
-          "type":"object",
-           "properties":{
-             "model_entities":{
-               "type":"array",
-               "items":{
-                 "type":"object",
-                 "$ref":"#/components/schemas/model"
-               }
+      },
+      "models":{
+        "type":"object",
+         "properties":{
+           "model_entities":{
+             "type":"array",
+             "items":{
+               "type":"object",
+               "$ref":"#/components/schemas/model"
              }
            }
-        },
-        "model":{
-          "type":"object",
-          "properties":{
-            "model_id":{
+         }
+      },
+      "model":{
+        "type":"object",
+        "properties":{
+          "model_id":{
+            "type":"number"
+          },
+          "name":{
+            "type":"string"
+          },
+          "model_type":{
+            "type":"string"
+          },
+          "metadata":{
+            "type":"object",
+            "$ref":"#/components/schemas/modelMetadata"
+          }
+          ,"model_path":{
+            "type":"string"
+          },"date_created":{
+            "type":"string"
+          }
+
+        }
+      },
+      "modelMetadata":{
+        "type":"object",
+        "properties":{
+          "keys":{
+            "type":"array",
+            "items":{
+              "type":"string"
+            }
+          },
+          "values":{
+            "type":"array",
+            "items":{
               "type":"number"
-            },
-            "name":{
-              "type":"string"
-            },
-            "model_type":{
-              "type":"string"
-            },
-            "metadata":{
+            }
+          },
+          "library":{
+            "type":"string"
+          },
+          "model":{
+            "type":"string"
+          },
+          "algorithm":{
+            "type":"string"
+          },
+          "library_version":{
+            "type":"string"
+          },
+          "author":{
+            "type":"string"
+          },
+        "hyperparameters": {
+            "type":"object"
+        }
+        }
+      },
+      "datasets":{
+        "type":"object",
+        "properties":{
+          "dataset_entities":{
+            "type":"array",
+            "items":{
               "type":"object",
-              "$ref":"#/components/schemas/modelMetadata"
-            }
-            ,"model_path":{
-              "type":"string"
-            },"date_created":{
-              "type":"string"
-            }
-
-          }
-        },
-        "modelMetadata":{
-          "type":"object",
-          "properties":{
-            "keys":{
-              "type":"array",
-              "items":{
-                "type":"string"
-              }
-            },
-            "values":{
-              "type":"array",
-              "items":{
-                "type":"number"
-              }
-            },
-            "library":{
-              "type":"string"
-            },
-            "model":{
-              "type":"string"
-            },
-            "algorithm":{
-              "type":"string"
-            },
-            "library_version":{
-              "type":"string"
-            },
-            "author":{
-              "type":"string"
-            },
-          "hyperparameters": {
-              "type":"object"
-          }
-          }
-        },
-        "datasets":{
-          "type":"object",
-          "properties":{
-            "dataset_entities":{
-              "type":"array",
-              "items":{
-                "type":"object",
-                "$ref":"#/components/schemas/dataset"
-              }
-            }
-          }
-        },
-        "dataset":{
-          "type":"object",
-          "properties":{
-            "dataset_id":{
-              "type":"number"
-            },
-            "name":{
-              "type":"string"
-            },
-            "dataset_type":{
-              "type":"string"
-            },
-            "metadata":{
-              "type":"object",
-              "$ref":"#/components/schemas/datasetMetadata"
-            },
-            "dataset_path":{
-              "type":"string"
-            },
-            "date_created":{
-              "type":"string"
-            }
-
-          }
-        },
-        "datasetMetadata":{
-          "type":"object",
-          "properties":{
-            "columns":{
-              "type":"array",
-              "items":{
-                "type":"string"
-              }
-            },
-            "number_of_columns":{
-              "type":"number"
-            },
-            "number_of_rows":{
-              "type":"number"
-            },
-            "missing_values":{
-              "type":"array",
-              "items":{
-                "type":"number"
-              }
-            },
-            "iqr":{
-              "type":"array",
-              "items":{
-                "type":"number"
-              }
-            },
-            "number_of_outliers":{
-              "type":"number"
-            },
-            "memory":{
-              "type":"number"
-            },
-            "number_of_duplicates":{
-              "type":"number"
-            },
-            "output_label":{
-              "type":"array",
-              "items":{
-                "type":"number"
-              }
-            },
-            "description":{
-              "type":"object"
-            },
-            "author":{
-              "type":"string"
-            },
-            "label":{
-              "type":"string"
-            },
-            "copy":{
-              "type":"string"
-            },
-            "dataset_split_method":{
-              "type":"string"
-            }
-
-          }
-        },
-        "datasetPostObject":{
-          "type":"object",
-          "properties":{
-            "name":{
-              "type":"string",
-              "format":"string"
-            },
-            "dataset_path":{
-              "type":"string",
-              "format":"string"
+              "$ref":"#/components/schemas/dataset"
             }
           }
         }
+      },
+      "dataset":{
+        "type":"object",
+        "properties":{
+          "dataset_id":{
+            "type":"number"
+          },
+          "name":{
+            "type":"string"
+          },
+          "dataset_type":{
+            "type":"string"
+          },
+          "metadata":{
+            "type":"object",
+            "$ref":"#/components/schemas/datasetMetadata"
+          },
+          "dataset_path":{
+            "type":"string"
+          },
+          "date_created":{
+            "type":"string"
+          }
+
+        }
+      },
+      "evaluationPatchPostObject":{
+        "type": "object",
+        "properties": {
+          "accuracy":{
+            "type":"integer"
+          },
+         "precision":{
+           "type":"integer"
+         },
+         "recall":{
+           "type": "integer"
+         },
+         "f1_score":{
+           "type": "integer"
+         },
+         "log_loss":{
+           "type": "integer"
+         },
+         "additional_metrics":{
+          "type":"object"
+         }
+        }
+      },
+      "datasetMetadata":{
+        "type":"object",
+        "properties":{
+          "columns":{
+            "type":"array",
+            "items":{
+              "type":"string"
+            }
+          },
+          "number_of_columns":{
+            "type":"number"
+          },
+          "number_of_rows":{
+            "type":"number"
+          },
+          "missing_values":{
+            "type":"array",
+            "items":{
+              "type":"number"
+            }
+          },
+          "iqr":{
+            "type":"array",
+            "items":{
+              "type":"number"
+            }
+          },
+          "number_of_outliers":{
+            "type":"number"
+          },
+          "memory":{
+            "type":"number"
+          },
+          "number_of_duplicates":{
+            "type":"number"
+          },
+          "output_label":{
+            "type":"array",
+            "items":{
+              "type":"number"
+            }
+          },
+          "description":{
+            "type":"object"
+          },
+          "author":{
+            "type":"string"
+          },
+          "label":{
+            "type":"string"
+          },
+          "copy":{
+            "type":"string"
+          },
+          "dataset_split_method":{
+            "type":"string"
+          }
+
+        }
+      },
+      "datasetPostObject":{
+        "type":"object",
+        "properties":{
+          "name":{
+            "type":"string",
+            "format":"string"
+          },
+          "dataset_path":{
+            "type":"string",
+            "format":"string"
+          }
+        }
       }
-     
     }
+   
   }
+}
