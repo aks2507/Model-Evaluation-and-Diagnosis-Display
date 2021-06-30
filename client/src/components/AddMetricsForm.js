@@ -33,7 +33,7 @@ export default function TransitionsModal(props) {
             root_mean_squared_log_error: props.metadata.root_mean_squared_log_error,
             Coefficient_of_Determination: props.metadata.Coefficient_of_Determination,
             Adjusted_r_squared: props.metadata.Adjusted_r_squared,
-            additional_metrics:props.metadata.additional_metrics
+            additional_metrics:(props.metadata.additional_metrics==undefined?({}):(props.metadata.additional_metrics))
         }
     }
     else{
@@ -43,7 +43,7 @@ export default function TransitionsModal(props) {
             recall: props.metadata.recall,
             f1_score: props.metadata.f1_score,
             log_loss: props.metadata.log_loss,
-            additional_metrics:props.metadata.additional_metrics
+            additional_metrics:(props.metadata.additional_metrics==undefined?({}):(props.metadata.additional_metrics))
         }
     }
     const [payload, setPayload] = React.useState(initialState);
