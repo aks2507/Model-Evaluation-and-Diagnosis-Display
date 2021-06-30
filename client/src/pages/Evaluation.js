@@ -202,12 +202,8 @@ export default function Evaluation(props) {
                       <ModelInfo
                         keys={data.model.metadata.keys}
                         values={data.model.metadata.values}
-                        columns={data.dataset.metadata.columns}
-                        datasetinfo={data.dataset}
-                        modelinfo={data.model}
-                        name={data.name}
-                        date_created={data.date_created}
-                        metadata={data.metadata}
+                        modelName={data.model.name}
+                        hyperparameters={data.model.metadata.hyperparameters}
                       />
                     </Paper>
                   </Grid>
@@ -368,12 +364,8 @@ export default function Evaluation(props) {
                       <ModelInfo
                         keys={data.model.metadata.keys}
                         values={data.model.metadata.values}
-                        columns={data.dataset.metadata.columns}
-                        datasetinfo={data.dataset}
-                        modelinfo={data.model}
-                        name={data.name}
-                        model_type={data.model_type}
-                        date_created={data.date_created}
+                        modelName={data.model.name}
+                        hyperparameters={data.model.metadata.hyperparameters}
                       />
                     </Paper>
                   </Grid>

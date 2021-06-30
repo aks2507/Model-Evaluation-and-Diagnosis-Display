@@ -37,33 +37,58 @@ const evalList=props.evaluation;
 
   return (
     <div className={classes.root}>
+      <div className={classes.root}>
+        <h1 style={{color: 'indigo'}}>User specified HyperParamters: </h1>
         {
-            evalList.map((evaluation,index)=>(
-                <Accordion expanded={expanded === 'panel'+index} onChange={handleChange('panel'+index)}>
-                <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls="panel1bh-content"  
-                  id="panel1bh-header"
-                >
-                  <Typography className={classes.heading}><h4>{evaluation.data.name}</h4></Typography>
-    
-                </AccordionSummary>
-                <AccordionDetails>
-                  <Typography  className={classes.tw}>
-          
-											
-											<ModelInfo
-												keys={evaluation.data.model.metadata.keys}
-												values={evaluation.data.model.metadata.values} 
-											/>
-								
-                  </Typography>
-                </AccordionDetails>
-              </Accordion>
-            ))
-        }
-       
+          evalList.map((evaluation, index) =>
+            <div key={index}>
+              <h2 style={{color: 'blue'}}>{evaluation.data.model.name}:</h2>
+              {Object.keys(evaluation.data.model.metadata.hyperparameters).length === 0 ? (
+                <i><h3>All hyperparametrs have default values</h3></i>
+              ):(
+                <ol>
+                  {Object.keys(evaluation.data.model.metadata.hyperparameters).map((key, index) => 
+                    <h3>
+                      <li key={index}>
+                        {key} = {evaluation.data.model.metadata.hyperparameters[key]}
+                      </li>
+                    </h3>
+                  )}
+                </ol>
+              )}
+              
+            </div>
+        )}
       </div>
+      <div className={classes.root}>
+        <h1>All HyperParamters: </h1>
+        {
+          evalList.map((evaluation,index)=>(
+              <Accordion expanded={expanded === 'panel'+index} onChange={handleChange('panel'+index)}>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1bh-content"  
+                id="panel1bh-header"
+              >
+                <Typography className={classes.heading}><h4>{evaluation.data.model.name}</h4></Typography>
+  
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography  className={classes.tw}>
+        
+                    
+                    <ModelInfo
+                      keys={evaluation.data.model.metadata.keys}
+                      values={evaluation.data.model.metadata.values} 
+                    />
+              
+                </Typography>
+              </AccordionDetails>
+            </Accordion>
+          ))
+        }
+      </div>
+    </div>
   );
 
 }

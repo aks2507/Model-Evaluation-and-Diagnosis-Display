@@ -192,6 +192,8 @@ export default function Comparison(props) {
 											<ModelInfo
 												keys={evalList[0].data.model.metadata.keys}
 												values={evalList[0].data.model.metadata.values}
+												modelName={evalList[0].data.model.name}
+												hyperparameters={evalList[0].data.model.metadata.hyperparameters}
 											/>
 										</Paper>
 									</Grid>

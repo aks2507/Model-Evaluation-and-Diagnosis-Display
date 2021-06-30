@@ -54,26 +54,49 @@ export default function ModelInfo(props) {
   }
 
   return (
-    <Paper elevation={5}>
-      <TableContainer>
-        <Table className={classes.table} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-                <StyledTableCell align="center">Parameter or Attribute</StyledTableCell>
-                <StyledTableCell align="center">Value</StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map((row) => (
-              <TableRow key={row.column}>
-                <TableCell align="center">{row.param}</TableCell>
-                <TableCell align="center">{row.val}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </Paper>
-    
+    <div>
+      <div>
+        <h2>User Specified hyperparameters: </h2>
+        <h3 style={{color: 'blue'}}>{props.modelName}:</h3>
+        {Object.keys(props.hyperparameters).length === 0 ? (
+          <i><h4>All hyperparametrs have default values</h4></i>
+        ):(
+          <ol>
+            {Object.keys(props.hyperparameters).map((key, index) => 
+              <h4>
+                <li key={index}>
+                  {key} = {props.hyperparameters[key]}
+                </li>
+              </h4>
+            )}
+          </ol>
+        )}
+        
+      </div>
+      <div>
+        <h2>All hyperparameters: </h2>
+        <Paper elevation={5}>
+          <TableContainer>
+            <Table className={classes.table} aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                    <StyledTableCell align="center">Parameter or Attribute</StyledTableCell>
+                    <StyledTableCell align="center">Value</StyledTableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {rows.map((row) => (
+                  <TableRow key={row.column}>
+                    <TableCell align="center">{row.param}</TableCell>
+                    <TableCell align="center">{row.val}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Paper>
+      </div>
+    </div>
   );
 }
+

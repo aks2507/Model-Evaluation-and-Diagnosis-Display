@@ -170,17 +170,15 @@ export default function Comparison(props) {
 								</Grid>
 							</TabPanel>
 							<TabPanel value={value} index={2}>
-								
-										<Paper elevation={5}>
-											<DetailsComp
-												c={1}
-												evaluations={evalList}
-											/>
-										</Paper>
-									<ModelComparison
-										evaluation={evalList}
+								<Paper elevation={5}>
+									<DetailsComp
+										c={1}
+										evaluations={evalList}
 									/>
-								
+								</Paper>
+								<ModelComparison
+									evaluation={evalList}
+								/>
 							</TabPanel>
 							{evalList[0].data.model_type === "regression" ? (
 									<TabPanel value={value} index={3}>
