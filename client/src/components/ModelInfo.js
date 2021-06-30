@@ -55,24 +55,29 @@ export default function ModelInfo(props) {
 
   return (
     <div>
-      <div>
-        <h2>User Specified hyperparameters: </h2>
-        <h3 style={{color: 'blue'}}>{props.modelName}:</h3>
-        {Object.keys(props.hyperparameters).length === 0 ? (
-          <i><h4>All hyperparametrs have default values</h4></i>
-        ):(
-          <ol>
-            {Object.keys(props.hyperparameters).map((key, index) => 
-              <h4>
-                <li key={index}>
-                  {key} = {props.hyperparameters[key]}
-                </li>
-              </h4>
-            )}
-          </ol>
-        )}
-        
-      </div>
+      {props.standalone === 0 ? (
+        null
+      ) : (
+        <div>
+          <h2>User Specified hyperparameters: </h2>
+          <h3 style={{color: 'blue'}}>{props.modelName}:</h3>
+          {(props.hyperparameters == null || Object.keys(props.hyperparameters).length === 0) ? (
+            <i><h4>All hyperparametrs have default values</h4></i>
+          ):(
+            <ol>
+              {Object.keys(props.hyperparameters).map((key, index) => 
+                <h4>
+                  <li key={index}>
+                    {key} = {props.hyperparameters[key]}
+                  </li>
+                </h4>
+              )}
+            </ol>
+          )}
+          
+        </div>
+      )}
+      
       <div>
         <h2>All hyperparameters: </h2>
         <Paper elevation={5}>

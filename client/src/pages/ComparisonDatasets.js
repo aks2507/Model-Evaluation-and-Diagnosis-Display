@@ -190,6 +190,7 @@ export default function Comparison(props) {
 									<Grid item xs={12}>
 										<Paper elevation={5}>
 											<ModelInfo
+												standalone={1}
 												keys={evalList[0].data.model.metadata.keys}
 												values={evalList[0].data.model.metadata.values}
 												modelName={evalList[0].data.model.name}

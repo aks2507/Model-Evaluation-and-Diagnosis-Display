@@ -43,7 +43,7 @@ const evalList=props.evaluation;
           evalList.map((evaluation, index) =>
             <div key={index}>
               <h2 style={{color: 'blue'}}>{evaluation.data.model.name}:</h2>
-              {Object.keys(evaluation.data.model.metadata.hyperparameters).length === 0 ? (
+              {(evaluation.data.model.metadata.hyperparameters == null || Object.keys(evaluation.data.model.metadata.hyperparameters).length === 0)? (
                 <i><h3>All hyperparametrs have default values</h3></i>
               ):(
                 <ol>
@@ -78,6 +78,7 @@ const evalList=props.evaluation;
         
                     
                     <ModelInfo
+                      standalone={0}
                       keys={evaluation.data.model.metadata.keys}
                       values={evaluation.data.model.metadata.values} 
                     />

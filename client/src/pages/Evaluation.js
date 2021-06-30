@@ -204,6 +204,7 @@ export default function Evaluation(props) {
                         values={data.model.metadata.values}
                         modelName={data.model.name}
                         hyperparameters={data.model.metadata.hyperparameters}
+                        standalone={1}
                       />
                     </Paper>
                   </Grid>
@@ -366,6 +367,7 @@ export default function Evaluation(props) {
                         values={data.model.metadata.values}
                         modelName={data.model.name}
                         hyperparameters={data.model.metadata.hyperparameters}
+                        standalone={1}
                       />
                     </Paper>
                   </Grid>
