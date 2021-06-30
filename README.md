@@ -42,6 +42,7 @@ This project is focused on evaluating several machine learning models, given a m
 | Dataset ID      | integer      |
 
 
+# Workflow
 ![Screenshot (8)](https://user-images.githubusercontent.com/42781233/123310733-08f99980-d544-11eb-8e97-b9d29e721183.png)
 # REST API Endpoints
 ![Screenshot (4)](https://user-images.githubusercontent.com/42781233/123284919-418c7980-d52a-11eb-881b-2ac59f4f50fb.png)
