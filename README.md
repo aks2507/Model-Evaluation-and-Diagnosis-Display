@@ -13,6 +13,36 @@ This project is focused on evaluating several machine learning models, given a m
 - Evaluation reports for one model against different validation datasets(having same schema)
 - Evaluation report for multiple models (2 or more) generated against same validation dataset
 
+# Table Schemas
+## Model                                               
+| Columns          | Data Type          |        
+| -------------- | ------------------ |         
+| Model ID       | integer            |   
+| Name           | String|
+| Metadata       | Object               |
+| Model path      | string              |
+|Date created       | Date      |
+
+## Dataset                                               
+| Columns          | Data Type          |        
+| -------------- | ------------------ |         
+| Dataset ID       | integer            |   
+| Name           | String|
+| Metadata       | Object               |
+| Dataset path      | string              |
+|Date created       | Date      |
+
+## Evaluation                                                
+| Columns          | Data Type          |        
+| -------------- | ------------------ |         
+| Evaluation ID       | integer            |   
+| Name           | String|
+| Metadata       | Object               |
+| Model ID      | integer              |
+| Dataset ID      | integer      |
+
+
+# Workflow
 ![Screenshot (8)](https://user-images.githubusercontent.com/42781233/123310733-08f99980-d544-11eb-8e97-b9d29e721183.png)
 # REST API Endpoints
 ![Screenshot (4)](https://user-images.githubusercontent.com/42781233/123284919-418c7980-d52a-11eb-881b-2ac59f4f50fb.png)
