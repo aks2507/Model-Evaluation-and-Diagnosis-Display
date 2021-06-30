@@ -49,7 +49,7 @@ const useStyles = makeStyles({
 });
 
 function isEmpty(obj) {
-    return Object.keys(obj).length === 0;
+    return obj==null || Object.keys(obj).length === 0;
 }
 
 function createData(metric, value) {
