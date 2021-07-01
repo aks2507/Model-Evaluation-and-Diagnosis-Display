@@ -85,14 +85,11 @@ export default function FeatureImportance(props){
         features.push(fscores);
     }
     let traces=[];
-    let linetraces=[];
     for(let i=0;i<numTabs;i++)
     {
         traces.push({x:columns,y:features[i],name:evalList[i].data.name,type:'bar'});
-        linetraces.push({x:columns,y:features[i],name:evalList[i].data.name,type:'scatter'});
     }
     let data=[...traces];
-    let linedata=[...linetraces];
     const headCells = [];
     headCells.push({id:'evals',label:'Evaluation'});
     for(let i=0;i<columns.length;i++){
@@ -111,8 +108,7 @@ export default function FeatureImportance(props){
                 <AppBar position="static">
                     <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
                     <Tab label="Table" {...a11yProps(0)} />
-                    <Tab label="Line Chart" {...a11yProps(1)} />
-                    <Tab label="Bar Chart" {...a11yProps(2)} />
+                    <Tab label="Bar Chart" {...a11yProps(1)} />
                     </Tabs>
                 </AppBar>
                 <TabPanel value={value} index={0}>
@@ -129,20 +125,6 @@ export default function FeatureImportance(props){
                     </Grid>
                 </TabPanel>
                 <TabPanel value={value} index={1}>
-                    <Grid item xs={12}>
-                        <Paper elevation={5}>
-                            <Plot className={classes.plot} 
-                                data={linedata}
-                                layout={ {title: 'Feature Importances',barmode: 'stack'} }
-                                config={ {
-                                    scrollZoom:true,
-                                    responsive:true
-                                } }
-                            />
-                        </Paper>
-                    </Grid>
-                </TabPanel>
-                <TabPanel value={value} index={2}>
                     <Grid item xs={12}>
                         <Paper elevation={5}>
                             <Plot className={classes.plot}

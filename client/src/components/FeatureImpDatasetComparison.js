@@ -9,8 +9,8 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 
-function createData(column, dataset) {
-    return { column, ...dataset };
+function createData(dataset, columns) {
+    return { dataset, ...columns };
 }
 
 function TabPanel(props) {
@@ -70,19 +70,23 @@ export default function FeatureImpDatasetComparison(props){
     const evalList = props.evalList;
     const classes = useStyles();
     const len = evalList.length;
+    const columns = evalList[0].data.dataset.metadata.columns;
+    const numCols = columns.length;
     const rows = [];
     const headCells = [];
     const z = [];
     const x = [];
     const y = [];
     const trace = [];
-    headCells.push({id:'column', label:'Columns'});
+    headCells.push({id:'dataset', label:'Dataset'});
+    for(let i=0;i<numCols;i++){
+        if(columns[i] !== evalList[0].data.dataset.metadata.label)
+        headCells.push({id: i, label: columns[i]})
+    }
     for(let i=0;i<len;i++){
-        console.log(evalList[i].data.metadata.feature_scores);
         z.push(evalList[i].data.dataset.name);
         y.push([]);
         x.push([]);
-        headCells.push({id:i, label:z[i]});
         for(let j=0;j<evalList[i].data.metadata.feature_scores.length;j++){
             y[i].push(evalList[i].data.metadata.feature_scores[j]);
             x[i].push(evalList[i].data.dataset.metadata.columns[j]);
@@ -90,19 +94,18 @@ export default function FeatureImpDatasetComparison(props){
         trace.push({
             x:x[i],
             y:y[i],
-            type:'scatter',
-            mode:'lines',
+            type:'bar',
             name:z[i]
         });
     }
 
-    for(let i=0;i<evalList[0].data.metadata.feature_scores.length;i++){
+    for(let i=0;i<len;i++){
         let temp_feat_scores = [];
-        for(let j=0;j<len;j++){
-            temp_feat_scores.push(evalList[j].data.metadata.feature_scores[i].toFixed(2));
+        for(let j=0;j<evalList[i].data.metadata.feature_scores.length;j++){
+            temp_feat_scores.push(evalList[i].data.metadata.feature_scores[j].toFixed(2));
         }
         rows.push(createData(
-            evalList[0].data.dataset.metadata.columns[i],
+            evalList[i].data.dataset.name,
             temp_feat_scores
         ))
     }
@@ -115,7 +118,7 @@ export default function FeatureImpDatasetComparison(props){
                 <AppBar position="static">
                     <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
                     <Tab label="Table" {...a11yProps(0)} />
-                    <Tab label="Line Chart" {...a11yProps(1)} />
+                    <Tab label="Bar Chart" {...a11yProps(1)} />
                     </Tabs>
                 </AppBar>
                 <TabPanel value={value} index={0}>

@@ -268,7 +268,6 @@ export default function Evaluation(props) {
             <CssBaseline />
             <div className={classes.leftarea}>
               <TabPanel value={value} index={0}>
-               
                 <Metrics
                   model_type={data.model_type}
                   name={data.name}
@@ -279,23 +278,23 @@ export default function Evaluation(props) {
                 />
               </TabPanel>
               <TabPanel value={value} index={1}>
-                 
-
-                 
-                  <CMatrix
-                    model_type={data.model_type}
-                    date_created={data.date_created}
-                    name={data.name}
-                    cmatrix={data.metadata.confusion_matrix}
-                    datasetinfo={data.dataset}
-                    modelinfo={data.model}
-                  />
-                <br></br>
-               
+                <Grid container spacing={2}>
+                  <Grid item xs={12}>
+                      <CMatrix
+                        model_type={data.model_type}
+                        date_created={data.date_created}
+                        name={data.name}
+                        cmatrix={data.metadata.confusion_matrix}
+                        datasetinfo={data.dataset}
+                        modelinfo={data.model}
+                      />
+                  </Grid>
+                </Grid>
                {
                  n_classes===2?(
-                  <>
-                  
+                  <Grid container spacing={2}>
+                    <Grid item xs={12} sm={6}>
+                      <Paper elevation={5}>
                         <ROCPrecRecall
                           curve={0}
                           model_type={data.model_type}
@@ -307,7 +306,10 @@ export default function Evaluation(props) {
                           datasetinfo={data.dataset}
                           modelinfo={data.model}
                         />
-                  
+                      </Paper>
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <Paper elevation={5}>
                         <ROCPrecRecall
                           curve={1}
                           model_type={data.model_type}
@@ -319,29 +321,34 @@ export default function Evaluation(props) {
                           datasetinfo={data.dataset}
                           modelinfo={data.model}
                         />
-                   
-                  </>
+                      </Paper>
+                    </Grid>
+                  </Grid>
                  ):(
-                  <>
-                   
-                      <CurvesMultiClass
-                        fpr={data.metadata.fpr}
-                        tpr={data.metadata.tpr}
-                        auc={data.metadata.roc_auc}
-                        n_classes={data.metadata.n_classes}
-                        c={0}
-                      />
-                  
-                      <CurvesMultiClass
-                        fpr={data.metadata.precision_curve}
-                        tpr={data.metadata.recall_curve}
-                        auc={data.metadata.precision_recall_auc}
-                        n_classes={data.metadata.n_classes}
-                        c={1}
-                      />
-                   
-                  </>
-
+                  <Grid container spacing={2}>
+                    <Grid item xs={12} sm={6}>
+                      <Paper elevation={5}>
+                        <CurvesMultiClass
+                          fpr={data.metadata.fpr}
+                          tpr={data.metadata.tpr}
+                          auc={data.metadata.roc_auc}
+                          n_classes={data.metadata.n_classes}
+                          c={0}
+                        />
+                      </Paper>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={6}>
+                      <Paper elevation={5}>
+                        <CurvesMultiClass
+                          fpr={data.metadata.precision_curve}
+                          tpr={data.metadata.recall_curve}
+                          auc={data.metadata.precision_recall_auc}
+                          n_classes={data.metadata.n_classes}
+                          c={1}
+                        />
+                      </Paper>
+                    </Grid>
+                  </Grid>
                  )
                }
                
