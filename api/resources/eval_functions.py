@@ -7,7 +7,7 @@ from sklearn.preprocessing import label_binarize
 import logging
 from sklearn.preprocessing import MinMaxScaler
 from resources.Feature_importances import featureImportances
-
+from resources.MultiClassClassification import multiclassClassification
 class EvaluationFunctions():
 	def __init__(self, model_type, model_path, dataset_path, label):
 		self.model_path = model_path
@@ -90,10 +90,7 @@ class EvaluationFunctions():
 				classes.append(i)
 			yy = label_binarize(y_actual, classes=classes)
 			y_score=None
-			if hasattr(loaded_model,'decision_function'):
-				y_score = loaded_model.decision_function(x.values)
-			else:
-				y_score=loaded_model.predict_proba(x.values)
+			y_score=multiclassClassification(loaded_model=loaded_model,x_test=x.values)
 			fpr = dict()
 			tpr = dict()
 			roc_auc = dict()

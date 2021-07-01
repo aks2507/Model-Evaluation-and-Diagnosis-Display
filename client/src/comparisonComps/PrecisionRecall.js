@@ -55,6 +55,18 @@ export default function PrecisionRecallCurve(props) {
                     name: evalList[i].data.name+'(AUC='+evalList[i].data.metadata.precision_recall_auc.toFixed(2)+')' 
                 });
         else
+           if(n_classes>2)
+           {
+            trace.push({ 
+                x: precision[i], 
+                y: recall[i], 
+                type: 'scatter', 
+                name:evalList[i].data.dataset.name+'(AUC='+evalList[i].data.metadata.precision_recall_auc["micro"].toFixed(2)+')' ,
+                
+            });
+            
+           }
+           else
             trace.push({ 
                 x: precision[i], 
                 y: recall[i], 
