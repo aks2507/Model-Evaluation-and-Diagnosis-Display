@@ -7,7 +7,7 @@ const useStyles = makeStyles({
     plot:{
           justifyContent: 'center',
           alignItems: 'center',
-          width: '90%',
+          width: '100%',
           height: '80%',
     },
   });
@@ -19,7 +19,7 @@ export default function Plots(props){
             <Plot
                 className={classes.plot}
                 data={props.data}
-                layout={ {title: props.title, legend:{"orientation":"h", "xanchor":"auto"}} }
+                layout={ {title: props.title, legend:{"orientation":"h"}} }
                 config={ {
                     scrollZoom:true,
                     responsive:true

@@ -75,8 +75,6 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-
-
 export default function Comparison(props) {
 	const eval_ids_str = props.match.params.eval_ids;
 	let eval_ids = eval_ids_str.split(",");
@@ -198,10 +196,15 @@ export default function Comparison(props) {
 									<TabPanel value={value} index={3}>
 										<Grid container spacing={2}>
 											<Grid item xs={12}>
-												<ROC_AUC c={1} evaluations={evalList}/>
+												<Paper elevation={5}>
+													<DetailsComp c={1} evaluations={evalList}/>
+												</Paper>
 											</Grid>
-											<Grid item xs={12}>
-												<PrecisionRecall  c={1} evaluations={evalList}/>
+											<Grid item xs={12} sm={6}>
+												<ROC_AUC evaluations={evalList}/>
+											</Grid>
+											<Grid item xs={12} sm={6}>
+												<PrecisionRecall evaluations={evalList}/>
 											</Grid>
 										</Grid>
 									</TabPanel>

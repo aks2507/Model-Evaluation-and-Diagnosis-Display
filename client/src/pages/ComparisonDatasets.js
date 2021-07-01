@@ -219,12 +219,17 @@ export default function Comparison(props) {
 									<TabPanel value={value} index={3}>
 										<Grid container spacing={2}>
 											<Grid item xs={12}>
+												<Paper elevation={5}>
+													<DetailsComp c={0} evaluations={evalList}/>
+												</Paper>
+											</Grid>
+											<Grid item xs={12} sm={6}>
 												<ROC_AUC c={0} evaluations={evalList}/>
 											</Grid>
-											<Grid item xs={12}>
-												<PrecisionRecall c={0} evaluations={evalList}/>										</Grid>
+											<Grid item xs={12} sm={6}>
+												<PrecisionRecall c={0} evaluations={evalList}/>										
 											</Grid>
-										
+										</Grid>
 									</TabPanel>
 								</>
 							)}

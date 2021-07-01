@@ -24,7 +24,15 @@ export default function DatasetCompRegressionPlots(props){
     let observedVsPredictedTraces = [];
     let residualVsPredictedTraces = [];
     let residualVsObservedTraces = [];
-    
+    let observedVsPredictedSubplots = [];
+    let residualVsObservedSubplots = [];
+    let residualVsPredictedSubplots = [];
+    let numBins = Number(Math.ceil(evalList.length/3));
+    for(let i=0;i<numBins;i++){
+        observedVsPredictedSubplots.push([]);
+        residualVsObservedSubplots.push([]);
+        residualVsPredictedSubplots.push([]);
+    }
     for(let i=0;i<evalList.length;i++)
     {  
         if(i===0){
@@ -55,6 +63,9 @@ export default function DatasetCompRegressionPlots(props){
                     mode: 'markers'
                 }
             );
+            observedVsPredictedSubplots[i].push('xy');
+            residualVsObservedSubplots[i].push('xy');
+            residualVsPredictedSubplots[i].push('xy');
         }
         else{
             observedVsPredictedTraces.push(
@@ -90,34 +101,39 @@ export default function DatasetCompRegressionPlots(props){
                     mode: 'markers'
                 }
             );
+            observedVsPredictedSubplots[Number(Math.floor(i/3))].push("x"+(i+1)+"y"+(i+1));
+            residualVsObservedSubplots[Number(Math.floor(i/3))].push("x"+(i+1)+"y"+(i+1));
+            residualVsPredictedSubplots[Number(Math.floor(i/3))].push("x"+(i+1)+"y"+(i+1));
         }
     }
 
-    console.log( residualVsObservedTraces, residualVsPredictedTraces );
-
     let observedVsPredictedLayout = {
         title: 'Observed vs Predicted',
-        grid: {rows: 1, columns: evalList.length, pattern: 'independent'}
+        grid: {rows: numBins, columns: 3, subplots: observedVsPredictedSubplots , pattern: 'independent', roworder:'top to bottom'},
+        legend:{"orientation":"h"}
     };
     let residualVsObservedLayout = {
         title: 'Residual vs Observed',
-        grid: {rows: 1, columns: evalList.length, pattern: 'independent'}
+        grid: {rows: numBins, columns: 3, subplots: residualVsObservedSubplots , pattern: 'independent', roworder:'top to bottom'},
+        legend:{"orientation":"h"}
     };
     let residualVsPredictedLayout = {
         title: 'Residual vs Predicted',
-        grid: {rows: 1, columns: evalList.length, pattern: 'independent'}
+        grid: {rows: numBins, columns: 3, subplots: residualVsPredictedSubplots , pattern: 'independent', roworder:'top to bottom'},
+        legend:{"orientation":"h"}
     };
 
     let config = {scrollZoom: true, responsive: true}
         
     return(
 
-    <Grid container spacing={2}>
+    <Grid container spacing={2} style={{width: '100%'}}>
         
-        <Grid item xs={12}>
-            <Paper elevation={5}>
-                <Box align='center'>
+        <Grid item xs={12} style={{width: '100%'}}>
+            <Paper elevation={5} style={{width: '100%'}}>
+                <Box align='center' style={{width: '100%'}}>
                     <Plot   
+                        style={{width: '100%', height: 500*numBins }}
                         data={observedVsPredictedTraces}
                         layout={observedVsPredictedLayout}
                         config={config}
@@ -126,10 +142,11 @@ export default function DatasetCompRegressionPlots(props){
             </Paper>
         </Grid>
     
-        <Grid item xs={12}>
-            <Paper elevation={5}>
-                <Box align='center'>
+        <Grid item xs={12} style={{width: '100%'}}>
+            <Paper elevation={5} style={{width: '100%'}}>
+                <Box align='center' style={{width: '100%'}}>
                     <Plot   
+                        style={{width: '100%', height: 500*numBins }}
                         data={residualVsPredictedTraces}
                         layout={residualVsPredictedLayout}
                         config={config}
@@ -138,14 +155,15 @@ export default function DatasetCompRegressionPlots(props){
             </Paper>
         </Grid>
     
-        <Grid item xs={12}>
-            <Paper elevation={5}>
-                <Box align='center'>
+        <Grid item xs={12} style={{width: '100%'}}>
+            <Paper elevation={5} style={{width: '100%'}}>
+                <Box align='center' style={{width: '100%'}}>
                     <Plot   
+                        style={{width: '100%', height: 500*numBins }}
                         data={residualVsObservedTraces}
                         layout={residualVsObservedLayout}
                         config={config}
-                    />    
+                    />
                 </Box>
             </Paper>
         </Grid>

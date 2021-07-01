@@ -12,6 +12,8 @@ import Comparison from '../pages/Comparison';
 import ModelsDatasets from '../pages/ModelsDatasets';
 import ComparisonDatasets from '../pages/ComparisonDatasets';
 
+// import Test from '../pages/Test';
+
 class App extends Component{
   render(){
     return (
@@ -22,6 +24,7 @@ class App extends Component{
             <Route exact path="/evaluationReport/:eval_id" component={Evaluation} />
             <Route exact path="/comparison/:eval_ids" component={Comparison} />
             <Route exact path="/comparisonDatasets/:eval_ids" component={ComparisonDatasets} />
+            {/* <Route exact path="/test" component={Test} /> */}
           </Switch>
         </Router>
     );

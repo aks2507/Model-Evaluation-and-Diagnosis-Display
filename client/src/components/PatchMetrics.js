@@ -1,20 +1,17 @@
 import React from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-import { Grid } from '@material-ui/core';
+import { Grid, Fab, Popover, Typography } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add'
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import {Button} from '@material-ui/core';
 import Box from '@material-ui/core/Box';
 import Details from './Details';
 import TableHead from '@material-ui/core/TableHead';
-
-import UpdateMetricsForm from './UpdateMetricsForm';
 import AddMetricsForm from './AddMetricsForm';
-import UpdateMetricsFormClassification from './UpdateMetricsFormClassification';
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -45,6 +42,12 @@ const useStyles = makeStyles({
     gridContainer: {
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    popover: {
+        pointerEvents: 'none',
+    },
+    paper: {
+        padding: 4,
     },
 });
 
@@ -85,17 +88,20 @@ export default function Metrics(props){
         }
     }
     
-    
+    const [anchorEl, setAnchorEl] = React.useState(null);
 
-    const [open, setOpen] = React.useState(false);
+    const handlePopoverOpen = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handlePopoverClose = () => {
+        setAnchorEl(null);
+    };
+
+    const open = Boolean(anchorEl);
+
     const [addOpen, setAddOpen] = React.useState(false);
     const classes = useStyles();
-    const handleOpen = () => {
-        setOpen(true);
-    };
-    const handleClose = () => {
-        setOpen(false);
-    };
     const handleAddOpen = () => {
         setAddOpen(true);
     };
@@ -123,14 +129,7 @@ export default function Metrics(props){
                     <Grid item xs={12} sm={3}>
                         <Grid container spacing={2} className={classes.gridContainer}>
                             <Grid item xs={12}>
-                                <Button 
-                                    fullWidth
-                                    color="primary" 
-                                    variant="contained"
-                                    onClick={handleAddOpen}
-                                >
-                                    Add Metrics
-                                </Button>
+                                
                             </Grid>
                             <Grid item xs={12}>
                                 <AddMetricsForm 
@@ -140,39 +139,6 @@ export default function Metrics(props){
                                     eval_id={props.eval_id}
                                     metadata={props.metadata}
                                 />
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                    <Grid item xs={12} sm={3}> 
-                        <Grid container spacing={2} className={classes.gridContainer}>
-                            <Grid item xs={12}>
-                                <Button 
-                                    fullWidth
-                                    color="primary" 
-                                    variant="contained"
-                                    onClick={handleOpen}
-                                >
-                                    Update Metrics
-                                </Button>
-                            </Grid>
-                            <Grid item xs={12}>
-                                {
-                                    props.model_type==='regression'?(
-                                        <UpdateMetricsForm 
-                                            open={open}
-                                            handleClose={handleClose}
-                                            eval_id={props.eval_id}
-                                            metadata={props.metadata}
-                                    />
-                                    ):(
-                                        <UpdateMetricsFormClassification 
-                                            open={open}
-                                            handleClose={handleClose}
-                                            eval_id={props.eval_id}
-                                            metadata={props.metadata}
-                                        />
-                                    )
-                                }
                             </Grid>
                         </Grid>
                     </Grid>
@@ -258,6 +224,45 @@ export default function Metrics(props){
                         </>
                     )}
                 </Grid>
+            </Grid>
+            <Grid item xs={12} sm={12} lg={12} md={12}>
+                <Fab 
+                    color="secondary" 
+                    aria-label="add"
+                    size="large"
+                    onClick={handleAddOpen}
+                    style={{
+                        position: 'fixed',
+                        bottom: '5%',
+                        left: "95%",}}
+                    aria-owns={open ? 'mouse-over-popover' : undefined}
+                    aria-haspopup="true"
+                    onMouseEnter={handlePopoverOpen}
+                    onMouseLeave={handlePopoverClose}
+                >
+                    <AddIcon />
+                </Fab>
+                <Popover
+                    id="mouse-over-popover"
+                    className={classes.popover}
+                    classes={{
+                        paper: classes.paper,
+                    }}
+                    open={open}
+                    anchorEl={anchorEl}
+                    anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left',
+                    }}
+                    transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'left',
+                    }}
+                    onClose={handlePopoverClose}
+                    disableRestoreFocus
+                >
+                    <Typography>Add Metrics</Typography>
+                </Popover>
             </Grid>
         </Grid>
     );

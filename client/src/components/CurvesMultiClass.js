@@ -7,8 +7,9 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import Plot from 'react-plotly.js';
 import Box from '@material-ui/core/Box';
+
+import Plots from '../comparisonComps/Plots';
 
 
 const StyledTableCell = withStyles((theme) => ({
@@ -49,7 +50,7 @@ export default function CurvesMultiClass(props){
     console.log(auc);
     const c=props.c;
     let title="";
-    if(c==0){
+    if(c===0){
       title="ROC Curves";
     }
     else 
@@ -75,13 +76,9 @@ export default function CurvesMultiClass(props){
     <div className="row">
         
         <div className="col">
-                <Plot   
-                        data={data}
-                        layout={ {width: 600, height: 450, title: title,legend: {"orientation":"h"}} }
-                        config={ {
-                            scrollZoom:true,
-                            responsive:true
-                        } }
+                <Plots   
+                  data={data}
+                  title={title}
                 />
         </div>
                  <div className="col">
