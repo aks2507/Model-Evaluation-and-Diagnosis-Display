@@ -51,8 +51,8 @@ const useStyles = makeStyles((theme) => ({
   
 }));
 
-function createData(column, datasets){
-    return { column, ...datasets };
+function createData(Dataset, columns){
+    return { Dataset, ...columns };
 }
 
 export default function ScrollableTabsButtonAuto(props) {
@@ -60,8 +60,6 @@ export default function ScrollableTabsButtonAuto(props) {
     const len = evalList.length;
     const numCols = evalList[0].data.dataset.metadata.columns.length;
     const cols = evalList[0].data.dataset.metadata.columns;
-    console.log(len);
-    console.log(evalList[0].data.dataset.metadata.description)
     const rows = {
         mean:[],
         std:[],
@@ -73,11 +71,13 @@ export default function ScrollableTabsButtonAuto(props) {
         iqr:[],
         mvals:[]
     }
-    const headCells = [{id:'column', label:"Columns"}];
-    for(let i=0;i<len;i++){
-        headCells.push({id:i, label: evalList[i].data.dataset.name})
-    }
+    const headCells = [{id:'Dataset', label:"Dataset"}];
     for(let i=0;i<numCols;i++){
+      if(cols[i] === evalList[0].data.dataset.metadata.label)
+        continue;
+      headCells.push({id:i, label: cols[i]})
+    }
+    for(let i=0;i<len;i++){
         let means = [];
         let stds = [];
         let mins = [];
@@ -87,28 +87,30 @@ export default function ScrollableTabsButtonAuto(props) {
         let maxs = [];
         let iqrs = [];
         let mvalss = [];
-        for(let j=0;j<len;j++){
-            means.push(evalList[j].data.dataset.metadata.description[cols[i]].mean.toFixed(2));
-            stds.push(evalList[j].data.dataset.metadata.description[cols[i]].std.toFixed(2));
-            mins.push(evalList[j].data.dataset.metadata.description[cols[i]].min.toFixed(2));
-            q25s.push(evalList[j].data.dataset.metadata.description[cols[i]]['25%'].toFixed(2));
-            q50s.push(evalList[j].data.dataset.metadata.description[cols[i]]['50%'].toFixed(2));
-            q75s.push(evalList[j].data.dataset.metadata.description[cols[i]]['75%'].toFixed(2));
-            maxs.push(evalList[j].data.dataset.metadata.description[cols[i]].max.toFixed(2));
-            iqrs.push(evalList[j].data.dataset.metadata.iqr[i].toFixed(2));
-            mvalss.push(evalList[j].data.dataset.metadata.missing_values[i].toFixed(2));
+        for(let j=0;j<numCols;j++){
+          if(cols[j] === evalList[i].data.dataset.metadata.label)
+            continue;
+          means.push(evalList[i].data.dataset.metadata.description[cols[j]].mean.toFixed(2));
+          stds.push(evalList[i].data.dataset.metadata.description[cols[j]].std.toFixed(2));
+          mins.push(evalList[i].data.dataset.metadata.description[cols[j]].min.toFixed(2));
+          q25s.push(evalList[i].data.dataset.metadata.description[cols[j]]['25%'].toFixed(2));
+          q50s.push(evalList[i].data.dataset.metadata.description[cols[j]]['50%'].toFixed(2));
+          q75s.push(evalList[i].data.dataset.metadata.description[cols[j]]['75%'].toFixed(2));
+          maxs.push(evalList[i].data.dataset.metadata.description[cols[j]].max.toFixed(2));
+          iqrs.push(evalList[i].data.dataset.metadata.iqr[j].toFixed(2));
+          mvalss.push(evalList[i].data.dataset.metadata.missing_values[j].toFixed(2));
         }
-        rows.mean.push(createData(cols[i],means));
-        rows.std.push(createData(cols[i],stds));
-        rows.min.push(createData(cols[i],mins));
-        rows.q25.push(createData(cols[i],q25s));
-        rows.q50.push(createData(cols[i],q50s));
-        rows.q75.push(createData(cols[i],q75s));
-        rows.max.push(createData(cols[i],maxs));
-        rows.iqr.push(createData(cols[i],iqrs));
-        rows.mvals.push(createData(cols[i],mvalss));
+        rows.mean.push(createData(evalList[i].data.dataset.name,means));
+        rows.std.push(createData(evalList[i].data.dataset.name,stds));
+        rows.min.push(createData(evalList[i].data.dataset.name,mins));
+        rows.q25.push(createData(evalList[i].data.dataset.name,q25s));
+        rows.q50.push(createData(evalList[i].data.dataset.name,q50s));
+        rows.q75.push(createData(evalList[i].data.dataset.name,q75s));
+        rows.max.push(createData(evalList[i].data.dataset.name,maxs));
+        rows.iqr.push(createData(evalList[i].data.dataset.name,iqrs));
+        rows.mvals.push(createData(evalList[i].data.dataset.name,mvalss));
     }
-    
+    console.log(rows);
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
 
