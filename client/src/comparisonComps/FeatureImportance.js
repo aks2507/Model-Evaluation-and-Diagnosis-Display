@@ -107,8 +107,7 @@ export default function FeatureImportance(props){
                 <AppBar position="static">
                     <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
                     <Tab label="Table" {...a11yProps(0)} />
-                    <Tab label="Line Chart" {...a11yProps(1)} />
-                    <Tab label="Bar Chart" {...a11yProps(2)} />
+                    <Tab label="Bar Chart" {...a11yProps(1)} />
                     </Tabs>
                 </AppBar>
                 <TabPanel value={value} index={0}>
@@ -124,7 +123,7 @@ export default function FeatureImportance(props){
                         </Paper>
                     </Grid>
                 </TabPanel>
-                <TabPanel value={value} index={1}>
+                {/* <TabPanel value={value} index={1}>
                     <Grid item xs={12}>
                         <Paper elevation={5}>
                             <Plot className={classes.plot} 
@@ -137,8 +136,8 @@ export default function FeatureImportance(props){
                             />
                         </Paper>
                     </Grid>
-                </TabPanel>
-                <TabPanel value={value} index={2}>
+                </TabPanel> */}
+                <TabPanel value={value} index={1}>
                     <Grid item xs={12}>
                         <Paper elevation={5}>
                             <Plot className={classes.plot}
