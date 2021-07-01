@@ -36,6 +36,7 @@ export default function ROC_AUC(props){
 	let trace = [];
 	for(let i=0;i<numTabs;i++)
 	{
+		console.log(evalList[i].data);
 		if(c===0)
 			if(n_classes>2)
 				trace.push({x:fpr[i],y:tpr[i],type:'scatter',name:evalList[i].data.dataset.name+'(AUC='+evalList[i].data.metadata.roc_auc["micro"].toFixed(2)+')'});
