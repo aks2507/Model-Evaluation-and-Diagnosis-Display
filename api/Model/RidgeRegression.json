@@ -1,1 +1,8 @@
-{"use_case_type": "regression", "library": "sklearn.linear_model", "model": "RidgeRegression", "algorithm": "saga", "hyperparameters": {"alpha": 0.5, "solver": "saga"}, "library_version": "0.24.2", "author": "author3"}
+{"use_case_type": "regression", 
+ "library": "sklearn.linear_model", 
+ "model": "RidgeRegression", 
+ "algorithm": "saga", 
+ "hyperparameters": {"alpha": 0.5, "solver": "saga"}, 
+ "library_version": "0.24.2", 
+ "author": "author3"
+}
