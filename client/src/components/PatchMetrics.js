@@ -143,39 +143,6 @@ export default function Metrics(props){
                             </Grid>
                         </Grid>
                     </Grid>
-                    <Grid item xs={12} sm={3}> 
-                        <Grid container spacing={2} className={classes.gridContainer}>
-                            <Grid item xs={12}>
-                                <Button 
-                                    fullWidth
-                                    color="primary" 
-                                    variant="contained"
-                                    onClick={handleOpen}
-                                >
-                                    Update Metrics
-                                </Button>
-                            </Grid>
-                            <Grid item xs={12}>
-                                {
-                                    props.model_type==='regression'?(
-                                        <UpdateMetricsForm 
-                                            open={open}
-                                            handleClose={handleClose}
-                                            eval_id={props.eval_id}
-                                            metadata={props.metadata}
-                                    />
-                                    ):(
-                                        <UpdateMetricsFormClassification 
-                                            open={open}
-                                            handleClose={handleClose}
-                                            eval_id={props.eval_id}
-                                            metadata={props.metadata}
-                                        />
-                                    )
-                                }
-                            </Grid>
-                        </Grid>
-                    </Grid>
                 </Grid>
             </Grid>
             <Grid item xs={12}>

@@ -71,6 +71,7 @@ class EvaluationFunctions():
 			precision_curve=precision_curve.tolist()
 			recall_curve=recall_curve.tolist()
 			columns=feature_cols
+			
 			feature_scores=feature_scores.tolist()
 			return {
 				"accuracy_score":acc,
@@ -95,7 +96,11 @@ class EvaluationFunctions():
 			for i in range(n_classes):
 				classes.append(i)
 			yy = label_binarize(y_actual, classes=classes)
-			y_score = loaded_model.decision_function(x.values)
+			y_score=None
+			if hasattr(loaded_model,'decision_function'):
+				y_score = loaded_model.decision_function(x.values)
+			else:
+				y_score=loaded_model.predict_proba(x.values)
 			fpr = dict()
 			tpr = dict()
 			roc_auc = dict()
@@ -137,7 +142,6 @@ class EvaluationFunctions():
 				logging.error("Multiclass classification metrics computation Error")
 
 			columns=feature_cols
-			feature_scores=feature_scores.tolist()
 			return {
 				"accuracy_score":acc,
 				"precision_score":precision_score,
