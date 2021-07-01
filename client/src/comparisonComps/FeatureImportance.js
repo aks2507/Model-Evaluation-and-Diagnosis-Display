@@ -71,9 +71,13 @@ export default function FeatureImportance(props){
     let numTabs = evalList.length;
     let features=[];
     let columns=evalList[0].data.metadata.columns;
+    for(let i=0;i<numTabs;i++){
+        console.log(evalList[i])
+    }
     for(let i=0;i<numTabs;i++)
     {
         let fscores = [];
+        
         for(let j=0;j<columns.length;j++)
         {
             fscores.push(evalList[i].data.metadata.feature_scores[j].toFixed(4));

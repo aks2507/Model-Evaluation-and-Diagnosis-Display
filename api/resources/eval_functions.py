@@ -6,7 +6,7 @@ import csv
 from sklearn.preprocessing import label_binarize
 import logging
 from sklearn.preprocessing import MinMaxScaler
-
+from resources.Feature_importances import featureImportances
 
 class EvaluationFunctions():
 	def __init__(self, model_type, model_path, dataset_path, label):
@@ -33,16 +33,8 @@ class EvaluationFunctions():
 
 		
 		feature_scores=[]
-		key = "coef_"
-		if key in loaded_model.__dict__.keys():
-			feature_scores=loaded_model.coef_[0]
-		elif 'support_vectors_' in loaded_model.__dict__.keys():
-			feature_scores=loaded_model.support_vectors_[0]
-		else:
-			try:
-				feature_scores=loaded_model.feature_importances_
-			except:
-				logging.debug("Model's feature importance doesn't exist")
+		feature_scores=featureImportances(loaded_model=loaded_model,model_type=self.model_type)
+
 		col_names = list_of_column_names[0]
 		pima=pd.read_csv(dataset_file,header=None,names=col_names,skiprows=1)
 		feature_cols=col_names[0:-1]
@@ -72,7 +64,8 @@ class EvaluationFunctions():
 			recall_curve=recall_curve.tolist()
 			columns=feature_cols
 			
-			feature_scores=feature_scores.tolist()
+			if isinstance(feature_scores,list)==False:
+				feature_scores=feature_scores.tolist()
 			return {
 				"accuracy_score":acc,
 				"precision_score":precision_score,
@@ -177,15 +170,10 @@ class EvaluationFunctions():
 			loaded_model = pickle.load(open(path, 'rb'))
 		except:
 			logging.error("Model unpickling unsuccessful")
+		feature_scores=[]
+		feature_scores=featureImportances(loaded_model=loaded_model,model_type=self.model_type)
 
-		key = "coef_"
-		if key in loaded_model.__dict__.keys():
-			feature_scores=loaded_model.coef_
-		else:
-			try:
-				feature_scores=loaded_model.feature_importances_
-			except:
-				logging.error('Feature Importance doesn\'t exist')
+
 
 		col_names = list_of_column_names[0]
 		dataset=pd.read_csv(dataset_file,header=None,names=col_names,skiprows=1)
@@ -222,7 +210,8 @@ class EvaluationFunctions():
 		rmsle = np.sqrt(metrics.mean_squared_log_error( y_test_new, y_pred ))
 
 		columns=feature_cols
-		feature_scores=feature_scores.tolist()
+		if isinstance(feature_scores,list)==False:
+			feature_scores=feature_scores.tolist()
 		return {
 			"Coefficient_of_Determination":r2,
 			"Adjusted_r_squared":ar2,
