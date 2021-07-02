@@ -45,8 +45,12 @@
         "responses": {
           "204": {
             "description": "OK",
-            "schema": {
-              "$ref": "#/components/schemas/id"
+            "content": {
+              "application/json":{
+                "schema": {
+                  "$ref": "#/components/schemas/id"
+                }
+              }
             }
           },
           "400": {
@@ -85,8 +89,12 @@
         "responses": {
           "204": {
             "description": "OK",
-            "schema": {
-              "$ref": "#/components/schemas/id"
+            "content": {
+              "application/json":{
+                "schema": {
+                  "$ref": "#/components/schemas/id"
+                }
+              }
             }
           },
           "400": {
@@ -166,6 +174,22 @@
             }
           }
         }
+      },
+      "responses": {
+        "201": {
+          "description": "OK",
+          "content": {
+            "application/json":{
+              "schema": {
+                "$ref": "#/components/schemas/id"
+              }
+            }
+          }
+         
+        },
+        "400": {
+          "description": "Failed. Bad post data."
+        }
       }
     }
     },
@@ -189,8 +213,12 @@
         "responses": {
           "204": {
             "description": "OK",
-            "schema": {
-              "$ref": "#/components/schemas/id"
+            "content": {
+              "application/json":{
+                "schema": {
+                  "$ref": "#/components/schemas/id"
+                }
+              }
             }
           },
           "400": {
@@ -270,15 +298,17 @@
           }
         }
       },
-      "produces": [
-        "application/json"
-      ],
       "responses": {
         "201": {
           "description": "OK",
-          "schema": {
-            "$ref": "#/components/schemas/id"
+          "content": {
+            "application/json":{
+              "schema": {
+                "$ref": "#/components/schemas/id"
+              }
+            }
           }
+         
         },
         "400": {
           "description": "Failed. Bad post data."
@@ -321,15 +351,18 @@
             }
           }
         },
-        "produces": [
-          "application/json"
-        ],
+       
         "responses": {
           "201": {
             "description": "OK",
-            "schema": {
-              "$ref": "#/components/schemas/id"
+            "content": {
+              "application/json":{
+                "schema": {
+                  "$ref": "#/components/schemas/id"
+                }
+              }
             }
+           
           },
           "400": {
             "description": "Failed. Bad post data."
@@ -338,25 +371,12 @@
       }
     },
     "/models/{id}": {
-      "parameters": [
-        {
-          "name": "id",
-          "in": "path",
-          
-          "required": true,
-          "description": "ID of the Model instance that we want to match",
-          "type": "string"
-        }
-      ],
       "get": {
         "tags": [
           "Models"
         ],
         "summary": "Get model instance with given ID",
         "operationId": "getModels",
-        "produces":[
-          "application/json"
-        ],
         "parameters": [
           {
             "in": "path",
@@ -407,9 +427,16 @@
         "responses": {
           "204": {
             "description": "OK",
-            "schema": {
-              "$ref": "#/components/schemas/id"
+            "content": {
+
+              "application/json":{
+                "schema": {
+                  "$ref": "#/components/schemas/id"
+                }
+              }
+
             }
+           
           },
           "400": {
             "description": "Failed. Misunderstood Request."

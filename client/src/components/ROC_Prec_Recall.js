@@ -1,19 +1,41 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { withStyles,makeStyles } from '@material-ui/core/styles';
+import TableContainer from '@material-ui/core/TableContainer';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 import Plot from 'react-plotly.js';
+import Box from '@material-ui/core/Box';
+const StyledTableCell = withStyles((theme) => ({
+  head: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  body: {
+    fontSize: 14,
+  },
+}))(TableCell);
 
 const useStyles = makeStyles((theme) => ({
     root: {
         width: '100%',
         align:"right"
     },
+    table: {
+        width: '100%',
+        justifyContent:'center',
+        alignItems: 'center',
+    },
     heading: {
         fontSize: theme.typography.pxToRem(15),
         fontWeight: theme.typography.fontWeightRegular,
     },
     plot: {
-        width: '100%',
-        height: '100%',
+        width: '600px',
+        height: '500px',
         justifyContent:'center',
         alignItems: 'center',
     },
@@ -44,10 +66,10 @@ export default function ROC_Prec_Recall(props){
         setY(props.y);
         setCutoff(0);
     };
-
-    let plot_title = props.curve === 0 ? "ROC Curve":"Precision-Recall Curve";
-    plot_title = plot_title +" (AUC = "+props.auc.toFixed(2)+")"
+    var auc=props.auc.toFixed(2);
+    let plot_title = props.curve === 0 ? "ROC Curve( AUC = " +auc+")":"Precision-Recall Curve( AUC = " +auc+")";
     const classes = useStyles();
+    
     let currentvalue = {
      
         xanchor: 'right',
@@ -97,23 +119,35 @@ export default function ROC_Prec_Recall(props){
     }]
     
     return(
-        <Plot className={classes.plot}
-            data={[
-                {type: 'scatter', x: x, y: y},
-            ]}
-            layout={ { 
-                title: plot_title,
-                align:'center', 
-                sliders:slider,
-                updatemenus:updatemenus
-            } }
-            config={ {
-                scrollZoom:true,
-                responsive:true
-            } }
-            
-            onButtonClicked={handleBeginClick}
-            onSliderChange={handleSliderChangeX}
-        />     
+        
+             <div className="row">
+                 <div className="col">
+                 <Plot className={classes.plot}
+                        data={[
+                            {type: 'scatter', x: x, y: y},
+                        ]}
+                        layout={ { 
+                            title: plot_title,
+                            align:'center', 
+                            sliders:slider,
+                            updatemenus:updatemenus
+                        } }
+                        config={ {
+                            scrollZoom:true,
+                            responsive:true
+                        } }
+                        
+                        onButtonClicked={handleBeginClick}
+                        onSliderChange={handleSliderChangeX}
+                    />
+                 </div>
+             
+                   
+
+                 
+                    
+            </div>
+    
+
     );
 }
