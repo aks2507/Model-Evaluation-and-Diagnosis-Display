@@ -16,12 +16,12 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Button from '@material-ui/core/Button';
-import {Grid, InputAdornment} from '@material-ui/core';
+import {Grid, InputAdornment, Dialog, DialogActions,
+  DialogContent, DialogContentText, DialogTitle} from '@material-ui/core';
 import Navbar from '../components/Navbar'; 
 import Controls from '../components/Controls/Controls';
 import {Search} from '@material-ui/icons';
@@ -116,6 +116,91 @@ function EnhancedTableHead(props){
 
 };
 
+function DeleteAlert(props){
+  function createDeleteData(eval_id, evaluation) {
+    return { eval_id, evaluation };
+  }
+  const rows = [];
+  
+  let evals = props.evaluationList;
+  for(let i=0;i<evals.length;i++){
+    rows.push(createDeleteData(props.selectedList[i],evals[i]));
+  }
+  return (
+    <Dialog
+      aria-labelledby="scroll-dialog-title"
+      aria-describedby="scroll-dialog-description"
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+      open={props.open}
+      onClose={props.handleClose}
+      closeAfterTransition
+    >
+      <DialogTitle id="scroll-dialog-title" style={{color:'red'}}>Delete Evaluations</DialogTitle>
+      <DialogContent style={{alignItems:'center', justifyContent:'center',}}>
+          <DialogContentText id="scroll-dialog-description" >
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                You are about to delete the following evaluations:
+              </Grid>
+              <Grid item xs={12}>
+                <TableContainer component={Paper}>
+                  <Table aria-label="simple table">
+                    <TableHead>
+                      <TableRow>
+                        <TableCell align="center">Evaluation ID</TableCell>
+                        <TableCell align="center">Evaluation</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {rows.map((row) => (
+                        <TableRow key={row.name}>
+                          <TableCell align="center" component="th" scope="row">
+                            {row.eval_id}
+                          </TableCell>
+                          <TableCell align="center">{row.evaluation}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              </Grid>
+            </Grid>
+          </DialogContentText>
+      </DialogContent>
+      <DialogActions style={{alignItems:'center', justifyContent:'center',}}>
+        <Grid container spacing={2} style={{alignItems:'center', justifyContent:'center',}}>
+          <Grid item xs={6} sm={3}>
+            <Button
+              fullWidth
+              variant="contained"
+              color="secondary"
+              size="large"
+              onClick={props.deleteAction}
+            >
+              Delete
+            </Button>
+          </Grid>
+          <Grid item xs={6} sm={3}>
+            <Button
+              fullWidth
+              variant="contained"
+              color="primary"
+              size="large"
+              onClick={props.handleClose}
+            >
+              Cancel
+            </Button>
+          </Grid>
+        </Grid>
+      </DialogActions>
+  </Dialog>
+  );
+}
+
 EnhancedTableHead.propTypes = {
   classes: PropTypes.object.isRequired,
   numSelected: PropTypes.number.isRequired,
@@ -154,7 +239,8 @@ const useToolbarStyles = makeStyles((theme) => ({
 
 const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles();
-  const { numSelected, selectedList, modelTypeList, datasetIDList, modelIDList} = props;
+  const { numSelected, selectedList, modelTypeList, datasetIDList, modelIDList, rows} = props;
+  let evaluationList = rows.filter(element => selectedList.includes(element.eval_id)).map(element => element.name);
   const onDeleteIconHandler = async(e) => {
     e.preventDefault();
     let i;
@@ -163,16 +249,21 @@ const EnhancedTableToolbar = (props) => {
       await axios.delete("/modelEvaluations/"+selectedList[i]).then(() => {window.location.replace("/");});
     }
   };
+  const [deleteOpen, setDeleteOpen] = React.useState(false);
+  const handleDeleteOpen = () => {
+      setDeleteOpen(true);
+  };
+  const handleDeleteClose = () => {
+      setDeleteOpen(false);
+  };
 
 
 
   const CompareHandler = eval_ids => async(e) => {
-    console.log(eval_ids);
-    console.log(countUnique(datasetIDList));
     if(countUnique(datasetIDList)===1) 
-    window.location.replace("/comparison/"+eval_ids.toString());
+      window.location.replace("/comparison/"+eval_ids.toString());
     else
-    window.location.replace("/comparisonDatasets/"+eval_ids.toString());
+      window.location.replace("/comparisonDatasets/"+eval_ids.toString());
   };
 
   return (
@@ -214,11 +305,16 @@ const EnhancedTableToolbar = (props) => {
               </Button>
             )}
 
-            <Tooltip title="Delete">
-              <IconButton aria-label="delete" onClick={onDeleteIconHandler}>
+              <IconButton aria-label="delete" onClick={handleDeleteOpen}>
                 <DeleteIcon />
               </IconButton>
-            </Tooltip>
+              <DeleteAlert
+                open={deleteOpen}
+                handleClose={handleDeleteClose}
+                selectedList={selectedList}
+                evaluationList={evaluationList}
+                deleteAction={onDeleteIconHandler}
+              />
 
 
         </div>
@@ -476,7 +572,10 @@ export default function Homepage(){
           selectedList={selected} 
           modelTypeList={selectedModelType}
           datasetIDList={selectedDatasetID}
-          modelIDList={selectedModelID} >
+          modelIDList={selectedModelID} 
+          rows={rows}
+        >
+          
         </EnhancedTableToolbar>
           <FilterToolbar>
            
