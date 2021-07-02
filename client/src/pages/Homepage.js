@@ -431,20 +431,22 @@ export default function Homepage(){
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.eval_id);
-      const newSelectedsModelTypes = rows.map((n) => n.model_type);
-      const newSelectedsDatasetIDs = rows.map((n, index) => data.evaluation_entities[index].dataset.dataset_id);
-      const newSelectedsModelIDs = rows.map((n, index) => data.evaluation_entities[index].model.model_id);
+      const newSelecteds = filters(rows).map((n) => n.eval_id);
+      const newSelectedsModelTypes = filters(rows).map((n) => n.model_type);
+      const newSelectedsDatasetIDs = filters(rows).map((n, index) => data.evaluation_entities[index].dataset.dataset_id);
+      const newSelectedsModelIDs = filters(rows).map((n, index) => data.evaluation_entities[index].model.model_id);
       setSelected(newSelecteds);
       setSelectedModelType(newSelectedsModelTypes);
       setSelectedDatasetID(newSelectedsDatasetIDs);
       setSelectedModelID(newSelectedsModelIDs);
-      return;
     }
-    setSelected([]);
-    setSelectedModelType([]);
-    setSelectedDatasetID([]);
-    setSelectedModelID([]);
+    else{
+      setSelected(filters([]));
+      setSelectedModelType(filters([]));
+      setSelectedDatasetID(filters([]));
+      setSelectedModelID(filters([]));
+    }
+    
   };
 
   const handleClick = (event, eval_id, model_type, index) => {
@@ -577,32 +579,32 @@ export default function Homepage(){
         >
           
         </EnhancedTableToolbar>
-          <FilterToolbar>
-           
-             
-                  <Controls.Input 
-                    className={classes.searchInput}
-                    label="Search Evaluations"
-                    InputProps= {{
-                      startAdornment:(
-                        <InputAdornment position="start">
-                          <Search />
-                        </InputAdornment>
-                      )
-                    }}
-                    onChange={handleSearch}
-                  />
-              
-              
-                  <Controls.Select 
-                    className={classes.searchSelect}
-                    options={rows}
-                    onModelTypeChange={handleModelTypeChange}
-                    onModelChange={handleModelChange}
-                    onDatasetChange={handleDatasetChange}
-                  />
-      
-          </FilterToolbar>
+        <FilterToolbar>
+          
+            
+                <Controls.Input 
+                  className={classes.searchInput}
+                  label="Search Evaluations"
+                  InputProps= {{
+                    startAdornment:(
+                      <InputAdornment position="start">
+                        <Search />
+                      </InputAdornment>
+                    )
+                  }}
+                  onChange={handleSearch}
+                />
+            
+            
+                <Controls.Select 
+                  className={classes.searchSelect}
+                  options={rows}
+                  onModelTypeChange={handleModelTypeChange}
+                  onModelChange={handleModelChange}
+                  onDatasetChange={handleDatasetChange}
+                />
+    
+        </FilterToolbar>
         <TableContainer>
           <Table
             className={classes.table}
@@ -617,7 +619,7 @@ export default function Homepage(){
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={rows.length}
+              rowCount={filters(rows).length}
             />
             <TableBody>
               {stableSort(filters(rows), getComparator(order, orderBy))
