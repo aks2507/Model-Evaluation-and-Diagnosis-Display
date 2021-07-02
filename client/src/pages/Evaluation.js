@@ -278,8 +278,10 @@ export default function Evaluation(props) {
                 />
               </TabPanel>
               <TabPanel value={value} index={1}>
-                <Grid container spacing={2}>
-                  <Grid item xs={12}>
+               {
+                 n_classes===2?(
+                  <Grid container spacing={2}>
+                    <Grid item xs={12}>
                       <CMatrix
                         model_type={data.model_type}
                         date_created={data.date_created}
@@ -288,12 +290,8 @@ export default function Evaluation(props) {
                         datasetinfo={data.dataset}
                         modelinfo={data.model}
                       />
-                  </Grid>
-                </Grid>
-               {
-                 n_classes===2?(
-                  <Grid container spacing={2}>
-                    <Grid item xs={12} sm={6}>
+                    </Grid>
+                    <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
                       <Paper elevation={5}>
                         <ROCPrecRecall
                           curve={0}
@@ -308,7 +306,7 @@ export default function Evaluation(props) {
                         />
                       </Paper>
                     </Grid>
-                    <Grid item xs={12} sm={6}>
+                    <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
                       <Paper elevation={5}>
                         <ROCPrecRecall
                           curve={1}
@@ -325,8 +323,18 @@ export default function Evaluation(props) {
                     </Grid>
                   </Grid>
                  ):(
-                  <Grid container spacing={2}>
-                    <Grid item xs={12} sm={6}>
+                  <Grid container spacing={2} sm={12} md={12} lg={12} xl={12}>
+                    <Grid item xs={12}>
+                      <CMatrix
+                        model_type={data.model_type}
+                        date_created={data.date_created}
+                        name={data.name}
+                        cmatrix={data.metadata.confusion_matrix}
+                        datasetinfo={data.dataset}
+                        modelinfo={data.model}
+                      />
+                    </Grid>
+                    <Grid xs={12} sm={12} md={12} lg={6} xl={6}>
                       <Paper elevation={5}>
                         <CurvesMultiClass
                           fpr={data.metadata.fpr}
@@ -337,7 +345,7 @@ export default function Evaluation(props) {
                         />
                       </Paper>
                     </Grid>
-                    <Grid item xs={12} sm={6} md={6}>
+                    <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
                       <Paper elevation={5}>
                         <CurvesMultiClass
                           fpr={data.metadata.precision_curve}
@@ -349,8 +357,7 @@ export default function Evaluation(props) {
                       </Paper>
                     </Grid>
                   </Grid>
-                 )
-               }
+                 )}
                
               </TabPanel>
               <TabPanel value={value} index={2}>

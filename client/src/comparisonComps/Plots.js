@@ -7,7 +7,7 @@ const useStyles = makeStyles({
     plot:{
           justifyContent: 'center',
           alignItems: 'center',
-          width: '100%',
+          width: '90%',
           height: '80%',
     },
   });

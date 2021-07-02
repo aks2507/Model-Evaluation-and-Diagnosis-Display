@@ -24,9 +24,11 @@ export default function CurvesMultiClass(props){
 	let data = [...trace]
   
 	return(
+
 		<Plots
 			data={data}
 			title={title}
 		/>
+		
 	);
 }

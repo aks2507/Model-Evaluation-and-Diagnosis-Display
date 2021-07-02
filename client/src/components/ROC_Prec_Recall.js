@@ -1,23 +1,6 @@
 import React from 'react';
-import { withStyles,makeStyles } from '@material-ui/core/styles';
-import TableContainer from '@material-ui/core/TableContainer';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
+import { makeStyles } from '@material-ui/core/styles';
 import Plot from 'react-plotly.js';
-import Box from '@material-ui/core/Box';
-const StyledTableCell = withStyles((theme) => ({
-  head: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-  },
-  body: {
-    fontSize: 14,
-  },
-}))(TableCell);
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -34,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: theme.typography.fontWeightRegular,
     },
     plot: {
-        width: '600px',
+        width: '500px',
         height: '500px',
         justifyContent:'center',
         alignItems: 'center',
@@ -119,35 +102,23 @@ export default function ROC_Prec_Recall(props){
     }]
     
     return(
-        
-             <div className="row">
-                 <div className="col">
-                 <Plot className={classes.plot}
-                        data={[
-                            {type: 'scatter', x: x, y: y},
-                        ]}
-                        layout={ { 
-                            title: plot_title,
-                            align:'center', 
-                            sliders:slider,
-                            updatemenus:updatemenus
-                        } }
-                        config={ {
-                            scrollZoom:true,
-                            responsive:true
-                        } }
-                        
-                        onButtonClicked={handleBeginClick}
-                        onSliderChange={handleSliderChangeX}
-                    />
-                 </div>
-             
-                   
-
-                 
-                    
-            </div>
-    
-
+        <Plot className={classes.plot}
+            data={[
+                {type: 'scatter', x: x, y: y},
+            ]}
+            layout={ { 
+                title: plot_title,
+                align:'center', 
+                sliders:slider,
+                updatemenus:updatemenus
+            } }
+            config={ {
+                scrollZoom:true,
+                responsive:true
+            } }
+            
+            onButtonClicked={handleBeginClick}
+            onSliderChange={handleSliderChangeX}
+        />
     );
 }
