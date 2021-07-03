@@ -53,7 +53,7 @@ function EnhancedTableHead(props) {
           <TableCell
             key={headCell.id}
             align="left"
-            padding='default'
+            padding="default"
             sortDirection={orderBy === headCell.id ? order : false}
           >
             <TableSortLabel
@@ -97,9 +97,14 @@ const EnhancedTableToolbar = (props) => {
 
   return (
     <Toolbar className={classes.root}>
-        <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
-            <strong>{props.tabletitle}</strong>
-        </Typography>
+      <Typography
+        className={classes.title}
+        variant="h6"
+        id="tableTitle"
+        component="div"
+      >
+        <strong>{props.tabletitle}</strong>
+      </Typography>
     </Toolbar>
   );
 };
@@ -123,9 +128,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function CompareTable(props) {
-    const rows = props.rows;
+  const rows = props.rows;
 
-    const headCells = props.headCells;
+  const headCells = props.headCells;
 
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
@@ -153,58 +158,54 @@ export default function CompareTable(props) {
     setDense(event.target.checked);
   };
 
-  const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+  const emptyRows =
+    rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
   return (
     <div className={classes.root}>
-        <EnhancedTableToolbar tabletitle={props.tabletitle}/>
-        <TableContainer>
-          <Table
-            aria-labelledby="tableTitle"
-            size={dense ? 'small' : 'medium'}
-            aria-label="enhanced table"
-          >
-            <EnhancedTableHead
-              classes={classes}
-              order={order}
-              orderBy={orderBy}
-              onRequestSort={handleRequestSort}
-              headCells={headCells}
-            />
-            <TableBody>
-              {stableSort(rows, getComparator(order, orderBy))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row, index) => {
-
-                  return (
-                    <TableRow
-                      hover
-                      tabIndex={-1}
-                      key={index}
-                    >
-                      {headCells.map((cell, index) => 
-                        <TableCell aligin="center">{row[cell.id]}</TableCell>
-                      )}
-                    </TableRow>
-                  );
-                })}
-              {emptyRows > 0 && (
-                <TableRow style={{ height: (dense ? 33 : 53) * emptyRows }}>
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={rows.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onChangePage={handleChangePage}
-          onChangeRowsPerPage={handleChangeRowsPerPage}
-        />
+      <EnhancedTableToolbar tabletitle={props.tabletitle} />
+      <TableContainer>
+        <Table
+          aria-labelledby="tableTitle"
+          size={dense ? 'small' : 'medium'}
+          aria-label="enhanced table"
+        >
+          <EnhancedTableHead
+            classes={classes}
+            order={order}
+            orderBy={orderBy}
+            onRequestSort={handleRequestSort}
+            headCells={headCells}
+          />
+          <TableBody>
+            {stableSort(rows, getComparator(order, orderBy))
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((row, index) => {
+                return (
+                  <TableRow hover tabIndex={-1} key={index}>
+                    {headCells.map((cell, index) => (
+                      <TableCell aligin="center">{row[cell.id]}</TableCell>
+                    ))}
+                  </TableRow>
+                );
+              })}
+            {emptyRows > 0 && (
+              <TableRow style={{ height: (dense ? 33 : 53) * emptyRows }}>
+                <TableCell colSpan={6} />
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <TablePagination
+        rowsPerPageOptions={[5, 10, 25]}
+        component="div"
+        count={rows.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onChangePage={handleChangePage}
+        onChangeRowsPerPage={handleChangeRowsPerPage}
+      />
       <FormControlLabel
         control={<Switch checked={dense} onChange={handleChangeDense} />}
         label="Dense padding"

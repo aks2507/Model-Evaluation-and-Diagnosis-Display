@@ -20,8 +20,8 @@ const StyledTableCell = withStyles((theme) => ({
 
 const useStyles = makeStyles({
   table: {
-    width:"100%",
-    margin:"auto",
+    width: '100%',
+    margin: 'auto',
   },
 });
 
@@ -37,47 +37,44 @@ export default function ModelInfo(props) {
   let final_keys = [];
   let final_values = [];
   const rows = [];
-  for(let i=0;i<k.length;i++){
-    if(v[i])
-      v[i] = v[i].toString();
-    else
-      v[i] = "null";
-    if(v[i].length < 20){
+  for (let i = 0; i < k.length; i++) {
+    if (v[i]) v[i] = v[i].toString();
+    else v[i] = 'null';
+    if (v[i].length < 20) {
       final_keys.push(k[i]);
       final_values.push(v[i]);
     }
-  
   }
 
-  for(let i=0;i<final_keys.length;i++){
+  for (let i = 0; i < final_keys.length; i++) {
     rows.push(createData(final_keys[i], final_values[i]));
   }
 
   return (
     <div>
-      {props.standalone === 0 ? (
-        null
-      ) : (
+      {props.standalone === 0 ? null : (
         <div>
           <h2>User Specified hyperparameters: </h2>
-          <h3 style={{color: 'blue'}}>{props.modelName}:</h3>
-          {(props.hyperparameters == null || Object.keys(props.hyperparameters).length === 0) ? (
-            <i><h4>All hyperparametrs have default values</h4></i>
-          ):(
+          <h3 style={{ color: 'blue' }}>{props.modelName}:</h3>
+          {props.hyperparameters == null ||
+          Object.keys(props.hyperparameters).length === 0 ? (
+            <i>
+              <h4>All hyperparametrs have default values</h4>
+            </i>
+          ) : (
             <ol>
-              {Object.keys(props.hyperparameters).map((key, index) => 
+              {Object.keys(props.hyperparameters).map((key, index) => (
                 <h4>
                   <li key={index}>
                     {key} = {props.hyperparameters[key]}
                   </li>
                 </h4>
-              )}
+              ))}
             </ol>
           )}
-          
         </div>
       )}
-      
+
       <div>
         <h2>All hyperparameters: </h2>
         <Paper elevation={5}>
@@ -85,8 +82,10 @@ export default function ModelInfo(props) {
             <Table className={classes.table} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                    <StyledTableCell align="center">Parameter or Attribute</StyledTableCell>
-                    <StyledTableCell align="center">Value</StyledTableCell>
+                  <StyledTableCell align="center">
+                    Parameter or Attribute
+                  </StyledTableCell>
+                  <StyledTableCell align="center">Value</StyledTableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -104,4 +103,3 @@ export default function ModelInfo(props) {
     </div>
   );
 }
-

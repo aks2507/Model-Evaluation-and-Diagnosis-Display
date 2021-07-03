@@ -30,6 +30,8 @@
     "start": "react-scripts --max_old_space_size=4096 start",
     "start-api": "cd ../api && flask run --no-debugger",
     "build": "react-scripts --max_old_space_size=4096 build",
+    "format": "prettier-eslint --eslint-config-path ./.eslintrc.js --write '**/*.js'",
+    "lint": "eslint . --ext .js",
     "test": "react-scripts --max_old_space_size=4096 test",
     "eject": "react-scripts --max_old_space_size=4096 eject"
   },
@@ -51,5 +53,10 @@
       "last 1 safari version"
     ]
   },
-    "proxy": "http://localhost:5000/"
+  "proxy": "http://localhost:5000/",
+  "devDependencies": {
+    "prettier": "^2.3.2",
+    "prettier-eslint": "^12.0.0",
+    "prettier-eslint-cli": "^5.0.1"
+  }
 }

@@ -38,9 +38,9 @@ function ElevationScroll(props) {
 export default function Navbar(props) {
   const classes = useStyles();
 
-    const handleHomeRedirect = () => {
-        window.location.replace("/");
-    }
+  const handleHomeRedirect = () => {
+    window.location.replace('/');
+  };
 
   return (
     <div className={classes.root}>
@@ -48,13 +48,20 @@ export default function Navbar(props) {
       <ElevationScroll {...props}>
         <AppBar>
           <Toolbar>
-            <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+            <IconButton
+              edge="start"
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="menu"
+            >
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" className={classes.title}>
               Model Evaluation And Visualization
             </Typography>
-            <Button color="inherit" onClick={handleHomeRedirect}>Home</Button>
+            <Button color="inherit" onClick={handleHomeRedirect}>
+              Home
+            </Button>
           </Toolbar>
         </AppBar>
       </ElevationScroll>

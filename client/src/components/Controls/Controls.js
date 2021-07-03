@@ -1,9 +1,9 @@
-import Input from "./Input";
-import Select from "./Select";
+import Input from './Input';
+import Select from './Select';
 
 const Controls = {
-    Input,
-    Select,
-}
+  Input,
+  Select,
+};
 
 export default Controls;

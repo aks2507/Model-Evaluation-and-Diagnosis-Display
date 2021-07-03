@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
@@ -20,13 +20,27 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Button from '@material-ui/core/Button';
-import {Grid, InputAdornment, Dialog, DialogActions,
-  DialogContent, DialogContentText, DialogTitle} from '@material-ui/core';
-import Navbar from '../components/Navbar'; 
+import {
+  Grid,
+  InputAdornment,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from '@material-ui/core';
+import Navbar from '../components/Navbar';
 import Controls from '../components/Controls/Controls';
-import {Search} from '@material-ui/icons';
+import { Search } from '@material-ui/icons';
 
-function createData(eval_id, name, model_type, model_name, dataset_name, date_created) {
+function createData(
+  eval_id,
+  name,
+  model_type,
+  model_name,
+  dataset_name,
+  date_created
+) {
   return { eval_id, name, model_type, model_name, dataset_name, date_created };
 }
 function descendingComparator(a, b, orderBy) {
@@ -55,8 +69,8 @@ function stableSort(array, comparator) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-const VisualizeHandler = (eval_id) => async(e) => {
-  window.location.replace("/evaluationReport/"+eval_id);
+const VisualizeHandler = (eval_id) => async (e) => {
+  window.location.replace('/evaluationReport/' + eval_id);
 };
 
 function countUnique(iterable) {
@@ -64,21 +78,59 @@ function countUnique(iterable) {
 }
 
 const headCells = [
-  { id: 'eval_id', numeric: true, disablePadding: false, label: 'Evaluation ID' },
-  { id: 'name', numeric: false, disablePadding: false, label: 'Evaluation Name' },
-  { id: 'model_type', numeric: false, disablePadding: false, label: 'Model Type' },
-  { id: 'model_name', numeric: false, disablePadding: false, label: 'Model Name' },
-  { id: 'dataset_name', numeric: false, disablePadding: false, label: 'Dataset' },
-  { id: 'date_created', numeric: false, disablePadding: false, label: 'Date Created' },
+  {
+    id: 'eval_id',
+    numeric: true,
+    disablePadding: false,
+    label: 'Evaluation ID',
+  },
+  {
+    id: 'name',
+    numeric: false,
+    disablePadding: false,
+    label: 'Evaluation Name',
+  },
+  {
+    id: 'model_type',
+    numeric: false,
+    disablePadding: false,
+    label: 'Model Type',
+  },
+  {
+    id: 'model_name',
+    numeric: false,
+    disablePadding: false,
+    label: 'Model Name',
+  },
+  {
+    id: 'dataset_name',
+    numeric: false,
+    disablePadding: false,
+    label: 'Dataset',
+  },
+  {
+    id: 'date_created',
+    numeric: false,
+    disablePadding: false,
+    label: 'Date Created',
+  },
 ];
 
-function EnhancedTableHead(props){
-  const { classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
+function EnhancedTableHead(props) {
+  const {
+    classes,
+    onSelectAllClick,
+    order,
+    orderBy,
+    numSelected,
+    rowCount,
+    onRequestSort,
+  } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
 
-  return(
+  return (
     <TableHead>
       <TableRow>
         <TableCell padding="checkbox">
@@ -89,42 +141,41 @@ function EnhancedTableHead(props){
             inputProps={{ 'aria-label': 'select all evaluations' }}
           />
         </TableCell>
-          {headCells.map((headCell) => (
-            <TableCell
-              key={headCell.id}
-              align='center'
-              padding={headCell.disablePadding ? 'none' : 'default'}
-              sortDirection={orderBy === headCell.id ? order : false}
+        {headCells.map((headCell) => (
+          <TableCell
+            key={headCell.id}
+            align="center"
+            padding={headCell.disablePadding ? 'none' : 'default'}
+            sortDirection={orderBy === headCell.id ? order : false}
+          >
+            <TableSortLabel
+              active={orderBy === headCell.id}
+              direction={orderBy === headCell.id ? order : 'asc'}
+              onClick={createSortHandler(headCell.id)}
             >
-              <TableSortLabel
-                active={orderBy === headCell.id}
-                direction={orderBy === headCell.id ? order : 'asc'}
-                onClick={createSortHandler(headCell.id)}
-              >
-                <strong>{headCell.label}</strong>
-                {orderBy === headCell.id ? (
-                  <span className={classes.visuallyHidden}>
-                    {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                  </span>
-                ) : null}
-              </TableSortLabel>
-            </TableCell>
-          ))}
-        </TableRow>
-      </TableHead>
-    );
+              <strong>{headCell.label}</strong>
+              {orderBy === headCell.id ? (
+                <span className={classes.visuallyHidden}>
+                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                </span>
+              ) : null}
+            </TableSortLabel>
+          </TableCell>
+        ))}
+      </TableRow>
+    </TableHead>
+  );
+}
 
-};
-
-function DeleteAlert(props){
+function DeleteAlert(props) {
   function createDeleteData(eval_id, evaluation) {
     return { eval_id, evaluation };
   }
   const rows = [];
-  
+
   let evals = props.evaluationList;
-  for(let i=0;i<evals.length;i++){
-    rows.push(createDeleteData(props.selectedList[i],evals[i]));
+  for (let i = 0; i < evals.length; i++) {
+    rows.push(createDeleteData(props.selectedList[i], evals[i]));
   }
   return (
     <Dialog
@@ -139,40 +190,46 @@ function DeleteAlert(props){
       onClose={props.handleClose}
       closeAfterTransition
     >
-      <DialogTitle id="scroll-dialog-title" style={{color:'red'}}>Delete Evaluations</DialogTitle>
-      <DialogContent style={{alignItems:'center', justifyContent:'center',}}>
-          <DialogContentText id="scroll-dialog-description" >
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                You are about to delete the following evaluations:
-              </Grid>
-              <Grid item xs={12}>
-                <TableContainer component={Paper}>
-                  <Table aria-label="simple table">
-                    <TableHead>
-                      <TableRow>
-                        <TableCell align="center">Evaluation ID</TableCell>
-                        <TableCell align="center">Evaluation</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {rows.map((row) => (
-                        <TableRow key={row.name}>
-                          <TableCell align="center" component="th" scope="row">
-                            {row.eval_id}
-                          </TableCell>
-                          <TableCell align="center">{row.evaluation}</TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </Grid>
+      <DialogTitle id="scroll-dialog-title" style={{ color: 'red' }}>
+        Delete Evaluations
+      </DialogTitle>
+      <DialogContent style={{ alignItems: 'center', justifyContent: 'center' }}>
+        <DialogContentText id="scroll-dialog-description">
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              You are about to delete the following evaluations:
             </Grid>
-          </DialogContentText>
+            <Grid item xs={12}>
+              <TableContainer component={Paper}>
+                <Table aria-label="simple table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell align="center">Evaluation ID</TableCell>
+                      <TableCell align="center">Evaluation</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {rows.map((row) => (
+                      <TableRow key={row.name}>
+                        <TableCell align="center" component="th" scope="row">
+                          {row.eval_id}
+                        </TableCell>
+                        <TableCell align="center">{row.evaluation}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Grid>
+          </Grid>
+        </DialogContentText>
       </DialogContent>
-      <DialogActions style={{alignItems:'center', justifyContent:'center',}}>
-        <Grid container spacing={2} style={{alignItems:'center', justifyContent:'center',}}>
+      <DialogActions style={{ alignItems: 'center', justifyContent: 'center' }}>
+        <Grid
+          container
+          spacing={2}
+          style={{ alignItems: 'center', justifyContent: 'center' }}
+        >
           <Grid item xs={6} sm={3}>
             <Button
               fullWidth
@@ -197,7 +254,7 @@ function DeleteAlert(props){
           </Grid>
         </Grid>
       </DialogActions>
-  </Dialog>
+    </Dialog>
   );
 }
 
@@ -233,37 +290,44 @@ const useToolbarStyles = makeStyles((theme) => ({
   },
   rowC: {
     flex: '1 6 100%',
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
 }));
 
 const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles();
-  const { numSelected, selectedList, modelTypeList, datasetIDList, modelIDList, rows} = props;
-  let evaluationList = rows.filter(element => selectedList.includes(element.eval_id)).map(element => element.name);
-  const onDeleteIconHandler = async(e) => {
+  const {
+    numSelected,
+    selectedList,
+    modelTypeList,
+    datasetIDList,
+    modelIDList,
+    rows,
+  } = props;
+  let evaluationList = rows
+    .filter((element) => selectedList.includes(element.eval_id))
+    .map((element) => element.name);
+  const onDeleteIconHandler = async (e) => {
     e.preventDefault();
     let i;
-    for(i=0;i<selectedList.length;i++)
-    {
-      await axios.delete("/modelEvaluations/"+selectedList[i]).then(() => {window.location.replace("/");});
+    for (i = 0; i < selectedList.length; i++) {
+      await axios.delete('/modelEvaluations/' + selectedList[i]).then(() => {
+        window.location.replace('/');
+      });
     }
   };
   const [deleteOpen, setDeleteOpen] = React.useState(false);
   const handleDeleteOpen = () => {
-      setDeleteOpen(true);
+    setDeleteOpen(true);
   };
   const handleDeleteClose = () => {
-      setDeleteOpen(false);
+    setDeleteOpen(false);
   };
 
-
-
-  const CompareHandler = eval_ids => async(e) => {
-    if(countUnique(datasetIDList)===1) 
-      window.location.replace("/comparison/"+eval_ids.toString());
-    else
-      window.location.replace("/comparisonDatasets/"+eval_ids.toString());
+  const CompareHandler = (eval_ids) => async (e) => {
+    if (countUnique(datasetIDList) === 1)
+      window.location.replace('/comparison/' + eval_ids.toString());
+    else window.location.replace('/comparisonDatasets/' + eval_ids.toString());
   };
 
   return (
@@ -273,62 +337,64 @@ const EnhancedTableToolbar = (props) => {
       })}
     >
       {numSelected > 0 ? (
-        <Typography className={classes.title} color="inherit" variant="subtitle1" component="div">
+        <Typography
+          className={classes.title}
+          color="inherit"
+          variant="subtitle1"
+          component="div"
+        >
           {numSelected} selected
         </Typography>
       ) : (
-        <Typography  className={classes.title} variant="h4" id="tableTitle" component="div">
-            Evaluations List
+        <Typography
+          className={classes.title}
+          variant="h4"
+          id="tableTitle"
+          component="div"
+        >
+          Evaluations List
         </Typography>
       )}
 
       {numSelected > 0 ? (
         <div className={classes.rowC}>
-            
-            {numSelected < 2 
-            || (countUnique(modelTypeList) > 1 && countUnique(datasetIDList) !== 1 ) 
-            || (countUnique(datasetIDList) > 1 && countUnique(modelIDList) !== 1 ) ? (
-              <Button
-                variant="contained"
-                color="secondary"
-                disabled
-              >
-                Compare
-              </Button>
-            ) : (
-              <Button
-                variant="contained"
-                color="secondary"
-                onClick={CompareHandler(selectedList)}
-              >
-                Compare
-              </Button>
-            )}
+          {numSelected < 2 ||
+          (countUnique(modelTypeList) > 1 &&
+            countUnique(datasetIDList) !== 1) ||
+          (countUnique(datasetIDList) > 1 && countUnique(modelIDList) !== 1) ? (
+            <Button variant="contained" color="secondary" disabled>
+              Compare
+            </Button>
+          ) : (
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={CompareHandler(selectedList)}
+            >
+              Compare
+            </Button>
+          )}
 
-              <IconButton aria-label="delete" onClick={handleDeleteOpen}>
-                <DeleteIcon />
-              </IconButton>
-              <DeleteAlert
-                open={deleteOpen}
-                handleClose={handleDeleteClose}
-                selectedList={selectedList}
-                evaluationList={evaluationList}
-                deleteAction={onDeleteIconHandler}
-              />
-
-
+          <IconButton aria-label="delete" onClick={handleDeleteOpen}>
+            <DeleteIcon />
+          </IconButton>
+          <DeleteAlert
+            open={deleteOpen}
+            handleClose={handleDeleteClose}
+            selectedList={selectedList}
+            evaluationList={evaluationList}
+            deleteAction={onDeleteIconHandler}
+          />
         </div>
-      ) : (
-        null
-      )}
+      ) : null}
     </Toolbar>
   );
 };
 
 const FilterToolbar = (props) => {
   const classes = useToolbarStyles();
-  const { numSelected, children} = props;
-  return(
+  const { numSelected, children } = props;
+  return (
     <Toolbar
       className={clsx(classes.root, {
         [classes.highlight]: numSelected > 0,
@@ -337,11 +403,10 @@ const FilterToolbar = (props) => {
       {numSelected > 0 ? (
         <div></div>
       ) : (
-        <Grid container spacing={2} style={{width: '100%', height: '80%'}}>
+        <Grid container spacing={2} style={{ width: '100%', height: '80%' }}>
           {children}
         </Grid>
       )}
-      
     </Toolbar>
   );
 };
@@ -373,41 +438,43 @@ const useStyles = makeStyles((theme) => ({
     top: 20,
     width: 1,
   },
-  searchInput:{
+  searchInput: {
     width: '450px',
     height: '50px',
-    paddingRight:'50px'
+    paddingRight: '50px',
   },
-  
 }));
 
-export default function Homepage(){
-  const handleAdd = async() => {
-    window.location="/addeval";
+export default function Homepage() {
+  const handleAdd = async () => {
+    window.location = '/addeval';
   };
-  const [data, setData] = useState({evaluation_entities:[]})
+  const [data, setData] = useState({ evaluation_entities: [] });
   const [search, setSearch] = useState(true);
   let rows = [];
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios(
-        '/modelEvaluations'
-      );
+      const result = await axios('/modelEvaluations');
       setData(result.data);
       setSearch(false);
     };
-    if(search)
-      fetchData();
-  },[data,search]);
+    if (search) fetchData();
+  }, [data, search]);
   let i;
-  for(i=0;i<data.evaluation_entities.length;i++)
-  {
-    let k=data.evaluation_entities[i];
-    rows.push(createData(k.eval_id,k.name,k.model_type,k.model.name,k.dataset.name,k.date_created));
+  for (i = 0; i < data.evaluation_entities.length; i++) {
+    let k = data.evaluation_entities[i];
+    rows.push(
+      createData(
+        k.eval_id,
+        k.name,
+        k.model_type,
+        k.model.name,
+        k.dataset.name,
+        k.date_created
+      )
+    );
   }
-  
- 
-  
+
   const classes = useStyles();
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('eval_id');
@@ -418,10 +485,26 @@ export default function Homepage(){
   const [page, setPage] = useState(0);
   const [dense, setDense] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [filterFn, setFilterFn] = useState({fn: items => {return items;}});
-  const [modelTypeFilterFn, setModelTypeFilterFn] = useState({fn: items => {return items;}});
-  const [modelFilterFn, setModelFilterFn] = useState({fn: items => {return items;}});
-  const [datasetFilterFn, setDatasetFilterFn] = useState({fn: items => {return items;}});
+  const [filterFn, setFilterFn] = useState({
+    fn: (items) => {
+      return items;
+    },
+  });
+  const [modelTypeFilterFn, setModelTypeFilterFn] = useState({
+    fn: (items) => {
+      return items;
+    },
+  });
+  const [modelFilterFn, setModelFilterFn] = useState({
+    fn: (items) => {
+      return items;
+    },
+  });
+  const [datasetFilterFn, setDatasetFilterFn] = useState({
+    fn: (items) => {
+      return items;
+    },
+  });
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -433,63 +516,86 @@ export default function Homepage(){
     if (event.target.checked) {
       const newSelecteds = filters(rows).map((n) => n.eval_id);
       const newSelectedsModelTypes = filters(rows).map((n) => n.model_type);
-      const newSelectedsDatasetIDs = filters(rows).map((n, index) => data.evaluation_entities[index].dataset.dataset_id);
-      const newSelectedsModelIDs = filters(rows).map((n, index) => data.evaluation_entities[index].model.model_id);
+      const newSelectedsDatasetIDs = filters(rows).map(
+        (n, index) => data.evaluation_entities[index].dataset.dataset_id
+      );
+      const newSelectedsModelIDs = filters(rows).map(
+        (n, index) => data.evaluation_entities[index].model.model_id
+      );
       setSelected(newSelecteds);
       setSelectedModelType(newSelectedsModelTypes);
       setSelectedDatasetID(newSelectedsDatasetIDs);
       setSelectedModelID(newSelectedsModelIDs);
-    }
-    else{
+    } else {
       setSelected(filters([]));
       setSelectedModelType(filters([]));
       setSelectedDatasetID(filters([]));
       setSelectedModelID(filters([]));
     }
-    
   };
 
   const handleClick = (event, eval_id, model_type, index) => {
     const selectedIndex = selected.indexOf(eval_id);
     let newSelected = [];
     let newSelectedModelType = [];
-    let newSelectedsDatasetID =[];
-    let newSelectedsModelID =[];
-    let entity=data.evaluation_entities.find((p)=>{
-      return p.eval_id===eval_id;
+    let newSelectedsDatasetID = [];
+    let newSelectedsModelID = [];
+    let entity = data.evaluation_entities.find((p) => {
+      return p.eval_id === eval_id;
     });
 
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, eval_id);
-      newSelectedModelType = newSelectedModelType.concat(selectedModelType, model_type);
-      newSelectedsDatasetID = newSelectedsDatasetID.concat(selectedDatasetID, entity.dataset.dataset_id)
-      newSelectedsModelID = newSelectedsModelID.concat(selectedModelID, entity.model.model_id)
+      newSelectedModelType = newSelectedModelType.concat(
+        selectedModelType,
+        model_type
+      );
+      newSelectedsDatasetID = newSelectedsDatasetID.concat(
+        selectedDatasetID,
+        entity.dataset.dataset_id
+      );
+      newSelectedsModelID = newSelectedsModelID.concat(
+        selectedModelID,
+        entity.model.model_id
+      );
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
-      newSelectedModelType = newSelectedModelType.concat(selectedModelType.slice(1));
-      newSelectedsDatasetID = newSelectedsDatasetID.concat(selectedDatasetID.slice(1));
-      newSelectedsModelID = newSelectedsModelID.concat(selectedModelID.slice(1));
+      newSelectedModelType = newSelectedModelType.concat(
+        selectedModelType.slice(1)
+      );
+      newSelectedsDatasetID = newSelectedsDatasetID.concat(
+        selectedDatasetID.slice(1)
+      );
+      newSelectedsModelID = newSelectedsModelID.concat(
+        selectedModelID.slice(1)
+      );
     } else if (selectedIndex === selected.length - 1) {
       newSelected = newSelected.concat(selected.slice(0, -1));
-      newSelectedModelType = newSelectedModelType.concat(selectedModelType.slice(0, -1));
-      newSelectedsDatasetID = newSelectedsDatasetID.concat(selectedDatasetID.slice(0, -1));
-      newSelectedsModelID = newSelectedsModelID.concat(selectedModelID.slice(0, -1));
+      newSelectedModelType = newSelectedModelType.concat(
+        selectedModelType.slice(0, -1)
+      );
+      newSelectedsDatasetID = newSelectedsDatasetID.concat(
+        selectedDatasetID.slice(0, -1)
+      );
+      newSelectedsModelID = newSelectedsModelID.concat(
+        selectedModelID.slice(0, -1)
+      );
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(
         selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1),
+        selected.slice(selectedIndex + 1)
       );
       newSelectedModelType = newSelectedModelType.concat(
         selectedModelType.slice(0, selectedIndex),
-        selectedModelType.slice(selectedIndex + 1),
+        selectedModelType.slice(selectedIndex + 1)
       );
       newSelectedsDatasetID = newSelectedsDatasetID.concat(
         selectedDatasetID.slice(0, selectedIndex),
-        selectedDatasetID.slice(selectedIndex + 1),
+        selectedDatasetID.slice(selectedIndex + 1)
       );
       newSelectedsModelID = newSelectedsModelID.concat(
         selectedModelID.slice(0, selectedIndex),
-        selectedModelID.slice(selectedIndex + 1),
+        selectedModelID.slice(selectedIndex + 1)
       );
     }
 
@@ -511,99 +617,94 @@ export default function Homepage(){
   const handleChangeDense = (event) => {
     setDense(event.target.checked);
   };
-  
-  const handleSearch = e => {
+
+  const handleSearch = (e) => {
     let target = e.target;
     setFilterFn({
-      fn: items => {
-        if(target.value==="")
-          return items;
+      fn: (items) => {
+        if (target.value === '') return items;
         else
-          return items.filter(x => x.name.toLowerCase().includes(target.value));
-      }
-    })
+          return items.filter((x) =>
+            x.name.toLowerCase().includes(target.value)
+          );
+      },
+    });
   };
 
-  const handleModelTypeChange = e => {
+  const handleModelTypeChange = (e) => {
     let target = e.target;
     setModelTypeFilterFn({
-      fn: items => {
-        if(target.value === "")
-          return items;
+      fn: (items) => {
+        if (target.value === '') return items;
         else
-          return items.filter(x => x.model_type.toLowerCase().includes(target.value));
-      }
+          return items.filter((x) =>
+            x.model_type.toLowerCase().includes(target.value)
+          );
+      },
     });
   };
-  const handleModelChange = e => {
+  const handleModelChange = (e) => {
     let target = e.target;
     setModelFilterFn({
-      fn: items => {
-        if(target.value === "")
-          return items;
-        else
-          return items.filter(x => x.model_name.includes(target.value));
-      }
+      fn: (items) => {
+        if (target.value === '') return items;
+        else return items.filter((x) => x.model_name.includes(target.value));
+      },
     });
   };
-  const handleDatasetChange = e => {
+  const handleDatasetChange = (e) => {
     let target = e.target;
     setDatasetFilterFn({
-      fn: items => {
-        if(target.value === "")
-          return items;
-        else
-          return items.filter(x => x.dataset_name.includes(target.value));
-      }
+      fn: (items) => {
+        if (target.value === '') return items;
+        else return items.filter((x) => x.dataset_name.includes(target.value));
+      },
     });
   };
 
   const filters = (items) => {
-    return filterFn.fn(modelTypeFilterFn.fn(modelFilterFn.fn(datasetFilterFn.fn(items))));
+    return filterFn.fn(
+      modelTypeFilterFn.fn(modelFilterFn.fn(datasetFilterFn.fn(items)))
+    );
   };
 
   const isSelected = (eval_id) => selected.indexOf(eval_id) !== -1;
 
-  const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+  const emptyRows =
+    rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
   return (
     <div className={classes.root}>
-      <Navbar/>
+      <Navbar />
       <Paper className={classes.paper}>
-        <EnhancedTableToolbar 
-          numSelected={selected.length} 
-          selectedList={selected} 
+        <EnhancedTableToolbar
+          numSelected={selected.length}
+          selectedList={selected}
           modelTypeList={selectedModelType}
           datasetIDList={selectedDatasetID}
-          modelIDList={selectedModelID} 
+          modelIDList={selectedModelID}
           rows={rows}
-        >
-          
-        </EnhancedTableToolbar>
+        ></EnhancedTableToolbar>
         <FilterToolbar>
-          
-            
-                <Controls.Input 
-                  className={classes.searchInput}
-                  label="Search Evaluations"
-                  InputProps= {{
-                    startAdornment:(
-                      <InputAdornment position="start">
-                        <Search />
-                      </InputAdornment>
-                    )
-                  }}
-                  onChange={handleSearch}
-                />
-            
-            
-                <Controls.Select 
-                  className={classes.searchSelect}
-                  options={rows}
-                  onModelTypeChange={handleModelTypeChange}
-                  onModelChange={handleModelChange}
-                  onDatasetChange={handleDatasetChange}
-                />
-    
+          <Controls.Input
+            className={classes.searchInput}
+            label="Search Evaluations"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Search />
+                </InputAdornment>
+              ),
+            }}
+            onChange={handleSearch}
+          />
+
+          <Controls.Select
+            className={classes.searchSelect}
+            options={rows}
+            onModelTypeChange={handleModelTypeChange}
+            onModelChange={handleModelChange}
+            onDatasetChange={handleDatasetChange}
+          />
         </FilterToolbar>
         <TableContainer>
           <Table
@@ -631,7 +732,9 @@ export default function Homepage(){
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.eval_id, row.model_type, index)}
+                      onClick={(event) =>
+                        handleClick(event, row.eval_id, row.model_type, index)
+                      }
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
@@ -644,20 +747,21 @@ export default function Homepage(){
                           inputProps={{ 'aria-labelledby': labelId }}
                         />
                       </TableCell>
-                      <TableCell component="th" id={labelId} scope="row" align="center">
-                        
-                        <Button 
-                          variant="contained" 
-                          style={{textTransform: 'none'}} 
+                      <TableCell
+                        component="th"
+                        id={labelId}
+                        scope="row"
+                        align="center"
+                      >
+                        <Button
+                          variant="contained"
+                          style={{ textTransform: 'none' }}
                           onClick={VisualizeHandler(row.eval_id)}
                         >
-                        {row.eval_id}
+                          {row.eval_id}
                         </Button>
-                       
                       </TableCell>
-                      <TableCell align="center">
-                          {row.name}
-                      </TableCell>
+                      <TableCell align="center">{row.name}</TableCell>
                       <TableCell align="center">{row.model_type}</TableCell>
                       <TableCell align="center">{row.model_name}</TableCell>
                       <TableCell align="center">{row.dataset_name}</TableCell>
@@ -688,8 +792,12 @@ export default function Homepage(){
         label="Dense padding"
       />
       <div className="text-center">
-
-        <Button variant="contained" color="primary" size="large" onClick={handleAdd}>
+        <Button
+          variant="contained"
+          color="primary"
+          size="large"
+          onClick={handleAdd}
+        >
           Add Evaluation
         </Button>
       </div>

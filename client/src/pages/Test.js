@@ -43,7 +43,7 @@
 //     const handleClick = (event) => {
 //       setAnchorEl(event.currentTarget);
 //     };
-  
+
 //     const handleClose = (event, newValue) => {
 //       setAnchorEl(null);
 //       handleChange(newValue);
@@ -61,7 +61,7 @@
 //       <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
 //         Open Menu
 //       </Button>
-//         <Menu 
+//         <Menu
 //             anchorEl={anchorEl}
 //             keepMounted
 //             open={Boolean(anchorEl)}
@@ -88,14 +88,12 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
-import {MenuItem, Box, Typography} from '@material-ui/core';
+import { MenuItem, Box, Typography } from '@material-ui/core';
 function MenuPanel(props) {
   const { children, value, index } = props;
 
   return (
-    <div
-      hidden={value !== index}
-    >
+    <div hidden={value !== index}>
       {value === index && (
         <Box p={3}>
           <Typography>{children}</Typography>
@@ -120,7 +118,11 @@ export default function SimpleMenu() {
 
   return (
     <div>
-      <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+      <Button
+        aria-controls="simple-menu"
+        aria-haspopup="true"
+        onClick={handleClick}
+      >
         Open Menu
       </Button>
       <Menu
@@ -134,12 +136,12 @@ export default function SimpleMenu() {
         <MenuItem onClick={handleClose(1)}>My account</MenuItem>
       </Menu>
       <div>
-          <MenuPanel value={value} index={0} >
-              Item 1
-          </MenuPanel>
-          <MenuPanel value={value} index={1}>
-              Item 2
-          </MenuPanel>
+        <MenuPanel value={value} index={0}>
+          Item 1
+        </MenuPanel>
+        <MenuPanel value={value} index={1}>
+          Item 2
+        </MenuPanel>
       </div>
     </div>
   );

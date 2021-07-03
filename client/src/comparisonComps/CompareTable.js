@@ -11,7 +11,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import {Paper, Box} from '@material-ui/core';
+import { Paper, Box } from '@material-ui/core';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 
@@ -54,7 +54,7 @@ function EnhancedTableHead(props) {
           <TableCell
             key={headCell.id}
             align="center"
-            padding='default'
+            padding="default"
             sortDirection={orderBy === headCell.id ? order : false}
           >
             <TableSortLabel
@@ -98,9 +98,14 @@ const EnhancedTableToolbar = () => {
 
   return (
     <Toolbar className={classes.root}>
-        <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
-            <strong>Metrics Comparison</strong>
-        </Typography>
+      <Typography
+        className={classes.title}
+        variant="h6"
+        id="tableTitle"
+        component="div"
+      >
+        <strong>Metrics Comparison</strong>
+      </Typography>
     </Toolbar>
   );
 };
@@ -130,29 +135,68 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function CompareTable(props) {
-    const rows = props.rows;
-    const model_type = props.model_type;
+  const rows = props.rows;
+  const model_type = props.model_type;
 
-    const headCells = model_type === "regression" ? (
-        [
-            { id: 'name', numeric: false, disablePadding: false, label: 'Evaluation' },
-            { id: 'mae', numeric: true, disablePadding: false, label: 'MAE' },
-            { id: 'mse', numeric: true, disablePadding: false, label: 'MSE' },
-            { id: 'rmse', numeric: true, disablePadding: false, label: 'RMSE' },
-            { id: 'rmsle', numeric: true, disablePadding: false, label: 'RMSLE' },
-            { id: 'r2', numeric: true, disablePadding: false, label: 'R-Squared' },
-            { id: 'ar2', numeric: true, disablePadding: false, label: 'Adjusted R^2' },
+  const headCells =
+    model_type === 'regression'
+      ? [
+          {
+            id: 'name',
+            numeric: false,
+            disablePadding: false,
+            label: 'Evaluation',
+          },
+          { id: 'mae', numeric: true, disablePadding: false, label: 'MAE' },
+          { id: 'mse', numeric: true, disablePadding: false, label: 'MSE' },
+          { id: 'rmse', numeric: true, disablePadding: false, label: 'RMSE' },
+          { id: 'rmsle', numeric: true, disablePadding: false, label: 'RMSLE' },
+          {
+            id: 'r2',
+            numeric: true,
+            disablePadding: false,
+            label: 'R-Squared',
+          },
+          {
+            id: 'ar2',
+            numeric: true,
+            disablePadding: false,
+            label: 'Adjusted R^2',
+          },
         ]
-    ) : (
-        [
-            { id: 'name', numeric: false, disablePadding: false, label: 'Evaluation' },
-            { id: 'acc', numeric: true, disablePadding: false, label: 'Accuracy' },
-            { id: 'prec', numeric: true, disablePadding: false, label: 'Precision' },
-            { id: 'recall', numeric: true, disablePadding: false, label: 'Recall' },
-            { id: 'f1', numeric: true, disablePadding: false, label: 'F1-Score' },
-            { id: 'logloss', numeric: true, disablePadding: false, label: 'Log-Loss' },
-        ]
-    );
+      : [
+          {
+            id: 'name',
+            numeric: false,
+            disablePadding: false,
+            label: 'Evaluation',
+          },
+          {
+            id: 'acc',
+            numeric: true,
+            disablePadding: false,
+            label: 'Accuracy',
+          },
+          {
+            id: 'prec',
+            numeric: true,
+            disablePadding: false,
+            label: 'Precision',
+          },
+          {
+            id: 'recall',
+            numeric: true,
+            disablePadding: false,
+            label: 'Recall',
+          },
+          { id: 'f1', numeric: true, disablePadding: false, label: 'F1-Score' },
+          {
+            id: 'logloss',
+            numeric: true,
+            disablePadding: false,
+            label: 'Log-Loss',
+          },
+        ];
 
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
@@ -180,7 +224,8 @@ export default function CompareTable(props) {
     setDense(event.target.checked);
   };
 
-  const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+  const emptyRows =
+    rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
   return (
     <div className={classes.root}>
@@ -208,34 +253,28 @@ export default function CompareTable(props) {
                     const labelId = `enhanced-table-checkbox-${index}`;
 
                     return (
-                      <TableRow
-                        hover
-                        tabIndex={-1}
-                        key={row.evalName}
-                      >
-                        
+                      <TableRow hover tabIndex={-1} key={row.evalName}>
                         <TableCell align="center" id={labelId} scope="row">
                           {row.evalName}
                         </TableCell>
-                        {model_type === "regression" ? (
-                              <>
-                                  <TableCell align="center">{row.mae}</TableCell>
-                                  <TableCell align="center">{row.mse}</TableCell>
-                                  <TableCell align="center">{row.rmse}</TableCell>
-                                  <TableCell align="center">{row.rmsle}</TableCell>
-                                  <TableCell align="center">{row.r2}</TableCell>
-                                  <TableCell align="center">{row.ar2}</TableCell>
-                              </>
+                        {model_type === 'regression' ? (
+                          <>
+                            <TableCell align="center">{row.mae}</TableCell>
+                            <TableCell align="center">{row.mse}</TableCell>
+                            <TableCell align="center">{row.rmse}</TableCell>
+                            <TableCell align="center">{row.rmsle}</TableCell>
+                            <TableCell align="center">{row.r2}</TableCell>
+                            <TableCell align="center">{row.ar2}</TableCell>
+                          </>
                         ) : (
                           <>
-                              <TableCell align="center">{row.acc}</TableCell>
-                              <TableCell align="center">{row.prec}</TableCell>
-                              <TableCell align="center">{row.recall}</TableCell>
-                              <TableCell align="center">{row.f1}</TableCell>
-                              <TableCell align="center">{row.logloss}</TableCell>
+                            <TableCell align="center">{row.acc}</TableCell>
+                            <TableCell align="center">{row.prec}</TableCell>
+                            <TableCell align="center">{row.recall}</TableCell>
+                            <TableCell align="center">{row.f1}</TableCell>
+                            <TableCell align="center">{row.logloss}</TableCell>
                           </>
                         )}
-                        
                       </TableRow>
                     );
                   })}
@@ -262,8 +301,6 @@ export default function CompareTable(props) {
           />
         </Box>
       </Paper>
-
-      
     </div>
   );
 }

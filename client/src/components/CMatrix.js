@@ -25,14 +25,13 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
   },
   plot: {
-    width:"90%",
-    alignItems: "center",
-    justifyContent: "center",
+    width: '90%',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 }));
 
-
-export default function Confusion_matrix(props){
+export default function Confusion_matrix(props) {
   let z = props.cmatrix;
   const x = [];
   const y = [];
@@ -42,105 +41,112 @@ export default function Confusion_matrix(props){
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
-  for(i=0;i<props.cmatrix.length;i++)
-  {
+  for (i = 0; i < props.cmatrix.length; i++) {
     let k = props.cmatrix.length - i - 1;
-    let c2 = "Class: "+k;
+    let c2 = 'Class: ' + k;
     x.push(c2);
     y.push(c2);
   }
   x.reverse();
-  let n=z.length;
-  let m=z.length;
-  let cmatrix=[];
-  for(i=0;i<n;i++){
-    let k=[];
-    for(let j=0;j<m;j++) k.push(0);
+  let n = z.length;
+  let m = z.length;
+  let cmatrix = [];
+  for (i = 0; i < n; i++) {
+    let k = [];
+    for (let j = 0; j < m; j++) k.push(0);
     cmatrix.push(k);
   }
 
-  n=z.length;
-  m=z.length;
-  for(i=0;i<n;i++)
-  {
-    for(let j=0;j<m;j++)
-    {
-      cmatrix[i][j]=z[n-i-1][j];
+  n = z.length;
+  m = z.length;
+  for (i = 0; i < n; i++) {
+    for (let j = 0; j < m; j++) {
+      cmatrix[i][j] = z[n - i - 1][j];
     }
   }
 
   const classes = useStyles();
-  return(
+  return (
     <Grid container xs={12}>
-      <Grid item xs={12}><Paper elevation={5}>
-        <Box mb={3}>
-
-      
-        <Details
-            area={1}
-            name={props.name}
-            model_type={props.model_type}
-            date_created={props.date_created}
-            datasetinfo={props.datasetinfo}
-            modelinfo={props.modelinfo}
-        />
+      <Grid item xs={12}>
+        <Paper elevation={5}>
+          <Box mb={3}>
+            <Details
+              area={1}
+              name={props.name}
+              model_type={props.model_type}
+              date_created={props.date_created}
+              datasetinfo={props.datasetinfo}
+              modelinfo={props.modelinfo}
+            />
           </Box>
-      </Paper>
+        </Paper>
       </Grid>
 
-        <Grid item xs={12} className={classes.root}>
-          <Paper elevation={5}>
-            <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1bh-content"
-                id="panel1bh-header"
-              >
-                <Typography className={classes.heading}>Confusion Matrix Table</Typography>
-                <Typography className={classes.secondaryHeading} >Tabular View</Typography>
-              </AccordionSummary>
-              <AccordionDetails>
-                <Typography>
-                  <CMatrixTable matrix={z}></CMatrixTable>
-                </Typography>
-              </AccordionDetails>
-            </Accordion>
-          </Paper>
-        </Grid>
-        <Grid item xs={12} className={classes.root}>
-          <Paper elevation={5}>
-            <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel2bh-content"
-                id="panel2bh-header"
-              >
-                <Typography className={classes.heading}>Confusion Matrix Heatmap</Typography>
-                <Typography className={classes.secondaryHeading}>
-                  Heatmap view
-                </Typography>
-              </AccordionSummary>
-              <AccordionDetails>
-                <Typography>
-                  <div className="row">
-                    <Box ml={20}>
-                      <Plot className={classes.plot}
-                        data={[
-                          {type: 'heatmap', x: x, y: y, z: cmatrix},
-                        ]}
-                        layout={ {title: "Confusion Matrix"} }
-                        config={ {
-                          scrollZoom:true,
-                          respnsive:true
-                        } }
-                      />
-                    </Box>
-                  </div>
-                </Typography>
-              </AccordionDetails>
-            </Accordion>
-          </Paper>
-        </Grid>
+      <Grid item xs={12} className={classes.root}>
+        <Paper elevation={5}>
+          <Accordion
+            expanded={expanded === 'panel1'}
+            onChange={handleChange('panel1')}
+          >
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1bh-content"
+              id="panel1bh-header"
+            >
+              <Typography className={classes.heading}>
+                Confusion Matrix Table
+              </Typography>
+              <Typography className={classes.secondaryHeading}>
+                Tabular View
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography>
+                <CMatrixTable matrix={z}></CMatrixTable>
+              </Typography>
+            </AccordionDetails>
+          </Accordion>
+        </Paper>
+      </Grid>
+      <Grid item xs={12} className={classes.root}>
+        <Paper elevation={5}>
+          <Accordion
+            expanded={expanded === 'panel2'}
+            onChange={handleChange('panel2')}
+          >
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel2bh-content"
+              id="panel2bh-header"
+            >
+              <Typography className={classes.heading}>
+                Confusion Matrix Heatmap
+              </Typography>
+              <Typography className={classes.secondaryHeading}>
+                Heatmap view
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography>
+                <div className="row">
+                  <Box ml={20}>
+                    <Plot
+                      className={classes.plot}
+                      data={[{ type: 'heatmap', x: x, y: y, z: cmatrix }]}
+                      layout={{ title: 'Confusion Matrix' }}
+                      config={{
+                        scrollZoom: true,
+                        respnsive: true,
+                      }}
+                    />
+                  </Box>
+                </div>
+              </Typography>
+            </AccordionDetails>
+          </Accordion>
+        </Paper>
+      </Grid>
     </Grid>
   );
 }
