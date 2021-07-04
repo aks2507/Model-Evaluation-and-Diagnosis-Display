@@ -135,31 +135,27 @@ pickle.dump(LR, open(filename, 'wb'))
 Clone the repo and run the command `yarn install`  to install the neccessary dependencies
 
 ### Step 3:
-#### Run the code on your local machine
+Run the code on your local machine (you can either run the application via docker or you can also run client side and server side individually). <br>
+If you want to run the application via docker , make sure the proxy set in client/package.json is `http://api:5000/`. <br>
+If you want to run client side and server side individually , change the proxy to `http://localhost:5000` and follow the instructions ahead.
+
 ### Server Side
-The api folder is included in this repository itself, along with the frontend code. To spin up the server at http://localhost:5000 , open a terminal, navigate to the folder where you have cloned this repository, and run:
+The api folder is included in this repository itself. To spin up the server at http://localhost:5000 , open a terminal, navigate to the client folder inside the folder where you have cloned this repository, and run:
 
 ### `yarn start-api`
 
 ### Client Side
-In the project directory, to spin up the client at http://localhost:3000 ,  run:
+In the project directory, go inside the client folder and to spin up the client at http://localhost:3000 ,  run:
 
 ### `yarn start`
 
 As soon as both the server and client are up and running, you will be able to surf through the site and call API endpoints. The React-frontend has a proxy setup to port 5000. That way, the urls that are not recognised on port 3000, get redirected to port 5000, thus invoking the endpoints, if they have been defined in the backend.
 
 ### Step 4:
-While the server side is running, populate your models and datasets using POSTMAN triggering the following API endpoints:
-#### `http://localhost:5000/models, method=["POST"]`
-This endpoint adds a model to the "Models" table of the database, based on json payload provided.
-#### `http://localhost:5000/models, method=["GET"]`
-This endpoint gives the list of all models that are stored in the "Models" table of the database.
+While the server side is running, populate your models and datasets using POSTMAN triggering the following API endpoints:<br>
+![Screenshot (13)](https://user-images.githubusercontent.com/42781233/124397964-d5cbbd00-dd30-11eb-8aa3-07be65baac67.png)
 
-
-#### `http://localhost:5000/datasets, method=["POST"]`
-This endpoint adds a dataset to the "datasets" table of the database, based on json payload provided.
-#### `http://localhost:5000/datasets, method=["GET"]`
-This endpoint gives the list of all datasets that are stored in the "Datasets" table of the database.
+![Screenshot (14)](https://user-images.githubusercontent.com/42781233/124397972-de23f800-dd30-11eb-85cb-e442325041b7.png)
 
 
 ## FrontEnd
