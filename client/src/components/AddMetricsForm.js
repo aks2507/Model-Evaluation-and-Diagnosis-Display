@@ -183,6 +183,7 @@ export default function TransitionsModal(props) {
               <Grid item xs={4} sm={4}>
                 <TextField
                   variant="outlined"
+                  type="string"
                   required
                   id={i}
                   name={i}
@@ -193,6 +194,7 @@ export default function TransitionsModal(props) {
               <Grid item xs={4} sm={4}>
                 <TextField
                   variant="outlined"
+                  type="number"
                   required
                   id={i}
                   name={i}
