@@ -92,9 +92,11 @@ export default function EvalForm(props) {
     e.preventDefault();
     
     const { name, model_id, dataset_id, metadata } = values;
-    if(name===''){
+    if(name==='' || name==='test_eval'){
       alert('Evaluation Name cannot be empty');
+      return;
     }
+    console.log(name);
     const modelUseCase = models.filter(model => model.model_id === model_id).map(model => model.model_type)[0];
     const datasetUseCase = datasets.filter(dataset => dataset.dataset_id === dataset_id).map(dataset => dataset.dataset_type)[0];
 
