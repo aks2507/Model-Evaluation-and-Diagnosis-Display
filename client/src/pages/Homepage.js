@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
-import { lighten, makeStyles } from '@material-ui/core/styles';
+import { lighten, makeStyles, withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -672,6 +672,16 @@ export default function Homepage() {
 
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+  
+  const StyledButton = withStyles({
+    root: {
+      backgroundColor: 'white',
+      color: 'blue',
+      '&:hover': {
+        backgroundColor: 'gray',
+        color: 'violet',
+      },
+  }})(Button);
   return (
     <div className={classes.root}>
       <Navbar />
@@ -753,13 +763,15 @@ export default function Homepage() {
                         scope="row"
                         align="center"
                       >
-                        <Button
+                        <StyledButton
                           variant="contained"
-                          style={{ textTransform: 'none' }}
+                          disableElevation
+                          fullWidth
+                          style={{ backgroundColor: 'white', color: 'blue', '&:hover':{backgroundColor: 'gray', color: 'violet',}, }}
                           onClick={VisualizeHandler(row.eval_id)}
                         >
-                          {row.eval_id}
-                        </Button>
+                            <h6 style={{textDecoration: 'underline'}}>{row.eval_id}</h6>
+                        </StyledButton>
                       </TableCell>
                       <TableCell align="center">{row.name}</TableCell>
                       <TableCell align="center">{row.model_type}</TableCell>

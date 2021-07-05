@@ -122,7 +122,7 @@ export default function Evaluation(props) {
               <Tab label="Curves and Charts" {...a11yProps(1)} />
               <Tab label="Model Information" {...a11yProps(2)} />
               <Tab label="Dataset Information" {...a11yProps(3)} />
-              <Tab label="Add/Update Metrics" {...a11yProps(4)} />
+              <Tab label="Add Custom Metrics" {...a11yProps(4)} />
             </Tabs>
           </div>
 
