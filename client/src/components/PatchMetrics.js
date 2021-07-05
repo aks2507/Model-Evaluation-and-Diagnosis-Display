@@ -158,9 +158,9 @@ export default function Metrics(props) {
                     <TableHead>
                       <TableRow>
                         <StyledTableCell align="center">
-                          Metrics
+                          Metric
                         </StyledTableCell>
-                        <StyledTableCell align="center">Score</StyledTableCell>
+                        <StyledTableCell align="center">Value</StyledTableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
@@ -188,10 +188,10 @@ export default function Metrics(props) {
                       <TableHead>
                         <TableRow>
                           <StyledTableCell align="center">
-                            Metrics
+                            Custom Metric
                           </StyledTableCell>
                           <StyledTableCell align="center">
-                            Score
+                            Value
                           </StyledTableCell>
                         </TableRow>
                       </TableHead>
@@ -218,7 +218,7 @@ export default function Metrics(props) {
                       <TableHead>
                         <TableRow>
                           <StyledTableCell align="center">
-                            Metrics
+                            Metric
                           </StyledTableCell>
                           <StyledTableCell align="center">
                             Value

@@ -169,7 +169,7 @@ export default function TransitionsModal(props) {
         closeAfterTransition
         disableBackdropClick
       >
-        <DialogTitle id="scroll-dialog-title">Add Metrics</DialogTitle>
+        <DialogTitle id="scroll-dialog-title">Add Custom Metrics</DialogTitle>
         <DialogContent
           style={{ alignItems: 'center', justifyContent: 'center' }}
         >
