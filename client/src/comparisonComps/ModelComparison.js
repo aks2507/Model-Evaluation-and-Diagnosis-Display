@@ -3,9 +3,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
-import Typography from '@material-ui/core/Typography';
+import {Typography, Paper, Box} from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ModelInfo from '../components/ModelInfo';
+import GeneralTable from '../comparisonComps/GeneralTable';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,8 +27,59 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+function createData(model, hyperparameters) {
+  return { model, ...hyperparameters };
+}
+
 export default function ModelComparison(props) {
+  const userDefinedHyperparametersList = new Set();
   const evalList = props.evaluation;
+  const len = evalList.length;
+
+  // getting the union of all user defined hyperparameters
+  for(let i=0;i<len;i++){
+    if(evalList[i].data.model.metadata.hyperparameters == null ||
+      Object.keys(evalList[i].data.model.metadata.hyperparameters).length === 0)
+        continue;
+    for(let j=0;j<Object.keys(evalList[i].data.model.metadata.hyperparameters).length;j++){
+      userDefinedHyperparametersList.add(Object.keys(evalList[i].data.model.metadata.hyperparameters)[j]);
+    }
+  }
+  
+  //Setting up HeadCells of the table
+  const headCells = [];
+  headCells.push({id:'model', label:'Model'});
+  let userDefinedHyperparametersArray = [...userDefinedHyperparametersList];
+  for(let i=0; i< userDefinedHyperparametersArray.length; i++){
+    headCells.push({
+      id: i,
+      label: userDefinedHyperparametersArray[i]
+    });
+  }
+
+  // Setting up rows of the table
+  const rows=[];
+  for(let i=0;i<len;i++){
+    let tempRowValuesList = [];
+    if(evalList[i].data.model.metadata.hyperparameters == null ||
+    Object.keys(evalList[i].data.model.metadata.hyperparameters).length === 0){
+      for(let j=0;j<userDefinedHyperparametersArray.length;j++)
+        tempRowValuesList.push(null);
+    }
+    else{
+      for(let j=0;j<userDefinedHyperparametersArray.length;j++){
+        tempRowValuesList.push(null);
+      }
+      for(const [key, value] of Object.entries(evalList[i].data.model.metadata.hyperparameters)){
+        let columnId = headCells.filter((headCell) => headCell.label === key).map(headCell => headCell.id)[0];
+        // console.log(columnId);
+        tempRowValuesList[columnId] = value;
+      } 
+    }
+    // console.log(tempRowValuesList);
+    rows.push(createData(evalList[i].data.model.name, tempRowValuesList));
+  }
+  console.log(headCells, rows);
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
@@ -38,32 +90,16 @@ export default function ModelComparison(props) {
   return (
     <div className={classes.root}>
       <div className={classes.root}>
-        <h1 style={{ color: 'indigo' }}>User specified HyperParamters: </h1>
-        {evalList.map((evaluation, index) => (
-          <div key={index}>
-            <h2 style={{ color: 'blue' }}>{evaluation.data.model.name}:</h2>
-            {evaluation.data.model.metadata.hyperparameters == null ||
-            Object.keys(evaluation.data.model.metadata.hyperparameters)
-              .length === 0 ? (
-              <i>
-                <h3>All hyperparametrs have default values</h3>
-              </i>
-            ) : (
-              <ol>
-                {Object.keys(
-                  evaluation.data.model.metadata.hyperparameters
-                ).map((key, index) => (
-                  <h3>
-                    <li key={index}>
-                      {key} ={' '}
-                      {evaluation.data.model.metadata.hyperparameters[key]}
-                    </li>
-                  </h3>
-                ))}
-              </ol>
-            )}
-          </div>
-        ))}
+        <Paper elevation={5}>
+          <Box m={2}>
+            <GeneralTable 
+              rows={rows}
+              headCells={headCells}
+              tabletitle="User Specified Hyperparameters"
+            />
+          </Box>
+        </Paper>
+        
       </div>
       <div className={classes.root}>
         <h1>All HyperParamters: </h1>
@@ -84,9 +120,10 @@ export default function ModelComparison(props) {
             <AccordionDetails>
               <Typography className={classes.tw}>
                 <ModelInfo
-                  standalone={0}
+                  standalone={1}
                   keys={evaluation.data.model.metadata.keys}
                   values={evaluation.data.model.metadata.values}
+                  hyperparameters={evaluation.data.model.metadata.hyperparameters}
                 />
               </Typography>
             </AccordionDetails>
