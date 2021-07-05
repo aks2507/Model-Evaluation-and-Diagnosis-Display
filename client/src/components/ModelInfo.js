@@ -31,7 +31,6 @@ function createData(param, val) {
 
 export default function ModelInfo(props) {
   const classes = useStyles();
-  console.log(props.name);
   let k = props.keys;
   let v = props.values;
   let final_keys = [];
@@ -51,32 +50,7 @@ export default function ModelInfo(props) {
   }
 
   return (
-    <div>
-      {props.standalone === 0 ? null : (
-        <div>
-          <h2>User Specified hyperparameters: </h2>
-          <h3 style={{ color: 'blue' }}>{props.modelName}:</h3>
-          {props.hyperparameters == null ||
-          Object.keys(props.hyperparameters).length === 0 ? (
-            <i>
-              <h4>All hyperparametrs have default values</h4>
-            </i>
-          ) : (
-            <ol>
-              {Object.keys(props.hyperparameters).map((key, index) => (
-                <h4>
-                  <li key={index}>
-                    {key} = {props.hyperparameters[key]}
-                  </li>
-                </h4>
-              ))}
-            </ol>
-          )}
-        </div>
-      )}
-
       <div>
-        <h2>All hyperparameters: </h2>
         <Paper elevation={5}>
           <TableContainer>
             <Table className={classes.table} aria-label="simple table">
@@ -91,7 +65,7 @@ export default function ModelInfo(props) {
               <TableBody>
                 {rows.map((row) => (
                   <TableRow key={row.column}>
-                    <TableCell align="center">{row.param}</TableCell>
+                    <TableCell align="center">{Object.keys(props.hyperparameters).includes(row.param)?(row.param+'(User defined)'):(row.param)}</TableCell>
                     <TableCell align="center">{row.val}</TableCell>
                   </TableRow>
                 ))}
@@ -100,6 +74,5 @@ export default function ModelInfo(props) {
           </TableContainer>
         </Paper>
       </div>
-    </div>
   );
 }
