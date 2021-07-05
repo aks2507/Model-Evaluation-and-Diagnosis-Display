@@ -91,6 +91,13 @@ export default function EvalForm(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { name, model_id, dataset_id, metadata } = values;
+    const modelUseCase = models.filter(model => model.model_id === model_id).map(model => model.model_type)[0];
+    const datasetUseCase = datasets.filter(dataset => dataset.dataset_id === dataset_id).map(dataset => dataset.dataset_type)[0];
+
+    if(modelUseCase !== datasetUseCase){
+      alert('Model Use Case: '+modelUseCase+' ,Dataset Use Case: '+datasetUseCase+'\nUse Cases do not match\nPlease select model and dataset of same use case')
+      return;
+    }
     const payload = { name, model_id, dataset_id, metadata };
 
     await axios.post('/modelEvaluations', payload).then(() => {
