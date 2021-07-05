@@ -90,7 +90,11 @@ export default function EvalForm(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
     const { name, model_id, dataset_id, metadata } = values;
+    if(name===''){
+      alert('Evaluation Name cannot be empty');
+    }
     const modelUseCase = models.filter(model => model.model_id === model_id).map(model => model.model_type)[0];
     const datasetUseCase = datasets.filter(dataset => dataset.dataset_id === dataset_id).map(dataset => dataset.dataset_type)[0];
 
@@ -168,7 +172,6 @@ export default function EvalForm(props) {
                     <TextField
                       variant="outlined"
                       margin="none"
-                      required
                       fullWidth
                       id="name"
                       label="Evaluation Name"
@@ -176,6 +179,7 @@ export default function EvalForm(props) {
                       autoComplete="Evaluation Name"
                       autoFocus
                       onChange={handleChange('name')}
+                      required
                     />
                   </Grid>
                   <Grid
@@ -196,6 +200,7 @@ export default function EvalForm(props) {
                         onOpen={handleDatasetOpen}
                         value={datasetID}
                         onChange={handleDropdownChangeDatasetID}
+                        required
                       >
                         {datasets.map((dataset) => (
                           <MenuItem value={dataset.dataset_id}>
@@ -223,6 +228,7 @@ export default function EvalForm(props) {
                         onOpen={handleModelOpen}
                         value={modelID}
                         onChange={handleDropdownChangeModelID}
+                        required
                       >
                         {models.map((model) => (
                           <MenuItem value={model.model_id}>
