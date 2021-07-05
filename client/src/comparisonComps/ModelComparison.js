@@ -73,7 +73,23 @@ export default function ModelComparison(props) {
       for(const [key, value] of Object.entries(evalList[i].data.model.metadata.hyperparameters)){
         let columnId = headCells.filter((headCell) => headCell.label === key).map(headCell => headCell.id)[0];
         // console.log(columnId);
-        tempRowValuesList[columnId] = value;
+        if(value == null || value === true || value === false)
+          tempRowValuesList[columnId] = String(value);
+        else
+          tempRowValuesList[columnId] = value;
+      }
+      for(let j=0;j<evalList[i].data.model.metadata.keys.length;j++){
+        let column = headCells.filter((headCell) => headCell.label === evalList[i].data.model.metadata.keys[j])
+        let columnID = column?(column.map(headCell => headCell.id)[0]):-1;
+        if(columnID>0){
+          if(evalList[i].data.model.metadata.values[j] == null || 
+          evalList[i].data.model.metadata.values[j] === true || 
+          evalList[i].data.model.metadata.values[j] === false)
+            tempRowValuesList[columnID] = String(evalList[i].data.model.metadata.values[j]);
+          else
+            tempRowValuesList[columnID] = evalList[i].data.model.metadata.values[j];
+        }
+
       } 
     }
     // console.log(tempRowValuesList);
