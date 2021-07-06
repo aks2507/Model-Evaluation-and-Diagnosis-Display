@@ -274,11 +274,12 @@ Following evaluation metrics will be visible to the user the user in tabular, ba
 ### Curves and Charts
 The following curves and charts will be shown to the user when they select this option:
 
-| Classification   | Regression            |
-| ---------------- | --------------------- |
-| ROC              | Residual vs Observed  |
-| Precision-Recall | Observed vs Predicted |
-| Confusion Matrix | Residual vs Predicted |
+| Classification      | Regression            |
+| ------------------- | --------------------- |
+| ROC                 | Residual vs Observed  |
+| Precision-Recall    | Observed vs Predicted |
+| Confusion Matrix    | Residual vs Predicted |
+| Gain and Lift Charts| ---                   |
 
 Along with the plots, there are also several ways to interact with them, by: 
 1) Zooming in and out using scrolling
@@ -310,6 +311,9 @@ This section gives a tabular view of the parameters and attributes that are asso
 ### Details
 Each of the above tabs will have a Details tab, that gives information about the evaluation in general, some information about the dataset and the model used in the evaluation.
 
+### Add Custom Metrics
+Here, the user can persist additional metrics calculated externally, in the database. Clicking on the '+' button at the bottom right creates a dialog box with a form that handles the addition of the key value pairs of additional custom metrics. They are shown along with the principal metrics, side by side, in a table format.
+
 ## Multiple Model Single Dataset Comparison
 For both regression and classification, there are five types of components rendered:
 * Metrics
@@ -328,7 +332,7 @@ Since the evaluations being considered in this case must have the same dataset, 
 Multiple tables listing out parameters and attributes of each model are rendered. 
 
 ### Curves
-The plots mentioned in the above section are rendered, with the traces of other models in the same graph.
+The plots mentioned in the above section are rendered, with the traces of other models in the same graph, with the exception of Gain and Lift charts in case of Binary Classification.
 
 ### Details
 Every tab panel has it. Its the same as single evaluation, except now, it has tabs for all evaluations that were selected by the user.
@@ -351,17 +355,29 @@ The The dataset statistics for all datasets are shown tab wise. User can switch 
 Since the model being used is same, there is a single table listing out all the parameters and attributes of the trained model.
 
 ### Curves
-The plots mentioned in the 'Single Model Evaluation' section are rendered, with the traces of other datasets in the same graph, or in subplots.
+The plots mentioned in the 'Single Model Evaluation' section are rendered, with the traces of other datasets in the same graph, or in subplots, with the exception of Gain and Lift charts in case of Binary Classification.
 
 ### Details
 Every tab panel has it. Its the same as single evaluation, except now, it has tabs for all evaluations that were selected by the user.
 
 # Demo
-## Single Model Evaluation - Linear Regression on the Boston Housing Dataset
-https://user-images.githubusercontent.com/69072965/123299590-528fb780-d537-11eb-9b53-3a406dd380e1.mp4
+## Homepage Features
+https://user-images.githubusercontent.com/69072965/124648990-8c58aa80-deb5-11eb-90f8-ae0bd0a6305a.mp4
 
-## Single Model Multiple Datasets - Logistic Regression on the Diabetes Dataset
-https://user-images.githubusercontent.com/69072965/123299966-ad291380-d537-11eb-9ae2-b5b3101b8239.mp4
+## Adding an Evaluation
+https://user-images.githubusercontent.com/69072965/124649054-a0041100-deb5-11eb-947c-fd8f03737554.mp4
+
+## Single Model Visulaization - Linear Regression on Boston Housing Dataset
+https://user-images.githubusercontent.com/69072965/124649222-d5a8fa00-deb5-11eb-8e1c-1c281f98de22.mp4
+
+## Multiple Models single Dataset - on Daibetes Dataset
+https://user-images.githubusercontent.com/69072965/124649366-025d1180-deb6-11eb-83cf-1a909c8b57d2.mp4
+
+## Single Model Multiple Datasets - Linear Regression on the Boston Housing Dataset
+https://user-images.githubusercontent.com/69072965/124649442-24569400-deb6-11eb-8086-50c6ee88694b.mp4
+
+
+
 
 
 
