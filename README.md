@@ -51,6 +51,20 @@ This project is focused on evaluating several machine learning models, given a m
 
 
 ## How to Use?
+### There are two methods to run the application.
+## Method 1:
+- Clone the repository (`git clone https://github.com/aks2507/Model-Evaluation-and-Diagnosis-Display.git` )
+- Change directory into the cloned repo(`cd .\Model-Evaluation-and-Diagnosis-Display\`)
+- Change directory to the client folder(`cd client`)
+- Install the neccessary dependencies(`yarn install`)
+- Run the Flask server at port 5000(`yarn start-api`)
+- Open another terminal/cmd window and run the client side at port 3000(`yarn start`)
+
+Your application is up and running and to see that , head over to http://localhost:3000
+
+## Method 2
+Application is dockerized. So , Follow the given steps to run the application using docker.
+
 Firstly, download [Docker desktop](https://www.docker.com/products/docker-desktop) and follow its
  instructions to install it. This allows us to start using Docker containers.
  
@@ -88,8 +102,8 @@ in a separate terminal window or press __control + C__.
 
 
 ## You can view the REST endpoints through swagger UI by following steps:
-- Clone the repo by `git clone https://github.com/aks2507/react-flask-project.git`
-- `cd react-flask-project`
+- Clone the repo by `git clone https://github.com/aks2507/Model-Evaluation-and-Diagnosis-Display.git`
+- `cd .\Model-Evaluation-and-Diagnosis-Display\`
 - `cd client`
 - `yarn install`
 - `yarn start-api`
