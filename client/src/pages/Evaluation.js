@@ -20,6 +20,7 @@ import CurvesMultiClass from '../components/CurvesMultiClass';
 import RegressionPlots from '../components/RegressioPlots';
 import Details from '../components/Details';
 import PatchMetrics from '../components/PatchMetrics';
+import GainLiftChart from '../components/GainLiftChart';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -317,6 +318,24 @@ export default function Evaluation(props) {
                             date_created={data.date_created}
                             datasetinfo={data.dataset}
                             modelinfo={data.model}
+                          />
+                        </Paper>
+                      </Grid>
+                      <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
+                        <Paper elevation={5}>
+                          <GainLiftChart 
+                            gainChart={true}
+                            chartLines={data.metadata.gain_chart.xydata}
+                            labels={data.metadata.gain_chart.legends}
+                          />
+                        </Paper>
+                      </Grid>
+                      <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
+                        <Paper elevation={5}>
+                          <GainLiftChart 
+                            gainChart={false}
+                            chartLines={data.metadata.lift_chart.xydata}
+                            labels={data.metadata.lift_chart.legends}
                           />
                         </Paper>
                       </Grid>

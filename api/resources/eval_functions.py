@@ -8,6 +8,7 @@ import logging
 from sklearn.preprocessing import MinMaxScaler
 from resources.Feature_importances import featureImportances
 from resources.MultiClassClassification import multiclassClassification
+from resources.gain_lift_plots import GainLiftPlots
 class EvaluationFunctions():
 	def __init__(self, model_type, model_path, dataset_path, label):
 		self.model_path = model_path
@@ -46,6 +47,9 @@ class EvaluationFunctions():
 		y_actual=pima[label]
 		n_classes=len(set(y_test.tolist()))
 		if n_classes==2:
+			gain_lift_object = GainLiftPlots(probs,y_test)
+			gain_chart_data = gain_lift_object.gain_plot_report()
+			lift_chart_data = gain_lift_object.lift_plot_report()
 			acc=metrics.accuracy_score(y_actual,y_pred)
 			precision_score=metrics.precision_score(y_actual,y_pred)
 			recall=metrics.recall_score(y_actual,y_pred)
@@ -82,7 +86,9 @@ class EvaluationFunctions():
 				"feature_scores":feature_scores,
 				"columns":columns,
 				"n_classes":n_classes,
-				"additional_metrics":{}
+				"additional_metrics":{}, 
+				"gain_chart":gain_chart_data,
+				"lift_chart":lift_chart_data
 			}
 		else:
 			classes=[]
