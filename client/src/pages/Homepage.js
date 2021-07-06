@@ -648,7 +648,7 @@ export default function Homepage() {
     setModelFilterFn({
       fn: (items) => {
         if (target.value === '') return items;
-        else return items.filter((x) => x.model_name.includes(target.value));
+        else return items.filter((x) => x.model_name === target.value);
       },
     });
   };

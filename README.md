@@ -260,11 +260,12 @@ Following evaluation metrics will be visible to the user the user in tabular, ba
 ### Curves and Charts
 The following curves and charts will be shown to the user when they select this option:
 
-| Classification   | Regression            |
-| ---------------- | --------------------- |
-| ROC              | Residual vs Observed  |
-| Precision-Recall | Observed vs Predicted |
-| Confusion Matrix | Residual vs Predicted |
+| Classification      | Regression            |
+| ------------------- | --------------------- |
+| ROC                 | Residual vs Observed  |
+| Precision-Recall    | Observed vs Predicted |
+| Confusion Matrix    | Residual vs Predicted |
+| Gain and Lift Charts| ---                   |
 
 Along with the plots, there are also several ways to interact with them, by: 
 1) Zooming in and out using scrolling
@@ -296,6 +297,9 @@ This section gives a tabular view of the parameters and attributes that are asso
 ### Details
 Each of the above tabs will have a Details tab, that gives information about the evaluation in general, some information about the dataset and the model used in the evaluation.
 
+### Add Custom Metrics
+Here, the user can persist additional metrics calculated externally, in the database. Clicking on the '+' button at the bottom right creates a dialog box with a form that handles the addition of the key value pairs of additional custom metrics. They are shown along with the principal metrics, side by side, in a table format.
+
 ## Multiple Model Single Dataset Comparison
 For both regression and classification, there are five types of components rendered:
 * Metrics
@@ -314,7 +318,7 @@ Since the evaluations being considered in this case must have the same dataset, 
 Multiple tables listing out parameters and attributes of each model are rendered. 
 
 ### Curves
-The plots mentioned in the above section are rendered, with the traces of other models in the same graph.
+The plots mentioned in the above section are rendered, with the traces of other models in the same graph, with the exception of Gain and Lift charts in case of Binary Classification.
 
 ### Details
 Every tab panel has it. Its the same as single evaluation, except now, it has tabs for all evaluations that were selected by the user.
@@ -337,7 +341,7 @@ The The dataset statistics for all datasets are shown tab wise. User can switch 
 Since the model being used is same, there is a single table listing out all the parameters and attributes of the trained model.
 
 ### Curves
-The plots mentioned in the 'Single Model Evaluation' section are rendered, with the traces of other datasets in the same graph, or in subplots.
+The plots mentioned in the 'Single Model Evaluation' section are rendered, with the traces of other datasets in the same graph, or in subplots, with the exception of Gain and Lift charts in case of Binary Classification.
 
 ### Details
 Every tab panel has it. Its the same as single evaluation, except now, it has tabs for all evaluations that were selected by the user.
