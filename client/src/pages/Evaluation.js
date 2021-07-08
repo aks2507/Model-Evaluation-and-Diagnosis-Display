@@ -161,6 +161,8 @@ export default function Evaluation(props) {
                           x={data.metadata.observed}
                           y={data.metadata.predicted}
                           title="Observed vs Predicted"
+                          xlabel='Observed'
+                          ylabel='Predicted'
                         />
                       </Paper>
                     </Grid>
@@ -170,6 +172,8 @@ export default function Evaluation(props) {
                           x={data.metadata.observed}
                           y={residuals}
                           title="Observed vs Residuals"
+                          xlabel='Observed'
+                          ylabel='Residuals'
                         />
                       </Paper>
                     </Grid>
@@ -179,6 +183,8 @@ export default function Evaluation(props) {
                           x={data.metadata.predicted}
                           y={residuals}
                           title="Predicted vs Residuals"
+                          xlabel='Predicted'
+                          ylabel='Residuals'
                         />
                       </Paper>
                     </Grid>

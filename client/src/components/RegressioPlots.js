@@ -118,6 +118,8 @@ export default function RegressionPlots(props) {
             align: 'right',
             sliders: slider,
             updatemenus: updatemenus,
+            xaxis: {title: props.xlabel},
+            yaxis: {title: props.ylabel}
           }}
           config={{
             scrollZoom: true,
