@@ -51,6 +51,24 @@ This project is focused on evaluating several machine learning models, given a m
 
 
 ## How to Use?
+### There are two methods to run the application.
+#### Note: <br>
+- `` To Run the application using method 1 , make sure proxy is set to "http://localhost:5000/" in client/package.json file ``
+- ``To Run the application using method 2 , make sure proxy is set to "http://api:5000/" in client/package.json file``
+
+## Method 1:
+- Clone the repository (`git clone https://github.com/aks2507/Model-Evaluation-and-Diagnosis-Display.git` )
+- Change directory into the cloned repo(`cd .\Model-Evaluation-and-Diagnosis-Display\`)
+- Change directory to the client folder(`cd client`)
+- Install the neccessary dependencies(`yarn install`)
+- Run the Flask server at port 5000(`yarn start-api`)
+- Open another terminal/cmd window and run the client side at port 3000(`yarn start`)
+
+Your application is up and running and to see that , head over to http://localhost:3000
+
+## Method 2
+Application is dockerized. So , Follow the given steps to run the application using docker.
+
 Firstly, download [Docker desktop](https://www.docker.com/products/docker-desktop) and follow its
  instructions to install it. This allows us to start using Docker containers.
  
@@ -88,14 +106,14 @@ in a separate terminal window or press __control + C__.
 
 
 ## You can view the REST endpoints through swagger UI by following steps:
-- Clone the repo by `git clone https://github.com/aks2507/react-flask-project.git`
-- `cd react-flask-project`
+- Clone the repo by `git clone https://github.com/aks2507/Model-Evaluation-and-Diagnosis-Display.git`
+- `cd .\Model-Evaluation-and-Diagnosis-Display\`
 - `cd client`
 - `yarn install`
 - `yarn start-api`
 - Then go to `http://127.0.0.1:5000/swagger`
 
-
+#### Alternatively , you can just visit https://ksrrock.github.io/swagger-ui/  to visualise the REST endpoints.
 
 
 ## Steps to build Evaluations:
@@ -347,11 +365,23 @@ The plots mentioned in the 'Single Model Evaluation' section are rendered, with 
 Every tab panel has it. Its the same as single evaluation, except now, it has tabs for all evaluations that were selected by the user.
 
 # Demo
-## Single Model Evaluation - Linear Regression on the Boston Housing Dataset
-https://user-images.githubusercontent.com/69072965/123299590-528fb780-d537-11eb-9b53-3a406dd380e1.mp4
+## Homepage Features
+https://user-images.githubusercontent.com/69072965/124648990-8c58aa80-deb5-11eb-90f8-ae0bd0a6305a.mp4
 
-## Single Model Multiple Datasets - Logistic Regression on the Diabetes Dataset
-https://user-images.githubusercontent.com/69072965/123299966-ad291380-d537-11eb-9ae2-b5b3101b8239.mp4
+## Adding an Evaluation
+https://user-images.githubusercontent.com/69072965/124649054-a0041100-deb5-11eb-947c-fd8f03737554.mp4
+
+## Single Model Visulaization - Linear Regression on Boston Housing Dataset
+https://user-images.githubusercontent.com/69072965/124649222-d5a8fa00-deb5-11eb-8e1c-1c281f98de22.mp4
+
+## Multiple Models single Dataset - on Daibetes Dataset
+https://user-images.githubusercontent.com/69072965/124649366-025d1180-deb6-11eb-83cf-1a909c8b57d2.mp4
+
+## Single Model Multiple Datasets - Linear Regression on the Boston Housing Dataset
+https://user-images.githubusercontent.com/69072965/124649442-24569400-deb6-11eb-8086-50c6ee88694b.mp4
+
+
+
 
 
 
