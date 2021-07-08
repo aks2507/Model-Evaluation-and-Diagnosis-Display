@@ -52,6 +52,10 @@ This project is focused on evaluating several machine learning models, given a m
 
 ## How to Use?
 ### There are two methods to run the application.
+#### Note: <br>
+- `` To Run the application using method 1 , make sure proxy is set to "http://localhost:5000/" in client/package.json file ``
+- ``To Run the application using method 2 , make sure proxy is set to "http://api:5000/" in client/package.json file``
+
 ## Method 1:
 - Clone the repository (`git clone https://github.com/aks2507/Model-Evaluation-and-Diagnosis-Display.git` )
 - Change directory into the cloned repo(`cd .\Model-Evaluation-and-Diagnosis-Display\`)
