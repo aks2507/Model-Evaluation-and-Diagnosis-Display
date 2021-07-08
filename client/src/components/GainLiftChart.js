@@ -1,6 +1,5 @@
 import React from 'react';
-import Plots from '../comparisonComps/Plots';
-
+import GainLiftPlots from '../components/GainLiftPlots'
 export default function GainLiftChart(props){
     const gainChart = props.gainChart
     let ChartLines;
@@ -24,14 +23,9 @@ export default function GainLiftChart(props){
         traces.push({x:x[i], y:y[i], type: 'scatter', name: labels[i]});
     }
 
-    const layout={
-        xaxis:'GAIN',
-        yaxis:'% of sample'
-    }
     return(
-        <Plots 
+        <GainLiftPlots 
             data={traces}
-            layout={layout}
             title={plotTitle}
         />
     );

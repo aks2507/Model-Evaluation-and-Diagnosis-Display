@@ -19,7 +19,15 @@ export default function Plots(props) {
       <Plot
         className={classes.plot}
         data={props.data}
-        layout={{ title: props.title, legend: { orientation: 'h' } }}
+        layout={{ title: 
+          props.title,
+          xaxis:{
+            title:'% of samples',
+          },
+          yaxis:{
+              title:'GAIN',
+          }
+           }}
         config={{
           scrollZoom: true,
           responsive: true,
