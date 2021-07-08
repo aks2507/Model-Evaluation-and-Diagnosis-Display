@@ -81,7 +81,7 @@ class Evaluate(Resource):
         evaluation_entity = EvalModel.find_by_id(eval_id)
         if evaluation_entity:
             if evaluation_entity.meta:
-                logging.debug("Evaluation instance metrics are already computed")
+                logging.debug("Evaluatn instance metrics are already computed")
                 return evaluation_entity.json()
             eval_dict = evaluation_entity.json()
             evaluation_object = EvaluationFunctions(

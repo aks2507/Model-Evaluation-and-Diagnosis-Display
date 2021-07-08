@@ -56,6 +56,15 @@ export default function ROC_Prec_Recall(props) {
       : 'Precision-Recall Curve( AUC = ' + auc + ')';
   const classes = useStyles();
 
+  let xaxis={};
+  let yaxis={};
+  props.curve===0?(
+    xaxis={title:'TPR'},
+    yaxis={title:'FPR'}
+  ):(
+    xaxis={title:'Recall'},
+    yaxis={title:'precision'}
+  );
   let currentvalue = {
     xanchor: 'right',
     prefix: 'cutoff: ',
@@ -113,6 +122,8 @@ export default function ROC_Prec_Recall(props) {
       data={[{ type: 'scatter', x: x, y: y }]}
       layout={{
         title: plot_title,
+        xaxis:xaxis,
+        yaxis:yaxis,
         align: 'center',
         sliders: slider,
         updatemenus: updatemenus,

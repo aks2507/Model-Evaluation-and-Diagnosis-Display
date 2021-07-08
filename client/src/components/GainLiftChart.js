@@ -23,9 +23,15 @@ export default function GainLiftChart(props){
     for(let i=0;i<numberOfLines;i++){
         traces.push({x:x[i], y:y[i], type: 'scatter', name: labels[i]});
     }
+
+    const layout={
+        xaxis:'GAIN',
+        yaxis:'% of sample'
+    }
     return(
         <Plots 
             data={traces}
+            layout={layout}
             title={plotTitle}
         />
     );
