@@ -113,7 +113,7 @@ in a separate terminal window or press __control + C__.
 - `yarn start-api`
 - Then go to `http://127.0.0.1:5000/swagger`
 
-
+#### Alternatively , you can just visit https://ksrrock.github.io/swagger-ui/  to visualise the REST endpoints.
 
 
 ## Steps to build Evaluations:
